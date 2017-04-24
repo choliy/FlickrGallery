@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Flickr Gallery</string>
+
+    <!-- SnackBar info text -->
+    <string name="text_items_loaded">Page № %1$s loaded, with new 100 photos</string>
+    <string name="text_item_id">Photo id - %1$s</string>
+</resources>
