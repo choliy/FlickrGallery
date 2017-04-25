@@ -80,8 +80,8 @@ public class FlickrFetch {
             }
 
             outputStream.close();
-            byte[] urlBytes = outputStream.toByteArray();
-            return new String(urlBytes);
+            byte[] jsonBytes = outputStream.toByteArray();
+            return new String(jsonBytes);
         } finally {
             connection.disconnect();
         }
