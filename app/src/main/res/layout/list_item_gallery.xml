@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gallery_image_item"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/image_item_height"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:contentDescription="@string/image_item_description"
-    android:scaleType="centerCrop"/>
+    android:layout_height="wrap_content">
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gallery_image_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_item_height"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_item_height"
+        android:layout_gravity="end"
+        android:background="@drawable/custom_ripple"/>
+
+    <View
+        android:layout_width="@dimen/view_length"
+        android:layout_height="@dimen/view_thickness"
+        android:layout_gravity="end"
+        android:background="@color/colorPrimary"/>
+
+    <View
+        android:layout_width="@dimen/view_thickness"
+        android:layout_height="@dimen/view_length"
+        android:layout_gravity="end"
+        android:background="@color/colorPrimary"/>
+
+</FrameLayout>

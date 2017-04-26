@@ -4,13 +4,22 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="@dimen/toolbar_icon_size"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/material_margin"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/toolbar_icon"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white"/>
+        android:textColor="@color/textColorGray"/>
 
 </android.support.v7.widget.Toolbar>

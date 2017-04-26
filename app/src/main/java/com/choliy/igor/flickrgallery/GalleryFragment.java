@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -49,6 +52,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
         mPhotoRecyclerView.setAdapter(mGalleryAdapter);
         setGridLayoutManager();
+        setScrollListener();
 
         if (mDataLoaded) {
             updateUi();
@@ -80,6 +84,26 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
             mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         else
             mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+    }
+
+    private void setScrollListener() {
+        mPhotoRecyclerView.addOnScrollListener(new HidingScrollListener() {
+            Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+            @Override
+            public void onHide() {
+                toolbar.animate()
+                        .translationY(-toolbar.getHeight())
+                        .setInterpolator(new AccelerateInterpolator(2));
+            }
+
+            @Override
+            public void onShow() {
+                toolbar.animate()
+                        .translationY(0)
+                        .setInterpolator(new DecelerateInterpolator(2));
+            }
+        });
     }
 
     private void updateUi() {
