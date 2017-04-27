@@ -8,8 +8,6 @@ import android.support.v7.widget.Toolbar;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
-    private static final String TAG = SingleFragmentActivity.class.getSimpleName();
-
     protected abstract Fragment createFragment();
 
     @Override

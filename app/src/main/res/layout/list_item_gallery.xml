@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -16,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_item_height"
         android:layout_gravity="end"
-        android:background="@drawable/custom_ripple"/>
+        android:background="@drawable/custom_ripple"
+        tools:targetApi="lollipop"/>
 
     <View
         android:layout_width="@dimen/view_length"

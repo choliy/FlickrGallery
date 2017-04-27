@@ -5,20 +5,41 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/gallery_recycler_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="?attr/actionBarSize"
-        android:scrollbarThumbVertical="@drawable/custom_scrollbar"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="?attr/actionBarSize"
+            android:scrollbarThumbVertical="@drawable/custom_scrollbar"
+            android:scrollbars="vertical"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        android:id="@+id/gallery_progress_bar"
+        android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/button_top_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:padding="@dimen/material_margin"
+        android:shadowColor="@color/colorAccent"
+        android:shadowRadius="15"
+        android:text="@string/text_top_list"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"/>
 
 </FrameLayout>

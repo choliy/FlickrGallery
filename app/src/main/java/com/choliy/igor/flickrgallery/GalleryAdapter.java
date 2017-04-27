@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHolder> {
 
     private static final String TAG = GalleryAdapter.class.getSimpleName();
@@ -52,11 +55,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView mSinglePhoto;
+        @BindView(R.id.gallery_image_item) ImageView mSinglePhoto;
 
         PhotoHolder(View itemView) {
             super(itemView);
-            mSinglePhoto = (ImageView) itemView.findViewById(R.id.gallery_image_item);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
