@@ -35,9 +35,9 @@
         android:layout_width="@dimen/toolbar_icon_size"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_margin="@dimen/material_margin"
         android:clickable="true"
         android:contentDescription="@null"
-        android:layout_margin="@dimen/material_margin"
         android:scaleType="centerInside"
         android:src="@drawable/ic_top"/>
 

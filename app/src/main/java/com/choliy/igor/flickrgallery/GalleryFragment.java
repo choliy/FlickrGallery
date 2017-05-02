@@ -86,7 +86,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         setScrollListener();
         setRefreshLayout();
 
-        if (mDataLoaded) updateUi();
+        if (mDataLoaded && isConnected()) updateUi();
         else fetchData();
     }
 
