@@ -14,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +35,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     private GalleryAdapter mGalleryAdapter;
     private List<GalleryItem> mItems = new ArrayList<>();
 
-    @BindView(R.id.button_top_list) TextView mTopListButton;
+    @BindView(R.id.image_top_list) ImageView mTopListView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.no_connection) LinearLayout mConnectionLayout;
 
     public static Fragment newInstance() {
         return new GalleryFragment();
@@ -55,26 +57,15 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         ButterKnife.bind(this, view);
+        setupUi();
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
-        mRecyclerView.setAdapter(mGalleryAdapter);
-        setGridLayoutManager();
-        setScrollListener();
-        setRefreshLayout();
-
-        if (mDataLoaded) updateUi();
-        else fetchData();
-    }
-
-    @Override
     public void onRequestedLastItem(int position) {
-        mPageNumber++;
+        ++mPageNumber;
         mListPosition = position;
-        new FetchItemsTask().execute(mPageNumber);
+        fetchData();
     }
 
     @Override
@@ -83,9 +74,20 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         FlickrUtils.showInfo(mRecyclerView, infoText);
     }
 
-    @OnClick(R.id.button_top_list)
+    @OnClick(R.id.image_top_list)
     public void topList() {
         mRecyclerView.scrollToPosition(FlickrConstants.DEFAULT_LIST_POSITION);
+    }
+
+    private void setupUi() {
+        mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
+        mRecyclerView.setAdapter(mGalleryAdapter);
+        setGridLayoutManager();
+        setScrollListener();
+        setRefreshLayout();
+
+        if (mDataLoaded) updateUi();
+        else fetchData();
     }
 
     private void setGridLayoutManager() {
@@ -102,15 +104,15 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
             @Override
             public void onHide() {
+                FlickrUtils.animateView(getActivity(), mTopListView, true);
                 mToolbar.animate()
                         .translationY(-mToolbar.getHeight())
                         .setInterpolator(new AccelerateInterpolator(2));
-                FlickrUtils.animateView(getActivity(), mTopListButton, true);
             }
 
             @Override
             public void onShow() {
-                FlickrUtils.animateView(getActivity(), mTopListButton, false);
+                FlickrUtils.animateView(getActivity(), mTopListView, false);
                 mToolbar.animate()
                         .translationY(0)
                         .setInterpolator(new DecelerateInterpolator(2));
@@ -124,25 +126,44 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
             @Override
             public void onRefresh() {
                 mDataRefreshing = true;
-                mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
+                mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
             }
         });
 
         // Set the offset from top of the screen for SwipeRefreshLayout
-        mRefreshLayout.setProgressViewOffset(false, 30, 250);
+        mRefreshLayout.setProgressViewOffset(
+                false, // scaling animation
+                50, // top position of the loading indicator
+                300); // max scrolling bottom position of current indicator
     }
 
     private void fetchData() {
-        new FetchItemsTask().execute(FlickrConstants.DEFAULT_PAGE_NUMBER);
-        mDataLoaded = true;
+        if (isConnected()) {
+            new FetchItemsTask().execute(mPageNumber);
+            mDataLoaded = true;
+        }
     }
 
     private void updateUi() {
         mGalleryAdapter.updateItems(mItems);
         mRecyclerView.scrollToPosition(mListPosition);
         mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private boolean isConnected() {
+        boolean connected = FlickrUtils.isNetworkConnected(getActivity());
+        if (connected) {
+            mConnectionLayout.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        } else {
+            mConnectionLayout.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRefreshLayout.setRefreshing(false);
+        }
+        return connected;
     }
 
     private class FetchItemsTask extends AsyncTask<Integer, Void, List<GalleryItem>> {
@@ -160,7 +181,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
 
-            if (mPageNumber != FlickrConstants.DEFAULT_PAGE_NUMBER) {
+            if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
                 for (int i = 0; i < items.size(); i++) {
                     mItems.add(items.get(i));
                 }

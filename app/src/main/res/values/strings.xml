@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Flickr Gallery</string>
 
-    <!-- SnackBar info text -->
+    <!-- Info text -->
     <string name="text_item_id">Photo id - %1$s</string>
-    <string name="text_top_list">top</string>
+    <string name="text_oops">OOPS!</string>
+    <string name="text_no_connection">No internet connection</string>
 
 </resources>

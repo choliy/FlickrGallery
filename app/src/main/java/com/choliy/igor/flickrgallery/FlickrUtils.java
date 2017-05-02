@@ -1,6 +1,7 @@
 package com.choliy.igor.flickrgallery;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,5 +20,10 @@ public final class FlickrUtils {
 
         Animation animation = AnimationUtils.loadAnimation(context, resId);
         view.startAnimation(animation);
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }

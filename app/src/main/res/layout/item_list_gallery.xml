@@ -5,21 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gallery_image_item"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/image_item_height"
-        android:contentDescription="@null"
-        android:scaleType="centerCrop"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/image_item_height"
-        android:layout_gravity="end"
-        android:background="@drawable/custom_ripple"
-        tools:targetApi="lollipop"/>
-
     <View
         android:layout_width="@dimen/view_length"
         android:layout_height="@dimen/view_thickness"
@@ -31,5 +16,19 @@
         android:layout_height="@dimen/view_length"
         android:layout_gravity="end"
         android:background="@color/colorPrimary"/>
+
+    <ImageView
+        android:id="@+id/gallery_image_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_item_size"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_item_size"
+        android:layout_gravity="end"
+        android:background="@drawable/custom_ripple"
+        tools:targetApi="lollipop"/>
 
 </FrameLayout>

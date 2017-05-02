@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
+    <include layout="@layout/item_no_connection"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
@@ -28,18 +30,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <TextView
-        android:id="@+id/button_top_list"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/image_top_list"
+        android:layout_width="@dimen/toolbar_icon_size"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:clickable="true"
-        android:padding="@dimen/material_margin"
-        android:shadowColor="@color/colorAccent"
-        android:shadowRadius="15"
-        android:text="@string/text_top_list"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:contentDescription="@null"
+        android:layout_margin="@dimen/material_margin"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_top"/>
 
 </FrameLayout>
