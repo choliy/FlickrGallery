@@ -39,6 +39,7 @@
         android:clickable="true"
         android:contentDescription="@null"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_top"/>
+        android:src="@drawable/ic_top"
+        android:visibility="invisible"/>
 
 </FrameLayout>

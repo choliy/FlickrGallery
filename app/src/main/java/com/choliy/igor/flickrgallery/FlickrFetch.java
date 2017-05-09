@@ -18,20 +18,11 @@ import java.util.List;
 public class FlickrFetch {
 
     private static final String TAG = FlickrFetch.class.getSimpleName();
-    private static final String API_KEY = "780abee617798d7558c97719e544db7f";
 
-    private static final String JSON_BASE = "photos";
-    private static final String JSON_ARRAY = "photo";
-    private static final String JSON_ID = "id";
-    private static final String JSON_TITLE = "title";
-    private static final String JSON_UPLOAD_DATE = "dateupload";
-    private static final String JSON_OWNER_NAME = "ownername";
-    private static final String JSON_PICTURE_URL = "url_s";
-
-    public List<GalleryItem> fetchItems(int pageNumber) {
+    public List<GalleryItem> downloadGallery(String searchText, int pageNumber) {
         List<GalleryItem> items = new ArrayList<>();
         try {
-            String url = buildUrl(pageNumber);
+            String url = buildUrl(searchText, pageNumber);
             String jsonString = getJsonString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
@@ -45,14 +36,24 @@ public class FlickrFetch {
         return items;
     }
 
-    private String buildUrl(int pageNumber) {
+    private String buildUrl(String searchText, int pageNumber) {
+        Uri.Builder uriBuilder = Uri.parse(getUrl(searchText, pageNumber)).buildUpon();
+        if (searchText != null) uriBuilder.appendQueryParameter("text", searchText);
+        return uriBuilder.build().toString();
+    }
+
+    private String getUrl(String searchText, int pageNumber) {
 
         // Flickr API:
         // https://www.flickr.com/services/api/flickr.photos.getRecent.html
+        String fetchMethod;
+        if (searchText == null) fetchMethod = FlickrConstants.METHOD_GET_RECENT;
+        else fetchMethod = FlickrConstants.METHOD_SEARCH;
+
         String url = Uri.parse("https://api.flickr.com/services/rest/")
                 .buildUpon()
-                .appendQueryParameter("method", "flickr.photos.getRecent")
-                .appendQueryParameter("api_key", API_KEY)
+                .appendQueryParameter("method", fetchMethod)
+                .appendQueryParameter("api_key", FlickrConstants.API_KEY)
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
                 .appendQueryParameter("extras", "date_upload,owner_name,url_s")
@@ -90,21 +91,21 @@ public class FlickrFetch {
     private void parseItems(List<GalleryItem> items, JSONObject jsonBody)
             throws IOException, JSONException {
 
-        JSONObject baseJsonObject = jsonBody.getJSONObject(JSON_BASE);
-        JSONArray photoJsonArray = baseJsonObject.getJSONArray(JSON_ARRAY);
+        JSONObject baseJsonObject = jsonBody.getJSONObject(FlickrConstants.JSON_BASE);
+        JSONArray photoJsonArray = baseJsonObject.getJSONArray(FlickrConstants.JSON_ARRAY);
 
         for (int i = 0; i < photoJsonArray.length(); i++) {
             JSONObject photoJsonObject = photoJsonArray.getJSONObject(i);
 
             // If there is no picture URL - iterate another object
-            if (!photoJsonObject.has(JSON_PICTURE_URL)) continue;
+            if (!photoJsonObject.has(FlickrConstants.JSON_PICTURE_URL)) continue;
 
             GalleryItem item = new GalleryItem();
-            item.setId(photoJsonObject.getString(JSON_ID));
-            item.setTitle(photoJsonObject.getString(JSON_TITLE));
-            item.setUploadDate(photoJsonObject.getString(JSON_UPLOAD_DATE));
-            item.setOwnerName(photoJsonObject.getString(JSON_OWNER_NAME));
-            item.setPictureUrl(photoJsonObject.getString(JSON_PICTURE_URL));
+            item.setId(photoJsonObject.getString(FlickrConstants.JSON_ID));
+            item.setTitle(photoJsonObject.getString(FlickrConstants.JSON_TITLE));
+            item.setUploadDate(photoJsonObject.getString(FlickrConstants.JSON_UPLOAD_DATE));
+            item.setOwnerName(photoJsonObject.getString(FlickrConstants.JSON_OWNER_NAME));
+            item.setPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_PICTURE_URL));
 
             items.add(item);
         }

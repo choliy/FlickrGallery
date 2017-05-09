@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="small_margin">8dp</dimen>
     <dimen name="material_margin">16dp</dimen>
     <dimen name="image_item_size">120dp</dimen>
-    <dimen name="toolbar_icon_size">60dp</dimen>
-    <dimen name="view_length">50dp</dimen>
+    <dimen name="toolbar_icon_size">64dp</dimen>
+    <dimen name="view_length">48dp</dimen>
     <dimen name="view_thickness">1dp</dimen>
 </resources>

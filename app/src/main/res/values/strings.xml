@@ -5,5 +5,7 @@
     <string name="text_item_id">Photo id - %1$s</string>
     <string name="text_oops">OOPS!</string>
     <string name="text_no_connection">No internet connection</string>
+    <string name="text_search_query">Search query was restored</string>
+    <string name="hint_search">Search photo</string>
 
 </resources>

@@ -8,15 +8,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+
+import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +48,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Save all fragment data after rotation
         setRetainInstance(true);
     }
 
@@ -100,22 +98,17 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     private void setScrollListener() {
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
-            Toolbar mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
             @Override
             public void onHide() {
                 FlickrUtils.animateView(getActivity(), mTopListView, true);
-                mToolbar.animate()
-                        .translationY(-mToolbar.getHeight())
-                        .setInterpolator(new AccelerateInterpolator(2));
+                FlickrUtils.animateToolbar(getActivity(), false);
             }
 
             @Override
             public void onShow() {
                 FlickrUtils.animateView(getActivity(), mTopListView, false);
-                mToolbar.animate()
-                        .translationY(0)
-                        .setInterpolator(new DecelerateInterpolator(2));
+                FlickrUtils.animateToolbar(getActivity(), true);
             }
         });
     }
@@ -139,19 +132,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
                 300); // max scrolling bottom position of current indicator
     }
 
-    private void fetchData() {
-        if (isConnected()) {
-            new FetchItemsTask().execute(mPageNumber);
-            mDataLoaded = true;
-        }
-    }
-
-    private void updateUi() {
-        mGalleryAdapter.updateItems(mItems);
-        mRecyclerView.scrollToPosition(mListPosition);
-        mProgressBar.setVisibility(View.INVISIBLE);
-    }
-
     private boolean isConnected() {
         boolean connected = FlickrUtils.isNetworkConnected(getActivity());
         if (connected) {
@@ -166,7 +146,20 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         return connected;
     }
 
-    private class FetchItemsTask extends AsyncTask<Integer, Void, List<GalleryItem>> {
+    private void updateUi() {
+        mGalleryAdapter.updateItems(mItems);
+        mRecyclerView.scrollToPosition(mListPosition);
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private void fetchData() {
+        if (isConnected()) {
+            String storedText = PreferenceUtils.getStoredQuery(getActivity());
+            new FetchItemsTask().execute(storedText);
+        }
+    }
+
+    private class FetchItemsTask extends AsyncTask<String, Void, List<GalleryItem>> {
 
         @Override
         protected void onPreExecute() {
@@ -174,13 +167,12 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         }
 
         @Override
-        protected List<GalleryItem> doInBackground(Integer... integers) {
-            return new FlickrFetch().fetchItems(integers[0]);
+        protected List<GalleryItem> doInBackground(String... params) {
+            return new FlickrFetch().downloadGallery(params[0], mPageNumber);
         }
 
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
-
             if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
                 for (int i = 0; i < items.size(); i++) {
                     mItems.add(items.get(i));
@@ -190,6 +182,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
             updateUi();
             mRefreshLayout.setRefreshing(false);
             mDataRefreshing = false;
+            mDataLoaded = true;
         }
     }
 }
