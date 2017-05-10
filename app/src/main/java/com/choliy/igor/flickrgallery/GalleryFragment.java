@@ -80,6 +80,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     private void setupUi() {
         mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
         mRecyclerView.setAdapter(mGalleryAdapter);
+        mRecyclerView.setHasFixedSize(true);
         setGridLayoutManager();
         setScrollListener();
         setRefreshLayout();
@@ -128,8 +129,8 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         // Set the offset from top of the screen for SwipeRefreshLayout
         mRefreshLayout.setProgressViewOffset(
                 false, // scaling animation
-                50, // top position of the loading indicator
-                300); // max scrolling bottom position of current indicator
+                30, // top position of the loading indicator
+                270); // max scrolling bottom position of current indicator
     }
 
     private boolean isConnected() {

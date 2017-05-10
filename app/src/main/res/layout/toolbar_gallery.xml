@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
@@ -13,7 +15,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:visibility="gone">
 
         <ImageView
             android:id="@+id/toolbar_icon_menu"
@@ -45,7 +48,7 @@
             android:onClick="onToolbarClick"
             android:paddingEnd="@dimen/material_margin"
             android:paddingStart="@dimen/material_margin"
-            android:src="@drawable/ic_search"/>
+            android:src="@drawable/ic_search_black"/>
 
     </LinearLayout>
 
@@ -55,7 +58,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/toolbar_icon_back"
@@ -70,8 +74,10 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/hint_search"/>
+            app:closeIcon="@null"
+            app:defaultQueryHint="@string/hint_search"
+            app:queryBackground="@android:color/white"
+            app:searchHintIcon="@drawable/ic_search_gray"/>
 
     </LinearLayout>
 

@@ -3,12 +3,16 @@ package com.choliy.igor.flickrgallery;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.PreferenceUtils;
 
 import butterknife.BindView;
@@ -39,7 +43,6 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         setupSearchView();
         if (savedInstanceState != null) {
             mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_TYPE);
@@ -56,7 +59,7 @@ public class GalleryActivity extends AppCompatActivity {
     public void onToolbarClick(View view) {
         switch (view.getId()) {
             case R.id.toolbar_icon_menu:
-                // TODO
+                FlickrUtils.showInfo(view, "On menu clicked");
                 break;
             case R.id.toolbar_icon_back:
                 toolbarType(mShowSearchType = false);
@@ -68,6 +71,10 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     private void setupSearchView() {
+        final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
+        TextView hintText = (TextView) mSearchView.findViewById(R.id.search_src_text);
+        hintText.setHintTextColor(ContextCompat.getColor(this, R.color.textColorLightGray));
+
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -82,7 +89,14 @@ public class GalleryActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                if (newText.isEmpty()) {
+                    closeIcon.setClickable(false);
+                    closeIcon.setImageResource(FlickrConstants.NUMBER_ZERO);
+                } else {
+                    closeIcon.setClickable(true);
+                    closeIcon.setImageResource(R.drawable.ic_close_black);
+                }
+                return true;
             }
         });
 
@@ -94,10 +108,10 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        View closeButton = mSearchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
+        closeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FlickrUtils.showInfo(view, getString(R.string.text_search_query));
                 mSearchView.setQuery(FlickrConstants.STRING_EMPTY, false);
                 PreferenceUtils.setStoredQuery(GalleryActivity.this, null);
             }

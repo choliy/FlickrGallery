@@ -8,10 +8,6 @@ public class GalleryItem {
     private String mOwnerName;
     private String mPictureUrl;
 
-    public GalleryItem() {
-
-    }
-
     public String getId() {
         return mId;
     }

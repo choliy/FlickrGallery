@@ -1,6 +1,7 @@
 package com.choliy.igor.flickrgallery;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     @Override
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_list_gallery, parent, false);
+        int layout;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            layout = R.layout.list_item_lollipop;
+        else layout = R.layout.list_item_kitkat;
+        View view = LayoutInflater.from(mContext).inflate(layout, parent, false);
         return new PhotoHolder(view);
     }
 
@@ -55,7 +60,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item) ImageView mSinglePhoto;
+        @BindView(R.id.gallery_image_item)
+        ImageView mSinglePhoto;
 
         PhotoHolder(View itemView) {
             super(itemView);
