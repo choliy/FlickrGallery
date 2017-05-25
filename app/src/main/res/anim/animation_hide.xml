@@ -7,7 +7,6 @@
         android:toYDelta="2000"/>
 
     <alpha
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:duration="800"
         android:fromAlpha="1.0"
         android:toAlpha="0.0"/>

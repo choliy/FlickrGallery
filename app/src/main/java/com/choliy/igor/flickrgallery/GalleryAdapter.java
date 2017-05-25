@@ -80,6 +80,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
             Log.i(TAG, "Photo URL: " + url);
             Glide.with(mContext)
                     .load(url)
+                    .animate(R.anim.animation_list)
                     .into(mSinglePhoto);
 
             // Callback on the end of the list
