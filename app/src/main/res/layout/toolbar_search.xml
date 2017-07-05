@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toola="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_search"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    toola:visibility="visible">
+
+    <ImageView
+        android:id="@+id/toolbar_icon_back"
+        android:layout_width="@dimen/toolbar_icon_size"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:onClick="onToolbarClick"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_back"/>
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:closeIcon="@null"
+        app:defaultQueryHint="@string/hint_search"
+        app:queryBackground="@android:color/white"
+        app:searchHintIcon="@drawable/ic_search_gray"/>
+
+</LinearLayout>

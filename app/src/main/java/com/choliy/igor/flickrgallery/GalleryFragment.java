@@ -40,6 +40,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.no_connection) LinearLayout mConnectionLayout;
+    @BindView(R.id.no_results) LinearLayout mResultsLayout;
 
     public static Fragment newInstance() {
         return new GalleryFragment();
@@ -123,6 +124,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
                 mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
                 mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
+                FlickrUtils.hideKeyboard(getActivity());
             }
         });
 
@@ -133,15 +135,22 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
                 270); // max scrolling bottom position of current indicator
     }
 
+    private void fetchData() {
+        if (isConnected()) {
+            String storedText = PreferenceUtils.getStoredQuery(getActivity());
+            new FetchItemsTask().execute(storedText);
+        }
+    }
+
     private boolean isConnected() {
         boolean connected = FlickrUtils.isNetworkConnected(getActivity());
         if (connected) {
-            mConnectionLayout.setVisibility(View.INVISIBLE);
+            mConnectionLayout.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             mConnectionLayout.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.INVISIBLE);
-            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.GONE);
             mRefreshLayout.setRefreshing(false);
         }
         return connected;
@@ -150,14 +159,13 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     private void updateUi() {
         mGalleryAdapter.updateItems(mItems);
         mRecyclerView.scrollToPosition(mListPosition);
-        mProgressBar.setVisibility(View.INVISIBLE);
-    }
+        mProgressBar.setVisibility(View.GONE);
+        mRefreshLayout.setRefreshing(false);
+        mDataRefreshing = false;
+        mDataLoaded = true;
 
-    private void fetchData() {
-        if (isConnected()) {
-            String storedText = PreferenceUtils.getStoredQuery(getActivity());
-            new FetchItemsTask().execute(storedText);
-        }
+        if (mGalleryAdapter.getItemCount() == 0) mResultsLayout.setVisibility(View.VISIBLE);
+        else mResultsLayout.setVisibility(View.GONE);
     }
 
     private class FetchItemsTask extends AsyncTask<String, Void, List<GalleryItem>> {
@@ -181,9 +189,6 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
             } else mItems = items;
 
             updateUi();
-            mRefreshLayout.setRefreshing(false);
-            mDataRefreshing = false;
-            mDataLoaded = true;
         }
     }
 }

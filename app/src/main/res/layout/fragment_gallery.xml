@@ -8,6 +8,8 @@
 
     <include layout="@layout/item_no_connection"/>
 
+    <include layout="@layout/item_no_results"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

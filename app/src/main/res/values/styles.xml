@@ -7,4 +7,32 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <style name="InfoLayoutStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="InfoImageStyle">
+        <item name="android:layout_width">@dimen/image_item_size</item>
+        <item name="android:layout_height">@dimen/image_item_size</item>
+        <item name="android:layout_marginBottom">@dimen/material_margin</item>
+    </style>
+
+    <style name="InfoTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textColor">@color/textColorGray</item>
+    </style>
+
+    <style name="OopsTextStyle" parent="InfoTextStyle">
+        <item name="android:text">@string/text_oops</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

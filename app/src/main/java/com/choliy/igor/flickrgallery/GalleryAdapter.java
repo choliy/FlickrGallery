@@ -3,7 +3,6 @@ package com.choliy.igor.flickrgallery;
 import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import butterknife.ButterKnife;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHolder> {
 
-    private static final String TAG = GalleryAdapter.class.getSimpleName();
     private Context mContext;
     private List<GalleryItem> mItems;
     private OnPhotoHolderListener mListener;
@@ -61,7 +59,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.gallery_image_item)
-        ImageView mSinglePhoto;
+        ImageView mPhotoImage;
 
         PhotoHolder(View itemView) {
             super(itemView);
@@ -77,11 +75,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
         private void bindItem(int position) {
             String url = mItems.get(position).getPictureUrl();
-            Log.i(TAG, "Photo URL: " + url);
             Glide.with(mContext)
                     .load(url)
-                    .animate(R.anim.animation_list)
-                    .into(mSinglePhoto);
+                    .animate(R.anim.animation_photo)
+                    .into(mPhotoImage);
 
             // Callback on the end of the list
             if (position == getItemCount() - 1)

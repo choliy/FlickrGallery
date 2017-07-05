@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/toolbar_icon_menu"
+        android:layout_width="@dimen/toolbar_icon_size"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/material_margin"
+        android:contentDescription="@null"
+        android:onClick="onToolbarClick"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_toolbar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/textColoBlack"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/toolbar_icon_search"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:onClick="onToolbarClick"
+        android:paddingEnd="@dimen/material_margin"
+        android:paddingStart="@dimen/material_margin"
+        android:src="@drawable/ic_search_black"/>
+
+</LinearLayout>

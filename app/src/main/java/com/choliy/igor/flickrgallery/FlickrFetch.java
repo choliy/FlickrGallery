@@ -26,7 +26,7 @@ public class FlickrFetch {
             String jsonString = getJsonString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
-            Log.i(TAG, "Response JSON: " + jsonString);
+            //Log.i(TAG, "Response JSON: " + jsonString);
         } catch (JSONException je) {
             Log.e(TAG, "Failed to parse JSON", je);
         } catch (IOException ioe) {
@@ -37,7 +37,8 @@ public class FlickrFetch {
     }
 
     private String buildUrl(String searchText, int pageNumber) {
-        Uri.Builder uriBuilder = Uri.parse(getUrl(searchText, pageNumber)).buildUpon();
+        String stringUrl = getUrl(searchText, pageNumber);
+        Uri.Builder uriBuilder = Uri.parse(stringUrl).buildUpon();
         if (searchText != null) uriBuilder.appendQueryParameter("text", searchText);
         return uriBuilder.build().toString();
     }

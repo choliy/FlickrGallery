@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="view_thickness">1dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="material_margin">16dp</dimen>
-    <dimen name="image_item_size">128dp</dimen>
-    <dimen name="toolbar_icon_size">64dp</dimen>
+    <dimen name="medium_margin">24dp</dimen>
     <dimen name="view_length">48dp</dimen>
-    <dimen name="view_thickness">1dp</dimen>
+    <dimen name="toolbar_icon_size">64dp</dimen>
+    <dimen name="image_item_size">128dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="text_medium">18sp</dimen>
+    <dimen name="text_small">16sp</dimen>
 </resources>
