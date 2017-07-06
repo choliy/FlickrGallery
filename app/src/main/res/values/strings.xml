@@ -2,34 +2,33 @@
     <string name="app_name">Flickr Gallery</string>
     <string name="app_url" translatable="false">
         https://play.google.com/store/apps/details?id=com.choliy.igor.todolist</string>
-
-    <!-- Temporary -->
-    <string name="text_item_id">Photo id - %1$s</string>
-
-    <!-- Hint -->
-    <string name="hint_search">Search photo</string>
+    <string name="apps_url" translatable="false">
+        https://play.google.com/store/search?q=igor%20choliy&amp;c=apps</string>
 
     <!-- Info Text-->
+    <string name="text_hint_search">Search photo</string>
     <string name="text_oops">OOPS!</string>
     <string name="text_no_connection">No internet connection</string>
     <string name="text_no_results">No results for your query</string>
     <string name="text_search_query">Search query was restored</string>
     <string name="text_developer" translatable="false">© 2017 by Igor Choliy</string>
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
-    <string name="text_subject" translatable="false">About Flickr Gallery</string>
-    <string name="text_hello" translatable="false">Hello Igor!\n\n\n</string>
+    <string name="text_subject" translatable="false">About \"Flickr Gallery\"</string>
+    <string name="text_hello" translatable="false">Hello Igor.\n\n\n</string>
 
-    <!-- Dialog -->
+    <!-- Dialog About -->
     <string name="dialog_about">About App</string>
     <string name="dialog_app_version" translatable="false">v1.0.1</string>
     <string name="dialog_message">
         Application which allows you to search,
-        view and save the last public photos from Flickr service.</string>
+        view and save the last public photos from Flickr service</string>
     <string name="dialog_issue" translatable="false">
-        If you find translating issue, please send me an email or write feedback.</string>
+        If you find translating issue, please send me an email or write feedback</string>
     <string name="dialog_developer" translatable="false">© %1$s by Igor Choliy</string>
     <string name="dialog_url" translatable="false">https://www.linkedin.com/in/choliy</string>
     <string name="dialog_close_btn">CLOSE</string>
+    <string name="dialog_feedback_btn">FEEDBACK</string>
+    <string name="dialog_email_btn">EMAIL</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_tools">Tools</string>
@@ -39,9 +38,49 @@
     <string name="nav_group_name">Communication</string>
     <string name="nav_about">About</string>
     <string name="nav_share">Share</string>
-    <string name="nav_feedback">Feedback</string>
     <string name="nav_email">Email</string>
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_apps">More Apps</string>
 
-    <!-- Content Description -->
+    <!-- Preferences Text -->
+    <string name="pref_category_main">Main Settings</string>
+    <string name="pref_grid_title">List grid size</string>
+    <string name="pref_picture_title">Number of uploaded pictures per time</string>
+
+    <string name="pref_category_extra">Extra Settings</string>
+    <string name="pref_animation_title">Picture animation</string>
+    <string name="pref_animation_summary">Picture animation after loading</string>
+    <string name="pref_restore_title">Default settings</string>
+    <string name="pref_restore_summary">Restore default settings</string>
+    <string name="pref_restore_info">Default settings was restored</string>
+
+    <!-- Preferences Keys -->
+    <string name="pref_key_first_start" translatable="false">key_first_start</string>
+    <string name="pref_key_grid" translatable="false">key_grid</string>
+    <string name="pref_key_picture" translatable="false">key_picture</string>
+    <string name="pref_key_animation" translatable="false">key_animation</string>
+    <string name="pref_key_restore" translatable="false">key_restore</string>
+
+    <!-- Grid Arrays -->
+    <string name="pref_grid_label_1" translatable="false">1 x 2</string>
+    <string name="pref_grid_label_2" translatable="false">2 x 3</string>
+    <string name="pref_grid_label_3" translatable="false">3 x 5</string>
+    <string name="pref_grid_label_4" translatable="false">4 x 7</string>
+
+    <string name="pref_grid_value_1" translatable="false">12</string>
+    <string name="pref_grid_value_2" translatable="false">23</string>
+    <string name="pref_grid_value_3" translatable="false">35</string>
+    <string name="pref_grid_value_4" translatable="false">47</string>
+
+    <!-- Picture Arrays -->
+    <string name="pref_picture_label_50">50 pictures</string>
+    <string name="pref_picture_label_100">100 pictures</string>
+    <string name="pref_picture_label_200">200 pictures</string>
+    <string name="pref_picture_label_500">500 pictures</string>
+
+    <string name="pref_picture_value_50" translatable="false">50</string>
+    <string name="pref_picture_value_100" translatable="false">100</string>
+    <string name="pref_picture_value_200" translatable="false">200</string>
+    <string name="pref_picture_value_500" translatable="false">500</string>
 
 </resources>

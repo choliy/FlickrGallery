@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.tool;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
+
+import com.choliy.igor.flickrgallery.R;
 
 public class SquareLayout extends FrameLayout {
 

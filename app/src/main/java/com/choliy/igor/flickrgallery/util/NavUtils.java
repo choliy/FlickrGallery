@@ -10,18 +10,39 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.activity.SettingsActivity;
 
 import java.util.Calendar;
 
-public final class DrawerUtils {
+public final class NavUtils {
 
     public static boolean sIsAboutDialogShown;
+
+    public static void startSettings(Activity activity) {
+        Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
+        activity.startActivityForResult(intent, FlickrConstants.REQUEST_CODE);
+    }
 
     public static void aboutDialog(final Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_info, null);
         final TextView developer = (TextView) view.findViewById(R.id.developer_url);
+        final TextView email = (TextView) view.findViewById(R.id.btn_dialog_email);
+        final TextView feedback = (TextView) view.findViewById(R.id.btn_dialog_feedback);
+        final TextView close = (TextView) view.findViewById(R.id.btn_dialog_close);
+
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                sIsAboutDialogShown = false;
+            }
+        });
+
+        sIsAboutDialogShown = true;
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String text = context.getString(R.string.dialog_developer, String.valueOf(year));
@@ -33,26 +54,32 @@ public final class DrawerUtils {
                 String developerUrl = context.getString(R.string.dialog_url);
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(developerUrl));
                 checkIntentBeforeLaunching(context, webIntent);
-            }
-        });
-
-        builder.setNegativeButton(R.string.dialog_close_btn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
 
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        email.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                sIsAboutDialogShown = false;
+            public void onClick(View view) {
+                emailIntent(context);
+                dialog.dismiss();
             }
         });
 
-        sIsAboutDialogShown = true;
-        builder.setView(view);
-        builder.show();
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                feedbackIntent(context);
+                dialog.dismiss();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     public static void shareIntent(Activity activity) {
@@ -74,8 +101,14 @@ public final class DrawerUtils {
 
     public static void feedbackIntent(Context context) {
         String url = context.getString(R.string.app_url);
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        checkIntentBeforeLaunching(context, webIntent);
+        Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        checkIntentBeforeLaunching(context, feedbackIntent);
+    }
+
+    public static void appsIntent(Context context) {
+        String url = context.getString(R.string.apps_url);
+        Intent appsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        checkIntentBeforeLaunching(context, appsIntent);
     }
 
     private static void checkIntentBeforeLaunching(Context context, Intent intent) {

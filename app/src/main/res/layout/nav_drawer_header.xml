@@ -29,8 +29,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shadowColor="@color/textColorGray"
             android:paddingEnd="@dimen/small_margin"
+            android:shadowColor="@color/textColorGray"
             android:shadowDx="5"
             android:shadowDy="5"
             android:shadowRadius="8"

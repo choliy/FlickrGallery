@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import java.util.List;
 
@@ -58,8 +59,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item)
-        ImageView mPhotoImage;
+        @BindView(R.id.gallery_image_item) ImageView mPhotoImage;
 
         PhotoHolder(View itemView) {
             super(itemView);
@@ -75,10 +75,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
         private void bindItem(int position) {
             String url = mItems.get(position).getPictureUrl();
-            Glide.with(mContext)
-                    .load(url)
-                    .animate(R.anim.animation_photo)
-                    .into(mPhotoImage);
+            boolean animationOn = PrefUtils.getAnimationSettings(mContext);
+            if (animationOn) {
+                Glide.with(mContext)
+                        .load(url)
+                        .animate(R.anim.anim_photo)
+                        .into(mPhotoImage);
+            } else Glide.with(mContext).load(url).into(mPhotoImage);
 
             // Callback on the end of the list
             if (position == getItemCount() - 1)

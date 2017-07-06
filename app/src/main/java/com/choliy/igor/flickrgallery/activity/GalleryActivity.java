@@ -1,5 +1,6 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,12 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.util.DrawerUtils;
+import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
+import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
-import com.choliy.igor.flickrgallery.util.PreferenceUtils;
+import com.choliy.igor.flickrgallery.util.NavUtils;
+import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +34,7 @@ public class GalleryActivity extends AppCompatActivity implements
     private FragmentManager mFragmentManager;
     private boolean mShowSearchType;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar_gallery) Toolbar mToolbar;
     @BindView(R.id.search_view) SearchView mSearchView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
@@ -39,6 +43,7 @@ public class GalleryActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        PrefUtils.isFirstStart(this);
         ButterKnife.bind(this);
 
         mFragmentManager = getSupportFragmentManager();
@@ -57,11 +62,11 @@ public class GalleryActivity extends AppCompatActivity implements
 
         if (savedInstanceState != null) {
             mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_TYPE);
-            toolbarType(mShowSearchType);
+            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
         }
 
-        if (DrawerUtils.sIsAboutDialogShown)
-            DrawerUtils.aboutDialog(this);
+        if (NavUtils.sIsAboutDialogShown)
+            NavUtils.aboutDialog(this);
     }
 
     @Override
@@ -78,6 +83,18 @@ public class GalleryActivity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FlickrConstants.REQUEST_CODE && resultCode == RESULT_OK) {
+            AnimUtils.animateToolbarVisibility(this, true);
+            mFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new GalleryFragment())
+                    .commit();
+        }
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_saved:
@@ -87,19 +104,22 @@ public class GalleryActivity extends AppCompatActivity implements
                 // TODO
                 break;
             case R.id.nav_settings:
-                // TODO
+                NavUtils.startSettings(this);
                 break;
             case R.id.nav_about:
-                DrawerUtils.aboutDialog(this);
+                NavUtils.aboutDialog(this);
                 break;
             case R.id.nav_share:
-                DrawerUtils.shareIntent(this);
+                NavUtils.shareIntent(this);
                 break;
             case R.id.nav_email:
-                DrawerUtils.emailIntent(this);
+                NavUtils.emailIntent(this);
                 break;
             case R.id.nav_feedback:
-                DrawerUtils.feedbackIntent(this);
+                NavUtils.feedbackIntent(this);
+                break;
+            case R.id.nav_apps:
+                NavUtils.appsIntent(this);
                 break;
         }
 
@@ -113,10 +133,10 @@ public class GalleryActivity extends AppCompatActivity implements
                 mDrawerLayout.openDrawer(mNavigationView);
                 break;
             case R.id.toolbar_icon_back:
-                toolbarType(mShowSearchType = false);
+                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = false);
                 break;
             case R.id.toolbar_icon_search:
-                toolbarType(mShowSearchType = true);
+                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = true);
                 break;
         }
     }
@@ -134,15 +154,15 @@ public class GalleryActivity extends AppCompatActivity implements
                     closeIcon.setImageResource(FlickrConstants.NUMBER_ZERO);
                 } else {
                     closeIcon.setClickable(true);
-                    closeIcon.setImageResource(R.drawable.ic_close_black);
+                    closeIcon.setImageResource(R.drawable.ic_close);
                 }
                 return true;
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                PreferenceUtils.setStoredQuery(GalleryActivity.this, query);
-                toolbarType(query.isEmpty());
+                PrefUtils.setStoredQuery(GalleryActivity.this, query);
+                AnimUtils.animateToolbarType(GalleryActivity.this, mSearchView, query.isEmpty());
                 mFragmentManager
                         .beginTransaction()
                         .replace(R.id.fragment_container, GalleryFragment.newInstance())
@@ -154,7 +174,7 @@ public class GalleryActivity extends AppCompatActivity implements
         mSearchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String query = PreferenceUtils.getStoredQuery(GalleryActivity.this);
+                String query = PrefUtils.getStoredQuery(GalleryActivity.this);
                 mSearchView.setQuery(query, false);
             }
         });
@@ -164,23 +184,8 @@ public class GalleryActivity extends AppCompatActivity implements
             public void onClick(View view) {
                 mSearchView.setQuery(FlickrConstants.STRING_EMPTY, false);
                 FlickrUtils.showInfo(view, getString(R.string.text_search_query));
-                PreferenceUtils.setStoredQuery(GalleryActivity.this, null);
+                PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }
         });
-    }
-
-    private void toolbarType(boolean showSearchType) {
-        LinearLayout toolbarMain = (LinearLayout) findViewById(R.id.toolbar_main);
-        LinearLayout toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
-        if (showSearchType) {
-            toolbarMain.setVisibility(View.GONE);
-            toolbarSearch.setVisibility(View.VISIBLE);
-            mSearchView.setIconified(false);
-        } else {
-            toolbarMain.setVisibility(View.VISIBLE);
-            toolbarSearch.setVisibility(View.GONE);
-            mSearchView.setQuery(FlickrConstants.STRING_EMPTY, false);
-            mSearchView.setIconified(true);
-        }
     }
 }

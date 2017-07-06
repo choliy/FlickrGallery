@@ -3,9 +3,10 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#E0E0E0</color>
     <color name="colorAccent">#E91E63</color>
+    <color name="colorBlue">#3F51B5</color>
 
     <color name="colorKitKatSelector">#82e91e63</color>
     <color name="textColorLightGray">#9E9E9E</color>
-    <color name="textColorGray">#757575</color>
+    <color name="textColorGray">#616161</color>
     <color name="textColoBlack">#212121</color>
 </resources>

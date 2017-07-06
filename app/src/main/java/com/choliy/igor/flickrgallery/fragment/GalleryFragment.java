@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.fragment;
 
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -15,8 +15,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.GalleryAdapter;
+import com.choliy.igor.flickrgallery.GalleryItem;
+import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.tool.FlickrFetch;
+import com.choliy.igor.flickrgallery.tool.HidingScrollListener;
+import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
-import com.choliy.igor.flickrgallery.util.PreferenceUtils;
+import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +76,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     @Override
     public void onPhotoClicked(String photoId) {
-        String infoText = getString(R.string.text_item_id, photoId);
+        String infoText = "Photo id - " + photoId;
         FlickrUtils.showInfo(mRecyclerView, infoText);
     }
 
@@ -91,11 +98,15 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     }
 
     private void setGridLayoutManager() {
+        String gridSize = PrefUtils.getGridSettings(getActivity());
+        int sizeVertical = Character.getNumericValue(gridSize.charAt(0));
+        int sizeHorizontal = Character.getNumericValue(gridSize.charAt(1));
+
         int screenOrientation = getResources().getConfiguration().orientation;
         if (screenOrientation == Configuration.ORIENTATION_PORTRAIT)
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), sizeVertical));
         else
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), sizeHorizontal));
     }
 
     private void setScrollListener() {
@@ -103,14 +114,14 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
             @Override
             public void onHide() {
-                FlickrUtils.animateView(getActivity(), mTopListView, true);
-                FlickrUtils.animateToolbar(getActivity(), false);
+                AnimUtils.animateView(getActivity(), mTopListView, true);
+                AnimUtils.animateToolbarVisibility(getActivity(), false);
             }
 
             @Override
             public void onShow() {
-                FlickrUtils.animateView(getActivity(), mTopListView, false);
-                FlickrUtils.animateToolbar(getActivity(), true);
+                AnimUtils.animateView(getActivity(), mTopListView, false);
+                AnimUtils.animateToolbarVisibility(getActivity(), true);
             }
         });
     }
@@ -137,7 +148,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     private void fetchData() {
         if (isConnected()) {
-            String storedText = PreferenceUtils.getStoredQuery(getActivity());
+            String storedText = PrefUtils.getStoredQuery(getActivity());
             new FetchItemsTask().execute(storedText);
         }
     }
@@ -149,9 +160,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             mConnectionLayout.setVisibility(View.VISIBLE);
+            mResultsLayout.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mProgressBar.setVisibility(View.GONE);
             mRefreshLayout.setRefreshing(false);
+            AnimUtils.animateToolbarVisibility(getActivity(), true);
         }
         return connected;
     }
@@ -164,8 +177,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         mDataRefreshing = false;
         mDataLoaded = true;
 
-        if (mGalleryAdapter.getItemCount() == 0) mResultsLayout.setVisibility(View.VISIBLE);
-        else mResultsLayout.setVisibility(View.GONE);
+        if (mGalleryAdapter.getItemCount() == 0) {
+            mResultsLayout.setVisibility(View.VISIBLE);
+            mConnectionLayout.setVisibility(View.GONE);
+            AnimUtils.animateToolbarVisibility(getActivity(), true);
+        } else mResultsLayout.setVisibility(View.GONE);
     }
 
     private class FetchItemsTask extends AsyncTask<String, Void, List<GalleryItem>> {
@@ -177,7 +193,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
         @Override
         protected List<GalleryItem> doInBackground(String... params) {
-            return new FlickrFetch().downloadGallery(params[0], mPageNumber);
+            return new FlickrFetch().downloadGallery(getActivity(), params[0], mPageNumber);
         }
 
         @Override

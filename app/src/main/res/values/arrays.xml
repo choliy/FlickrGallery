@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Grid Arrays -->
+    <array name="array_grid_label">
+        <item>@string/pref_grid_label_1</item>
+        <item>@string/pref_grid_label_2</item>
+        <item>@string/pref_grid_label_3</item>
+        <item>@string/pref_grid_label_4</item>
+    </array>
+
+    <array name="array_grid_value">
+        <item>@string/pref_grid_value_1</item>
+        <item>@string/pref_grid_value_2</item>
+        <item>@string/pref_grid_value_3</item>
+        <item>@string/pref_grid_value_4</item>
+    </array>
+
+    <!-- Picture Arrays -->
+    <array name="array_picture_label">
+        <item>@string/pref_picture_label_50</item>
+        <item>@string/pref_picture_label_100</item>
+        <item>@string/pref_picture_label_200</item>
+        <item>@string/pref_picture_label_500</item>
+    </array>
+
+    <array name="array_picture_value">
+        <item>@string/pref_picture_value_50</item>
+        <item>@string/pref_picture_value_100</item>
+        <item>@string/pref_picture_value_200</item>
+        <item>@string/pref_picture_value_500</item>
+    </array>
+
+</resources>

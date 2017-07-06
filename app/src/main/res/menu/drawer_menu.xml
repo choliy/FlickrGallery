@@ -48,6 +48,11 @@
                 android:icon="@drawable/ic_feedback"
                 android:title="@string/nav_feedback"/>
 
+            <item
+                android:id="@+id/nav_apps"
+                android:icon="@drawable/ic_apps"
+                android:title="@string/nav_apps"/>
+
         </menu>
 
     </item>

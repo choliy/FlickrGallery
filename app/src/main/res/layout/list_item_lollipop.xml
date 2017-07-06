@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.choliy.igor.flickrgallery.SquareLayout
+<com.choliy.igor.flickrgallery.tool.SquareLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,4 +13,4 @@
         android:background="@drawable/custom_lollipop_selector"
         tools:targetApi="lollipop"/>
 
-</com.choliy.igor.flickrgallery.SquareLayout>
+</com.choliy.igor.flickrgallery.tool.SquareLayout>

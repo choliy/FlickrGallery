@@ -1,7 +1,12 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.tool;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+
+import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.GalleryItem;
+import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +24,10 @@ public class FlickrFetch {
 
     private static final String TAG = FlickrFetch.class.getSimpleName();
 
-    public List<GalleryItem> downloadGallery(String searchText, int pageNumber) {
+    public List<GalleryItem> downloadGallery(Context context, String searchText, int pageNumber) {
         List<GalleryItem> items = new ArrayList<>();
         try {
-            String url = buildUrl(searchText, pageNumber);
+            String url = buildUrl(context, searchText, pageNumber);
             String jsonString = getJsonString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
@@ -36,14 +41,14 @@ public class FlickrFetch {
         return items;
     }
 
-    private String buildUrl(String searchText, int pageNumber) {
-        String stringUrl = getUrl(searchText, pageNumber);
+    private String buildUrl(Context context, String searchText, int pageNumber) {
+        String stringUrl = getUrl(context, searchText, pageNumber);
         Uri.Builder uriBuilder = Uri.parse(stringUrl).buildUpon();
         if (searchText != null) uriBuilder.appendQueryParameter("text", searchText);
         return uriBuilder.build().toString();
     }
 
-    private String getUrl(String searchText, int pageNumber) {
+    private String getUrl(Context context, String searchText, int pageNumber) {
 
         // Flickr API:
         // https://www.flickr.com/services/api/flickr.photos.getRecent.html
@@ -58,6 +63,7 @@ public class FlickrFetch {
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
                 .appendQueryParameter("extras", "date_upload,owner_name,url_s")
+                .appendQueryParameter("per_page", PrefUtils.getPictureSettings(context))
                 .appendQueryParameter("page", String.valueOf(pageNumber))
                 .build().toString();
 
