@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dialog_about"
+            android:text="@string/dialog_about_title"
             android:textColor="@color/textColoBlack"
             android:textSize="@dimen/text_medium"
             android:textStyle="bold"/>
@@ -32,12 +32,9 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/MessageTextStyle"
         android:layout_marginBottom="@dimen/small_margin"
-        android:text="@string/dialog_message"
-        android:textColor="@color/textColoBlack"
-        android:textSize="@dimen/text_small"/>
+        android:text="@string/dialog_message"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,13 +70,10 @@
             android:layout_marginStart="@dimen/material_margin"
             android:text="@string/dialog_feedback_btn"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+        <View style="@style/ViewStyle"/>
 
         <TextView
-            android:id="@+id/btn_dialog_close"
+            android:id="@+id/btn_about_close"
             style="@style/DialogButtonStyle"
             android:text="@string/dialog_close_btn"/>
 

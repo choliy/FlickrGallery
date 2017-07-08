@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.adapter;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import java.util.List;
@@ -36,9 +38,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            layout = R.layout.list_item_lollipop;
-        else layout = R.layout.list_item_kitkat;
-        View view = LayoutInflater.from(mContext).inflate(layout, parent, false);
+            layout = R.layout.list_item_gallery_lollipop;
+        else layout = R.layout.list_item_gallery_kitkat;
+        View view = LayoutInflater.from(mContext).inflate(layout, parent, Boolean.FALSE);
         return new PhotoHolder(view);
     }
 

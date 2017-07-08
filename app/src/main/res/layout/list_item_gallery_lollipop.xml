@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.choliy.igor.flickrgallery.tool.SquareLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/list_item_blank"/>
+    <include layout="@layout/list_item_gallery_blank"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/custom_kitkat_selector"/>
+        android:background="@drawable/custom_lollipop_selector"
+        tools:targetApi="lollipop"/>
 
 </com.choliy.igor.flickrgallery.tool.SquareLayout>

@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.model;
 
 public class GalleryItem {
 
@@ -7,6 +7,17 @@ public class GalleryItem {
     private String mUploadDate;
     private String mOwnerName;
     private String mPictureUrl;
+
+    public GalleryItem() {
+    }
+
+    public GalleryItem(String id, String title, String uploadDate, String ownerName, String pictureUrl) {
+        mId = id;
+        mTitle = title;
+        mUploadDate = uploadDate;
+        mOwnerName = ownerName;
+        mPictureUrl = pictureUrl;
+    }
 
     public String getId() {
         return mId;

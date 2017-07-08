@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
-import com.choliy.igor.flickrgallery.GalleryItem;
+import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import org.json.JSONArray;

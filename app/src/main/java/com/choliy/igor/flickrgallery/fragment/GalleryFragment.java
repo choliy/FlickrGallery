@@ -16,9 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
-import com.choliy.igor.flickrgallery.GalleryAdapter;
-import com.choliy.igor.flickrgallery.GalleryItem;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
+import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.tool.FlickrFetch;
 import com.choliy.igor.flickrgallery.tool.HidingScrollListener;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
@@ -44,7 +44,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     @BindView(R.id.image_top_list) ImageView mTopListView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
-    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.no_connection) LinearLayout mConnectionLayout;
     @BindView(R.id.no_results) LinearLayout mResultsLayout;
@@ -61,7 +61,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_gallery, container, Boolean.FALSE);
         ButterKnife.bind(this, view);
         setupUi();
         return view;
@@ -77,18 +77,18 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     @Override
     public void onPhotoClicked(String photoId) {
         String infoText = "Photo id - " + photoId;
-        FlickrUtils.showInfo(mRecyclerView, infoText);
+        FlickrUtils.showInfo(mRvGallery, infoText);
     }
 
     @OnClick(R.id.image_top_list)
     public void topList() {
-        mRecyclerView.scrollToPosition(FlickrConstants.DEFAULT_LIST_POSITION);
+        mRvGallery.scrollToPosition(FlickrConstants.DEFAULT_LIST_POSITION);
     }
 
     private void setupUi() {
         mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
-        mRecyclerView.setAdapter(mGalleryAdapter);
-        mRecyclerView.setHasFixedSize(true);
+        mRvGallery.setAdapter(mGalleryAdapter);
+        mRvGallery.setHasFixedSize(Boolean.TRUE);
         setGridLayoutManager();
         setScrollListener();
         setRefreshLayout();
@@ -104,24 +104,24 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
         int screenOrientation = getResources().getConfiguration().orientation;
         if (screenOrientation == Configuration.ORIENTATION_PORTRAIT)
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), sizeVertical));
+            mRvGallery.setLayoutManager(new GridLayoutManager(getActivity(), sizeVertical));
         else
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), sizeHorizontal));
+            mRvGallery.setLayoutManager(new GridLayoutManager(getActivity(), sizeHorizontal));
     }
 
     private void setScrollListener() {
-        mRecyclerView.addOnScrollListener(new HidingScrollListener() {
+        mRvGallery.addOnScrollListener(new HidingScrollListener() {
 
             @Override
             public void onHide() {
-                AnimUtils.animateView(getActivity(), mTopListView, true);
-                AnimUtils.animateToolbarVisibility(getActivity(), false);
+                AnimUtils.animateView(getActivity(), mTopListView, Boolean.TRUE);
+                AnimUtils.animateToolbarVisibility(getActivity(), Boolean.FALSE);
             }
 
             @Override
             public void onShow() {
-                AnimUtils.animateView(getActivity(), mTopListView, false);
-                AnimUtils.animateToolbarVisibility(getActivity(), true);
+                AnimUtils.animateView(getActivity(), mTopListView, Boolean.FALSE);
+                AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
             }
         });
     }
@@ -131,7 +131,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mDataRefreshing = true;
+                mDataRefreshing = Boolean.TRUE;
                 mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
                 mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
@@ -141,7 +141,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
         // Set the offset from top of the screen for SwipeRefreshLayout
         mRefreshLayout.setProgressViewOffset(
-                false, // scaling animation
+                Boolean.FALSE, // scaling animation
                 30, // top position of the loading indicator
                 270); // max scrolling bottom position of current indicator
     }
@@ -157,31 +157,32 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         boolean connected = FlickrUtils.isNetworkConnected(getActivity());
         if (connected) {
             mConnectionLayout.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
+            mRvGallery.setVisibility(View.VISIBLE);
         } else {
             mConnectionLayout.setVisibility(View.VISIBLE);
             mResultsLayout.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
+            mRvGallery.setVisibility(View.GONE);
             mProgressBar.setVisibility(View.GONE);
-            mRefreshLayout.setRefreshing(false);
-            AnimUtils.animateToolbarVisibility(getActivity(), true);
+            mRefreshLayout.setRefreshing(Boolean.FALSE);
+            AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
         }
         return connected;
     }
 
     private void updateUi() {
         mGalleryAdapter.updateItems(mItems);
-        mRecyclerView.scrollToPosition(mListPosition);
+        mRvGallery.scrollToPosition(mListPosition);
         mProgressBar.setVisibility(View.GONE);
-        mRefreshLayout.setRefreshing(false);
-        mDataRefreshing = false;
-        mDataLoaded = true;
+        mRefreshLayout.setRefreshing(Boolean.FALSE);
+        mDataRefreshing = Boolean.FALSE;
+        mDataLoaded = Boolean.TRUE;
 
         if (mGalleryAdapter.getItemCount() == 0) {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
-            AnimUtils.animateToolbarVisibility(getActivity(), true);
-        } else mResultsLayout.setVisibility(View.GONE);
+            AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
+        } else
+            mResultsLayout.setVisibility(View.GONE);
     }
 
     private class FetchItemsTask extends AsyncTask<String, Void, List<GalleryItem>> {

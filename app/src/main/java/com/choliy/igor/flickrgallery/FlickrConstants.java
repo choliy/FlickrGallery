@@ -19,7 +19,12 @@ public interface FlickrConstants {
     int DEFAULT_PAGE_NUMBER = 1;
     String DEFAULT_GRID = "35";
     String DEFAULT_PICTURE = "100";
-    boolean DEFAULT_ANIMATION = true;
+    boolean DEFAULT_ANIMATION = Boolean.TRUE;
+
+    // Date & Time format constants
+    String DATE_FORMAT = "d MMMM yyyy";
+    String TIME_FORMAT_UK = "HH:mm";
+    String TIME_FORMAT_US = "h:mm a";
 
     // Flickr API
     String API_KEY = "780abee617798d7558c97719e544db7f";

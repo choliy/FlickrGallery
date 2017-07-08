@@ -6,6 +6,9 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
@@ -54,10 +57,7 @@ public class SettingsFragment extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        mGridPref.setValueIndex(2);
-        mPicturePref.setValueIndex(1);
-        mAnimationPref.setChecked(true);
-        FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));
+        restoreDialog();
         return true;
     }
 
@@ -77,5 +77,33 @@ public class SettingsFragment extends PreferenceFragment implements
             CharSequence prefLabel = listPref.getEntries()[prefIndex];
             listPref.setSummary(prefLabel);
         }
+    }
+
+    private void restoreDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final View view = View.inflate(getActivity(), R.layout.dialog_restore, null);
+        final TextView yes = (TextView) view.findViewById(R.id.btn_restore_yes);
+        final TextView no = (TextView) view.findViewById(R.id.btn_restore_no);
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                mGridPref.setValueIndex(2);
+                mPicturePref.setValueIndex(0);
+                mAnimationPref.setChecked(Boolean.TRUE);
+                FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 }

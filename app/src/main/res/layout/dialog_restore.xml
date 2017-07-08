@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/QuestionLayoutStyleOuter">
+
+    <TextView
+        style="@style/MessageTextStyle"
+        android:text="@string/dialog_restore_message"/>
+
+    <LinearLayout style="@style/QuestionLayoutStyleInner">
+
+        <TextView
+            android:id="@+id/btn_restore_no"
+            style="@style/DialogButtonStyle"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:text="@string/dialog_no_btn"/>
+
+        <TextView
+            android:id="@+id/btn_restore_yes"
+            style="@style/DialogButtonStyle"
+            android:text="@string/dialog_yes_btn"/>
+
+    </LinearLayout>
+
+</LinearLayout>

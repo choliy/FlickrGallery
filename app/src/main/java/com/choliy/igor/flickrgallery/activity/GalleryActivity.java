@@ -19,17 +19,22 @@ import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
+import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
+import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
+import com.choliy.igor.flickrgallery.util.TimeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GalleryActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        HistoryFragment.OnHistoryDialogClickListener {
 
     private FragmentManager mFragmentManager;
     private boolean mShowSearchType;
@@ -65,6 +70,9 @@ public class GalleryActivity extends AppCompatActivity implements
             AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
         }
 
+        if (NavUtils.sIsHistoryDialogShown)
+            NavUtils.showHistory(this);
+
         if (NavUtils.sIsAboutDialogShown)
             NavUtils.aboutDialog(this);
     }
@@ -86,7 +94,7 @@ public class GalleryActivity extends AppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FlickrConstants.REQUEST_CODE && resultCode == RESULT_OK) {
-            AnimUtils.animateToolbarVisibility(this, true);
+            AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
             mFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_container, new GalleryFragment())
@@ -101,7 +109,7 @@ public class GalleryActivity extends AppCompatActivity implements
                 // TODO
                 break;
             case R.id.nav_history:
-                // TODO
+                NavUtils.showHistory(this);
                 break;
             case R.id.nav_settings:
                 NavUtils.startSettings(this);
@@ -127,16 +135,29 @@ public class GalleryActivity extends AppCompatActivity implements
         return true;
     }
 
+    @Override
+    public void onStartClick() {
+        AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
+        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+    }
+
+    @Override
+    public void onHistoryClick(String historyTitle) {
+        PrefUtils.setStoredQuery(this, historyTitle);
+        AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
+        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+    }
+
     public void onToolbarClick(View view) {
         switch (view.getId()) {
             case R.id.toolbar_icon_menu:
                 mDrawerLayout.openDrawer(mNavigationView);
                 break;
             case R.id.toolbar_icon_back:
-                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = false);
+                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.FALSE);
                 break;
             case R.id.toolbar_icon_search:
-                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = true);
+                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
                 break;
         }
     }
@@ -150,18 +171,24 @@ public class GalleryActivity extends AppCompatActivity implements
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
-                    closeIcon.setClickable(false);
+                    closeIcon.setClickable(Boolean.FALSE);
                     closeIcon.setImageResource(FlickrConstants.NUMBER_ZERO);
                 } else {
-                    closeIcon.setClickable(true);
+                    closeIcon.setClickable(Boolean.TRUE);
                     closeIcon.setImageResource(R.drawable.ic_close);
                 }
-                return true;
+                return Boolean.TRUE;
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
                 PrefUtils.setStoredQuery(GalleryActivity.this, query);
+                HistoryItem item = new HistoryItem(
+                        query,
+                        TimeUtils.getDate(),
+                        TimeUtils.getTime(GalleryActivity.this));
+                FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
+
                 AnimUtils.animateToolbarType(GalleryActivity.this, mSearchView, query.isEmpty());
                 mFragmentManager
                         .beginTransaction()
@@ -175,14 +202,14 @@ public class GalleryActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 String query = PrefUtils.getStoredQuery(GalleryActivity.this);
-                mSearchView.setQuery(query, false);
+                mSearchView.setQuery(query, Boolean.FALSE);
             }
         });
 
         closeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchView.setQuery(FlickrConstants.STRING_EMPTY, false);
+                mSearchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
                 FlickrUtils.showInfo(view, getString(R.string.text_search_query));
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }

@@ -5,20 +5,30 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.SettingsActivity;
+import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
 
 import java.util.Calendar;
 
 public final class NavUtils {
 
+    public static boolean sIsHistoryDialogShown;
     public static boolean sIsAboutDialogShown;
+
+    public static void showHistory(Context context) {
+        sIsHistoryDialogShown = Boolean.TRUE;
+        FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+        new HistoryFragment().show(fragmentManager, context.getString(R.string.dialog_history_tag));
+    }
 
     public static void startSettings(Activity activity) {
         Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
@@ -31,16 +41,16 @@ public final class NavUtils {
         final TextView developer = (TextView) view.findViewById(R.id.developer_url);
         final TextView email = (TextView) view.findViewById(R.id.btn_dialog_email);
         final TextView feedback = (TextView) view.findViewById(R.id.btn_dialog_feedback);
-        final TextView close = (TextView) view.findViewById(R.id.btn_dialog_close);
+        final TextView close = (TextView) view.findViewById(R.id.btn_about_close);
 
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                sIsAboutDialogShown = false;
+                sIsAboutDialogShown = Boolean.FALSE;
             }
         });
 
-        sIsAboutDialogShown = true;
+        sIsAboutDialogShown = Boolean.TRUE;
         builder.setView(view);
         final AlertDialog dialog = builder.show();
 

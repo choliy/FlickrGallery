@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
-public class AnimUtils {
+public final class AnimUtils {
 
     public static void animateView(Context context, View view, boolean show) {
         int animResId;
@@ -63,7 +63,7 @@ public class AnimUtils {
             toolbarSearch.startAnimation(show);
             toolbarSearch.setVisibility(View.VISIBLE);
 
-            searchView.setIconified(false);
+            searchView.setIconified(Boolean.FALSE);
         } else {
             Animation show = AnimationUtils.loadAnimation(context, animShowId);
             toolbarMain.startAnimation(show);
@@ -73,8 +73,8 @@ public class AnimUtils {
             toolbarSearch.startAnimation(hide);
             toolbarSearch.setVisibility(View.GONE);
 
-            searchView.setQuery(FlickrConstants.STRING_EMPTY, false);
-            searchView.setIconified(true);
+            searchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
+            searchView.setIconified(Boolean.TRUE);
         }
     }
 }

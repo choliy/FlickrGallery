@@ -7,8 +7,10 @@
     <dimen name="big_margin">32dp</dimen>
     <dimen name="view_length">48dp</dimen>
     <dimen name="toolbar_icon_size">64dp</dimen>
-    <dimen name="image_item_size">128dp</dimen>
+    <dimen name="image_dialog_size">96dp</dimen>
+    <dimen name="image_list_size">128dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="dialog_min_size">1000dp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_small">16sp</dimen>
 </resources>
