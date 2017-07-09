@@ -63,9 +63,9 @@
 
     <!-- Preferences Text -->
     <string name="pref_category_main">Main Settings</string>
-    <string name="pref_grid_title">List grid size</string>
-    <string name="pref_picture_title">Number of uploaded pictures per time</string>
-
+    <string name="pref_grid_size_title">Grid size</string>
+    <string name="pref_grid_style_title">Grid style</string>
+    <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_animation_title">Picture animation</string>
     <string name="pref_animation_summary">Picture animation after loading</string>
@@ -76,22 +76,32 @@
     <!-- Preferences Keys -->
     <string name="pref_key_first_start" translatable="false">key_first_start</string>
     <string name="pref_key_grid" translatable="false">key_grid</string>
+    <string name="pref_key_style" translatable="false">key_style</string>
     <string name="pref_key_picture" translatable="false">key_picture</string>
     <string name="pref_key_animation" translatable="false">key_animation</string>
     <string name="pref_key_restore" translatable="false">key_restore</string>
 
-    <!-- Grid Arrays -->
-    <string name="pref_grid_label_1" translatable="false">1 x 2</string>
-    <string name="pref_grid_label_2" translatable="false">2 x 3</string>
-    <string name="pref_grid_label_3" translatable="false">3 x 5</string>
-    <string name="pref_grid_label_4" translatable="false">4 x 7</string>
-    <string name="pref_grid_label_5" translatable="false">5 x 8</string>
+    <!-- Grid Size Arrays -->
+    <string name="pref_grid_size_label_1" translatable="false">1 x 2</string>
+    <string name="pref_grid_size_label_2" translatable="false">2 x 3</string>
+    <string name="pref_grid_size_label_3" translatable="false">3 x 5</string>
+    <string name="pref_grid_size_label_4" translatable="false">4 x 7</string>
+    <string name="pref_grid_size_label_5" translatable="false">5 x 8</string>
 
-    <string name="pref_grid_value_1" translatable="false">12</string>
-    <string name="pref_grid_value_2" translatable="false">23</string>
-    <string name="pref_grid_value_3" translatable="false">35</string>
-    <string name="pref_grid_value_4" translatable="false">47</string>
-    <string name="pref_grid_value_5" translatable="false">58</string>
+    <string name="pref_grid_size_value_1" translatable="false">12</string>
+    <string name="pref_grid_size_value_2" translatable="false">23</string>
+    <string name="pref_grid_size_value_3" translatable="false">35</string>
+    <string name="pref_grid_size_value_4" translatable="false">47</string>
+    <string name="pref_grid_size_value_5" translatable="false">58</string>
+
+    <!-- Grid Style Arrays -->
+    <string name="pref_grid_style_label_1">Simple style</string>
+    <string name="pref_grid_style_label_2">Divider style</string>
+    <string name="pref_grid_style_label_3">Card style</string>
+
+    <string name="pref_grid_style_value_1" translatable="false">simple</string>
+    <string name="pref_grid_style_value_2" translatable="false">divider</string>
+    <string name="pref_grid_style_value_3" translatable="false">card</string>
 
     <!-- Picture Arrays -->
     <string name="pref_picture_label_100">100 pictures</string>

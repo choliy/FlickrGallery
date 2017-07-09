@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="view_thickness">1dp</dimen>
+    <dimen name="list_card_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="material_margin">16dp</dimen>
     <dimen name="medium_margin">24dp</dimen>

@@ -48,7 +48,7 @@
             android:layout_marginStart="@dimen/medium_margin"
             android:text="@string/dialog_clear_btn"/>
 
-        <View style="@style/ViewStyle"/>
+        <View style="@style/ViewWeightStyle"/>
 
         <TextView
             android:id="@+id/btn_history_close"

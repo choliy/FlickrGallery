@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/list_item_gallery_blank"/>
+    <include layout="@layout/list_item_simple_blank"/>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/custom_lollipop_selector"
+        style="@style/ViewSelectorNewStyle"
         tools:targetApi="lollipop"/>
 
 </com.choliy.igor.flickrgallery.tool.SquareLayout>

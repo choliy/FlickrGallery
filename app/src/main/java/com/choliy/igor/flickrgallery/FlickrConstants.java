@@ -6,6 +6,7 @@ public interface FlickrConstants {
     String TOOLBAR_TYPE = "toolbar_type";
     String PREF_SEARCH_QUERY = "pref_search_query";
     String GRID_KEY = "grid_value_key";
+    String STYLE_KEY = "style_value_key";
     String PICTURE_KEY = "picture_value_key";
     String ANIMATION_KEY = "animation_value_key";
     int REQUEST_CODE = 777;
@@ -18,6 +19,7 @@ public interface FlickrConstants {
     int DEFAULT_LIST_POSITION = 0;
     int DEFAULT_PAGE_NUMBER = 1;
     String DEFAULT_GRID = "35";
+    String DEFAULT_STYLE = "simple";
     String DEFAULT_PICTURE = "100";
     boolean DEFAULT_ANIMATION = Boolean.TRUE;
 

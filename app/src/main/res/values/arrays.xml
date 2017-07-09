@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Grid Arrays -->
-    <array name="array_grid_label">
-        <item>@string/pref_grid_label_1</item>
-        <item>@string/pref_grid_label_2</item>
-        <item>@string/pref_grid_label_3</item>
-        <item>@string/pref_grid_label_4</item>
-        <item>@string/pref_grid_label_5</item>
+    <!-- Grid Size Arrays -->
+    <array name="array_grid_size_label">
+        <item>@string/pref_grid_size_label_1</item>
+        <item>@string/pref_grid_size_label_2</item>
+        <item>@string/pref_grid_size_label_3</item>
+        <item>@string/pref_grid_size_label_4</item>
+        <item>@string/pref_grid_size_label_5</item>
     </array>
 
-    <array name="array_grid_value">
-        <item>@string/pref_grid_value_1</item>
-        <item>@string/pref_grid_value_2</item>
-        <item>@string/pref_grid_value_3</item>
-        <item>@string/pref_grid_value_4</item>
-        <item>@string/pref_grid_value_5</item>
+    <array name="array_grid_size_value">
+        <item>@string/pref_grid_size_value_1</item>
+        <item>@string/pref_grid_size_value_2</item>
+        <item>@string/pref_grid_size_value_3</item>
+        <item>@string/pref_grid_size_value_4</item>
+        <item>@string/pref_grid_size_value_5</item>
+    </array>
+
+    <!-- Grid Style Arrays -->
+    <array name="array_grid_style_label">
+        <item>@string/pref_grid_style_label_1</item>
+        <item>@string/pref_grid_style_label_2</item>
+        <item>@string/pref_grid_style_label_3</item>
+    </array>
+
+    <array name="array_grid_style_value">
+        <item>@string/pref_grid_style_value_1</item>
+        <item>@string/pref_grid_style_value_2</item>
+        <item>@string/pref_grid_style_value_3</item>
     </array>
 
     <!-- Picture Arrays -->

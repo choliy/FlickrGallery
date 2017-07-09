@@ -112,7 +112,12 @@ public class HistoryFragment extends DialogFragment implements
         mHistoryAdapter = new HistoryAdapter(getActivity(), history, this);
         mRvHistory.setAdapter(mHistoryAdapter);
         mRvHistory.setHasFixedSize(Boolean.TRUE);
-        mRvHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        // set current property to false for avoid listItem width issue
+        layoutManager.setAutoMeasureEnabled(Boolean.FALSE);
+
+        mRvHistory.setLayoutManager(layoutManager);
         ItemTouchHelper touchHelper = new ItemTouchHelper(new OnHistorySwipeCallback());
         touchHelper.attachToRecyclerView(mRvHistory);
         checkHistory();

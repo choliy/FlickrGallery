@@ -17,6 +17,7 @@ public class SettingsFragment extends PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private ListPreference mGridPref;
+    private ListPreference mStylePref;
     private ListPreference mPicturePref;
     private SwitchPreference mAnimationPref;
 
@@ -27,14 +28,17 @@ public class SettingsFragment extends PreferenceFragment implements
 
         SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
         mGridPref = (ListPreference) findPreference(getString(R.string.pref_key_grid));
+        mStylePref = (ListPreference) findPreference(getString(R.string.pref_key_style));
         mPicturePref = (ListPreference) findPreference(getString(R.string.pref_key_picture));
         mAnimationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_animation));
         findPreference(getString(R.string.pref_key_restore)).setOnPreferenceClickListener(this);
 
         String gridValue = preferences.getString(mGridPref.getKey(), null);
+        String styleValue = preferences.getString(mStylePref.getKey(), null);
         String pictureValue = preferences.getString(mPicturePref.getKey(), null);
 
         setPreferenceSummary(mGridPref, gridValue);
+        setPreferenceSummary(mStylePref, styleValue);
         setPreferenceSummary(mPicturePref, pictureValue);
     }
 
@@ -93,6 +97,7 @@ public class SettingsFragment extends PreferenceFragment implements
             public void onClick(View view) {
                 dialog.dismiss();
                 mGridPref.setValueIndex(2);
+                mStylePref.setValueIndex(0);
                 mPicturePref.setValueIndex(0);
                 mAnimationPref.setChecked(Boolean.TRUE);
                 FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));

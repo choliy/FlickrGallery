@@ -65,10 +65,20 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ViewStyle">
+    <style name="ViewWeightStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="ViewSelectorOldStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/selector_list_old</item>
+    </style>
+
+    <style name="ViewSelectorNewStyle" parent="ViewSelectorOldStyle">
+        <item name="android:background">@drawable/selector_list_new</item>
     </style>
 
 </resources>

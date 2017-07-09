@@ -70,7 +70,7 @@
             android:layout_marginStart="@dimen/material_margin"
             android:text="@string/dialog_feedback_btn"/>
 
-        <View style="@style/ViewStyle"/>
+        <View style="@style/ViewWeightStyle"/>
 
         <TextView
             android:id="@+id/btn_about_close"

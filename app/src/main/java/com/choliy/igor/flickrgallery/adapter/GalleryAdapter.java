@@ -24,6 +24,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
     private List<GalleryItem> mItems;
     private OnPhotoHolderListener mListener;
 
+    public interface OnPhotoHolderListener {
+
+        void onRequestedLastItem(int position);
+
+        void onPhotoClicked(String photoId);
+
+    }
+
     public GalleryAdapter(
             Context context,
             List<GalleryItem> items,
@@ -36,10 +44,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     @Override
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        String savedStyle = PrefUtils.getStyleSettings(mContext);
+        String simpleStyle = mContext.getString(R.string.pref_grid_style_value_1);
+        String dividerStyle = mContext.getString(R.string.pref_grid_style_value_2);
+        String cardStyle = mContext.getString(R.string.pref_grid_style_value_3);
+
         int layout;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            layout = R.layout.list_item_gallery_lollipop;
-        else layout = R.layout.list_item_gallery_kitkat;
+        boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        if (savedStyle.equals(simpleStyle) && newVersion)
+            layout = R.layout.list_item_simple_new;
+        else if (savedStyle.equals(simpleStyle) && !newVersion)
+            layout = R.layout.list_item_simple_old;
+        else if (savedStyle.equals(dividerStyle) && newVersion)
+            layout = R.layout.list_item_divider_new;
+        else if (savedStyle.equals(dividerStyle) && !newVersion)
+            layout = R.layout.list_item_divider_old;
+        else if (savedStyle.equals(cardStyle) && newVersion)
+            layout = R.layout.list_item_card_new;
+        else
+            layout = R.layout.list_item_card_old;
+
         View view = LayoutInflater.from(mContext).inflate(layout, parent, Boolean.FALSE);
         return new PhotoHolder(view);
     }
@@ -61,7 +85,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item) ImageView mPhotoImage;
+        @BindView(R.id.gallery_image_item)
+        ImageView mPhotoImage;
 
         PhotoHolder(View itemView) {
             super(itemView);
@@ -89,13 +114,5 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
             if (position == getItemCount() - 1)
                 mListener.onRequestedLastItem(getItemCount());
         }
-    }
-
-    public interface OnPhotoHolderListener {
-
-        void onRequestedLastItem(int position);
-
-        void onPhotoClicked(String photoId);
-
     }
 }

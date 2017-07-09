@@ -13,6 +13,7 @@ import com.choliy.igor.flickrgallery.util.PrefUtils;
 public class SettingsActivity extends AppCompatActivity {
 
     private String mGridValue;
+    private String mStyleValue;
     private String mPictureValue;
     private String mAnimationValue;
 
@@ -24,10 +25,12 @@ public class SettingsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             String[] settings = PrefUtils.getSettings(this);
             mGridValue = settings[0];
-            mPictureValue = settings[1];
-            mAnimationValue = settings[2];
+            mStyleValue = settings[1];
+            mPictureValue = settings[2];
+            mAnimationValue = settings[3];
         } else {
             mGridValue = savedInstanceState.getString(FlickrConstants.GRID_KEY);
+            mStyleValue = savedInstanceState.getString(FlickrConstants.STYLE_KEY);
             mPictureValue = savedInstanceState.getString(FlickrConstants.PICTURE_KEY);
             mAnimationValue = savedInstanceState.getString(FlickrConstants.ANIMATION_KEY);
         }
@@ -36,6 +39,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(FlickrConstants.GRID_KEY, mGridValue);
+        outState.putString(FlickrConstants.STYLE_KEY, mStyleValue);
         outState.putString(FlickrConstants.PICTURE_KEY, mPictureValue);
         outState.putString(FlickrConstants.ANIMATION_KEY, mAnimationValue);
         super.onSaveInstanceState(outState);
@@ -53,14 +57,16 @@ public class SettingsActivity extends AppCompatActivity {
     private void checkAndFinish() {
         String[] settings = PrefUtils.getSettings(this);
         String gridValue = settings[0];
-        String pictureValue = settings[1];
-        String animationValue = settings[2];
+        String styleValue = settings[1];
+        String pictureValue = settings[2];
+        String animationValue = settings[3];
 
         boolean gridEquals = gridValue.equals(mGridValue);
+        boolean styleEquals = styleValue.equals(mStyleValue);
         boolean pictureEquals = pictureValue.equals(mPictureValue);
         boolean animationEquals = animationValue.equals(mAnimationValue);
 
-        if (!gridEquals || !pictureEquals || !animationEquals) {
+        if (!gridEquals || !styleEquals || !pictureEquals || !animationEquals) {
             setResult(RESULT_OK, new Intent());
             finish();
         } else {

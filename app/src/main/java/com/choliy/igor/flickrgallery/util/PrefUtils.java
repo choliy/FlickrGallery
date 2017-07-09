@@ -17,6 +17,7 @@ public final class PrefUtils {
             SharedPreferences.Editor edit = preferences.edit();
             edit.putBoolean(context.getString(R.string.pref_key_first_start), Boolean.TRUE);
             edit.putString(context.getString(R.string.pref_key_grid), FlickrConstants.DEFAULT_GRID);
+            edit.putString(context.getString(R.string.pref_key_style), FlickrConstants.DEFAULT_STYLE);
             edit.putString(context.getString(R.string.pref_key_picture), FlickrConstants.DEFAULT_PICTURE);
             edit.putBoolean(context.getString(R.string.pref_key_animation), FlickrConstants.DEFAULT_ANIMATION);
             edit.apply();
@@ -36,17 +37,22 @@ public final class PrefUtils {
     }
 
     public static String[] getSettings(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String gridValue = preferences.getString(context.getString(R.string.pref_key_grid), null);
-        String pictureValue = preferences.getString(context.getString(R.string.pref_key_picture), null);
-        boolean animationValue = preferences.getBoolean(context.getString(R.string.pref_key_animation), Boolean.FALSE);
+        String gridValue = getGridSettings(context);
+        String styleValue = getStyleSettings(context);
+        String pictureValue = getPictureSettings(context);
+        boolean animationValue = getAnimationSettings(context);
 
-        return new String[]{gridValue, pictureValue, String.valueOf(animationValue)};
+        return new String[]{gridValue, styleValue, pictureValue, String.valueOf(animationValue)};
     }
 
     public static String getGridSettings(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(context.getString(R.string.pref_key_grid), null);
+    }
+
+    public static String getStyleSettings(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(context.getString(R.string.pref_key_style), null);
     }
 
     public static String getPictureSettings(Context context) {
