@@ -194,7 +194,7 @@ public class GalleryActivity extends AppCompatActivity implements
                         .beginTransaction()
                         .replace(R.id.fragment_container, GalleryFragment.newInstance())
                         .commit();
-                return true;
+                return Boolean.TRUE;
             }
         });
 

@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
+import com.choliy.igor.flickrgallery.tool.HistoryLoader;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
@@ -33,16 +36,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HistoryFragment extends DialogFragment implements
-        HistoryAdapter.OnHistoryClickListener {
+        HistoryAdapter.OnHistoryClickListener,
+        LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     private HistoryAdapter mHistoryAdapter;
     private List<HistoryItem> mSavedHistory;
     private OnHistoryDialogClickListener mStartClickListener;
 
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
-    @BindView(R.id.btn_history_start) TextView mBtnStart;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
-    @BindView(R.id.btn_history_close) TextView mBtnClose;
     @BindView(R.id.no_history) LinearLayout mNoHistory;
 
     public interface OnHistoryDialogClickListener {
@@ -73,7 +75,9 @@ public class HistoryFragment extends DialogFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_history, container, Boolean.FALSE);
         ButterKnife.bind(this, view);
-        setupUi();
+        getActivity()
+                .getSupportLoaderManager()
+                .restartLoader(HistoryLoader.HISTORY_LOADER_ID, null, this);
         return view;
     }
 
@@ -81,6 +85,20 @@ public class HistoryFragment extends DialogFragment implements
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
+    }
+
+    @Override
+    public Loader<List<HistoryItem>> onCreateLoader(int id, Bundle args) {
+        return new HistoryLoader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<HistoryItem>> loader, List<HistoryItem> historyItems) {
+        setupUi(historyItems);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<HistoryItem>> loader) {
     }
 
     @Override
@@ -107,9 +125,8 @@ public class HistoryFragment extends DialogFragment implements
         }
     }
 
-    private void setupUi() {
-        List<HistoryItem> history = FlickrLab.getInstance(getActivity()).getHistory();
-        mHistoryAdapter = new HistoryAdapter(getActivity(), history, this);
+    private void setupUi(List<HistoryItem> historyItems) {
+        mHistoryAdapter = new HistoryAdapter(getActivity(), historyItems, this);
         mRvHistory.setAdapter(mHistoryAdapter);
         mRvHistory.setHasFixedSize(Boolean.TRUE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
