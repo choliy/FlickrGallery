@@ -4,28 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_thickness"
-        android:background="@color/colorPrimary"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_thickness"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"/>
-
-    <View
-        android:layout_width="@dimen/view_thickness"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"/>
-
-    <View
-        android:layout_width="@dimen/view_thickness"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/colorPrimary"/>
-
     <ImageView
         android:id="@+id/gallery_image_item"
         android:layout_width="match_parent"
@@ -33,5 +11,7 @@
         android:layout_margin="@dimen/view_thickness"
         android:contentDescription="@null"
         android:scaleType="centerCrop"/>
+
+    <include layout="@layout/divider_style_layout"/>
 
 </FrameLayout>

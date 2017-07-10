@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -36,6 +37,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
+    private boolean mNoMoreData;
     private boolean mDataLoaded;
     private boolean mDataRefreshing;
 
@@ -48,6 +50,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.no_connection) LinearLayout mConnectionLayout;
     @BindView(R.id.no_results) LinearLayout mResultsLayout;
+    @BindView(R.id.divider_style_layout) FrameLayout mDividerLayout;
 
     public static Fragment newInstance() {
         return new GalleryFragment();
@@ -69,9 +72,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
     @Override
     public void onRequestedLastItem(int position) {
-        ++mPageNumber;
-        mListPosition = position;
-        fetchData();
+        if (!mNoMoreData) {
+            ++mPageNumber;
+            mListPosition = position;
+            fetchData();
+        }
     }
 
     @Override
@@ -92,6 +97,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         setGridLayoutManager();
         setScrollListener();
         setRefreshLayout();
+        setRvStyle();
 
         if (mDataLoaded && isConnected()) updateUi();
         else fetchData();
@@ -144,6 +150,38 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
                 Boolean.FALSE, // scaling animation
                 30, // top position of the loading indicator
                 270); // max scrolling bottom position of current indicator
+    }
+
+    private void setRvStyle() {
+        String savedStyle = PrefUtils.getStyleSettings(getActivity());
+        String simpleStyle = getString(R.string.pref_grid_style_value_1);
+        String dividerStyle = getString(R.string.pref_grid_style_value_2);
+        String cardStyle = getString(R.string.pref_grid_style_value_3);
+
+        int paddingPixTop = FlickrConstants.NUMBER_ZERO;
+        int paddingPixAll = FlickrConstants.NUMBER_ZERO;
+
+        int paddingDpTop;
+        int paddingDpAll;
+        float density = getResources().getDisplayMetrics().density;
+
+        if (savedStyle.equals(simpleStyle)) {
+            paddingPixTop = 56;
+            paddingPixAll = 0;
+            mDividerLayout.setVisibility(View.INVISIBLE);
+        } else if (savedStyle.equals(dividerStyle)) {
+            paddingPixTop = 57;
+            paddingPixAll = 1;
+            mDividerLayout.setVisibility(View.VISIBLE);
+        } else if (savedStyle.equals(cardStyle)) {
+            paddingPixTop = 60;
+            paddingPixAll = 4;
+            mDividerLayout.setVisibility(View.INVISIBLE);
+        }
+
+        paddingDpTop = (int) (paddingPixTop * density);
+        paddingDpAll = (int) (paddingPixAll * density);
+        mRvGallery.setPadding(paddingDpAll, paddingDpTop, paddingDpAll, paddingDpAll);
     }
 
     private void fetchData() {
@@ -199,6 +237,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
 
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
+            mNoMoreData = items.isEmpty();
             if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
                 for (int i = 0; i < items.size(); i++) {
                     mItems.add(items.get(i));
