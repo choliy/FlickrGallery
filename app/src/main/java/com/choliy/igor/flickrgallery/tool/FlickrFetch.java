@@ -31,7 +31,6 @@ public class FlickrFetch {
             String jsonString = getJsonString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
-            //Log.i(TAG, "Response JSON: " + jsonString);
         } catch (JSONException je) {
             Log.e(TAG, "Failed to parse JSON", je);
         } catch (IOException ioe) {

@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
@@ -19,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String mStyleValue;
     private String mPictureValue;
     private String mAnimationValue;
+    private String mNotificationValue;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -36,20 +36,23 @@ public class SettingsActivity extends AppCompatActivity {
             mStyleValue = settings[1];
             mPictureValue = settings[2];
             mAnimationValue = settings[3];
+            mNotificationValue = settings[4];
         } else {
-            mGridValue = savedInstanceState.getString(FlickrConstants.GRID_KEY);
-            mStyleValue = savedInstanceState.getString(FlickrConstants.STYLE_KEY);
-            mPictureValue = savedInstanceState.getString(FlickrConstants.PICTURE_KEY);
-            mAnimationValue = savedInstanceState.getString(FlickrConstants.ANIMATION_KEY);
+            mGridValue = savedInstanceState.getString(getString(R.string.pref_key_grid));
+            mStyleValue = savedInstanceState.getString(getString(R.string.pref_key_style));
+            mPictureValue = savedInstanceState.getString(getString(R.string.pref_key_picture));
+            mAnimationValue = savedInstanceState.getString(getString(R.string.pref_key_animation));
+            mNotificationValue = savedInstanceState.getString(getString(R.string.pref_key_notification));
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(FlickrConstants.GRID_KEY, mGridValue);
-        outState.putString(FlickrConstants.STYLE_KEY, mStyleValue);
-        outState.putString(FlickrConstants.PICTURE_KEY, mPictureValue);
-        outState.putString(FlickrConstants.ANIMATION_KEY, mAnimationValue);
+        outState.putString(getString(R.string.pref_key_grid), mGridValue);
+        outState.putString(getString(R.string.pref_key_style), mStyleValue);
+        outState.putString(getString(R.string.pref_key_picture), mPictureValue);
+        outState.putString(getString(R.string.pref_key_animation), mAnimationValue);
+        outState.putString(getString(R.string.pref_key_notification), mNotificationValue);
         super.onSaveInstanceState(outState);
     }
 
@@ -68,13 +71,15 @@ public class SettingsActivity extends AppCompatActivity {
         String styleValue = settings[1];
         String pictureValue = settings[2];
         String animationValue = settings[3];
+        String notificationValue = settings[4];
 
         boolean gridEquals = gridValue.equals(mGridValue);
         boolean styleEquals = styleValue.equals(mStyleValue);
         boolean pictureEquals = pictureValue.equals(mPictureValue);
         boolean animationEquals = animationValue.equals(mAnimationValue);
+        boolean notificationEquals = notificationValue.equals(mNotificationValue);
 
-        if (!gridEquals || !styleEquals || !pictureEquals || !animationEquals) {
+        if (!gridEquals || !styleEquals || !pictureEquals || !animationEquals || !notificationEquals) {
             setResult(RESULT_OK, new Intent());
             finish();
         } else {

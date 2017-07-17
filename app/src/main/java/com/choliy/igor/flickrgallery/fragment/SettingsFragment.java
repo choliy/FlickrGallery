@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.util.AlarmUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 
 public class SettingsFragment extends PreferenceFragment implements
@@ -21,6 +22,7 @@ public class SettingsFragment extends PreferenceFragment implements
     private ListPreference mStylePref;
     private ListPreference mPicturePref;
     private SwitchPreference mAnimationPref;
+    private SwitchPreference mNotificationPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class SettingsFragment extends PreferenceFragment implements
         mStylePref = (ListPreference) findPreference(getString(R.string.pref_key_style));
         mPicturePref = (ListPreference) findPreference(getString(R.string.pref_key_picture));
         mAnimationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_animation));
+        mNotificationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_notification));
+        mNotificationPref.setOnPreferenceClickListener(this);
         findPreference(getString(R.string.pref_key_restore)).setOnPreferenceClickListener(this);
 
         String gridValue = preferences.getString(mGridPref.getKey(), null);
@@ -62,7 +66,10 @@ public class SettingsFragment extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        restoreDialog();
+        if (preference.getKey().equals(getString(R.string.pref_key_notification)))
+            stopNotificationService();
+        else
+            restoreDialog();
         return true;
     }
 
@@ -101,6 +108,8 @@ public class SettingsFragment extends PreferenceFragment implements
                 mStylePref.setValueIndex(0);
                 mPicturePref.setValueIndex(0);
                 mAnimationPref.setChecked(Boolean.TRUE);
+                mNotificationPref.setChecked(Boolean.FALSE);
+                stopNotificationService();
                 FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));
             }
         });
@@ -111,5 +120,9 @@ public class SettingsFragment extends PreferenceFragment implements
                 dialog.dismiss();
             }
         });
+    }
+
+    private void stopNotificationService() {
+        AlarmUtils.setServiceAlarm(getActivity(), mNotificationPref.isChecked());
     }
 }

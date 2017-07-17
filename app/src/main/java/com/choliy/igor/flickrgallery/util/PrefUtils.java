@@ -20,19 +20,32 @@ public final class PrefUtils {
             edit.putString(context.getString(R.string.pref_key_style), FlickrConstants.DEFAULT_STYLE);
             edit.putString(context.getString(R.string.pref_key_picture), FlickrConstants.DEFAULT_PICTURE);
             edit.putBoolean(context.getString(R.string.pref_key_animation), FlickrConstants.DEFAULT_ANIMATION);
+            edit.putBoolean(context.getString(R.string.pref_key_notification), FlickrConstants.DEFAULT_NOTIFICATION);
             edit.apply();
         }
     }
 
     public static String getStoredQuery(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(FlickrConstants.PREF_SEARCH_QUERY, null);
+                .getString(context.getString(R.string.pref_key_search), null);
     }
 
     public static void setStoredQuery(Context context, String query) {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
-                .putString(FlickrConstants.PREF_SEARCH_QUERY, query)
+                .putString(context.getString(R.string.pref_key_search), query)
+                .apply();
+    }
+
+    public static String getLastResultId(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(context.getString(R.string.pref_key_last_id), null);
+    }
+
+    public static void setLastResultId(Context context, String lastResultId) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(context.getString(R.string.pref_key_last_id), lastResultId)
                 .apply();
     }
 
@@ -41,8 +54,14 @@ public final class PrefUtils {
         String styleValue = getStyleSettings(context);
         String pictureValue = getPictureSettings(context);
         boolean animationValue = getAnimationSettings(context);
+        boolean notificationValue = getNotificationSettings(context);
 
-        return new String[]{gridValue, styleValue, pictureValue, String.valueOf(animationValue)};
+        return new String[]{
+                gridValue,
+                styleValue,
+                pictureValue,
+                String.valueOf(animationValue),
+                String.valueOf(notificationValue)};
     }
 
     public static String getGridSettings(Context context) {
@@ -63,5 +82,10 @@ public final class PrefUtils {
     public static boolean getAnimationSettings(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(context.getString(R.string.pref_key_animation), Boolean.FALSE);
+    }
+
+    private static boolean getNotificationSettings(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(context.getString(R.string.pref_key_notification), Boolean.FALSE);
     }
 }

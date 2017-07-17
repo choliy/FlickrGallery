@@ -19,7 +19,8 @@ public final class FlickrUtils {
 
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
+        boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
+        return isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
     }
 
     public static void hideKeyboard(Context context) {

@@ -24,15 +24,39 @@ public final class NavUtils {
     public static boolean sIsHistoryDialogShown;
     public static boolean sIsAboutDialogShown;
 
+    public static void onNavDrawerClicked(Context context, int id) {
+        switch (id) {
+            case R.id.nav_saved:
+                // TODO
+                break;
+            case R.id.nav_history:
+                showHistory(context);
+                break;
+            case R.id.nav_settings:
+                startSettings((AppCompatActivity) context);
+                break;
+            case R.id.nav_about:
+                aboutDialog(context);
+                break;
+            case R.id.nav_share:
+                shareIntent((AppCompatActivity) context);
+                break;
+            case R.id.nav_email:
+                emailIntent(context);
+                break;
+            case R.id.nav_feedback:
+                feedbackIntent(context);
+                break;
+            case R.id.nav_apps:
+                appsIntent(context);
+                break;
+        }
+    }
+
     public static void showHistory(Context context) {
         sIsHistoryDialogShown = Boolean.TRUE;
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         new HistoryFragment().show(fragmentManager, context.getString(R.string.dialog_history_tag));
-    }
-
-    public static void startSettings(Activity activity) {
-        Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
-        activity.startActivityForResult(intent, FlickrConstants.REQUEST_CODE);
     }
 
     public static void aboutDialog(final Context context) {
@@ -92,7 +116,12 @@ public final class NavUtils {
         });
     }
 
-    public static void shareIntent(Activity activity) {
+    private static void startSettings(Activity activity) {
+        Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
+        activity.startActivityForResult(intent, FlickrConstants.REQUEST_CODE);
+    }
+
+    private static void shareIntent(Activity activity) {
         ShareCompat.IntentBuilder
                 .from(activity)
                 .setType("text/plain")
@@ -101,7 +130,7 @@ public final class NavUtils {
                 .startChooser();
     }
 
-    public static void emailIntent(Context context) {
+    private static void emailIntent(Context context) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:" + context.getString(R.string.text_email)));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.text_subject));
@@ -109,13 +138,13 @@ public final class NavUtils {
         checkIntentBeforeLaunching(context, emailIntent);
     }
 
-    public static void feedbackIntent(Context context) {
+    private static void feedbackIntent(Context context) {
         String url = context.getString(R.string.app_url);
         Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         checkIntentBeforeLaunching(context, feedbackIntent);
     }
 
-    public static void appsIntent(Context context) {
+    private static void appsIntent(Context context) {
         String url = context.getString(R.string.apps_url);
         Intent appsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         checkIntentBeforeLaunching(context, appsIntent);

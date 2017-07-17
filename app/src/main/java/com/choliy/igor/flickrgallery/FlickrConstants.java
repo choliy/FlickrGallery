@@ -4,11 +4,6 @@ public interface FlickrConstants {
 
     // Keys
     String TOOLBAR_TYPE = "toolbar_type";
-    String PREF_SEARCH_QUERY = "pref_search_query";
-    String GRID_KEY = "grid_value_key";
-    String STYLE_KEY = "style_value_key";
-    String PICTURE_KEY = "picture_value_key";
-    String ANIMATION_KEY = "animation_value_key";
     int REQUEST_CODE = 777;
 
     // Empty values
@@ -22,6 +17,7 @@ public interface FlickrConstants {
     String DEFAULT_STYLE = "simple";
     String DEFAULT_PICTURE = "100";
     boolean DEFAULT_ANIMATION = Boolean.TRUE;
+    boolean DEFAULT_NOTIFICATION = Boolean.FALSE;
 
     // Date & Time format constants
     String DATE_FORMAT = "d MMMM yyyy";

@@ -46,6 +46,10 @@ public class GalleryActivity extends AppCompatActivity implements
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, GalleryActivity.class);
+    }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -57,31 +61,7 @@ public class GalleryActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_gallery);
         PrefUtils.isFirstStart(this);
         ButterKnife.bind(this);
-
-        mFragmentManager = getSupportFragmentManager();
-        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment_container);
-        if (fragment == null) {
-            fragment = GalleryFragment.newInstance();
-            mFragmentManager
-                    .beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
-        }
-
-        mNavigationView.setNavigationItemSelectedListener(this);
-        setSupportActionBar(mToolbar);
-        setupSearchView();
-
-        if (savedInstanceState != null) {
-            mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_TYPE);
-            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
-        }
-
-        if (NavUtils.sIsHistoryDialogShown)
-            NavUtils.showHistory(this);
-
-        if (NavUtils.sIsAboutDialogShown)
-            NavUtils.aboutDialog(this);
+        setupUi(savedInstanceState);
     }
 
     @Override
@@ -111,33 +91,7 @@ public class GalleryActivity extends AppCompatActivity implements
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_saved:
-                // TODO
-                break;
-            case R.id.nav_history:
-                NavUtils.showHistory(this);
-                break;
-            case R.id.nav_settings:
-                NavUtils.startSettings(this);
-                break;
-            case R.id.nav_about:
-                NavUtils.aboutDialog(this);
-                break;
-            case R.id.nav_share:
-                NavUtils.shareIntent(this);
-                break;
-            case R.id.nav_email:
-                NavUtils.emailIntent(this);
-                break;
-            case R.id.nav_feedback:
-                NavUtils.feedbackIntent(this);
-                break;
-            case R.id.nav_apps:
-                NavUtils.appsIntent(this);
-                break;
-        }
-
+        NavUtils.onNavDrawerClicked(this, item.getItemId());
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -167,6 +121,30 @@ public class GalleryActivity extends AppCompatActivity implements
                 AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
                 break;
         }
+    }
+
+    private void setupUi(Bundle bundle) {
+        mFragmentManager = getSupportFragmentManager();
+        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            fragment = GalleryFragment.newInstance();
+            mFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit();
+        }
+
+        mNavigationView.setNavigationItemSelectedListener(this);
+        setSupportActionBar(mToolbar);
+        setupSearchView();
+
+        if (bundle != null) {
+            mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_TYPE);
+            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
+        }
+
+        if (NavUtils.sIsHistoryDialogShown) NavUtils.showHistory(this);
+        if (NavUtils.sIsAboutDialogShown) NavUtils.aboutDialog(this);
     }
 
     private void setupSearchView() {

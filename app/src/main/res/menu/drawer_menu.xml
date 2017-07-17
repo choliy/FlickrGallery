@@ -7,8 +7,8 @@
 
             <item
                 android:id="@+id/nav_saved"
-                android:icon="@drawable/ic_image"
-                android:title="@string/nav_saved_images"/>
+                android:icon="@drawable/ic_pictures"
+                android:title="@string/nav_saved_pictures"/>
 
             <item
                 android:id="@+id/nav_history"
