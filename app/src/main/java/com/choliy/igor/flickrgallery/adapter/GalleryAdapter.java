@@ -29,7 +29,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
         void onRequestedLastItem(int position);
 
         void onPhotoClicked(String photoId);
-
     }
 
     public GalleryAdapter(
@@ -44,6 +43,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
     @Override
     public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(setupLayout(), parent, Boolean.FALSE);
+        return new PhotoHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(PhotoHolder holder, int position) {
+        holder.bindItem(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mItems.size();
+    }
+
+    public void updateItems(List<GalleryItem> items) {
+        mItems = items;
+        notifyDataSetChanged();
+    }
+
+    private int setupLayout() {
         String savedStyle = PrefUtils.getStyleSettings(mContext);
         String simpleStyle = mContext.getString(R.string.pref_grid_style_value_1);
         String dividerStyle = mContext.getString(R.string.pref_grid_style_value_2);
@@ -64,29 +83,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
         else
             layout = R.layout.list_item_card_old;
 
-        View view = LayoutInflater.from(mContext).inflate(layout, parent, Boolean.FALSE);
-        return new PhotoHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(PhotoHolder holder, int position) {
-        holder.bindItem(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    public void updateItems(List<GalleryItem> items) {
-        mItems = items;
-        notifyDataSetChanged();
+        return layout;
     }
 
     class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item)
-        ImageView mPhotoImage;
+        @BindView(R.id.gallery_image_item) ImageView mPhotoImage;
 
         PhotoHolder(View itemView) {
             super(itemView);

@@ -116,4 +116,9 @@
     <string name="pref_picture_value_400" translatable="false">400</string>
     <string name="pref_picture_value_500" translatable="false">500</string>
 
+    <!-- Fonts -->
+    <string name="font_light" translatable="false">"font/raleway-light.ttf"</string>
+    <string name="font_medium" translatable="false">"font/raleway-medium.ttf"</string>
+    <string name="font_bold" translatable="false">"font/raleway-bold.ttf"</string>
+
 </resources>

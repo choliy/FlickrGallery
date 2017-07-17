@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.R;
 
 public final class FlickrUtils {
 
@@ -27,5 +29,13 @@ public final class FlickrUtils {
             imm.hideSoftInputFromWindow(view.getWindowToken(), FlickrConstants.NUMBER_ZERO);
             view.clearFocus();
         }
+    }
+
+    public static int getActionBarHeight(Context context) {
+        TypedValue tv = new TypedValue();
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, Boolean.TRUE))
+            return TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());
+        else
+            return Math.round(context.getResources().getDimension(R.dimen.toolbar_height));
     }
 }

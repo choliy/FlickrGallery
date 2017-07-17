@@ -26,8 +26,6 @@
 
     <include layout="@layout/item_no_results"/>
 
-    <include layout="@layout/divider_style_layout"/>
-
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"

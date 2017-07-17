@@ -1,5 +1,6 @@
 package com.choliy.igor.flickrgallery.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import com.choliy.igor.flickrgallery.util.TimeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class GalleryActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
@@ -43,6 +45,11 @@ public class GalleryActivity extends AppCompatActivity implements
     @BindView(R.id.search_view) SearchView mSearchView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

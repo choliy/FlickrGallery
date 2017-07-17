@@ -17,6 +17,7 @@
 
         <TextView
             android:id="@+id/text_history_title"
+            fontPath="@string/font_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/small_margin"

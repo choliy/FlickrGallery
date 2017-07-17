@@ -14,7 +14,8 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 
 public class SettingsFragment extends PreferenceFragment implements
-        SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        Preference.OnPreferenceClickListener {
 
     private ListPreference mGridPref;
     private ListPreference mStylePref;

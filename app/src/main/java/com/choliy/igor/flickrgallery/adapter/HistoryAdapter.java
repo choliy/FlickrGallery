@@ -22,9 +22,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
     private OnHistoryClickListener mListener;
 
     public interface OnHistoryClickListener {
-
         void onHistoryClick(String historyTitle);
-
     }
 
     public HistoryAdapter(Context context,
