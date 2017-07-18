@@ -108,7 +108,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
             if (animationOn) {
                 Glide.with(mContext)
                         .load(url)
-                        .animate(R.anim.anim_photo)
+                        .animate(R.anim.anim_picture)
                         .into(mPhotoImage);
             } else Glide.with(mContext).load(url).into(mPhotoImage);
 

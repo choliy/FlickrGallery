@@ -4,7 +4,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="ActivityAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_show_alpha</item>
+        <item name="android:windowExitAnimation">@anim/anim_hide_alpha</item>
     </style>
 
     <style name="InfoLayoutStyle">

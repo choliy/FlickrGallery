@@ -19,10 +19,10 @@ public final class AnimUtils {
     public static void animateView(Context context, View view, boolean show) {
         int animResId;
         if (show) {
-            animResId = R.anim.anim_show_view;
+            animResId = R.anim.anim_show_translate;
             view.setVisibility(View.VISIBLE);
         } else {
-            animResId = R.anim.anim_hide_view;
+            animResId = R.anim.anim_hide_translate;
             view.setVisibility(View.INVISIBLE);
         }
 
@@ -52,8 +52,8 @@ public final class AnimUtils {
         LinearLayout toolbarMain = (LinearLayout) toolbar.findViewById(R.id.toolbar_main);
         LinearLayout toolbarSearch = (LinearLayout) toolbar.findViewById(R.id.toolbar_search);
 
-        int animHideId = R.anim.anim_hide_toolbar;
-        int animShowId = R.anim.anim_show_toolbar;
+        int animHideId = R.anim.anim_hide_alpha;
+        int animShowId = R.anim.anim_show_alpha;
         if (showSearchType) {
             Animation hide = AnimationUtils.loadAnimation(context, animHideId);
             toolbarMain.startAnimation(hide);
