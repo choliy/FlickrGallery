@@ -3,12 +3,12 @@ package com.choliy.igor.flickrgallery;
 public interface FlickrConstants {
 
     // Keys
-    String TOOLBAR_TYPE = "toolbar_type";
-    int REQUEST_CODE = 777;
+    String NOTIFICATION_KEY = "notification_key";
+    String TOOLBAR_KEY = "toolbar_key";
 
     // Empty values
     String STRING_EMPTY = "";
-    int NUMBER_ZERO = 0;
+    int INT_ZERO = 0;
 
     // Default values
     int DEFAULT_LIST_POSITION = 0;

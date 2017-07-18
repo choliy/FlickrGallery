@@ -84,7 +84,7 @@ public final class PrefUtils {
         return preferences.getBoolean(context.getString(R.string.pref_key_animation), Boolean.FALSE);
     }
 
-    private static boolean getNotificationSettings(Context context) {
+    public static boolean getNotificationSettings(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(context.getString(R.string.pref_key_notification), Boolean.FALSE);
     }

@@ -27,7 +27,7 @@ public final class FlickrUtils {
         View view = ((AppCompatActivity) context).getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), FlickrConstants.NUMBER_ZERO);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), FlickrConstants.INT_ZERO);
             view.clearFocus();
         }
     }

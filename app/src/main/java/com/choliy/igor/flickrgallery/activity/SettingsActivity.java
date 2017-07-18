@@ -12,7 +12,7 @@ import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BroadcastActivity {
 
     private String mGridValue;
     private String mStyleValue;

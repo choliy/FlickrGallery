@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.SettingsActivity;
 import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
@@ -21,6 +20,7 @@ import java.util.Calendar;
 
 public final class NavUtils {
 
+    public static final int REQUEST_CODE = 777;
     public static boolean sIsHistoryDialogShown;
     public static boolean sIsAboutDialogShown;
 
@@ -118,7 +118,7 @@ public final class NavUtils {
 
     private static void startSettings(Activity activity) {
         Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
-        activity.startActivityForResult(intent, FlickrConstants.REQUEST_CODE);
+        activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
     private static void shareIntent(Activity activity) {

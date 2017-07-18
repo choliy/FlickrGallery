@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -36,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class GalleryActivity extends AppCompatActivity implements
+public class GalleryActivity extends BroadcastActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         HistoryFragment.OnHistoryDialogClickListener {
 
@@ -68,7 +67,7 @@ public class GalleryActivity extends AppCompatActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(FlickrConstants.TOOLBAR_TYPE, mShowSearchType);
+        outState.putBoolean(FlickrConstants.TOOLBAR_KEY, mShowSearchType);
         super.onSaveInstanceState(outState);
     }
 
@@ -82,7 +81,7 @@ public class GalleryActivity extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FlickrConstants.REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NavUtils.REQUEST_CODE && resultCode == RESULT_OK) {
             AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
             mFragmentManager
                     .beginTransaction()
@@ -142,7 +141,7 @@ public class GalleryActivity extends AppCompatActivity implements
         setupDevDate();
 
         if (bundle != null) {
-            mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_TYPE);
+            mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_KEY);
             AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
         }
 
@@ -160,7 +159,7 @@ public class GalleryActivity extends AppCompatActivity implements
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
                     closeIcon.setClickable(Boolean.FALSE);
-                    closeIcon.setImageResource(FlickrConstants.NUMBER_ZERO);
+                    closeIcon.setImageResource(FlickrConstants.INT_ZERO);
                 } else {
                     closeIcon.setClickable(Boolean.TRUE);
                     closeIcon.setImageResource(R.drawable.ic_close);
@@ -205,7 +204,7 @@ public class GalleryActivity extends AppCompatActivity implements
     }
 
     private void setupDevDate() {
-        View header = mNavigationView.getHeaderView(FlickrConstants.NUMBER_ZERO);
+        View header = mNavigationView.getHeaderView(FlickrConstants.INT_ZERO);
         TextView developer = (TextView) header.findViewById(R.id.nav_text_developer);
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String text = getString(R.string.dialog_developer, String.valueOf(year));

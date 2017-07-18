@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.tool;
+package com.choliy.igor.flickrgallery.async;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;

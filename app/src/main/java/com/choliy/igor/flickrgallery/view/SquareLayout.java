@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.tool;
+package com.choliy.igor.flickrgallery.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

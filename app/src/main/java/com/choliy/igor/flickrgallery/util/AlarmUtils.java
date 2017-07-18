@@ -5,14 +5,13 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
-import com.choliy.igor.flickrgallery.NotificationService;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.GalleryActivity;
+import com.choliy.igor.flickrgallery.async.NotificationService;
 
 public final class AlarmUtils {
 
@@ -20,9 +19,9 @@ public final class AlarmUtils {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(
                 context,
-                FlickrConstants.NUMBER_ZERO,
+                FlickrConstants.INT_ZERO,
                 NotificationService.newIntent(context),
-                FlickrConstants.NUMBER_ZERO);
+                FlickrConstants.INT_ZERO);
 
         if (startService) {
             alarmManager.setInexactRepeating(
@@ -36,8 +35,8 @@ public final class AlarmUtils {
         }
     }
 
-    public static void showNotification(Context context, String contentText) {
-        Notification notification = new NotificationCompat.Builder(context)
+    public static Notification getNotification(Context context, String contentText) {
+        return new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_notifications_white)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(contentText)
@@ -49,15 +48,12 @@ public final class AlarmUtils {
                 .setContentIntent(getContentIntent(context))
                 .setAutoCancel(Boolean.TRUE)
                 .build();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(FlickrConstants.NUMBER_ZERO, notification);
     }
 
     private static PendingIntent getContentIntent(Context context) {
         return PendingIntent.getActivity(context,
-                FlickrConstants.NUMBER_ZERO,
+                FlickrConstants.INT_ZERO,
                 GalleryActivity.newIntent(context),
-                FlickrConstants.NUMBER_ZERO);
+                FlickrConstants.INT_ZERO);
     }
 }

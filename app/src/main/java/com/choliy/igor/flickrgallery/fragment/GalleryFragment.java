@@ -18,13 +18,13 @@ import android.widget.ProgressBar;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
+import com.choliy.igor.flickrgallery.async.FlickrFetch;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.tool.FlickrFetch;
-import com.choliy.igor.flickrgallery.tool.HidingScrollListener;
-import com.choliy.igor.flickrgallery.tool.ItemOffsetDecoration;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
+import com.choliy.igor.flickrgallery.view.HidingScrollListener;
+import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,8 +134,8 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         // Set the offset from top of the screen for SwipeRefreshLayout
         mRefreshLayout.setProgressViewOffset(
                 Boolean.FALSE, // scaling animation
-                30, // top position of the loading indicator
-                270); // max scrolling bottom position of current indicator
+                40, // top position of the loading indicator
+                300); // max scrolling bottom position of current indicator
     }
 
     private int[] setGridLayoutManager() {

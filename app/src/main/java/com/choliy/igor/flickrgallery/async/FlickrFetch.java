@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.tool;
+package com.choliy.igor.flickrgallery.async;
 
 import android.content.Context;
 import android.net.Uri;
@@ -83,7 +83,7 @@ public class FlickrFetch {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             while ((bytesRead = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, bytesRead);
+                outputStream.write(buffer, FlickrConstants.INT_ZERO, bytesRead);
             }
 
             outputStream.close();

@@ -67,7 +67,7 @@ public class SettingsFragment extends PreferenceFragment implements
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference.getKey().equals(getString(R.string.pref_key_notification)))
-            stopNotificationService();
+            setupNotificationService(mNotificationPref.isChecked());
         else
             restoreDialog();
         return true;
@@ -109,7 +109,7 @@ public class SettingsFragment extends PreferenceFragment implements
                 mPicturePref.setValueIndex(0);
                 mAnimationPref.setChecked(Boolean.TRUE);
                 mNotificationPref.setChecked(Boolean.FALSE);
-                stopNotificationService();
+                setupNotificationService(Boolean.FALSE);
                 FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));
             }
         });
@@ -122,7 +122,7 @@ public class SettingsFragment extends PreferenceFragment implements
         });
     }
 
-    private void stopNotificationService() {
-        AlarmUtils.setServiceAlarm(getActivity(), mNotificationPref.isChecked());
+    private void setupNotificationService(boolean startService) {
+        AlarmUtils.setServiceAlarm(getActivity().getApplicationContext(), startService);
     }
 }

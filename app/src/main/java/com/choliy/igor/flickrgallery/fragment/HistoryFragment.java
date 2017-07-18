@@ -25,7 +25,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
-import com.choliy.igor.flickrgallery.tool.HistoryLoader;
+import com.choliy.igor.flickrgallery.async.HistoryLoader;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
@@ -214,7 +214,7 @@ public class HistoryFragment extends DialogFragment implements
 
         @Override
         protected Void doInBackground(Boolean... bool) {
-            mClearHistoryBase = bool[FlickrConstants.NUMBER_ZERO];
+            mClearHistoryBase = bool[FlickrConstants.INT_ZERO];
             if (mClearHistoryBase) {
                 FlickrLab.getInstance(getActivity()).deleteAllHistory();
                 PrefUtils.setStoredQuery(getActivity(), null);
@@ -244,7 +244,7 @@ public class HistoryFragment extends DialogFragment implements
         private HistoryItem mSingleHistory;
 
         OnHistorySwipeCallback() {
-            super(FlickrConstants.NUMBER_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+            super(FlickrConstants.INT_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         }
 
         @Override

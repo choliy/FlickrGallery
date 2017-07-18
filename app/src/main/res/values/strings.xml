@@ -4,6 +4,10 @@
         https://play.google.com/store/apps/details?id=com.choliy.igor.todolist</string>
     <string name="apps_url" translatable="false">
         https://play.google.com/store/search?q=igor%20choliy&amp;c=apps</string>
+    <string name="broadcast_action_name" translatable="false">
+        com.choliy.igor.flickrgallery.ACTION_SHOW_NOTIFICATION</string>
+    <string name="broadcast_permission" translatable="false">
+        com.choliy.igor.flickrgallery.PERMISSION_PRIVATE</string>
 
     <!-- Info Text-->
     <string name="text_hint_search">Search photo</string>

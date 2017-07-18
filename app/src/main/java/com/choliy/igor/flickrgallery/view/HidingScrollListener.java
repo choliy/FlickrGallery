@@ -1,12 +1,14 @@
-package com.choliy.igor.flickrgallery.tool;
+package com.choliy.igor.flickrgallery.view;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
+
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
 
     private static final int HIDE_THRESHOLD = 20;
-    private int scrolledDistance = 0;
+    private int scrolledDistance = FlickrConstants.INT_ZERO;
     private boolean controlsVisible = Boolean.TRUE;
 
     public abstract void onHide();
