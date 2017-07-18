@@ -46,6 +46,7 @@
             android:id="@+id/btn_history_clear"
             style="@style/DialogButtonStyle"
             android:layout_marginStart="@dimen/medium_margin"
+            android:paddingStart="@dimen/size_zero"
             android:text="@string/dialog_clear_btn"/>
 
         <View style="@style/ViewWeightStyle"/>
@@ -54,6 +55,7 @@
             android:id="@+id/btn_history_close"
             style="@style/DialogButtonStyle"
             android:layout_marginEnd="@dimen/medium_margin"
+            android:paddingEnd="@dimen/size_zero"
             android:text="@string/dialog_close_btn"/>
 
     </LinearLayout>

@@ -30,6 +30,8 @@ import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -137,6 +139,7 @@ public class GalleryActivity extends AppCompatActivity implements
         mNavigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(mToolbar);
         setupSearchView();
+        setupDevDate();
 
         if (bundle != null) {
             mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_TYPE);
@@ -199,5 +202,13 @@ public class GalleryActivity extends AppCompatActivity implements
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }
         });
+    }
+
+    private void setupDevDate() {
+        View header = mNavigationView.getHeaderView(FlickrConstants.NUMBER_ZERO);
+        TextView developer = (TextView) header.findViewById(R.id.nav_text_developer);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String text = getString(R.string.dialog_developer, String.valueOf(year));
+        developer.setText(text);
     }
 }

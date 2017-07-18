@@ -38,10 +38,9 @@ public final class AlarmUtils {
 
     public static void showNotification(Context context, String contentText) {
         Notification notification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.ic_notifications_white)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(contentText)
-                .setDefaults(Notification.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setDefaults(Notification.DEFAULT_SOUND)

@@ -14,7 +14,6 @@
     <string name="text_no_results">No results for your query</string>
     <string name="text_search_query">Search query was restored</string>
     <string name="text_new_pictures">You have new pictures from search query - \"%1$s\"</string>
-    <string name="text_developer" translatable="false">© 2017 by Igor Choliy</string>
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
     <string name="text_subject" translatable="false">About \"Flickr Gallery\"</string>
     <string name="text_hello" translatable="false">Hello Igor.\n\n\n</string>

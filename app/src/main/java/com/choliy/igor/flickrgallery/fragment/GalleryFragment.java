@@ -160,7 +160,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
         int orientation = gridSize[0];
         int verticalGrid = gridSize[1];
         int horizontalGrid = gridSize[2];
-        int gridMargin = Math.round(getResources().getDimension(R.dimen.list_card_margin));
+        int gridMargin = Math.round(getResources().getDimension(R.dimen.list_divider_margin));
         ItemOffsetDecoration decoration;
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT)

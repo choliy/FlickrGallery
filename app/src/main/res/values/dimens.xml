@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="size_zero">0dp</dimen>
     <dimen name="view_thickness">1dp</dimen>
+    <dimen name="list_divider_margin">3dp</dimen>
     <dimen name="list_card_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="material_margin">16dp</dimen>
@@ -13,6 +15,8 @@
     <dimen name="image_list_size">128dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="dialog_min_size">1000dp</dimen>
-    <dimen name="text_medium">18sp</dimen>
+
+    <!-- Text_sizes -->
     <dimen name="text_small">16sp</dimen>
+    <dimen name="text_medium">18sp</dimen>
 </resources>

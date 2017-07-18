@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/nav_drawer_header"
@@ -27,10 +28,9 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/naw_text_header"
-            fontPath="@string/font_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
             android:shadowColor="@color/textColorGray"
             android:shadowDx="5"
@@ -41,12 +41,11 @@
             android:textColor="@android:color/white"/>
 
         <TextView
-            android:id="@+id/naw_text_developer"
+            android:id="@+id/nav_text_developer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:text="@string/text_developer"
-            android:textColor="@color/textColorGray"/>
+            android:textColor="@color/textColorGray"
+            tools:text="@string/dialog_developer"/>
 
     </LinearLayout>
 

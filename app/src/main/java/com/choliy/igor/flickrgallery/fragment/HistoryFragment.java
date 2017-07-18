@@ -1,9 +1,10 @@
 package com.choliy.igor.flickrgallery.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
@@ -57,7 +59,6 @@ public class HistoryFragment extends DialogFragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         try {
             mStartClickListener = (OnHistoryDialogClickListener) context;
         } catch (ClassCastException e) {
@@ -81,10 +82,15 @@ public class HistoryFragment extends DialogFragment implements
         return view;
     }
 
+    @NonNull
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()) {
+            @Override
+            public void onBackPressed() {
+                closeHistoryDialog();
+            }
+        };
     }
 
     @Override
@@ -103,24 +109,22 @@ public class HistoryFragment extends DialogFragment implements
 
     @Override
     public void onHistoryClick(String historyTitle) {
+        closeHistoryDialog();
         mStartClickListener.onHistoryClick(historyTitle);
-        getDialog().dismiss();
     }
 
     @OnClick({R.id.btn_history_start, R.id.btn_history_clear, R.id.btn_history_close})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_history_start:
-                getDialog().dismiss();
+                closeHistoryDialog();
                 mStartClickListener.onStartClick();
-                NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
                 break;
             case R.id.btn_history_clear:
                 clearDialog();
                 break;
             case R.id.btn_history_close:
-                getDialog().dismiss();
-                NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
+                closeHistoryDialog();
                 break;
         }
     }
@@ -133,7 +137,6 @@ public class HistoryFragment extends DialogFragment implements
 
         // set current property to false for avoid listItem width issue
         layoutManager.setAutoMeasureEnabled(Boolean.FALSE);
-
         mRvHistory.setLayoutManager(layoutManager);
         ItemTouchHelper touchHelper = new ItemTouchHelper(new OnHistorySwipeCallback());
         touchHelper.attachToRecyclerView(mRvHistory);
@@ -155,9 +158,7 @@ public class HistoryFragment extends DialogFragment implements
         final View view = View.inflate(getActivity(), R.layout.dialog_clear, null);
         final TextView yes = (TextView) view.findViewById(R.id.btn_clear_yes);
         final TextView no = (TextView) view.findViewById(R.id.btn_clear_no);
-
-        builder.setView(view);
-        final AlertDialog dialog = builder.show();
+        final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,13 +203,18 @@ public class HistoryFragment extends DialogFragment implements
         snackbar.show();
     }
 
+    private void closeHistoryDialog() {
+        NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
+        getDialog().dismiss();
+    }
+
     private class SaveHistoryAsyncTask extends AsyncTask<Boolean, Void, Void> {
 
         private boolean mClearHistoryBase;
 
         @Override
         protected Void doInBackground(Boolean... bool) {
-            mClearHistoryBase = bool[0];
+            mClearHistoryBase = bool[FlickrConstants.NUMBER_ZERO];
             if (mClearHistoryBase) {
                 FlickrLab.getInstance(getActivity()).deleteAllHistory();
                 PrefUtils.setStoredQuery(getActivity(), null);
@@ -238,7 +244,7 @@ public class HistoryFragment extends DialogFragment implements
         private HistoryItem mSingleHistory;
 
         OnHistorySwipeCallback() {
-            super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+            super(FlickrConstants.NUMBER_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         }
 
         @Override

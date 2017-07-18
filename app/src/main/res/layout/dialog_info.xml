@@ -51,7 +51,7 @@
         android:clickable="true"
         android:textColor="@drawable/selector_dialog"
         android:textSize="@dimen/text_small"
-        tools:text="@string/text_developer"/>
+        tools:text="@string/dialog_developer"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,6 +62,7 @@
         <TextView
             android:id="@+id/btn_dialog_email"
             style="@style/DialogButtonStyle"
+            android:paddingStart="@dimen/size_zero"
             android:text="@string/dialog_email_btn"/>
 
         <TextView
@@ -75,6 +76,7 @@
         <TextView
             android:id="@+id/btn_about_close"
             style="@style/DialogButtonStyle"
+            android:paddingEnd="@dimen/size_zero"
             android:text="@string/dialog_close_btn"/>
 
     </LinearLayout>
