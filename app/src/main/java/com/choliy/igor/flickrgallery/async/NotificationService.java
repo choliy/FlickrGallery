@@ -31,7 +31,7 @@ public class NotificationService extends IntentService {
         if (!FlickrUtils.isNetworkConnected(getApplicationContext())) return;
 
         String query = PrefUtils.getStoredQuery(this);
-        if (query.isEmpty()) return;
+        if (query == null) return;
 
         List<GalleryItem> gallery = new FlickrFetch().downloadGallery(
                 getApplicationContext(),
