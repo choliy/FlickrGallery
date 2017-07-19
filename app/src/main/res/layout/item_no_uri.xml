@@ -2,20 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    android:id="@+id/layout_no_connection"
+    android:id="@+id/layout_no_uri"
     style="@style/InfoLayoutStyle"
     tool:visibility="visible">
 
     <ImageView
         style="@style/InfoImageStyle"
         android:contentDescription="@null"
-        android:src="@drawable/ic_no_connection"/>
+        android:src="@drawable/ic_wrong_uri"/>
 
     <TextView
         style="@style/OopsTextStyle"/>
 
     <TextView
         style="@style/InfoTextStyle"
-        android:text="@string/text_no_connection"/>
+        android:text="@string/text_wrong_uri"/>
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.choliy.igor.flickrgallery.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -10,7 +9,6 @@ import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SettingsActivity extends BroadcastActivity {
 
@@ -19,11 +17,6 @@ public class SettingsActivity extends BroadcastActivity {
     private String mPictureValue;
     private String mAnimationValue;
     private String mNotificationValue;
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

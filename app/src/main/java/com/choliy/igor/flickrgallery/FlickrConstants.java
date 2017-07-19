@@ -6,6 +6,7 @@ public interface FlickrConstants {
     String NOTIFICATION_KEY = "notification_key";
     String TOOLBAR_KEY = "toolbar_key";
     String TITLE_KEY = "title_key";
+    String URI_KEY = "uri_key";
 
     // Empty values
     String STRING_EMPTY = "";
@@ -34,6 +35,7 @@ public interface FlickrConstants {
     String JSON_ID = "id";
     String JSON_TITLE = "title";
     String JSON_UPLOAD_DATE = "dateupload";
+    String JSON_OWNER_ID = "owner";
     String JSON_OWNER_NAME = "ownername";
-    String JSON_PICTURE_URL = "url_s";
+    String JSON_SMALL_PICTURE_URL = "url_s";
 }

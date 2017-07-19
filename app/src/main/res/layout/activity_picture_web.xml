@@ -8,8 +8,16 @@
     <include layout="@layout/toolbar_picture"/>
 
     <FrameLayout
-        android:id="@+id/web_view_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <include layout="@layout/item_no_uri"/>
+
+        <FrameLayout
+            android:id="@+id/web_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
 
 </LinearLayout>

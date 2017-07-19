@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tool="http://schemas.android.com/tools"
-    android:id="@+id/no_history"
+    android:id="@+id/layout_no_history"
     style="@style/InfoLayoutStyle"
     tool:visibility="visible">
 

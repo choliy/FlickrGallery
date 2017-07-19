@@ -47,7 +47,7 @@ public class HistoryFragment extends DialogFragment implements
 
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
-    @BindView(R.id.no_history) LinearLayout mNoHistory;
+    @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
 
     public interface OnHistoryDialogClickListener {
 

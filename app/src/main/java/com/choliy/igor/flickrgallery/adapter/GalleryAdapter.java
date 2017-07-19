@@ -28,7 +28,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         void onRequestedLastItem(int position);
 
-        void onPictureClicked(String pictureTitle);
+        void onPictureClicked(String pictureTitle, String itemUri);
     }
 
     public GalleryAdapter(
@@ -63,25 +63,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     }
 
     private int setupLayout() {
-        String savedStyle = PrefUtils.getStyleSettings(mContext);
-        String simpleStyle = mContext.getString(R.string.pref_grid_style_value_1);
-        String dividerStyle = mContext.getString(R.string.pref_grid_style_value_2);
-        String cardStyle = mContext.getString(R.string.pref_grid_style_value_3);
-
         int layout;
+        String savedStyle = PrefUtils.getStyleSettings(mContext);
+        String cardStyle = mContext.getString(R.string.pref_grid_style_value_3);
         boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        if (savedStyle.equals(simpleStyle) && newVersion)
-            layout = R.layout.list_item_simple_new;
-        else if (savedStyle.equals(simpleStyle) && !newVersion)
-            layout = R.layout.list_item_simple_old;
-        else if (savedStyle.equals(dividerStyle) && newVersion)
-            layout = R.layout.list_item_divider_new;
-        else if (savedStyle.equals(dividerStyle) && !newVersion)
-            layout = R.layout.list_item_divider_old;
-        else if (savedStyle.equals(cardStyle) && newVersion)
+
+        if (savedStyle.equals(cardStyle) && newVersion)
             layout = R.layout.list_item_card_new;
-        else
+        else if (savedStyle.equals(cardStyle) && !newVersion)
             layout = R.layout.list_item_card_old;
+        else if (newVersion)
+            layout = R.layout.list_item_simple_new;
+        else
+            layout = R.layout.list_item_simple_old;
 
         return layout;
     }
@@ -99,11 +93,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         @Override
         public void onClick(View view) {
             String pictureTitle = mItems.get(getAdapterPosition()).getTitle();
-            mListener.onPictureClicked(pictureTitle);
+            String itemUri = mItems.get(getAdapterPosition()).getItemUri();
+            mListener.onPictureClicked(pictureTitle, itemUri);
         }
 
         private void bindItem(int position) {
-            String url = mItems.get(position).getPictureUrl();
+            //mProgressView.smoothToShow();
+            String url = mItems.get(position).getSmallPictureUrl();
             boolean animationOn = PrefUtils.getAnimationSettings(mContext);
             if (animationOn) {
                 Glide.with(mContext)

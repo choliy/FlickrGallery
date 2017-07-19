@@ -10,12 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/list_card_margin">
 
-        <ImageView
-            android:id="@+id/gallery_image_item"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"/>
+        <include layout="@layout/list_item_base"/>
 
         <View style="@style/ViewSelectorOldStyle"/>
 

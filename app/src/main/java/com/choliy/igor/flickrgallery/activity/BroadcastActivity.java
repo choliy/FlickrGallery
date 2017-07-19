@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.choliy.igor.flickrgallery.R;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public abstract class BroadcastActivity extends AppCompatActivity {
 
     private BroadcastReceiver mOnShowReceiver = new BroadcastReceiver() {
@@ -29,5 +31,10 @@ public abstract class BroadcastActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         unregisterReceiver(mOnShowReceiver);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

@@ -7,18 +7,27 @@ public class GalleryItem {
     private String mId;
     private String mTitle;
     private String mUploadDate;
+    private String mOwnerId;
     private String mOwnerName;
-    private String mPictureUrl;
+    private String mSmallPictureUrl;
 
     public GalleryItem() {
     }
 
-    public GalleryItem(String id, String title, String uploadDate, String ownerName, String pictureUrl) {
+    public GalleryItem(
+            String id,
+            String title,
+            String uploadDate,
+            String ownerId,
+            String ownerName,
+            String smallPictureUrl) {
+
         mId = id;
         mTitle = title;
         mUploadDate = uploadDate;
+        mOwnerId = ownerId;
         mOwnerName = ownerName;
-        mPictureUrl = pictureUrl;
+        mSmallPictureUrl = smallPictureUrl;
     }
 
     public String getId() {
@@ -45,6 +54,14 @@ public class GalleryItem {
         mUploadDate = uploadDate;
     }
 
+    public String getOwnerId() {
+        return mOwnerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        mOwnerId = ownerId;
+    }
+
     public String getOwnerName() {
         return mOwnerName;
     }
@@ -53,19 +70,21 @@ public class GalleryItem {
         mOwnerName = ownerName;
     }
 
-    public String getPictureUrl() {
-        return mPictureUrl;
+    public String getSmallPictureUrl() {
+        return mSmallPictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) {
-        mPictureUrl = pictureUrl;
+    public void setSmallPictureUrl(String smallPictureUrl) {
+        mSmallPictureUrl = smallPictureUrl;
     }
 
-    public Uri getPictureUri() {
-        return Uri.parse("http://www.flickr.com/photos/")
+    public String getItemUri() {
+        Uri uri = Uri.parse("http://www.flickr.com/photos/")
                 .buildUpon()
-                .appendPath(mOwnerName)
+                .appendPath(mOwnerId)
                 .appendPath(mId)
                 .build();
+
+        return uri.toString();
     }
 }

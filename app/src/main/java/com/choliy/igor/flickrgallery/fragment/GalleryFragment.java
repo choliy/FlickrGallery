@@ -14,11 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.activity.PictureActivity;
+import com.choliy.igor.flickrgallery.activity.WebPictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -27,6 +26,7 @@ import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.view.HidingScrollListener;
 import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +47,11 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     private List<GalleryItem> mItems = new ArrayList<>();
 
     @BindView(R.id.image_top_list) ImageView mTopListView;
-    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.progress_view_gallery) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
-    @BindView(R.id.no_connection) LinearLayout mConnectionLayout;
-    @BindView(R.id.no_results) LinearLayout mResultsLayout;
+    @BindView(R.id.layout_no_connection) LinearLayout mConnectionLayout;
+    @BindView(R.id.layout_no_results) LinearLayout mResultsLayout;
 
     public static Fragment newInstance() {
         return new GalleryFragment();
@@ -81,9 +81,10 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     }
 
     @Override
-    public void onPictureClicked(String pictureTitle) {
-        Intent intent = new Intent(getActivity(), PictureActivity.class);
+    public void onPictureClicked(String pictureTitle, String itemUri) {
+        Intent intent = new Intent(getActivity(), WebPictureActivity.class);
         intent.putExtra(FlickrConstants.TITLE_KEY, pictureTitle);
+        intent.putExtra(FlickrConstants.URI_KEY, itemUri);
         startActivity(intent);
     }
 
@@ -195,7 +196,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
             mConnectionLayout.setVisibility(View.VISIBLE);
             mResultsLayout.setVisibility(View.GONE);
             mRvGallery.setVisibility(View.GONE);
-            mProgressBar.setVisibility(View.GONE);
+            mProgressView.smoothToHide();
             mRefreshLayout.setRefreshing(Boolean.FALSE);
             AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
         }
@@ -205,7 +206,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     private void updateUi() {
         mGalleryAdapter.updateItems(mItems);
         mRvGallery.scrollToPosition(mListPosition);
-        mProgressBar.setVisibility(View.GONE);
+        mProgressView.smoothToHide();
         mRefreshLayout.setRefreshing(Boolean.FALSE);
         mDataRefreshing = Boolean.FALSE;
         mDataLoaded = Boolean.TRUE;
@@ -222,7 +223,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
 
         @Override
         protected void onPreExecute() {
-            if (!mDataRefreshing) mProgressBar.setVisibility(View.VISIBLE);
+            if (!mDataRefreshing) mProgressView.smoothToShow();
         }
 
         @Override

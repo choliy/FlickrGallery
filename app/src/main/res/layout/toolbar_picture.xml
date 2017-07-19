@@ -11,17 +11,11 @@
         android:contentDescription="@null"/>
 
     <TextView
-        style="@style/ToolbarTextStyle"
-        android:text="@string/nav_picture"/>
-
-    <TextView
         android:id="@+id/text_picture_title"
         style="@style/ToolbarTextStyle"
-        fontPath="@string/font_bold"
         android:layout_marginEnd="@dimen/material_margin"
         android:ellipsize="marquee"
         android:maxLines="1"
-        android:textStyle="bold"
         tools:text="Lord of the Rings"/>
 
 </android.support.v7.widget.Toolbar>

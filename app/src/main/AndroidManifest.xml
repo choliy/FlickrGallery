@@ -37,7 +37,8 @@
             android:parentActivityName=".activity.GalleryActivity"/>
 
         <activity
-            android:name=".activity.PictureActivity"
+            android:name=".activity.WebPictureActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".activity.GalleryActivity"/>
 
         <service android:name=".async.NotificationService"/>

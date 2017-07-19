@@ -33,7 +33,6 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class GalleryActivity extends BroadcastActivity implements
         NavigationView.OnNavigationItemSelectedListener,
@@ -49,11 +48,6 @@ public class GalleryActivity extends BroadcastActivity implements
 
     public static Intent newIntent(Context context) {
         return new Intent(context, GalleryActivity.class);
-    }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
