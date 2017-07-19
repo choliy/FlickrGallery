@@ -37,6 +37,28 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="ToolbarLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ToolbarImageStyle">
+        <item name="android:layout_width">@dimen/toolbar_icon_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/material_margin</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@drawable/ic_back</item>
+    </style>
+
+    <style name="ToolbarTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:textColor">@color/textColorGray</item>
+    </style>
+
     <style name="InfoImageStyle">
         <item name="android:layout_width">@dimen/image_list_size</item>
         <item name="android:layout_height">@dimen/image_list_size</item>

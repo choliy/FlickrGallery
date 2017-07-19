@@ -5,6 +5,7 @@ public interface FlickrConstants {
     // Keys
     String NOTIFICATION_KEY = "notification_key";
     String TOOLBAR_KEY = "toolbar_key";
+    String TITLE_KEY = "title_key";
 
     // Empty values
     String STRING_EMPTY = "";

@@ -18,23 +18,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureHolder> {
 
     private Context mContext;
     private List<GalleryItem> mItems;
-    private OnPhotoHolderListener mListener;
+    private OnPictureClickListener mListener;
 
-    public interface OnPhotoHolderListener {
+    public interface OnPictureClickListener {
 
         void onRequestedLastItem(int position);
 
-        void onPhotoClicked(String photoId);
+        void onPictureClicked(String pictureTitle);
     }
 
     public GalleryAdapter(
             Context context,
             List<GalleryItem> items,
-            OnPhotoHolderListener listener) {
+            OnPictureClickListener listener) {
 
         mContext = context;
         mItems = items;
@@ -42,13 +42,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
     }
 
     @Override
-    public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PictureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(setupLayout(), parent, Boolean.FALSE);
-        return new PhotoHolder(view);
+        return new PictureHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PhotoHolder holder, int position) {
+    public void onBindViewHolder(PictureHolder holder, int position) {
         holder.bindItem(position);
     }
 
@@ -86,11 +86,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
         return layout;
     }
 
-    class PhotoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item) ImageView mPhotoImage;
+        @BindView(R.id.gallery_image_item) ImageView mPicture;
 
-        PhotoHolder(View itemView) {
+        PictureHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
@@ -98,8 +98,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
 
         @Override
         public void onClick(View view) {
-            String photoId = mItems.get(getAdapterPosition()).getId();
-            mListener.onPhotoClicked(photoId);
+            String pictureTitle = mItems.get(getAdapterPosition()).getTitle();
+            mListener.onPictureClicked(pictureTitle);
         }
 
         private void bindItem(int position) {
@@ -109,8 +109,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PhotoHol
                 Glide.with(mContext)
                         .load(url)
                         .animate(R.anim.anim_picture)
-                        .into(mPhotoImage);
-            } else Glide.with(mContext).load(url).into(mPhotoImage);
+                        .into(mPicture);
+            } else Glide.with(mContext).load(url).into(mPicture);
 
             // Callback on the end of the list
             if (position == getItemCount() - 1)

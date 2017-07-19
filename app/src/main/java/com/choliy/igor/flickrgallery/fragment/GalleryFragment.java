@@ -1,5 +1,6 @@
 package com.choliy.igor.flickrgallery.fragment;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ProgressBar;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -33,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoHolderListener {
+public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictureClickListener {
 
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
@@ -79,9 +81,10 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPhotoH
     }
 
     @Override
-    public void onPhotoClicked(String photoId) {
-        String infoText = "Photo id - " + photoId;
-        FlickrUtils.showInfo(mRvGallery, infoText);
+    public void onPictureClicked(String pictureTitle) {
+        Intent intent = new Intent(getActivity(), PictureActivity.class);
+        intent.putExtra(FlickrConstants.TITLE_KEY, pictureTitle);
+        startActivity(intent);
     }
 
     @OnClick(R.id.image_top_list)

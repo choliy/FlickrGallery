@@ -36,6 +36,10 @@
             android:name=".activity.SettingsActivity"
             android:parentActivityName=".activity.GalleryActivity"/>
 
+        <activity
+            android:name=".activity.PictureActivity"
+            android:parentActivityName=".activity.GalleryActivity"/>
+
         <service android:name=".async.NotificationService"/>
 
         <receiver android:name=".async.StartupReceiver">

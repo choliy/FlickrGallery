@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SettingsActivity extends BroadcastActivity {
@@ -29,6 +29,7 @@ public class SettingsActivity extends BroadcastActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ButterKnife.bind(this);
 
         if (savedInstanceState == null) {
             String[] settings = PrefUtils.getSettings(this);
@@ -61,7 +62,8 @@ public class SettingsActivity extends BroadcastActivity {
         checkAndFinish();
     }
 
-    public void onReturnClick(View view) {
+    @OnClick(R.id.ic_return_settings)
+    public void onReturnClick() {
         checkAndFinish();
     }
 

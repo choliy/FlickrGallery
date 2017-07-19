@@ -1,5 +1,7 @@
 package com.choliy.igor.flickrgallery.model;
 
+import android.net.Uri;
+
 public class GalleryItem {
 
     private String mId;
@@ -57,5 +59,13 @@ public class GalleryItem {
 
     public void setPictureUrl(String pictureUrl) {
         mPictureUrl = pictureUrl;
+    }
+
+    public Uri getPictureUri() {
+        return Uri.parse("http://www.flickr.com/photos/")
+                .buildUpon()
+                .appendPath(mOwnerName)
+                .appendPath(mId)
+                .build();
     }
 }
