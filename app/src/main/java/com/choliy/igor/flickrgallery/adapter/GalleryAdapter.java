@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import java.util.List;
 
@@ -23,6 +23,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     private Context mContext;
     private List<GalleryItem> mItems;
     private OnPictureClickListener mListener;
+    private String mGridSize;
+    private String mGridStyle;
+    private boolean mIsAnimationOn;
 
     public interface OnPictureClickListener {
 
@@ -34,11 +37,17 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     public GalleryAdapter(
             Context context,
             List<GalleryItem> items,
-            OnPictureClickListener listener) {
+            OnPictureClickListener listener,
+            String gridSize,
+            String gridStyle,
+            boolean isAnimationOn) {
 
         mContext = context;
         mItems = items;
         mListener = listener;
+        mGridSize = gridSize;
+        mGridStyle = gridStyle;
+        mIsAnimationOn = isAnimationOn;
     }
 
     @Override
@@ -64,13 +73,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
     private int setupLayout() {
         int layout;
-        String savedStyle = PrefUtils.getStyleSettings(mContext);
         String cardStyle = mContext.getString(R.string.pref_grid_style_value_3);
         boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
-        if (savedStyle.equals(cardStyle) && newVersion)
+        if (mGridStyle.equals(cardStyle) && newVersion)
             layout = R.layout.list_item_card_new;
-        else if (savedStyle.equals(cardStyle) && !newVersion)
+        else if (mGridStyle.equals(cardStyle) && !newVersion)
             layout = R.layout.list_item_card_old;
         else if (newVersion)
             layout = R.layout.list_item_simple_new;
@@ -82,7 +90,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
     class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item) ImageView mPicture;
+        @BindView(R.id.gallery_image_item)
+        ImageView mPicture;
 
         PictureHolder(View itemView) {
             super(itemView);
@@ -98,19 +107,30 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void bindItem(int position) {
-            //mProgressView.smoothToShow();
-            String url = mItems.get(position).getSmallPictureUrl();
-            boolean animationOn = PrefUtils.getAnimationSettings(mContext);
-            if (animationOn) {
+            loadPicture(position);
+
+            // Callback on the end of the list
+            if (position == getItemCount() - 1)
+                mListener.onRequestedLastItem(getItemCount());
+        }
+
+        private void loadPicture(int position) {
+            String urlList = mItems.get(position).getListPictureUrl();
+            String urlSmall = mItems.get(position).getSmallPictureUrl();
+            String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
+            if (mGridSize.equals(grid1x2) && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+                glideLoading(urlSmall);
+            else
+                glideLoading(urlList);
+        }
+
+        private void glideLoading(String url) {
+            if (mIsAnimationOn) {
                 Glide.with(mContext)
                         .load(url)
                         .animate(R.anim.anim_picture)
                         .into(mPicture);
             } else Glide.with(mContext).load(url).into(mPicture);
-
-            // Callback on the end of the list
-            if (position == getItemCount() - 1)
-                mListener.onRequestedLastItem(getItemCount());
         }
     }
 }

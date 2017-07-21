@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class WebPictureFragment extends Fragment {
 
-    @BindView(R.id.progress_view_web) AVLoadingIndicatorView mProgressView;
+    @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.web_view_picture) WebView mWebView;
     private String mItemUri;
 

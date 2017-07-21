@@ -47,7 +47,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     private List<GalleryItem> mItems = new ArrayList<>();
 
     @BindView(R.id.image_top_list) ImageView mTopListView;
-    @BindView(R.id.progress_view_gallery) AVLoadingIndicatorView mProgressView;
+    @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.layout_no_connection) LinearLayout mConnectionLayout;
@@ -94,7 +94,16 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     }
 
     private void setupUi() {
-        mGalleryAdapter = new GalleryAdapter(getActivity(), mItems, this);
+        String gridSize = PrefUtils.getGridSettings(getActivity());
+        String gridStyle = PrefUtils.getStyleSettings(getActivity());
+        boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
+        mGalleryAdapter = new GalleryAdapter(
+                getActivity(),
+                mItems,
+                this,
+                gridSize,
+                gridStyle,
+                isAnimationOn);
         mRvGallery.setAdapter(mGalleryAdapter);
         mRvGallery.setHasFixedSize(Boolean.TRUE);
         setScrollListener();

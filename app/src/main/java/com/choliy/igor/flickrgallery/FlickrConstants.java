@@ -37,5 +37,10 @@ public interface FlickrConstants {
     String JSON_UPLOAD_DATE = "dateupload";
     String JSON_OWNER_ID = "owner";
     String JSON_OWNER_NAME = "ownername";
-    String JSON_SMALL_PICTURE_URL = "url_s";
+    String JSON_DESCRIPTION = "description";
+    String JSON_LIST_PICTURE_URL = "url_s";
+    String JSON_SMALL_PICTURE_URL = "url_z";
+    String JSON_MEDIUM_PICTURE_URL = "url_l";
+    String JSON_BIG_PICTURE_URL = "url_o";
+    String JSON_NO_SUCH_SIZE = "no_such_size";
 }

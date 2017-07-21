@@ -9,7 +9,11 @@ public class GalleryItem {
     private String mUploadDate;
     private String mOwnerId;
     private String mOwnerName;
+    private String mDescription;
+    private String mListPictureUrl;
     private String mSmallPictureUrl;
+    private String mMediumPictureUrl;
+    private String mBigPictureUrl;
 
     public GalleryItem() {
     }
@@ -20,14 +24,22 @@ public class GalleryItem {
             String uploadDate,
             String ownerId,
             String ownerName,
-            String smallPictureUrl) {
+            String description,
+            String listPictureUrl,
+            String smallPictureUrl,
+            String mediumPictureUrl,
+            String bigPictureUrl) {
 
-        mId = id;
-        mTitle = title;
-        mUploadDate = uploadDate;
-        mOwnerId = ownerId;
-        mOwnerName = ownerName;
-        mSmallPictureUrl = smallPictureUrl;
+        setId(id);
+        setTitle(title);
+        setUploadDate(uploadDate);
+        setOwnerId(ownerId);
+        setOwnerName(ownerName);
+        setDescription(description);
+        setListPictureUrl(listPictureUrl);
+        setSmallPictureUrl(smallPictureUrl);
+        setMediumPictureUrl(mediumPictureUrl);
+        setBigPictureUrl(bigPictureUrl);
     }
 
     public String getId() {
@@ -70,12 +82,44 @@ public class GalleryItem {
         mOwnerName = ownerName;
     }
 
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public String getListPictureUrl() {
+        return mListPictureUrl;
+    }
+
+    public void setListPictureUrl(String listPictureUrl) {
+        mListPictureUrl = listPictureUrl;
+    }
+
     public String getSmallPictureUrl() {
         return mSmallPictureUrl;
     }
 
     public void setSmallPictureUrl(String smallPictureUrl) {
         mSmallPictureUrl = smallPictureUrl;
+    }
+
+    public String getMediumPictureUrl() {
+        return mMediumPictureUrl;
+    }
+
+    public void setMediumPictureUrl(String mediumPictureUrl) {
+        mMediumPictureUrl = mediumPictureUrl;
+    }
+
+    public String getBigPictureUrl() {
+        return mBigPictureUrl;
+    }
+
+    public void setBigPictureUrl(String bigPictureUrl) {
+        mBigPictureUrl = bigPictureUrl;
     }
 
     public String getItemUri() {

@@ -61,7 +61,8 @@ public class FlickrFetch {
                 .appendQueryParameter("api_key", FlickrConstants.API_KEY)
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
-                .appendQueryParameter("extras", "date_upload,owner_name,url_s")
+                .appendQueryParameter("extras",
+                        "date_upload,owner_name,description,url_s,url_z,url_l,url_o")
                 .appendQueryParameter("per_page", PrefUtils.getPictureSettings(context))
                 .appendQueryParameter("page", String.valueOf(pageNumber))
                 .build().toString();
@@ -104,7 +105,7 @@ public class FlickrFetch {
             JSONObject photoJsonObject = photoJsonArray.getJSONObject(i);
 
             // If there is no picture URL - iterate another object
-            if (!photoJsonObject.has(FlickrConstants.JSON_SMALL_PICTURE_URL)) continue;
+            if (!photoJsonObject.has(FlickrConstants.JSON_LIST_PICTURE_URL)) continue;
 
             GalleryItem item = new GalleryItem();
             item.setId(photoJsonObject.getString(FlickrConstants.JSON_ID));
@@ -112,7 +113,23 @@ public class FlickrFetch {
             item.setUploadDate(photoJsonObject.getString(FlickrConstants.JSON_UPLOAD_DATE));
             item.setOwnerId(photoJsonObject.getString(FlickrConstants.JSON_OWNER_ID));
             item.setOwnerName(photoJsonObject.getString(FlickrConstants.JSON_OWNER_NAME));
-            item.setSmallPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_PICTURE_URL));
+            item.setDescription(photoJsonObject.getString(FlickrConstants.JSON_DESCRIPTION));
+            item.setListPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_LIST_PICTURE_URL));
+
+            if (photoJsonObject.has(FlickrConstants.JSON_SMALL_PICTURE_URL))
+                item.setSmallPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_PICTURE_URL));
+            else
+                item.setSmallPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+
+            if (photoJsonObject.has(FlickrConstants.JSON_MEDIUM_PICTURE_URL))
+                item.setMediumPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_MEDIUM_PICTURE_URL));
+            else
+                item.setMediumPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+
+            if (photoJsonObject.has(FlickrConstants.JSON_BIG_PICTURE_URL))
+                item.setBigPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_BIG_PICTURE_URL));
+            else
+                item.setBigPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
 
             items.add(item);
         }

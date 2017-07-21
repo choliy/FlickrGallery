@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,13 +26,7 @@
 
     <include layout="@layout/item_no_results"/>
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progress_view_gallery"
-        android:layout_width="@dimen/image_list_size"
-        android:layout_height="@dimen/image_list_size"
-        android:layout_gravity="center"
-        app:indicatorColor="@color/colorAccent"
-        app:indicatorName="SemiCircleSpinIndicator"/>
+    <include layout="@layout/progress_view"/>
 
     <ImageView
         android:id="@+id/image_top_list"
