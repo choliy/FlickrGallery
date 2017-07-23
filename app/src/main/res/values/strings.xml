@@ -8,8 +8,6 @@
         com.choliy.igor.flickrgallery.ACTION_SHOW_NOTIFICATION</string>
     <string name="broadcast_permission" translatable="false">
         com.choliy.igor.flickrgallery.PERMISSION_PRIVATE</string>
-    <string name="user_agent_string" translatable="false"><![CDATA[
-        Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>]]></string>
 
     <!-- Info Text-->
     <string name="text_hint_search">Search photo</string>
@@ -20,6 +18,7 @@
     <string name="text_no_connection">No internet connection</string>
     <string name="text_no_results">No results for your query</string>
     <string name="text_wrong_uri">Wrong URI to download data</string>
+    <string name="text_no_browser">There is no browser on your device</string>
     <string name="text_search_query">Search query was restored</string>
     <string name="text_new_pictures">You have new pictures from search query - \"%1$s\"</string>
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
@@ -68,6 +67,14 @@
     <string name="nav_email">Email</string>
     <string name="nav_feedback">Feedback</string>
     <string name="nav_apps">More Apps</string>
+
+    <!-- Fab Text -->
+    <string name="fab_browser">Open in browser</string>
+    <string name="fab_copy">Copy</string>
+    <string name="fab_copied">URL copied:\n\n%1$s</string>
+    <string name="fab_share">Share</string>
+    <string name="fab_save">Save</string>
+    <string name="fab_download">Download</string>
 
     <!-- Preferences Text -->
     <string name="pref_category_ui">UI Settings</string>

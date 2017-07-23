@@ -11,12 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/item_no_uri"/>
-
-        <FrameLayout
-            android:id="@+id/web_view_container"
+        <WebView
+            android:id="@+id/web_view_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <include layout="@layout/item_no_uri"/>
+
+        <include layout="@layout/view_progress"/>
+
+        <include layout="@layout/view_fab_web"/>
 
     </FrameLayout>
 

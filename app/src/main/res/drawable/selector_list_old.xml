@@ -4,12 +4,12 @@
 
     <!-- pressed -->
     <item
-        android:drawable="@color/colorKitKatSelector"
+        android:drawable="@color/colorSelector"
         android:state_pressed="true"/>
 
     <!-- focused -->
     <item
-        android:drawable="@color/colorKitKatSelector"
+        android:drawable="@color/colorSelector"
         android:state_focused="true"/>
 
     <!-- default -->

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.clans.fab.FloatingActionMenu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fab_menu"
+    style="@style/FabMenuStyle"
+    app:menu_animationDelayPerItem="100"
+    app:menu_backgroundColor="@color/fabBackgroundColor"
+    app:menu_colorNormal="@color/colorAccent"
+    app:menu_colorPressed="@color/colorAccent"
+    app:menu_colorRipple="@color/colorPrimary"
+    app:menu_fab_hide_animation="@anim/anim_alpha_show"
+    app:menu_fab_show_animation="@anim/anim_alpha_hide"
+    app:menu_fab_size="normal"
+    app:menu_icon="@drawable/ic_add"
+    app:menu_labels_colorNormal="@color/colorBlue"
+    app:menu_labels_colorPressed="@color/colorBlue"
+    app:menu_labels_colorRipple="@color/colorPrimary"
+    app:menu_labels_cornerRadius="@dimen/fab_corner_radius"
+    app:menu_labels_ellipsize="marquee"
+    app:menu_labels_hideAnimation="@anim/anim_scale_hide"
+    app:menu_labels_margin="@dimen/small_margin"
+    app:menu_labels_maxLines="1"
+    app:menu_labels_position="left"
+    app:menu_labels_showAnimation="@anim/anim_scale_show"
+    app:menu_labels_showShadow="true"
+    app:menu_labels_singleLine="true"
+    app:menu_labels_textColor="@color/colorPrimary"
+    app:menu_labels_textSize="@dimen/text_small"
+    app:menu_openDirection="up"
+    app:menu_shadowColor="@color/fabShadowColor"
+    app:menu_showShadow="true">
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_browser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_browser"
+        app:fab_colorNormal="@color/colorBlue"
+        app:fab_colorPressed="@color/colorBlue"
+        app:fab_colorRipple="@color/colorPrimary"
+        app:fab_label="@string/fab_browser"
+        app:fab_size="normal"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share_white"
+        app:fab_colorNormal="@color/colorBlue"
+        app:fab_colorPressed="@color/colorBlue"
+        app:fab_colorRipple="@color/colorPrimary"
+        app:fab_label="@string/fab_share"
+        app:fab_size="normal"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_copy"
+        app:fab_colorNormal="@color/colorBlue"
+        app:fab_colorPressed="@color/colorBlue"
+        app:fab_colorRipple="@color/colorPrimary"
+        app:fab_label="@string/fab_copy"
+        app:fab_size="normal"/>
+
+</com.github.clans.fab.FloatingActionMenu>

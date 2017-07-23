@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Main Colors -->
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#E0E0E0</color>
     <color name="colorAccent">#EC407A</color>
-    <color name="colorBlue">#3F51B5</color>
 
-    <color name="colorKitKatSelector">#82e91e63</color>
+    <!-- Text Colors -->
     <color name="textColorLightGray">#9E9E9E</color>
     <color name="textColorGray">#616161</color>
     <color name="textColoBlack">#212121</color>
+
+    <!-- Other Colors -->
+    <color name="colorBlue">#3F51B5</color>
+    <color name="colorSelector">#82e91e63</color>
+    <color name="fabShadowColor">@color/textColoBlack</color>
+    <color name="fabBackgroundColor">#64ffffff</color>
+
 </resources>

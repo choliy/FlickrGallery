@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.SettingsActivity;
@@ -87,7 +88,7 @@ public final class NavUtils {
             public void onClick(View view) {
                 String developerUrl = context.getString(R.string.dialog_url);
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(developerUrl));
-                checkIntentBeforeLaunching(context, webIntent);
+                checkBeforeLaunching(context, webIntent);
                 dialog.dismiss();
             }
         });
@@ -135,23 +136,25 @@ public final class NavUtils {
         emailIntent.setData(Uri.parse("mailto:" + context.getString(R.string.text_email)));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.text_subject));
         emailIntent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.text_hello));
-        checkIntentBeforeLaunching(context, emailIntent);
+        checkBeforeLaunching(context, emailIntent);
     }
 
     private static void feedbackIntent(Context context) {
         String url = context.getString(R.string.app_url);
         Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        checkIntentBeforeLaunching(context, feedbackIntent);
+        checkBeforeLaunching(context, feedbackIntent);
     }
 
     private static void appsIntent(Context context) {
         String url = context.getString(R.string.apps_url);
         Intent appsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        checkIntentBeforeLaunching(context, appsIntent);
+        checkBeforeLaunching(context, appsIntent);
     }
 
-    private static void checkIntentBeforeLaunching(Context context, Intent intent) {
+    static void checkBeforeLaunching(Context context, Intent intent) {
         if (intent.resolveActivity(context.getPackageManager()) != null)
             context.startActivity(intent);
+        else
+            Toast.makeText(context, context.getString(R.string.text_no_browser), Toast.LENGTH_SHORT).show();
     }
 }

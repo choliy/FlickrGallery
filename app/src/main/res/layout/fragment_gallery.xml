@@ -26,7 +26,7 @@
 
     <include layout="@layout/item_no_results"/>
 
-    <include layout="@layout/progress_view"/>
+    <include layout="@layout/view_progress"/>
 
     <ImageView
         android:id="@+id/image_top_list"

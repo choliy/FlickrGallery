@@ -9,8 +9,8 @@
     </style>
 
     <style name="ActivityAnimation" parent="@android:style/Animation.Dialog">
-        <item name="android:windowEnterAnimation">@anim/anim_show_alpha</item>
-        <item name="android:windowExitAnimation">@anim/anim_hide_alpha</item>
+        <item name="android:windowEnterAnimation">@anim/anim_alpha_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_alpha_hide</item>
     </style>
 
     <style name="InfoLayoutStyle">
@@ -108,6 +108,14 @@
 
     <style name="ViewSelectorNewStyle" parent="ViewSelectorOldStyle">
         <item name="android:background">@drawable/selector_list_new</item>
+    </style>
+
+    <style name="FabMenuStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:paddingBottom">@dimen/material_margin</item>
+        <item name="android:paddingEnd">@dimen/material_margin</item>
     </style>
 
 </resources>

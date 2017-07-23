@@ -3,6 +3,7 @@
     <dimen name="size_zero">0dp</dimen>
     <dimen name="view_thickness">1dp</dimen>
     <dimen name="list_divider_margin">2dp</dimen>
+    <dimen name="fab_corner_radius">3dp</dimen>
     <dimen name="list_card_margin">4dp</dimen>
     <dimen name="small_margin">8dp</dimen>
     <dimen name="material_margin">16dp</dimen>
