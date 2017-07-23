@@ -116,10 +116,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         private void loadPicture(int position) {
             String urlList = mItems.get(position).getListPictureUrl();
+            String urlExtraSmall = mItems.get(position).getExtraSmallPictureUrl();
             String urlSmall = mItems.get(position).getSmallPictureUrl();
             String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
-            if (mGridSize.equals(grid1x2) && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+            String grid2x3 = mContext.getString(R.string.pref_grid_size_value_2);
+
+            if (mGridSize.equals(grid2x3)
+                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+                glideLoading(urlExtraSmall);
+            else if (mGridSize.equals(grid1x2)
+                    && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
                 glideLoading(urlSmall);
+            else if (mGridSize.equals(grid1x2)
+                    && urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)
+                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+                glideLoading(urlExtraSmall);
             else
                 glideLoading(urlList);
         }

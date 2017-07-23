@@ -11,6 +11,7 @@ public class GalleryItem {
     private String mOwnerName;
     private String mDescription;
     private String mListPictureUrl;
+    private String mExtraSmallPictureUrl;
     private String mSmallPictureUrl;
     private String mMediumPictureUrl;
     private String mBigPictureUrl;
@@ -26,6 +27,7 @@ public class GalleryItem {
             String ownerName,
             String description,
             String listPictureUrl,
+            String extraSmallPictureUrl,
             String smallPictureUrl,
             String mediumPictureUrl,
             String bigPictureUrl) {
@@ -37,6 +39,7 @@ public class GalleryItem {
         setOwnerName(ownerName);
         setDescription(description);
         setListPictureUrl(listPictureUrl);
+        setExtraSmallPictureUrl(extraSmallPictureUrl);
         setSmallPictureUrl(smallPictureUrl);
         setMediumPictureUrl(mediumPictureUrl);
         setBigPictureUrl(bigPictureUrl);
@@ -96,6 +99,14 @@ public class GalleryItem {
 
     public void setListPictureUrl(String listPictureUrl) {
         mListPictureUrl = listPictureUrl;
+    }
+
+    public String getExtraSmallPictureUrl() {
+        return mExtraSmallPictureUrl;
+    }
+
+    public void setExtraSmallPictureUrl(String extraSmallPictureUrl) {
+        mExtraSmallPictureUrl = extraSmallPictureUrl;
     }
 
     public String getSmallPictureUrl() {

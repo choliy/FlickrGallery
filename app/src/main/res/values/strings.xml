@@ -70,13 +70,13 @@
     <string name="nav_apps">More Apps</string>
 
     <!-- Preferences Text -->
-    <string name="pref_category_main">Main Settings</string>
+    <string name="pref_category_ui">UI Settings</string>
     <string name="pref_grid_size_title">Grid size</string>
     <string name="pref_grid_style_title">Grid style</string>
     <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_animation_title">Picture animation</string>
-    <string name="pref_animation_summary">Animation after finishing loading picture</string>
+    <string name="pref_animation_summary">Scale animation after finishing loading picture</string>
     <string name="pref_notification_title">Gallery notification</string>
     <string name="pref_notification_summary">Notify about new available pictures from last search query</string>
     <string name="pref_restore_title">Default settings</string>
