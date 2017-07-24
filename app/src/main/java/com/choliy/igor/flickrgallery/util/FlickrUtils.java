@@ -13,6 +13,8 @@ import com.choliy.igor.flickrgallery.R;
 
 public final class FlickrUtils {
 
+    private FlickrUtils() {}
+
     public static void showInfo(View view, String infoText) {
         Snackbar.make(view, infoText, Snackbar.LENGTH_SHORT).show();
     }

@@ -12,6 +12,8 @@ import com.choliy.igor.flickrgallery.R;
 
 public final class FabUtils {
 
+    private FabUtils() {}
+
     public static void browserUrl(Context context, String stringUrl) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringUrl));
         NavUtils.checkBeforeLaunching(context, browserIntent);

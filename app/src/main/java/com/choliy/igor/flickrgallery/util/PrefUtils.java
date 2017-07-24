@@ -9,6 +9,8 @@ import com.choliy.igor.flickrgallery.R;
 
 public final class PrefUtils {
 
+    private PrefUtils() {}
+
     public static void isFirstStart(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         boolean previouslyStarted = preferences.getBoolean(

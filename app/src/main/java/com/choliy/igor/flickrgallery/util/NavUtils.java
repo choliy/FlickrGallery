@@ -25,6 +25,8 @@ public final class NavUtils {
     public static boolean sIsHistoryDialogShown;
     public static boolean sIsAboutDialogShown;
 
+    private NavUtils() {}
+
     public static void onNavDrawerClicked(Context context, int id) {
         switch (id) {
             case R.id.nav_saved:

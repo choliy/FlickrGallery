@@ -16,6 +16,8 @@ import com.choliy.igor.flickrgallery.R;
 
 public final class AnimUtils {
 
+    private AnimUtils() {}
+
     public static void animateView(Context context, View view, boolean show) {
         int animResId;
         if (show) {

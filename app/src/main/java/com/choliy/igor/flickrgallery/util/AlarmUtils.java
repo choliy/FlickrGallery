@@ -15,6 +15,8 @@ import com.choliy.igor.flickrgallery.async.NotificationService;
 
 public final class AlarmUtils {
 
+    private AlarmUtils() {}
+
     public static void setServiceAlarm(Context context, boolean startService) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(

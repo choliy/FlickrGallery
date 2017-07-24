@@ -7,14 +7,18 @@
     <color name="colorAccent">#EC407A</color>
 
     <!-- Text Colors -->
+    <color name="textColorWhite">@color/colorPrimary</color>
     <color name="textColorLightGray">#9E9E9E</color>
     <color name="textColorGray">#616161</color>
     <color name="textColoBlack">#212121</color>
 
+    <!-- Fab Colors -->
+    <color name="fabIconColor">@color/textColorGray</color>
+    <color name="fabBackgroundColor">#78000000</color>
+    <color name="fabShadowColor">@color/fabBackgroundColor</color>
+
     <!-- Other Colors -->
     <color name="colorBlue">#3F51B5</color>
     <color name="colorSelector">#82e91e63</color>
-    <color name="fabShadowColor">@color/textColoBlack</color>
-    <color name="fabBackgroundColor">#64ffffff</color>
 
 </resources>

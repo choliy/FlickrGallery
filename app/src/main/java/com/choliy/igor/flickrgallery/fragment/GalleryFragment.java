@@ -191,8 +191,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
 
     private void fetchData() {
         if (isConnected()) {
-            String storedText = PrefUtils.getStoredQuery(getActivity());
-            new FetchItemsTask().execute(storedText);
+            new FetchItemsTask().execute();
         }
     }
 
@@ -228,7 +227,7 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
             mResultsLayout.setVisibility(View.GONE);
     }
 
-    private class FetchItemsTask extends AsyncTask<String, Void, List<GalleryItem>> {
+    private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>> {
 
         @Override
         protected void onPreExecute() {
@@ -236,8 +235,8 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
         }
 
         @Override
-        protected List<GalleryItem> doInBackground(String... params) {
-            return new FlickrFetch().downloadGallery(getActivity(), params[0], mPageNumber);
+        protected List<GalleryItem> doInBackground(Void... voids) {
+            return new FlickrFetch().downloadGallery(getActivity(), mPageNumber);
         }
 
         @Override

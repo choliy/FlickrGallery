@@ -24,10 +24,10 @@ public class FlickrFetch {
 
     private static final String TAG = FlickrFetch.class.getSimpleName();
 
-    public List<GalleryItem> downloadGallery(Context context, String searchText, int pageNumber) {
+    public List<GalleryItem> downloadGallery(Context context, int pageNumber) {
         List<GalleryItem> items = new ArrayList<>();
         try {
-            String url = buildUrl(context, searchText, pageNumber);
+            String url = getUrl(context, pageNumber);
             String jsonString = getJsonString(url);
             JSONObject jsonBody = new JSONObject(jsonString);
             parseItems(items, jsonBody);
@@ -40,18 +40,12 @@ public class FlickrFetch {
         return items;
     }
 
-    private String buildUrl(Context context, String searchText, int pageNumber) {
-        String stringUrl = getUrl(context, searchText, pageNumber);
-        Uri.Builder uriBuilder = Uri.parse(stringUrl).buildUpon();
-        if (searchText != null) uriBuilder.appendQueryParameter("text", searchText);
-        return uriBuilder.build().toString();
-    }
-
-    private String getUrl(Context context, String searchText, int pageNumber) {
+    private String getUrl(Context context, int pageNumber) {
 
         // Flickr API:
         // https://www.flickr.com/services/api/flickr.photos.getRecent.html
         String fetchMethod;
+        String searchText = PrefUtils.getStoredQuery(context);
         if (searchText == null) fetchMethod = FlickrConstants.METHOD_GET_RECENT;
         else fetchMethod = FlickrConstants.METHOD_SEARCH;
 
@@ -62,13 +56,18 @@ public class FlickrFetch {
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
                 .appendQueryParameter("extras",
-                        "date_upload,owner_name,description,url_s,url_z,url_l,url_o")
+                        "date_upload,owner_name,description,url_s,url_n,url_z,url_l,url_o")
                 .appendQueryParameter("per_page", PrefUtils.getPictureSettings(context))
                 .appendQueryParameter("page", String.valueOf(pageNumber))
                 .build().toString();
 
-        Log.i(TAG, "Request URL: " + url);
-        return url;
+        Uri.Builder uriBuilder = Uri.parse(url).buildUpon();
+        if (searchText != null) uriBuilder.appendQueryParameter("text", searchText);
+
+        String finalUrl = uriBuilder.build().toString();
+        Log.i(TAG, "Request URL: " + finalUrl);
+
+        return finalUrl;
     }
 
     private String getJsonString(String stringUrl) throws IOException {

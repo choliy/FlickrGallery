@@ -11,6 +11,8 @@ import java.util.Locale;
 
 public final class TimeUtils {
 
+    private TimeUtils() {}
+
     public static String getDate() {
         SimpleDateFormat sdf = new SimpleDateFormat(FlickrConstants.DATE_FORMAT, Locale.ENGLISH);
         return sdf.format(new Date());

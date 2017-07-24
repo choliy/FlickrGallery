@@ -35,7 +35,6 @@ public class NotificationService extends IntentService {
 
         List<GalleryItem> gallery = new FlickrFetch().downloadGallery(
                 getApplicationContext(),
-                query,
                 FlickrConstants.INT_ZERO);
         if (gallery.isEmpty()) return;
 
