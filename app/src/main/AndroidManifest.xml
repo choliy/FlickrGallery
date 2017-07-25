@@ -33,12 +33,16 @@
         </activity>
 
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".activity.PictureActivity"
             android:parentActivityName=".activity.GalleryActivity"/>
 
         <activity
             android:name=".activity.WebPictureActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:parentActivityName=".activity.PictureActivity"/>
+
+        <activity
+            android:name=".activity.SettingsActivity"
             android:parentActivityName=".activity.GalleryActivity"/>
 
         <service android:name=".async.NotificationService"/>

@@ -8,6 +8,15 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <style name="ActivityTransparentStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@color/activityBackground</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
     <style name="ActivityAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/anim_alpha_show</item>
         <item name="android:windowExitAnimation">@anim/anim_alpha_hide</item>
@@ -116,6 +125,35 @@
         <item name="android:layout_gravity">bottom|end</item>
         <item name="android:paddingBottom">@dimen/material_margin</item>
         <item name="android:paddingEnd">@dimen/material_margin</item>
+    </style>
+
+    <style name="ListItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:shadowColor">@color/textColorGray</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">8</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="PicturePrimaryTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textColor">@color/textColoBlack</item>
+    </style>
+
+    <style name="PictureSecondaryTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin</item>
+        <item name="android:textColor">@color/textColorGray</item>
     </style>
 
 </resources>

@@ -8,7 +8,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
 public final class FlickrUtils {

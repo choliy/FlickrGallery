@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;

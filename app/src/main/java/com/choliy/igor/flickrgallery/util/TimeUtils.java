@@ -3,7 +3,7 @@ package com.choliy.igor.flickrgallery.util;
 import android.content.Context;
 import android.text.format.DateFormat;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

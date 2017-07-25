@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery;
+package com.choliy.igor.flickrgallery.interfaces;
 
 public interface FlickrConstants {
 
@@ -6,6 +6,7 @@ public interface FlickrConstants {
     String NOTIFICATION_KEY = "notification_key";
     String TOOLBAR_KEY = "toolbar_key";
     String TITLE_KEY = "title_key";
+    String ITEM_KEY = "item_key";
     String URI_KEY = "uri_key";
 
     // Empty values

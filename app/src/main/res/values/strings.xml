@@ -11,7 +11,6 @@
 
     <!-- Info Text-->
     <string name="text_hint_search">Search photo</string>
-    <string name="text_picture_empty">No picture title</string>
     <string name="text_oops">OOPS!</string>
     <string name="text_history_empty">History is empty</string>
     <string name="text_history_text">Get started by searching new photos</string>
@@ -76,6 +75,14 @@
     <string name="fab_save">Save</string>
     <string name="fab_download">Download</string>
 
+    <!-- Picture Fragment Text -->
+    <string name="text_picture_owner">Owner:</string>
+    <string name="text_picture_title">Title:\u0020</string>
+    <string name="text_picture_description">Description:</string>
+    <string name="text_picture_small">Only small picture available :(</string>
+    <string name="text_empty_title">No picture title</string>
+    <string name="text_empty_description">No picture description</string>
+
     <!-- Preferences Text -->
     <string name="pref_category_ui">UI Settings</string>
     <string name="pref_grid_size_title">Grid size</string>
@@ -137,7 +144,6 @@
     <string name="pref_picture_value_500" translatable="false">500</string>
 
     <!-- Fonts -->
-    <string name="font_light" translatable="false">"font/raleway-light.ttf"</string>
     <string name="font_medium" translatable="false">"font/raleway-medium.ttf"</string>
     <string name="font_bold" translatable="false">"font/raleway-bold.ttf"</string>
 

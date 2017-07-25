@@ -20,12 +20,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
-import com.choliy.igor.flickrgallery.data.FlickrLab;
-import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.async.HistoryLoader;
+import com.choliy.igor.flickrgallery.data.FlickrLab;
+import com.choliy.igor.flickrgallery.interfaces.OnHistoryClickListener;
+import com.choliy.igor.flickrgallery.interfaces.OnHistoryDialogClickListener;
+import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
@@ -38,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HistoryFragment extends DialogFragment implements
-        HistoryAdapter.OnHistoryClickListener,
+        OnHistoryClickListener,
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     private HistoryAdapter mHistoryAdapter;
@@ -48,13 +50,6 @@ public class HistoryFragment extends DialogFragment implements
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
-
-    public interface OnHistoryDialogClickListener {
-
-        void onStartClick();
-
-        void onHistoryClick(String historyTitle);
-    }
 
     @Override
     public void onAttach(Context context) {

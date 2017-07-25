@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/medium_margin"
-        app:indicatorColor="@color/colorPrimary"
-        app:indicatorName="BallScaleIndicator"/>
+    <include layout="@layout/view_load"/>
 
     <ImageView
-        android:id="@+id/gallery_image_item"
+        android:id="@+id/gallery_item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:id="@+id/gallery_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/listBackground"
+        android:orientation="vertical"
+        android:padding="@dimen/material_margin"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/gallery_item_owner"
+            style="@style/ListItemTextStyle"
+            fontPath="@string/font_bold"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            tools:text="Gandalf"/>
+
+        <TextView
+            android:id="@+id/gallery_item_title"
+            style="@style/ListItemTextStyle"
+            android:layout_marginTop="@dimen/small_margin"
+            android:ellipsize="marquee"
+            android:maxLines="3"
+            tools:text="Hello my dear Frodo!"/>
+
+    </LinearLayout>
 
 </FrameLayout>

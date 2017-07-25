@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
 public final class AnimUtils {

@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
@@ -54,7 +54,7 @@ public class WebPictureActivity extends BroadcastActivity {
             String pictureTitle = intent.getStringExtra(FlickrConstants.TITLE_KEY);
             mItemUri = intent.getStringExtra(FlickrConstants.URI_KEY);
             if (pictureTitle.isEmpty())
-                pictureTitle = getString(R.string.text_picture_empty);
+                pictureTitle = getString(R.string.text_empty_title);
             mPictureTitle.setText(pictureTitle);
         }
     }

@@ -1,8 +1,10 @@
 package com.choliy.igor.flickrgallery.model;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class GalleryItem {
+public class GalleryItem implements Parcelable {
 
     private String mId;
     private String mTitle;
@@ -43,6 +45,20 @@ public class GalleryItem {
         setSmallPictureUrl(smallPictureUrl);
         setMediumPictureUrl(mediumPictureUrl);
         setBigPictureUrl(bigPictureUrl);
+    }
+
+    private GalleryItem(Parcel in) {
+        mId = in.readString();
+        mTitle = in.readString();
+        mUploadDate = in.readString();
+        mOwnerId = in.readString();
+        mOwnerName = in.readString();
+        mDescription = in.readString();
+        mListPictureUrl = in.readString();
+        mExtraSmallPictureUrl = in.readString();
+        mSmallPictureUrl = in.readString();
+        mMediumPictureUrl = in.readString();
+        mBigPictureUrl = in.readString();
     }
 
     public String getId() {
@@ -141,5 +157,37 @@ public class GalleryItem {
                 .build();
 
         return uri.toString();
+    }
+
+    public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {
+        @Override
+        public GalleryItem createFromParcel(Parcel in) {
+            return new GalleryItem(in);
+        }
+
+        @Override
+        public GalleryItem[] newArray(int size) {
+            return new GalleryItem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mId);
+        parcel.writeString(mTitle);
+        parcel.writeString(mUploadDate);
+        parcel.writeString(mOwnerId);
+        parcel.writeString(mOwnerName);
+        parcel.writeString(mDescription);
+        parcel.writeString(mListPictureUrl);
+        parcel.writeString(mExtraSmallPictureUrl);
+        parcel.writeString(mSmallPictureUrl);
+        parcel.writeString(mMediumPictureUrl);
+        parcel.writeString(mBigPictureUrl);
     }
 }

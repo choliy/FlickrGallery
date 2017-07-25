@@ -17,11 +17,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
-import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
+import com.choliy.igor.flickrgallery.interfaces.OnHistoryDialogClickListener;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 
 public class GalleryActivity extends BroadcastActivity implements
         NavigationView.OnNavigationItemSelectedListener,
-        HistoryFragment.OnHistoryDialogClickListener {
+        OnHistoryDialogClickListener {
 
     private FragmentManager mFragmentManager;
     private boolean mShowSearchType;

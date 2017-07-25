@@ -14,11 +14,13 @@
 
     <!-- Fab Colors -->
     <color name="fabIconColor">@color/textColorGray</color>
-    <color name="fabBackgroundColor">#78000000</color>
+    <color name="fabBackgroundColor">#8c000000</color>
     <color name="fabShadowColor">@color/fabBackgroundColor</color>
 
     <!-- Other Colors -->
     <color name="colorBlue">#3F51B5</color>
     <color name="colorSelector">#82e91e63</color>
+    <color name="listBackground">#50000000</color>
+    <color name="activityBackground">#1e000000</color>
 
 </resources>

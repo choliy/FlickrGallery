@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.interfaces.OnHistoryClickListener;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 
 import java.util.List;
@@ -20,10 +21,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
     private Context mContext;
     private List<HistoryItem> mHistory;
     private OnHistoryClickListener mListener;
-
-    public interface OnHistoryClickListener {
-        void onHistoryClick(String historyTitle);
-    }
 
     public HistoryAdapter(Context context,
                           List<HistoryItem> history,

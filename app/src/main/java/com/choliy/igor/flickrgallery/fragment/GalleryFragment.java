@@ -15,11 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.activity.WebPictureActivity;
+import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.OnPictureClickListener;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FlickrUtils;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictureClickListener {
+public class GalleryFragment extends Fragment implements OnPictureClickListener {
 
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
@@ -81,10 +82,9 @@ public class GalleryFragment extends Fragment implements GalleryAdapter.OnPictur
     }
 
     @Override
-    public void onPictureClicked(String pictureTitle, String itemUri) {
-        Intent intent = new Intent(getActivity(), WebPictureActivity.class);
-        intent.putExtra(FlickrConstants.TITLE_KEY, pictureTitle);
-        intent.putExtra(FlickrConstants.URI_KEY, itemUri);
+    public void onPictureClicked(GalleryItem item) {
+        Intent intent = new Intent(getActivity(), PictureActivity.class);
+        intent.putExtra(FlickrConstants.ITEM_KEY, item);
         startActivity(intent);
     }
 

@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.interfaces.OnPictureClickListener;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 
 import java.util.List;
@@ -26,13 +29,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     private String mGridSize;
     private String mGridStyle;
     private boolean mIsAnimationOn;
-
-    public interface OnPictureClickListener {
-
-        void onRequestedLastItem(int position);
-
-        void onPictureClicked(String pictureTitle, String itemUri);
-    }
 
     public GalleryAdapter(
             Context context,
@@ -90,8 +86,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
     class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.gallery_image_item)
-        ImageView mPicture;
+        @BindView(R.id.gallery_item_description) LinearLayout mDescription;
+        @BindView(R.id.gallery_item_image) ImageView mPicture;
+        @BindView(R.id.gallery_item_owner) TextView mOwner;
+        @BindView(R.id.gallery_item_title) TextView mTitle;
 
         PictureHolder(View itemView) {
             super(itemView);
@@ -101,13 +99,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         @Override
         public void onClick(View view) {
-            String pictureTitle = mItems.get(getAdapterPosition()).getTitle();
-            String itemUri = mItems.get(getAdapterPosition()).getItemUri();
-            mListener.onPictureClicked(pictureTitle, itemUri);
+            mListener.onPictureClicked(mItems.get(getAdapterPosition()));
         }
 
         private void bindItem(int position) {
             loadPicture(position);
+            setData(position);
 
             // Callback on the end of the list
             if (position == getItemCount() - 1)
@@ -133,6 +130,30 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
                 glideLoading(urlExtraSmall);
             else
                 glideLoading(urlList);
+        }
+
+        private void setData(int position) {
+            String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
+            String grid2x3 = mContext.getString(R.string.pref_grid_size_value_2);
+            if (mGridSize.equals(grid1x2)) {
+                setDescription(position);
+            } else if (mGridSize.equals(grid2x3)) {
+                setDescription(position);
+                mOwner.setTextSize(17.0f);
+                mTitle.setTextSize(15.0f);
+                mTitle.setMaxLines(1);
+            }
+        }
+
+        private void setDescription(int position) {
+            mOwner.setText(mItems.get(position).getOwnerName());
+            String title = mItems.get(position).getTitle();
+            if (title.equals(FlickrConstants.STRING_EMPTY))
+                mTitle.setText(mContext.getString(R.string.text_empty_title));
+            else
+                mTitle.setText(title);
+
+            mDescription.setVisibility(View.VISIBLE);
         }
 
         private void glideLoading(String url) {

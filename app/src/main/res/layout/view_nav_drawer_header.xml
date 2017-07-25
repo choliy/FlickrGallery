@@ -28,17 +28,10 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ListItemTextStyle"
             android:paddingBottom="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"
-            android:shadowColor="@color/textColorGray"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="8"
-            android:text="@string/app_name"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/white"/>
+            android:text="@string/app_name"/>
 
         <TextView
             android:id="@+id/nav_text_developer"
