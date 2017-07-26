@@ -56,7 +56,7 @@ public class FlickrFetch {
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
                 .appendQueryParameter("extras",
-                        "date_upload,owner_name,description,url_s,url_n,url_z,url_l,url_o")
+                        "date_upload,owner_name,description,url_sq,url_s,url_n,url_z,url_l,url_o")
                 .appendQueryParameter("per_page", PrefUtils.getPictureSettings(context))
                 .appendQueryParameter("page", String.valueOf(pageNumber))
                 .build().toString();
@@ -113,6 +113,7 @@ public class FlickrFetch {
             item.setOwnerId(photoJsonObject.getString(FlickrConstants.JSON_OWNER_ID));
             item.setOwnerName(photoJsonObject.getString(FlickrConstants.JSON_OWNER_NAME));
             item.setDescription(photoJsonObject.getString(FlickrConstants.JSON_DESCRIPTION));
+            item.setSmallListPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_LIST_PICTURE_URL));
             item.setListPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_LIST_PICTURE_URL));
 
             // Extra small picture

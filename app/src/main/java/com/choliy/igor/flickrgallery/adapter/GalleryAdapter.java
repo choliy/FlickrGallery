@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.callback.OnPictureClickListener;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 
@@ -112,24 +112,30 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void loadPicture(int position) {
+            String urlSmallList = mItems.get(position).getSmallListPictureUrl();
             String urlList = mItems.get(position).getListPictureUrl();
             String urlExtraSmall = mItems.get(position).getExtraSmallPictureUrl();
             String urlSmall = mItems.get(position).getSmallPictureUrl();
+
             String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
             String grid2x3 = mContext.getString(R.string.pref_grid_size_value_2);
+            String grid5x8 = mContext.getString(R.string.pref_grid_size_value_5);
 
             if (mGridSize.equals(grid2x3)
-                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlExtraSmall);
-            else if (mGridSize.equals(grid1x2)
-                    && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+            } else if (mGridSize.equals(grid1x2)
+                    && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlSmall);
-            else if (mGridSize.equals(grid1x2)
+            } else if (mGridSize.equals(grid1x2)
                     && urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)
-                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlExtraSmall);
-            else
+            } else if (mGridSize.equals(grid5x8)) {
+                glideLoading(urlSmallList);
+            } else {
                 glideLoading(urlList);
+            }
         }
 
         private void setData(int position) {

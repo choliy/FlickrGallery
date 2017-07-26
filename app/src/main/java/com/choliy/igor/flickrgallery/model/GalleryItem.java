@@ -12,6 +12,7 @@ public class GalleryItem implements Parcelable {
     private String mOwnerId;
     private String mOwnerName;
     private String mDescription;
+    private String mSmallListPictureUrl;
     private String mListPictureUrl;
     private String mExtraSmallPictureUrl;
     private String mSmallPictureUrl;
@@ -28,6 +29,7 @@ public class GalleryItem implements Parcelable {
             String ownerId,
             String ownerName,
             String description,
+            String smallListPictureUrl,
             String listPictureUrl,
             String extraSmallPictureUrl,
             String smallPictureUrl,
@@ -40,6 +42,7 @@ public class GalleryItem implements Parcelable {
         setOwnerId(ownerId);
         setOwnerName(ownerName);
         setDescription(description);
+        setSmallListPictureUrl(smallListPictureUrl);
         setListPictureUrl(listPictureUrl);
         setExtraSmallPictureUrl(extraSmallPictureUrl);
         setSmallPictureUrl(smallPictureUrl);
@@ -47,19 +50,32 @@ public class GalleryItem implements Parcelable {
         setBigPictureUrl(bigPictureUrl);
     }
 
-    private GalleryItem(Parcel in) {
+    protected GalleryItem(Parcel in) {
         mId = in.readString();
         mTitle = in.readString();
         mUploadDate = in.readString();
         mOwnerId = in.readString();
         mOwnerName = in.readString();
         mDescription = in.readString();
+        mSmallListPictureUrl = in.readString();
         mListPictureUrl = in.readString();
         mExtraSmallPictureUrl = in.readString();
         mSmallPictureUrl = in.readString();
         mMediumPictureUrl = in.readString();
         mBigPictureUrl = in.readString();
     }
+
+    public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {
+        @Override
+        public GalleryItem createFromParcel(Parcel in) {
+            return new GalleryItem(in);
+        }
+
+        @Override
+        public GalleryItem[] newArray(int size) {
+            return new GalleryItem[size];
+        }
+    };
 
     public String getId() {
         return mId;
@@ -107,6 +123,14 @@ public class GalleryItem implements Parcelable {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public String getSmallListPictureUrl() {
+        return mSmallListPictureUrl;
+    }
+
+    public void setSmallListPictureUrl(String smallListPictureUrl) {
+        mSmallListPictureUrl = smallListPictureUrl;
     }
 
     public String getListPictureUrl() {
@@ -159,18 +183,6 @@ public class GalleryItem implements Parcelable {
         return uri.toString();
     }
 
-    public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {
-        @Override
-        public GalleryItem createFromParcel(Parcel in) {
-            return new GalleryItem(in);
-        }
-
-        @Override
-        public GalleryItem[] newArray(int size) {
-            return new GalleryItem[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -184,6 +196,7 @@ public class GalleryItem implements Parcelable {
         parcel.writeString(mOwnerId);
         parcel.writeString(mOwnerName);
         parcel.writeString(mDescription);
+        parcel.writeString(mSmallListPictureUrl);
         parcel.writeString(mListPictureUrl);
         parcel.writeString(mExtraSmallPictureUrl);
         parcel.writeString(mSmallPictureUrl);
