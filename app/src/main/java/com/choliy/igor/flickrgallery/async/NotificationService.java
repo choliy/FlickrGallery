@@ -7,11 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class NotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (!FlickrUtils.isNetworkConnected(getApplicationContext())) return;
+        if (!ExtraUtils.isNetworkConnected(getApplicationContext())) return;
 
         String query = PrefUtils.getStoredQuery(this);
         if (query == null) return;

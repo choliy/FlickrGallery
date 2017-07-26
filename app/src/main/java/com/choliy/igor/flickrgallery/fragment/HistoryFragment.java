@@ -20,15 +20,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
 import com.choliy.igor.flickrgallery.async.HistoryLoader;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
-import com.choliy.igor.flickrgallery.interfaces.OnHistoryClickListener;
-import com.choliy.igor.flickrgallery.interfaces.OnHistoryDialogClickListener;
+import com.choliy.igor.flickrgallery.callback.OnHistoryClickListener;
+import com.choliy.igor.flickrgallery.callback.OnHistoryDialogClickListener;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
@@ -191,7 +191,7 @@ public class HistoryFragment extends DialogFragment implements
             public void onClick(View view) {
                 mHistoryAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).addHistory(item, Boolean.TRUE);
-                FlickrUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored_single));
+                ExtraUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored_single));
                 checkHistory();
             }
         });
@@ -227,7 +227,7 @@ public class HistoryFragment extends DialogFragment implements
                 restoreHistory();
             } else {
                 mHistoryAdapter.updateHistory(mSavedHistory);
-                FlickrUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored));
+                ExtraUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored));
             }
             checkHistory();
         }

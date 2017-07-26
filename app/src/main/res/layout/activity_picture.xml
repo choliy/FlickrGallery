@@ -12,12 +12,14 @@
 
     <ImageView
         android:id="@+id/picture_ic_back"
-        android:layout_width="@dimen/toolbar_icon_size"
-        android:layout_height="@dimen/toolbar_height"
-        android:layout_marginStart="@dimen/material_margin"
+        android:layout_width="@dimen/dimen_toolbar_icon_size"
+        android:layout_height="@dimen/dimen_toolbar_height"
+        android:layout_marginStart="@dimen/dimen_material_margin"
         android:clickable="true"
         android:contentDescription="@null"
         android:scaleType="centerInside"
         android:src="@drawable/ic_back"/>
+
+    <include layout="@layout/view_fab_picture"/>
 
 </FrameLayout>

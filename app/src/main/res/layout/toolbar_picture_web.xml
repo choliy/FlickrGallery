@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/text_picture_title"
         style="@style/ToolbarTextStyle"
-        android:layout_marginEnd="@dimen/material_margin"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
         android:ellipsize="marquee"
         android:maxLines="1"
         tools:text="Lord of the Rings"/>

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.interfaces.OnHistoryClickListener;
+import com.choliy.igor.flickrgallery.callback.OnHistoryClickListener;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 
 import java.util.List;

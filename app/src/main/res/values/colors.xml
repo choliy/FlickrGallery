@@ -3,24 +3,23 @@
 
     <!-- Main Colors -->
     <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#E0E0E0</color>
+    <color name="colorPrimaryDark">#EEEEEE</color>
     <color name="colorAccent">#EC407A</color>
 
     <!-- Text Colors -->
-    <color name="textColorWhite">@color/colorPrimary</color>
-    <color name="textColorLightGray">#9E9E9E</color>
-    <color name="textColorGray">#616161</color>
-    <color name="textColoBlack">#212121</color>
+    <color name="colorTextWhite">@color/colorPrimary</color>
+    <color name="colorTextLightGray">#9E9E9E</color>
+    <color name="colorTextGray">#616161</color>
+    <color name="colorTextBlack">#212121</color>
 
     <!-- Fab Colors -->
-    <color name="fabIconColor">@color/textColorGray</color>
-    <color name="fabBackgroundColor">#8c000000</color>
-    <color name="fabShadowColor">@color/fabBackgroundColor</color>
+    <color name="colorFabIcon">@color/colorTextGray</color>
+    <color name="colorFabBackground">#96000000</color>
+    <color name="colorFabShadow">@color/colorFabBackground</color>
 
     <!-- Other Colors -->
     <color name="colorBlue">#3F51B5</color>
     <color name="colorSelector">#82e91e63</color>
-    <color name="listBackground">#50000000</color>
-    <color name="activityBackground">#1e000000</color>
+    <color name="colorListBackground">#50000000</color>
 
 </resources>

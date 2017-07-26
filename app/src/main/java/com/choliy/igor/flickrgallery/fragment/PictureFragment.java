@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -29,6 +29,8 @@ public class PictureFragment extends Fragment implements RequestListener {
     @BindView(R.id.picture_image) ImageView mPicture;
     @BindView(R.id.picture_description) TextView mDescription;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
+    @BindView(R.id.top_picture_shadow) View mTopShadow;
+    @BindView(R.id.bottom_picture_shadow) View mBottomShadow;
     private GalleryItem mItem;
 
     public static Fragment newInstance(GalleryItem item) {
@@ -72,6 +74,8 @@ public class PictureFragment extends Fragment implements RequestListener {
             boolean isFirstResource) {
 
         mProgressView.smoothToHide();
+        mTopShadow.setVisibility(View.VISIBLE);
+        mBottomShadow.setVisibility(View.VISIBLE);
         return Boolean.FALSE;
     }
 
@@ -84,10 +88,7 @@ public class PictureFragment extends Fragment implements RequestListener {
             mTitle.setText(title);
 
         String description = mItem.getDescription();
-        if (description.equals(FlickrConstants.STRING_EMPTY))
-            mDescription.setText(getString(R.string.text_empty_description));
-        else
-            mDescription.setText(description);
+        mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
 
         String url;
         if (!mItem.getMediumPictureUrl().equals(FlickrConstants.JSON_NO_SUCH_SIZE))
@@ -95,10 +96,10 @@ public class PictureFragment extends Fragment implements RequestListener {
         else if (!mItem.getSmallPictureUrl().equals(FlickrConstants.JSON_NO_SUCH_SIZE))
             url = mItem.getSmallPictureUrl();
         else if (!mItem.getExtraSmallPictureUrl().equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
-            smallPicture(view);
+            smallPicture();
             url = mItem.getExtraSmallPictureUrl();
         } else {
-            smallPicture(view);
+            smallPicture();
             url = mItem.getListPictureUrl();
         }
 
@@ -106,12 +107,12 @@ public class PictureFragment extends Fragment implements RequestListener {
             Glide.with(getActivity())
                     .load(url)
                     .listener(this)
-                    .animate(R.anim.anim_picture)
+                    .animate(R.anim.anim_scale_picture)
                     .into(mPicture);
         } else Glide.with(getActivity()).load(url).listener(this).into(mPicture);
     }
 
-    private void smallPicture(View view) {
-        FlickrUtils.showInfo(view, getString(R.string.text_picture_small));
+    private void smallPicture() {
+        ExtraUtils.showLongInfo(getActivity(), getString(R.string.text_picture_small));
     }
 }

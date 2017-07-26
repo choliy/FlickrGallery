@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/top_picture_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_shadow_height"
+        android:background="@drawable/shape_shadow_top"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progress_view"
+            android:layout_width="@dimen/dimen_image_list_size"
+            android:layout_height="@dimen/dimen_image_list_size"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dimen_toolbar_icon_size"
+            android:layout_marginTop="@dimen/dimen_toolbar_icon_size"
+            app:indicatorColor="@color/colorAccent"
+            app:indicatorName="BallSpinFadeLoaderIndicator"/>
+
+        <ImageView
+            android:id="@+id/picture_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            tools:src="@mipmap/ic_launcher"/>
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/bottom_picture_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_shadow_height"
+        android:background="@drawable/shape_shadow_bottom"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+</LinearLayout>

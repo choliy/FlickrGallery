@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/medium_margin">
+    android:padding="@dimen/dimen_medium_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/dimen_medium_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -18,31 +18,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dialog_about_title"
-            android:textColor="@color/textColoBlack"
-            android:textSize="@dimen/text_medium"/>
+            android:textColor="@color/colorTextBlack"
+            android:textSize="@dimen/dimen_text_medium"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_margin"
+            android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/dialog_app_version"
-            android:textColor="@color/textColorLightGray"
-            android:textSize="@dimen/text_medium"/>
+            android:textColor="@color/colorTextLightGray"
+            android:textSize="@dimen/dimen_text_medium"/>
 
     </LinearLayout>
 
     <TextView
         style="@style/MessageTextStyle"
-        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/dimen_small_margin"
         android:text="@string/dialog_message"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/dimen_medium_margin"
         android:text="@string/dialog_issue"
-        android:textColor="@color/textColorLightGray"
-        android:textSize="@dimen/text_small"/>
+        android:textColor="@color/colorTextLightGray"
+        android:textSize="@dimen/dimen_text_small"/>
 
     <TextView
         android:id="@+id/developer_url"
@@ -50,25 +50,25 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:textColor="@drawable/selector_dialog"
-        android:textSize="@dimen/text_small"
+        android:textSize="@dimen/dimen_text_small"
         tools:text="@string/dialog_developer"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/dimen_big_margin"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/btn_dialog_email"
             style="@style/DialogButtonStyle"
-            android:paddingStart="@dimen/size_zero"
+            android:paddingStart="@dimen/dimen_zero"
             android:text="@string/dialog_email_btn"/>
 
         <TextView
             android:id="@+id/btn_dialog_feedback"
             style="@style/DialogButtonStyle"
-            android:layout_marginStart="@dimen/material_margin"
+            android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/dialog_feedback_btn"/>
 
         <View style="@style/ViewWeightStyle"/>
@@ -76,7 +76,7 @@
         <TextView
             android:id="@+id/btn_about_close"
             style="@style/DialogButtonStyle"
-            android:paddingEnd="@dimen/size_zero"
+            android:paddingEnd="@dimen/dimen_zero"
             android:text="@string/dialog_close_btn"/>
 
     </LinearLayout>

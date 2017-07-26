@@ -20,9 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/listBackground"
+        android:background="@color/colorListBackground"
         android:orientation="vertical"
-        android:padding="@dimen/material_margin"
+        android:padding="@dimen/dimen_material_margin"
         android:visibility="invisible"
         tools:visibility="visible">
 
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/gallery_item_title"
             style="@style/ListItemTextStyle"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginTop="@dimen/dimen_small_margin"
             android:ellipsize="marquee"
             android:maxLines="3"
             tools:text="Hello my dear Frodo!"/>

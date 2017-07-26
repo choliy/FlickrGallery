@@ -7,9 +7,9 @@
     tool:visibility="visible">
 
     <ImageView
-        android:layout_width="@dimen/image_dialog_size"
-        android:layout_height="@dimen/image_dialog_size"
-        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_width="@dimen/dimen_image_dialog_size"
+        android:layout_height="@dimen/dimen_image_dialog_size"
+        android:layout_marginBottom="@dimen/dimen_small_margin"
         android:contentDescription="@null"
         android:src="@drawable/ic_empty_history"/>
 
@@ -22,14 +22,14 @@
 
     <TextView
         style="@style/InfoTextStyle"
-        android:layout_marginTop="@dimen/list_card_margin"
+        android:layout_marginTop="@dimen/dimen_list_card_margin"
         android:text="@string/text_history_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 
     <TextView
         android:id="@+id/btn_history_start"
         style="@style/DialogButtonStyle"
-        android:layout_marginTop="@dimen/material_margin"
+        android:layout_marginTop="@dimen/dimen_material_margin"
         android:text="@string/dialog_start_btn"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 

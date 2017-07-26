@@ -3,7 +3,7 @@ package com.choliy.igor.flickrgallery.util;
 import android.content.Context;
 import android.text.format.DateFormat;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +11,8 @@ import java.util.Locale;
 
 public final class TimeUtils {
 
-    private TimeUtils() {}
+    private TimeUtils() {
+    }
 
     public static String getDate() {
         SimpleDateFormat sdf = new SimpleDateFormat(FlickrConstants.DATE_FORMAT, Locale.ENGLISH);

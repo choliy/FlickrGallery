@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.interfaces;
+package com.choliy.igor.flickrgallery;
 
 public interface FlickrConstants {
 

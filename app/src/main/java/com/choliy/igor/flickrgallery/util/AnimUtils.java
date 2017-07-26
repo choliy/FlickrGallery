@@ -11,25 +11,36 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
 public final class AnimUtils {
 
-    private AnimUtils() {}
+    private AnimUtils() {
+    }
 
     public static void animateView(Context context, View view, boolean show) {
         int animResId;
         if (show) {
-            animResId = R.anim.anim_translate_show;
+            animResId = R.anim.anim_translate_show_top;
             view.setVisibility(View.VISIBLE);
         } else {
-            animResId = R.anim.anim_translate_hide;
+            animResId = R.anim.anim_translate_hide_top;
             view.setVisibility(View.INVISIBLE);
         }
+        startAnimation(context, view, animResId);
+    }
 
-        Animation animation = AnimationUtils.loadAnimation(context, animResId);
-        view.startAnimation(animation);
+    public static void animateBackButton(Context context, View view, boolean show) {
+        int animResId;
+        if (show) {
+            animResId = R.anim.anim_translate_show_back;
+            view.setVisibility(View.VISIBLE);
+        } else {
+            animResId = R.anim.anim_translate_hide_back;
+            view.setVisibility(View.INVISIBLE);
+        }
+        startAnimation(context, view, animResId);
     }
 
     public static void animateToolbarVisibility(Context context, boolean show) {
@@ -78,5 +89,10 @@ public final class AnimUtils {
             searchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
             searchView.setIconified(Boolean.TRUE);
         }
+    }
+
+    private static void startAnimation(Context context, View view, int animResId) {
+        Animation animation = AnimationUtils.loadAnimation(context, animResId);
+        view.startAnimation(animation);
     }
 }

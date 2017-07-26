@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/small_margin"
+    android:layout_margin="@dimen/dimen_small_margin"
     android:clickable="true">
 
     <LinearLayout
@@ -13,20 +13,20 @@
         android:background="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="@dimen/small_margin">
+        android:padding="@dimen/dimen_small_margin">
 
         <TextView
             android:id="@+id/text_history_title"
             fontPath="@string/font_bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/dimen_small_margin"
+            android:layout_marginStart="@dimen/dimen_small_margin"
             android:layout_weight="1"
             android:ellipsize="marquee"
             android:maxLines="1"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/textColorGray"
+            android:textColor="@color/colorTextGray"
             tools:text="Lord of the rings"/>
 
         <LinearLayout
@@ -40,9 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_date"
-                android:drawablePadding="@dimen/small_margin"
+                android:drawablePadding="@dimen/dimen_small_margin"
                 android:gravity="center"
-                android:textColor="@color/textColorLightGray"
+                android:textColor="@color/colorTextLightGray"
                 tools:text="03.07.2001"/>
 
             <TextView
@@ -50,9 +50,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_time"
-                android:drawablePadding="@dimen/small_margin"
+                android:drawablePadding="@dimen/dimen_small_margin"
                 android:gravity="center"
-                android:textColor="@color/textColorLightGray"
+                android:textColor="@color/colorTextLightGray"
                 tools:text="11:30"/>
 
         </LinearLayout>

@@ -2,11 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:color="@color/textColorLightGray"
+        android:color="@color/colorTextLightGray"
         android:state_pressed="true"/>
 
     <item
-        android:color="@color/textColorLightGray"
+        android:color="@color/colorTextLightGray"
         android:state_focused="true"/>
 
     <item

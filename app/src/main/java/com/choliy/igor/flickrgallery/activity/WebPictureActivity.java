@@ -2,7 +2,6 @@ package com.choliy.igor.flickrgallery.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -13,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
@@ -30,7 +29,7 @@ public class WebPictureActivity extends BroadcastActivity {
     @BindView(R.id.layout_no_uri) LinearLayout mNoUriLayout;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.web_view_picture) WebView mWebView;
-    @BindView(R.id.fab_menu) FloatingActionMenu mFabMenu;
+    @BindView(R.id.fab_menu_web) FloatingActionMenu mFabMenu;
     private String mItemUri = FlickrConstants.STRING_EMPTY;
 
     @Override
@@ -107,16 +106,12 @@ public class WebPictureActivity extends BroadcastActivity {
     @Override
     public void onBackPressed() {
         if (mWebView.canGoBack()) mWebView.goBack();
-        else finishActivity();
+        if (mFabMenu.isOpened()) mFabMenu.close(Boolean.TRUE);
+        else super.onBackPressed();
     }
 
     @OnClick(R.id.ic_return_picture)
     public void onReturnClick() {
-        finishActivity();
-    }
-
-    private void finishActivity() {
-        NavUtils.navigateUpFromSameTask(this);
         finish();
     }
 }

@@ -3,7 +3,7 @@ package com.choliy.igor.flickrgallery.view;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
 

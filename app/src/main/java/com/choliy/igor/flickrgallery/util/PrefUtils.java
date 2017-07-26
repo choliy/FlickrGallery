@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
 public final class PrefUtils {
 
-    private PrefUtils() {}
+    private PrefUtils() {
+    }
 
     public static void isFirstStart(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

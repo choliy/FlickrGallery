@@ -19,11 +19,11 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
-import com.choliy.igor.flickrgallery.interfaces.OnPictureClickListener;
+import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.callback.OnPictureClickListener;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.view.HidingScrollListener;
 import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
@@ -140,7 +140,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
                 mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
                 mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
-                FlickrUtils.hideKeyboard(getActivity());
+                ExtraUtils.hideKeyboard(getActivity());
             }
         });
 
@@ -173,7 +173,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
         int orientation = gridSize[0];
         int verticalGrid = gridSize[1];
         int horizontalGrid = gridSize[2];
-        int gridMargin = Math.round(getResources().getDimension(R.dimen.list_divider_margin));
+        int gridMargin = Math.round(getResources().getDimension(R.dimen.dimen_list_divider_margin));
         ItemOffsetDecoration decoration;
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -183,8 +183,8 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
         if (savedStyle.equals(dividerStyle)) {
             mRvGallery.addItemDecoration(decoration);
         } else if (savedStyle.equals(cardStyle)) {
-            int padding = Math.round(getResources().getDimension(R.dimen.list_card_margin));
-            int paddingTop = FlickrUtils.getActionBarHeight(getActivity()) + padding;
+            int padding = Math.round(getResources().getDimension(R.dimen.dimen_list_card_margin));
+            int paddingTop = ExtraUtils.getActionBarHeight(getActivity()) + padding;
             mRvGallery.setPadding(padding, paddingTop, padding, padding);
         }
     }
@@ -196,7 +196,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
     }
 
     private boolean isConnected() {
-        boolean connected = FlickrUtils.isNetworkConnected(getActivity());
+        boolean connected = ExtraUtils.isNetworkConnected(getActivity());
         if (connected) {
             mConnectionLayout.setVisibility(View.GONE);
             mRvGallery.setVisibility(View.VISIBLE);

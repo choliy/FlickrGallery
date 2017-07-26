@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/toolbar_icon_menu"
-        android:layout_width="@dimen/toolbar_icon_size"
+        android:layout_width="@dimen/dimen_toolbar_icon_size"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/material_margin"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
         android:scaleType="centerInside"
@@ -33,8 +33,8 @@
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
-        android:paddingEnd="@dimen/material_margin"
-        android:paddingStart="@dimen/material_margin"
+        android:paddingEnd="@dimen/dimen_material_margin"
+        android:paddingStart="@dimen/dimen_material_margin"
         android:src="@drawable/ic_search_gray"/>
 
 </LinearLayout>

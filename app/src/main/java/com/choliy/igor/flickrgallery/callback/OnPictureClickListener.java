@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.interfaces;
+package com.choliy.igor.flickrgallery.callback;
 
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 

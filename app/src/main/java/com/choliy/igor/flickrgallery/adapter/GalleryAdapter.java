@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
-import com.choliy.igor.flickrgallery.interfaces.OnPictureClickListener;
+import com.choliy.igor.flickrgallery.FlickrConstants;
+import com.choliy.igor.flickrgallery.callback.OnPictureClickListener;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 
 import java.util.List;
@@ -160,7 +160,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             if (mIsAnimationOn) {
                 Glide.with(mContext)
                         .load(url)
-                        .animate(R.anim.anim_picture)
+                        .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
             } else Glide.with(mContext).load(url).into(mPicture);
         }

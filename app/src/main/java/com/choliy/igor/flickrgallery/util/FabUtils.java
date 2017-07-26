@@ -8,15 +8,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.ShareCompat;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.activity.WebPictureActivity;
+import com.choliy.igor.flickrgallery.model.GalleryItem;
 
 public final class FabUtils {
 
-    private FabUtils() {}
+    private FabUtils() {
+    }
 
     public static void browserUrl(Context context, String stringUrl) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringUrl));
         NavUtils.checkBeforeLaunching(context, browserIntent);
+    }
+
+    public static void goWeb(Context context, GalleryItem item) {
+        Intent intent = new Intent(context, WebPictureActivity.class);
+        intent.putExtra(FlickrConstants.TITLE_KEY, item.getTitle());
+        intent.putExtra(FlickrConstants.URI_KEY, item.getItemUri());
+        context.startActivity(intent);
     }
 
     public static void shareUrl(Activity activity, String stringUrl) {

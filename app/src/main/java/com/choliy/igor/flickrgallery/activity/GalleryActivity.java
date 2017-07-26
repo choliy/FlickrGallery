@@ -17,19 +17,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.choliy.igor.flickrgallery.interfaces.FlickrConstants;
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.callback.OnHistoryDialogClickListener;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
-import com.choliy.igor.flickrgallery.interfaces.OnHistoryDialogClickListener;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -130,9 +128,9 @@ public class GalleryActivity extends BroadcastActivity implements
         }
 
         mNavigationView.setNavigationItemSelectedListener(this);
+        ExtraUtils.setupDevDate(this, mNavigationView);
         setSupportActionBar(mToolbar);
         setupSearchView();
-        setupDevDate();
 
         if (bundle != null) {
             mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_KEY);
@@ -146,7 +144,7 @@ public class GalleryActivity extends BroadcastActivity implements
     private void setupSearchView() {
         final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
         TextView hintText = (TextView) mSearchView.findViewById(R.id.search_src_text);
-        hintText.setHintTextColor(ContextCompat.getColor(this, R.color.textColorLightGray));
+        hintText.setHintTextColor(ContextCompat.getColor(this, R.color.colorTextLightGray));
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -191,17 +189,9 @@ public class GalleryActivity extends BroadcastActivity implements
             @Override
             public void onClick(View view) {
                 mSearchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
-                FlickrUtils.showInfo(view, getString(R.string.text_search_query));
+                ExtraUtils.showInfo(view, getString(R.string.text_search_query));
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }
         });
-    }
-
-    private void setupDevDate() {
-        View header = mNavigationView.getHeaderView(FlickrConstants.INT_ZERO);
-        TextView developer = (TextView) header.findViewById(R.id.nav_text_developer);
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String text = getString(R.string.dialog_developer, String.valueOf(year));
-        developer.setText(text);
     }
 }

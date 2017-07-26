@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,15 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/toolbar_height">
+        android:paddingBottom="@dimen/dimen_picture_bottom_padding"
+        android:paddingTop="@dimen/dimen_toolbar_height">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingEnd="@dimen/material_margin"
-            android:paddingStart="@dimen/material_margin"
-            android:paddingTop="@dimen/material_margin">
+            android:paddingEnd="@dimen/dimen_material_margin"
+            android:paddingStart="@dimen/dimen_material_margin"
+            android:paddingTop="@dimen/dimen_material_margin">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -27,7 +27,6 @@
             <TextView
                 android:id="@+id/picture_owner"
                 style="@style/PicturePrimaryTextStyle"
-                fontPath="@string/font_bold"
                 android:maxLines="1"
                 tools:text="Legolas"/>
 
@@ -37,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/material_margin">
+            android:padding="@dimen/dimen_material_margin">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -46,42 +45,18 @@
             <TextView
                 android:id="@+id/picture_title"
                 style="@style/PicturePrimaryTextStyle"
-                fontPath="@string/font_bold"
                 android:maxLines="3"
                 tools:text="Hey Aragorn! Where is Gimli?"/>
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/progress_view"
-                android:layout_width="@dimen/image_list_size"
-                android:layout_height="@dimen/image_list_size"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/toolbar_icon_size"
-                android:layout_marginTop="@dimen/toolbar_icon_size"
-                app:indicatorColor="@color/colorAccent"
-                app:indicatorName="BallSpinFadeLoaderIndicator"/>
-
-            <ImageView
-                android:id="@+id/picture_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:scaleType="fitCenter"
-                tools:src="@mipmap/ic_launcher"/>
-
-        </FrameLayout>
+        <include layout="@layout/view_picture"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/material_margin">
+            android:padding="@dimen/dimen_material_margin">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -90,7 +65,6 @@
             <TextView
                 android:id="@+id/picture_description"
                 style="@style/PicturePrimaryTextStyle"
-                fontPath="@string/font_bold"
                 tools:text="Fellowship of the Ring"/>
 
         </LinearLayout>

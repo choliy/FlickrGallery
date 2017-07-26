@@ -23,6 +23,8 @@
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
     <string name="text_subject" translatable="false">About \"Flickr Gallery\"</string>
     <string name="text_hello" translatable="false">Hello Igor.\n\n\n</string>
+    <string name="text_def_description" translatable="false">{\"_content\":\"\"}</string>
+    <string name="text_replace_chars" translatable="false">{\"_content\":\"</string>
 
     <!-- Dialog About -->
     <string name="dialog_about_title">About App</string>
@@ -69,6 +71,7 @@
 
     <!-- Fab Text -->
     <string name="fab_browser">Open in browser</string>
+    <string name="fab_go_web">Go web</string>
     <string name="fab_copy">Copy</string>
     <string name="fab_copied">URL copied:\n\n%1$s</string>
     <string name="fab_share">Share</string>

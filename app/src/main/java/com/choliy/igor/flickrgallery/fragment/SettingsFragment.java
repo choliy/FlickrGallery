@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
-import com.choliy.igor.flickrgallery.util.FlickrUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 
 public class SettingsFragment extends PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener,
@@ -110,7 +110,7 @@ public class SettingsFragment extends PreferenceFragment implements
                 mAnimationPref.setChecked(Boolean.TRUE);
                 mNotificationPref.setChecked(Boolean.FALSE);
                 setupNotificationService(Boolean.FALSE);
-                FlickrUtils.showInfo(getView(), getString(R.string.pref_restore_info));
+                ExtraUtils.showInfo(getView(), getString(R.string.pref_restore_info));
             }
         });
 

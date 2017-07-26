@@ -13,7 +13,7 @@
 
     <ImageView
         android:id="@+id/toolbar_icon_back"
-        android:layout_width="@dimen/toolbar_icon_size"
+        android:layout_width="@dimen/dimen_toolbar_icon_size"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"

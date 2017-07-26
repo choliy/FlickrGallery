@@ -4,20 +4,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimStyle</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="ActivityTransparentStyle" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:background">@color/activityBackground</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
-
-    <style name="ActivityAnimation" parent="@android:style/Animation.Dialog">
+    <style name="ActivityAnimStyle" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/anim_alpha_show</item>
         <item name="android:windowExitAnimation">@anim/anim_alpha_hide</item>
     </style>
@@ -31,17 +22,17 @@
         <item name="android:visibility">gone</item>
     </style>
 
-    <style name="QuestionLayoutStyleOuter">
+    <style name="QuestionLayoutOuterStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:padding">@dimen/medium_margin</item>
+        <item name="android:padding">@dimen/dimen_medium_margin</item>
     </style>
 
-    <style name="QuestionLayoutStyleInner">
+    <style name="QuestionLayoutInnerStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/medium_margin</item>
+        <item name="android:layout_marginTop">@dimen/dimen_medium_margin</item>
         <item name="android:gravity">end</item>
         <item name="android:orientation">horizontal</item>
     </style>
@@ -54,9 +45,9 @@
     </style>
 
     <style name="ToolbarImageStyle">
-        <item name="android:layout_width">@dimen/toolbar_icon_size</item>
+        <item name="android:layout_width">@dimen/dimen_toolbar_icon_size</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">@dimen/material_margin</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_material_margin</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:src">@drawable/ic_back</item>
     </style>
@@ -65,20 +56,20 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
-        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textColor">@color/colorTextGray</item>
     </style>
 
     <style name="InfoImageStyle">
-        <item name="android:layout_width">@dimen/image_list_size</item>
-        <item name="android:layout_height">@dimen/image_list_size</item>
-        <item name="android:layout_marginBottom">@dimen/material_margin</item>
+        <item name="android:layout_width">@dimen/dimen_image_list_size</item>
+        <item name="android:layout_height">@dimen/dimen_image_list_size</item>
+        <item name="android:layout_marginBottom">@dimen/dimen_material_margin</item>
     </style>
 
     <style name="InfoTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:textColor">@color/colorTextGray</item>
     </style>
 
     <style name="OopsTextStyle" parent="InfoTextStyle">
@@ -90,15 +81,15 @@
     <style name="MessageTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/textColoBlack</item>
-        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/colorTextBlack</item>
+        <item name="android:textSize">@dimen/dimen_text_small</item>
     </style>
 
     <style name="DialogButtonStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:clickable">true</item>
-        <item name="android:padding">@dimen/list_card_margin</item>
+        <item name="android:padding">@dimen/dimen_list_card_margin</item>
         <item name="android:textColor">@drawable/selector_dialog</item>
         <item name="fontPath">@string/font_bold</item>
     </style>
@@ -123,14 +114,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:paddingBottom">@dimen/material_margin</item>
-        <item name="android:paddingEnd">@dimen/material_margin</item>
+        <item name="android:paddingBottom">@dimen/dimen_material_margin</item>
+        <item name="android:paddingEnd">@dimen/dimen_material_margin</item>
     </style>
 
     <style name="ListItemTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:shadowColor">@color/textColorGray</item>
+        <item name="android:shadowColor">@color/colorTextGray</item>
         <item name="android:shadowDx">5</item>
         <item name="android:shadowDy">5</item>
         <item name="android:shadowRadius">8</item>
@@ -145,15 +136,16 @@
         <item name="android:gravity">end</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-        <item name="android:textColor">@color/textColoBlack</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:textColor">@color/colorTextBlack</item>
     </style>
 
     <style name="PictureSecondaryTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-        <item name="android:layout_marginEnd">@dimen/small_margin</item>
-        <item name="android:textColor">@color/textColorGray</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_small_margin</item>
+        <item name="android:textColor">@color/colorTextLightGray</item>
     </style>
 
 </resources>
