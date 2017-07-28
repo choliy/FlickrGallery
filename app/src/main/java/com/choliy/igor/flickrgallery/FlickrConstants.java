@@ -26,6 +26,9 @@ public interface FlickrConstants {
     String DATE_FORMAT = "d MMMM yyyy";
     String TIME_FORMAT_UK = "HH:mm";
     String TIME_FORMAT_US = "h:mm a";
+    String TIME_FORMAT_DATE_TAKEN = "yyyy-MM-dd HH:mm:ss";
+    String INFO_DATE_FORMAT_UK = DATE_FORMAT + " (" + TIME_FORMAT_UK + ")";
+    String INFO_DATE_FORMAT_US = DATE_FORMAT + " (" + TIME_FORMAT_US + ")";
 
     // Flickr API
     String API_KEY = "780abee617798d7558c97719e544db7f";
@@ -35,7 +38,7 @@ public interface FlickrConstants {
     String JSON_ARRAY = "photo";
     String JSON_ID = "id";
     String JSON_TITLE = "title";
-    String JSON_UPLOAD_DATE = "dateupload";
+    String JSON_DATE = "datetaken";
     String JSON_OWNER_ID = "owner";
     String JSON_OWNER_NAME = "ownername";
     String JSON_DESCRIPTION = "description";

@@ -8,7 +8,7 @@ public class GalleryItem implements Parcelable {
 
     private String mId;
     private String mTitle;
-    private String mUploadDate;
+    private String mDate;
     private String mOwnerId;
     private String mOwnerName;
     private String mDescription;
@@ -25,7 +25,7 @@ public class GalleryItem implements Parcelable {
     public GalleryItem(
             String id,
             String title,
-            String uploadDate,
+            String date,
             String ownerId,
             String ownerName,
             String description,
@@ -38,7 +38,7 @@ public class GalleryItem implements Parcelable {
 
         setId(id);
         setTitle(title);
-        setUploadDate(uploadDate);
+        setDate(date);
         setOwnerId(ownerId);
         setOwnerName(ownerName);
         setDescription(description);
@@ -53,7 +53,7 @@ public class GalleryItem implements Parcelable {
     protected GalleryItem(Parcel in) {
         mId = in.readString();
         mTitle = in.readString();
-        mUploadDate = in.readString();
+        mDate = in.readString();
         mOwnerId = in.readString();
         mOwnerName = in.readString();
         mDescription = in.readString();
@@ -93,12 +93,12 @@ public class GalleryItem implements Parcelable {
         mTitle = title;
     }
 
-    public String getUploadDate() {
-        return mUploadDate;
+    public String getDate() {
+        return mDate;
     }
 
-    public void setUploadDate(String uploadDate) {
-        mUploadDate = uploadDate;
+    public void setDate(String date) {
+        mDate = date;
     }
 
     public String getOwnerId() {
@@ -192,7 +192,7 @@ public class GalleryItem implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mId);
         parcel.writeString(mTitle);
-        parcel.writeString(mUploadDate);
+        parcel.writeString(mDate);
         parcel.writeString(mOwnerId);
         parcel.writeString(mOwnerName);
         parcel.writeString(mDescription);

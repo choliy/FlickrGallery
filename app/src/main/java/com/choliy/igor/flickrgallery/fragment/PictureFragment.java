@@ -17,6 +17,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
+import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
@@ -27,6 +28,7 @@ public class PictureFragment extends Fragment implements RequestListener {
     @BindView(R.id.picture_owner) TextView mOwner;
     @BindView(R.id.picture_title) TextView mTitle;
     @BindView(R.id.picture_image) ImageView mPicture;
+    @BindView(R.id.picture_date) TextView mDate;
     @BindView(R.id.picture_description) TextView mDescription;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.top_picture_shadow) View mTopShadow;
@@ -57,7 +59,7 @@ public class PictureFragment extends Fragment implements RequestListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        setData(view);
+        setData();
     }
 
     @Override
@@ -79,17 +81,31 @@ public class PictureFragment extends Fragment implements RequestListener {
         return Boolean.FALSE;
     }
 
-    private void setData(View view) {
+    private void setData() {
+        // set owner name
         mOwner.setText(mItem.getOwnerName());
+
+        // set title
         String title = mItem.getTitle();
         if (title.equals(FlickrConstants.STRING_EMPTY))
             mTitle.setText(getString(R.string.text_empty_title));
         else
             mTitle.setText(title);
 
+        // set date
+        String date = mItem.getDate();
+        if (date.equals(FlickrConstants.STRING_EMPTY))
+            mDate.setText(getString(R.string.text_empty_date));
+        else {
+            date = TimeUtils.formatDate(getActivity(), date);
+            mDate.setText(date);
+        }
+
+        // set description
         String description = mItem.getDescription();
         mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
 
+        // set picture url
         String url;
         if (!mItem.getMediumPictureUrl().equals(FlickrConstants.JSON_NO_SUCH_SIZE))
             url = mItem.getMediumPictureUrl();

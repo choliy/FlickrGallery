@@ -12,13 +12,7 @@
         android:paddingBottom="@dimen/dimen_picture_bottom_padding"
         android:paddingTop="@dimen/dimen_toolbar_height">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/dimen_material_margin"
-            android:paddingStart="@dimen/dimen_material_margin"
-            android:paddingTop="@dimen/dimen_material_margin">
+        <LinearLayout style="@style/PictureLayoutStyle">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -27,6 +21,7 @@
             <TextView
                 android:id="@+id/picture_owner"
                 style="@style/PicturePrimaryTextStyle"
+                fontPath="@string/font_bold"
                 android:maxLines="1"
                 tools:text="Legolas"/>
 
@@ -51,6 +46,20 @@
         </LinearLayout>
 
         <include layout="@layout/view_picture"/>
+
+        <LinearLayout style="@style/PictureLayoutStyle">
+
+            <TextView
+                style="@style/PictureSecondaryTextStyle"
+                android:text="@string/text_picture_date"/>
+
+            <TextView
+                android:id="@+id/picture_date"
+                style="@style/PicturePrimaryTextStyle"
+                android:maxLines="1"
+                tools:text="2017-07-28 12:00:00"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

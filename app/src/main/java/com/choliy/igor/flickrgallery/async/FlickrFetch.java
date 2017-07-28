@@ -56,7 +56,7 @@ public class FlickrFetch {
                 .appendQueryParameter("format", "json")
                 .appendQueryParameter("nojsoncallback", "1")
                 .appendQueryParameter("extras",
-                        "date_upload,owner_name,description,url_sq,url_s,url_n,url_z,url_l,url_o")
+                        "owner_name,date_taken,description,url_sq,url_s,url_n,url_z,url_l,url_o")
                 .appendQueryParameter("per_page", PrefUtils.getPictureSettings(context))
                 .appendQueryParameter("page", String.valueOf(pageNumber))
                 .build().toString();
@@ -109,7 +109,7 @@ public class FlickrFetch {
             GalleryItem item = new GalleryItem();
             item.setId(photoJsonObject.getString(FlickrConstants.JSON_ID));
             item.setTitle(photoJsonObject.getString(FlickrConstants.JSON_TITLE));
-            item.setUploadDate(photoJsonObject.getString(FlickrConstants.JSON_UPLOAD_DATE));
+            item.setDate(photoJsonObject.getString(FlickrConstants.JSON_DATE));
             item.setOwnerId(photoJsonObject.getString(FlickrConstants.JSON_OWNER_ID));
             item.setOwnerName(photoJsonObject.getString(FlickrConstants.JSON_OWNER_NAME));
             item.setDescription(photoJsonObject.getString(FlickrConstants.JSON_DESCRIPTION));
