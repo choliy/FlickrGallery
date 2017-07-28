@@ -1,6 +1,5 @@
 package com.choliy.igor.flickrgallery.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,21 +17,19 @@ import butterknife.ButterKnife;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
 
-    private Context mContext;
     private List<HistoryItem> mHistory;
     private OnHistoryClickListener mListener;
 
-    public HistoryAdapter(Context context,
-                          List<HistoryItem> history,
+    public HistoryAdapter(List<HistoryItem> history,
                           OnHistoryClickListener listener) {
-        mContext = context;
         mHistory = history;
         mListener = listener;
     }
 
     @Override
     public HistoryAdapter.HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_history, parent, Boolean.FALSE);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.list_item_history, parent, Boolean.FALSE);
         return new HistoryHolder(view);
     }
 

@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureHolder> {
 
-    private Context mContext;
     private List<GalleryItem> mItems;
     private OnPictureClickListener mListener;
     private String mGridSize;
@@ -31,14 +30,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     private boolean mIsAnimationOn;
 
     public GalleryAdapter(
-            Context context,
             List<GalleryItem> items,
             OnPictureClickListener listener,
             String gridSize,
             String gridStyle,
             boolean isAnimationOn) {
 
-        mContext = context;
         mItems = items;
         mListener = listener;
         mGridSize = gridSize;
@@ -48,7 +45,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
     @Override
     public PictureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(setupLayout(), parent, Boolean.FALSE);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(setupLayout(parent.getContext()), parent, Boolean.FALSE);
         return new PictureHolder(view);
     }
 
@@ -67,9 +65,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         notifyDataSetChanged();
     }
 
-    private int setupLayout() {
+    private int setupLayout(Context context) {
         int layout;
-        String cardStyle = mContext.getString(R.string.pref_grid_style_value_3);
+        String cardStyle = context.getString(R.string.pref_grid_style_value_3);
         boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
         if (mGridStyle.equals(cardStyle) && newVersion)
@@ -90,9 +88,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         @BindView(R.id.gallery_item_image) ImageView mPicture;
         @BindView(R.id.gallery_item_owner) TextView mOwner;
         @BindView(R.id.gallery_item_title) TextView mTitle;
+        private View mItemView;
 
         PictureHolder(View itemView) {
             super(itemView);
+            mItemView = itemView;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
@@ -117,9 +117,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             String urlExtraSmall = mItems.get(position).getExtraSmallPictureUrl();
             String urlSmall = mItems.get(position).getSmallPictureUrl();
 
-            String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
-            String grid2x3 = mContext.getString(R.string.pref_grid_size_value_2);
-            String grid5x8 = mContext.getString(R.string.pref_grid_size_value_5);
+            Context context = mItemView.getContext();
+            String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
+            String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
+            String grid5x8 = context.getString(R.string.pref_grid_size_value_5);
 
             if (mGridSize.equals(grid2x3)
                     && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
@@ -139,8 +140,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void setData(int position) {
-            String grid1x2 = mContext.getString(R.string.pref_grid_size_value_1);
-            String grid2x3 = mContext.getString(R.string.pref_grid_size_value_2);
+            Context context = mItemView.getContext();
+            String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
+            String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
             if (mGridSize.equals(grid1x2)) {
                 setDescription(position);
             } else if (mGridSize.equals(grid2x3)) {
@@ -155,7 +157,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             mOwner.setText(mItems.get(position).getOwnerName());
             String title = mItems.get(position).getTitle();
             if (title.equals(FlickrConstants.STRING_EMPTY))
-                mTitle.setText(mContext.getString(R.string.text_empty_title));
+                mTitle.setText(itemView.getContext().getString(R.string.text_empty_title));
             else
                 mTitle.setText(title);
 
@@ -164,11 +166,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         private void glideLoading(String url) {
             if (mIsAnimationOn) {
-                Glide.with(mContext)
+                Glide.with(mItemView.getContext())
                         .load(url)
                         .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
-            } else Glide.with(mContext).load(url).into(mPicture);
+            } else Glide.with(mItemView.getContext()).load(url).into(mPicture);
         }
     }
 }

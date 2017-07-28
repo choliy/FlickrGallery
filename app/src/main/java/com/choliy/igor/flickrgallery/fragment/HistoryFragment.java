@@ -125,7 +125,7 @@ public class HistoryFragment extends DialogFragment implements
     }
 
     private void setupUi(List<HistoryItem> historyItems) {
-        mHistoryAdapter = new HistoryAdapter(getActivity(), historyItems, this);
+        mHistoryAdapter = new HistoryAdapter(historyItems, this);
         mRvHistory.setAdapter(mHistoryAdapter);
         mRvHistory.setHasFixedSize(Boolean.TRUE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

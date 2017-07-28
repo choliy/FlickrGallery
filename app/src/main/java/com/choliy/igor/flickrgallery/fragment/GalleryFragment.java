@@ -97,13 +97,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
         String gridSize = PrefUtils.getGridSettings(getActivity());
         String gridStyle = PrefUtils.getStyleSettings(getActivity());
         boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
-        mGalleryAdapter = new GalleryAdapter(
-                getActivity(),
-                mItems,
-                this,
-                gridSize,
-                gridStyle,
-                isAnimationOn);
+        mGalleryAdapter = new GalleryAdapter(mItems, this, gridSize, gridStyle, isAnimationOn);
         mRvGallery.setAdapter(mGalleryAdapter);
         mRvGallery.setHasFixedSize(Boolean.TRUE);
         setScrollListener();
