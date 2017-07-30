@@ -21,5 +21,6 @@
     <color name="colorBlue">#3F51B5</color>
     <color name="colorSelector">#82e91e63</color>
     <color name="colorListBackground">#50000000</color>
+    <color name="colorPictureBackground">#dc000000</color>
 
 </resources>

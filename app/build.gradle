@@ -41,4 +41,7 @@ dependencies {
 
     /** Custom Fab **/
     compile 'com.github.clans:fab:1.6.4'
+
+    /** Picture Zoom **/
+    compile 'com.github.chrisbanes:PhotoView:2.1.3'
 }

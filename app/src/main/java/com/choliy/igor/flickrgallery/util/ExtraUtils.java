@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
@@ -72,5 +75,15 @@ public final class ExtraUtils {
             description = description.substring(0, description.length() - 2);
             return description;
         }
+    }
+
+    public static void loadPicture(Context context, String url, ImageView image, RequestListener listener) {
+        if (PrefUtils.getAnimationSettings(context)) {
+            Glide.with(context)
+                    .load(url)
+                    .listener(listener)
+                    .animate(R.anim.anim_scale_picture)
+                    .into(image);
+        } else Glide.with(context).load(url).listener(listener).into(image);
     }
 }
