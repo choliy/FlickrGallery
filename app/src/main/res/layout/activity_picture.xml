@@ -20,6 +20,10 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_back"/>
 
+    <View
+        android:id="@+id/fence_picture_view"
+        style="@style/FenceViewStyle"/>
+
     <include layout="@layout/view_fab_picture"/>
 
 </FrameLayout>

@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
@@ -30,6 +35,7 @@ public class PictureFragment extends Fragment implements RequestListener {
     @BindView(R.id.picture_title) TextView mTitle;
     @BindView(R.id.picture_image) ImageView mPicture;
     @BindView(R.id.picture_date) TextView mDate;
+    @BindView(R.id.picture_resolution) TextView mResolution;
     @BindView(R.id.picture_description) TextView mDescription;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.top_picture_shadow) View mTopShadow;
@@ -63,7 +69,7 @@ public class PictureFragment extends Fragment implements RequestListener {
         setData();
     }
 
-    @OnClick(R.id.picture_image)
+    @OnClick(R.id.picture_view)
     public void onPictureClick() {
         Intent intent = new Intent(getActivity(), BigPictureActivity.class);
         intent.putExtra(FlickrConstants.PICTURE_KEY, getPictureUrl(Boolean.TRUE));
@@ -100,6 +106,9 @@ public class PictureFragment extends Fragment implements RequestListener {
         else
             mTitle.setText(title);
 
+        // ser resolution
+        loadPictureResolution();
+
         // set date
         String date = mItem.getDate();
         if (date.equals(FlickrConstants.STRING_EMPTY))
@@ -135,6 +144,22 @@ public class PictureFragment extends Fragment implements RequestListener {
             url = mItem.getListPictureUrl();
         }
         return url;
+    }
+
+    private void loadPictureResolution() {
+        Glide.with(this).load(getPictureUrl(Boolean.TRUE)).into(new SimpleTarget<GlideDrawable>() {
+            @Override
+            public void onResourceReady(
+                    GlideDrawable resource,
+                    GlideAnimation<? super GlideDrawable> glideAnimation) {
+
+                String width = String.valueOf(resource.getIntrinsicWidth());
+                String height = String.valueOf(resource.getIntrinsicHeight());
+                String resolution = getString(R.string.text_picture_res_data, width, height);
+                mResolution.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTextBlack));
+                mResolution.setText(resolution);
+            }
+        });
     }
 
     private void smallPicture() {

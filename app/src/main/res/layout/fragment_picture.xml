@@ -57,7 +57,22 @@
                 android:id="@+id/picture_date"
                 style="@style/PicturePrimaryTextStyle"
                 android:maxLines="1"
-                tools:text="2017-07-28 12:00:00"/>
+                tools:text="23 June 2017 (18:02 PM)"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/PictureLayoutStyle">
+
+            <TextView
+                style="@style/PictureSecondaryTextStyle"
+                android:text="@string/text_picture_res"/>
+
+            <TextView
+                android:id="@+id/picture_resolution"
+                style="@style/PicturePrimaryTextStyle"
+                android:maxLines="1"
+                android:text="@string/text_picture_res_loading"
+                android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 

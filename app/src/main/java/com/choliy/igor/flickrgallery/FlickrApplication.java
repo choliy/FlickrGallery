@@ -2,8 +2,6 @@ package com.choliy.igor.flickrgallery;
 
 import android.app.Application;
 
-import com.choliy.igor.flickrgallery.R;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class FlickrApplication extends Application {

@@ -22,34 +22,6 @@ public class GalleryItem implements Parcelable {
     public GalleryItem() {
     }
 
-    public GalleryItem(
-            String id,
-            String title,
-            String date,
-            String ownerId,
-            String ownerName,
-            String description,
-            String smallListPictureUrl,
-            String listPictureUrl,
-            String extraSmallPictureUrl,
-            String smallPictureUrl,
-            String mediumPictureUrl,
-            String bigPictureUrl) {
-
-        setId(id);
-        setTitle(title);
-        setDate(date);
-        setOwnerId(ownerId);
-        setOwnerName(ownerName);
-        setDescription(description);
-        setSmallListPictureUrl(smallListPictureUrl);
-        setListPictureUrl(listPictureUrl);
-        setExtraSmallPictureUrl(extraSmallPictureUrl);
-        setSmallPictureUrl(smallPictureUrl);
-        setMediumPictureUrl(mediumPictureUrl);
-        setBigPictureUrl(bigPictureUrl);
-    }
-
     protected GalleryItem(Parcel in) {
         mId = in.readString();
         mTitle = in.readString();
@@ -101,7 +73,7 @@ public class GalleryItem implements Parcelable {
         mDate = date;
     }
 
-    public String getOwnerId() {
+    private String getOwnerId() {
         return mOwnerId;
     }
 
@@ -176,8 +148,8 @@ public class GalleryItem implements Parcelable {
     public String getItemUri() {
         Uri uri = Uri.parse("http://www.flickr.com/photos/")
                 .buildUpon()
-                .appendPath(mOwnerId)
-                .appendPath(mId)
+                .appendPath(getOwnerId())
+                .appendPath(getId())
                 .build();
 
         return uri.toString();

@@ -83,6 +83,9 @@
     <string name="text_picture_title">Title:\u0020</string>
     <string name="text_picture_date">Date:</string>
     <string name="text_picture_description">Description:</string>
+    <string name="text_picture_res">Resolution:</string>
+    <string name="text_picture_res_loading">Loading…</string>
+    <string name="text_picture_res_data" translatable="false">%1$s x %2$s</string>
     <string name="text_picture_small">Only low res picture available :(</string>
     <string name="text_empty_title">No picture title</string>
     <string name="text_empty_date">No date info</string>

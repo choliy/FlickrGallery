@@ -30,6 +30,7 @@ public class WebPictureActivity extends BroadcastActivity {
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.web_view_picture) WebView mWebView;
     @BindView(R.id.fab_menu_web) FloatingActionMenu mFabMenu;
+    @BindView(R.id.fence_web_view) View mFenceView;
     private String mItemUri = FlickrConstants.STRING_EMPTY;
 
     @Override
@@ -47,6 +48,39 @@ public class WebPictureActivity extends BroadcastActivity {
         AnimUtils.animateView(this, mFabMenu, Boolean.TRUE);
     }
 
+    @OnClick({R.id.fab_browser, R.id.fab_share, R.id.fab_copy})
+    public void onFabClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fab_browser:
+                mFabMenu.close(Boolean.TRUE);
+                FabUtils.browserUrl(this, mItemUri);
+                break;
+            case R.id.fab_share:
+                mFabMenu.close(Boolean.TRUE);
+                FabUtils.shareUrl(this, mItemUri);
+                break;
+            case R.id.fab_copy:
+                mFabMenu.close(Boolean.TRUE);
+                FabUtils.copyUrl(this, mItemUri);
+                Toast.makeText(this, getString(R.string.fab_copied, mItemUri), Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mWebView.canGoBack()) mWebView.goBack();
+        if (mFabMenu.isOpened()) {
+            mFenceView.setVisibility(View.INVISIBLE);
+            mFabMenu.close(Boolean.TRUE);
+        } else super.onBackPressed();
+    }
+
+    @OnClick(R.id.ic_return_picture)
+    public void onReturnClick() {
+        finish();
+    }
+
     private void setupUi() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -56,6 +90,19 @@ public class WebPictureActivity extends BroadcastActivity {
                 pictureTitle = getString(R.string.text_empty_title);
             mPictureTitle.setText(pictureTitle);
         }
+
+        mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mFabMenu.isOpened()) {
+                    mFenceView.setVisibility(View.VISIBLE);
+                    mFabMenu.open(Boolean.TRUE);
+                } else {
+                    mFenceView.setVisibility(View.INVISIBLE);
+                    mFabMenu.close(Boolean.TRUE);
+                }
+            }
+        });
     }
 
     private void setupWebView() {
@@ -82,36 +129,5 @@ public class WebPictureActivity extends BroadcastActivity {
             }
         });
         mWebView.loadUrl(mItemUri);
-    }
-
-    @OnClick({R.id.fab_browser, R.id.fab_share, R.id.fab_copy})
-    public void onFabClicked(View view) {
-        switch (view.getId()) {
-            case R.id.fab_browser:
-                mFabMenu.close(Boolean.TRUE);
-                FabUtils.browserUrl(this, mItemUri);
-                break;
-            case R.id.fab_share:
-                mFabMenu.close(Boolean.TRUE);
-                FabUtils.shareUrl(this, mItemUri);
-                break;
-            case R.id.fab_copy:
-                mFabMenu.close(Boolean.TRUE);
-                FabUtils.copyUrl(this, mItemUri);
-                Toast.makeText(this, getString(R.string.fab_copied, mItemUri), Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mWebView.canGoBack()) mWebView.goBack();
-        if (mFabMenu.isOpened()) mFabMenu.close(Boolean.TRUE);
-        else super.onBackPressed();
-    }
-
-    @OnClick(R.id.ic_return_picture)
-    public void onReturnClick() {
-        finish();
     }
 }

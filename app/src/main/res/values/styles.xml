@@ -119,6 +119,13 @@
         <item name="android:background">@drawable/selector_list_new</item>
     </style>
 
+    <style name="FenceViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clickable">true</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
     <style name="FabMenuStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

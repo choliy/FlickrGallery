@@ -26,8 +26,8 @@ public class BigPictureActivity extends AppCompatActivity implements RequestList
         setContentView(R.layout.activity_big_picture);
         ButterKnife.bind(this);
 
-        String pictureUrl = getIntent().getStringExtra(FlickrConstants.PICTURE_KEY);
-        ExtraUtils.loadPicture(this, pictureUrl, mPicture, this);
+        String url = getIntent().getStringExtra(FlickrConstants.PICTURE_KEY);
+        ExtraUtils.loadPicture(this, url, mPicture, this);
     }
 
     @OnClick(R.id.picture_full_screen)

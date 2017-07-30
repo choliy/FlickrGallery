@@ -3,13 +3,11 @@ package com.choliy.igor.flickrgallery.util;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 

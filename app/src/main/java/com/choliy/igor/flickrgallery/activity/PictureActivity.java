@@ -21,6 +21,7 @@ public class PictureActivity extends BroadcastActivity {
 
     @BindView(R.id.fab_menu_picture) FloatingActionMenu mFabMenu;
     @BindView(R.id.picture_ic_back) ImageView mBackButton;
+    @BindView(R.id.fence_picture_view) View mFenceView;
     private GalleryItem mItem;
 
     @Override
@@ -36,6 +37,19 @@ public class PictureActivity extends BroadcastActivity {
                     .add(R.id.picture_container, PictureFragment.newInstance(mItem))
                     .commit();
         }
+
+        mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mFabMenu.isOpened()) {
+                    mFenceView.setVisibility(View.VISIBLE);
+                    mFabMenu.open(Boolean.TRUE);
+                } else {
+                    mFenceView.setVisibility(View.INVISIBLE);
+                    mFabMenu.close(Boolean.TRUE);
+                }
+            }
+        });
     }
 
     @Override
@@ -52,8 +66,10 @@ public class PictureActivity extends BroadcastActivity {
 
     @Override
     public void onBackPressed() {
-        if (mFabMenu.isOpened()) mFabMenu.close(Boolean.TRUE);
-        else super.onBackPressed();
+        if (mFabMenu.isOpened()) {
+            mFenceView.setVisibility(View.INVISIBLE);
+            mFabMenu.close(Boolean.TRUE);
+        } else super.onBackPressed();
     }
 
     @OnClick(R.id.picture_ic_back)

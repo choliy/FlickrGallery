@@ -7,20 +7,15 @@ public class HistoryItem {
     private String mHistoryDate;
     private String mHistoryTime;
 
-    public HistoryItem() {
-    }
-
     public HistoryItem(String historyTitle, String historyDate, String historyTime) {
-        mHistoryTitle = historyTitle;
-        mHistoryDate = historyDate;
-        mHistoryTime = historyTime;
+        setHistoryTitle(historyTitle);
+        setHistoryDate(historyDate);
+        setHistoryTime(historyTime);
     }
 
     public HistoryItem(String id, String historyTitle, String historyDate, String historyTime) {
-        mId = id;
-        mHistoryTitle = historyTitle;
-        mHistoryDate = historyDate;
-        mHistoryTime = historyTime;
+        this(historyTitle, historyDate, historyTime);
+        setId(id);
     }
 
     public String getId() {
@@ -35,7 +30,7 @@ public class HistoryItem {
         return mHistoryTitle;
     }
 
-    public void setHistoryTitle(String historyTitle) {
+    private void setHistoryTitle(String historyTitle) {
         mHistoryTitle = historyTitle;
     }
 
@@ -43,7 +38,7 @@ public class HistoryItem {
         return mHistoryDate;
     }
 
-    public void setHistoryDate(String historyDate) {
+    private void setHistoryDate(String historyDate) {
         mHistoryDate = historyDate;
     }
 
@@ -51,7 +46,7 @@ public class HistoryItem {
         return mHistoryTime;
     }
 
-    public void setHistoryTime(String historyTime) {
+    private void setHistoryTime(String historyTime) {
         mHistoryTime = historyTime;
     }
 }
