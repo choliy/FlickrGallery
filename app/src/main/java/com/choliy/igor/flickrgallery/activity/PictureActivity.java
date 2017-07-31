@@ -41,13 +41,8 @@ public class PictureActivity extends BroadcastActivity {
         mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mFabMenu.isOpened()) {
-                    mFenceView.setVisibility(View.VISIBLE);
-                    mFabMenu.open(Boolean.TRUE);
-                } else {
-                    mFenceView.setVisibility(View.INVISIBLE);
-                    mFabMenu.close(Boolean.TRUE);
-                }
+                if (mFabMenu.isOpened()) enablePictureScreen(Boolean.TRUE);
+                else enablePictureScreen(Boolean.FALSE);
             }
         });
     }
@@ -66,10 +61,8 @@ public class PictureActivity extends BroadcastActivity {
 
     @Override
     public void onBackPressed() {
-        if (mFabMenu.isOpened()) {
-            mFenceView.setVisibility(View.INVISIBLE);
-            mFabMenu.close(Boolean.TRUE);
-        } else super.onBackPressed();
+        if (mFabMenu.isOpened()) enablePictureScreen(Boolean.TRUE);
+        else super.onBackPressed();
     }
 
     @OnClick(R.id.picture_ic_back)
@@ -81,25 +74,25 @@ public class PictureActivity extends BroadcastActivity {
     public void onFabClicked(View view) {
         switch (view.getId()) {
             case R.id.fab_go_web:
-                mFabMenu.close(Boolean.TRUE);
+                enablePictureScreen(Boolean.TRUE);
                 FabUtils.goWeb(this, mItem);
                 break;
             case R.id.fab_share:
-                mFabMenu.close(Boolean.TRUE);
+                enablePictureScreen(Boolean.TRUE);
                 FabUtils.shareUrl(this, mItem.getItemUri());
                 break;
             case R.id.fab_copy:
-                mFabMenu.close(Boolean.TRUE);
+                enablePictureScreen(Boolean.TRUE);
                 String url = mItem.getItemUri();
                 FabUtils.copyUrl(this, url);
                 Toast.makeText(this, getString(R.string.fab_copied, url), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab_save:
-                mFabMenu.close(Boolean.TRUE);
+                enablePictureScreen(Boolean.TRUE);
                 // TODO save
                 break;
             case R.id.fab_download:
-                mFabMenu.close(Boolean.TRUE);
+                enablePictureScreen(Boolean.TRUE);
                 // TODO download
                 break;
         }
@@ -108,5 +101,15 @@ public class PictureActivity extends BroadcastActivity {
     private void animateViews(boolean show) {
         AnimUtils.animateBackButton(this, mBackButton, show);
         AnimUtils.animateView(this, mFabMenu, show);
+    }
+
+    private void enablePictureScreen(boolean enable) {
+        if (enable) {
+            mFenceView.setVisibility(View.INVISIBLE);
+            mFabMenu.close(Boolean.TRUE);
+        } else {
+            mFenceView.setVisibility(View.VISIBLE);
+            mFabMenu.open(Boolean.TRUE);
+        }
     }
 }
