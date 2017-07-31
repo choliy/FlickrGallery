@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.callback.OnPictureClickListener;
+import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
+import com.choliy.igor.flickrgallery.event.ItemLastEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -24,20 +27,17 @@ import butterknife.ButterKnife;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureHolder> {
 
     private List<GalleryItem> mItems;
-    private OnPictureClickListener mListener;
     private String mGridSize;
     private String mGridStyle;
     private boolean mIsAnimationOn;
 
     public GalleryAdapter(
             List<GalleryItem> items,
-            OnPictureClickListener listener,
             String gridSize,
             String gridStyle,
             boolean isAnimationOn) {
 
         mItems = items;
-        mListener = listener;
         mGridSize = gridSize;
         mGridStyle = gridStyle;
         mIsAnimationOn = isAnimationOn;
@@ -99,7 +99,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         @Override
         public void onClick(View view) {
-            mListener.onPictureClicked(mItems.get(getAdapterPosition()));
+            GalleryItem item = mItems.get(getAdapterPosition());
+            EventBus.getDefault().post(new ItemGalleryEvent(item));
         }
 
         private void bindItem(int position) {
@@ -108,7 +109,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
             // Callback on the end of the list
             if (position == getItemCount() - 1)
-                mListener.onRequestedLastItem(getItemCount());
+                EventBus.getDefault().post(new ItemLastEvent(getItemCount()));
         }
 
         private void loadPicture(int position) {

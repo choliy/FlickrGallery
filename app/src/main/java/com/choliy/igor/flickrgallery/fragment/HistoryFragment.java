@@ -1,19 +1,16 @@
 package com.choliy.igor.flickrgallery.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +22,15 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.HistoryAdapter;
 import com.choliy.igor.flickrgallery.async.HistoryLoader;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
-import com.choliy.igor.flickrgallery.callback.OnHistoryClickListener;
-import com.choliy.igor.flickrgallery.callback.OnHistoryDialogClickListener;
+import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
+import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,33 +39,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HistoryFragment extends DialogFragment implements
-        OnHistoryClickListener,
+public class HistoryFragment extends EventFragment implements
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     private HistoryAdapter mHistoryAdapter;
     private List<HistoryItem> mSavedHistory;
-    private OnHistoryDialogClickListener mStartClickListener;
 
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mStartClickListener = (OnHistoryDialogClickListener) context;
-        } catch (ClassCastException e) {
-            Log.e(HistoryFragment.class.getSimpleName(), e.getMessage());
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(Boolean.TRUE);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -102,18 +84,12 @@ public class HistoryFragment extends DialogFragment implements
     public void onLoaderReset(Loader<List<HistoryItem>> loader) {
     }
 
-    @Override
-    public void onHistoryClick(String historyTitle) {
-        closeHistoryDialog();
-        mStartClickListener.onHistoryClick(historyTitle);
-    }
-
     @OnClick({R.id.btn_history_start, R.id.btn_history_clear, R.id.btn_history_close})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_history_start:
                 closeHistoryDialog();
-                mStartClickListener.onStartClick();
+                EventBus.getDefault().post(new HistoryStartEvent(Boolean.TRUE));
                 break;
             case R.id.btn_history_clear:
                 clearDialog();
@@ -124,8 +100,13 @@ public class HistoryFragment extends DialogFragment implements
         }
     }
 
+    @Subscribe
+    public void onEvent(HistoryTitleEvent event) {
+        closeHistoryDialog();
+    }
+
     private void setupUi(List<HistoryItem> historyItems) {
-        mHistoryAdapter = new HistoryAdapter(historyItems, this);
+        mHistoryAdapter = new HistoryAdapter(historyItems);
         mRvHistory.setAdapter(mHistoryAdapter);
         mRvHistory.setHasFixedSize(Boolean.TRUE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

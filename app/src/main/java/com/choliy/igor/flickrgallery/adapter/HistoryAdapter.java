@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.callback.OnHistoryClickListener;
+import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -18,12 +20,9 @@ import butterknife.ButterKnife;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
 
     private List<HistoryItem> mHistory;
-    private OnHistoryClickListener mListener;
 
-    public HistoryAdapter(List<HistoryItem> history,
-                          OnHistoryClickListener listener) {
+    public HistoryAdapter(List<HistoryItem> history) {
         mHistory = history;
-        mListener = listener;
     }
 
     @Override
@@ -79,7 +78,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
         @Override
         public void onClick(View view) {
-            mListener.onHistoryClick(mHistory.get(getAdapterPosition()).getHistoryTitle());
+            String historyTitle = mHistory.get(getAdapterPosition()).getHistoryTitle();
+            EventBus.getDefault().post(new HistoryTitleEvent(historyTitle));
         }
 
         void bindHistory(int position) {

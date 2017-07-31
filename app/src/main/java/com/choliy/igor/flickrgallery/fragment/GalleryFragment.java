@@ -15,12 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
-import com.choliy.igor.flickrgallery.FlickrConstants;
-import com.choliy.igor.flickrgallery.callback.OnPictureClickListener;
+import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
+import com.choliy.igor.flickrgallery.event.ItemLastEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
@@ -29,6 +30,9 @@ import com.choliy.igor.flickrgallery.view.HidingScrollListener;
 import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GalleryFragment extends Fragment implements OnPictureClickListener {
+public class GalleryFragment extends Fragment {
 
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
@@ -61,7 +65,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        setRetainInstance(Boolean.TRUE);
     }
 
     @Override
@@ -73,19 +77,31 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
     }
 
     @Override
-    public void onRequestedLastItem(int position) {
-        if (!mNoMoreData) {
-            ++mPageNumber;
-            mListPosition = position;
-            fetchData();
-        }
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onPictureClicked(GalleryItem item) {
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(ItemGalleryEvent event) {
         Intent intent = new Intent(getActivity(), PictureActivity.class);
-        intent.putExtra(FlickrConstants.ITEM_KEY, item);
+        intent.putExtra(FlickrConstants.ITEM_KEY, event.getItem());
         startActivity(intent);
+    }
+
+    @Subscribe
+    public void onEvent(ItemLastEvent event) {
+        if (!mNoMoreData) {
+            ++mPageNumber;
+            mListPosition = event.getPosition();
+            fetchData();
+        }
     }
 
     @OnClick(R.id.image_top_list)
@@ -97,7 +113,7 @@ public class GalleryFragment extends Fragment implements OnPictureClickListener 
         String gridSize = PrefUtils.getGridSettings(getActivity());
         String gridStyle = PrefUtils.getStyleSettings(getActivity());
         boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
-        mGalleryAdapter = new GalleryAdapter(mItems, this, gridSize, gridStyle, isAnimationOn);
+        mGalleryAdapter = new GalleryAdapter(mItems, gridSize, gridStyle, isAnimationOn);
         mRvGallery.setAdapter(mGalleryAdapter);
         mRvGallery.setHasFixedSize(Boolean.TRUE);
         setScrollListener();

@@ -22,7 +22,7 @@ public class GalleryItem implements Parcelable {
     public GalleryItem() {
     }
 
-    protected GalleryItem(Parcel in) {
+    private GalleryItem(Parcel in) {
         mId = in.readString();
         mTitle = in.readString();
         mDate = in.readString();

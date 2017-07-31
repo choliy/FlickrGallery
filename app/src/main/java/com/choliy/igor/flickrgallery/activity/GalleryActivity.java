@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.callback.OnHistoryDialogClickListener;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
+import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
+import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
@@ -29,12 +30,13 @@ import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GalleryActivity extends BroadcastActivity implements
-        NavigationView.OnNavigationItemSelectedListener,
-        OnHistoryDialogClickListener {
+        NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentManager mFragmentManager;
     private boolean mShowSearchType;
@@ -89,17 +91,19 @@ public class GalleryActivity extends BroadcastActivity implements
         return true;
     }
 
-    @Override
-    public void onStartClick() {
+    @Subscribe
+    public void onEvent(HistoryTitleEvent event) {
+        PrefUtils.setStoredQuery(this, event.getHistoryTitle());
         AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
         AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
     }
 
-    @Override
-    public void onHistoryClick(String historyTitle) {
-        PrefUtils.setStoredQuery(this, historyTitle);
-        AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
-        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+    @Subscribe
+    public void onEvent(HistoryStartEvent event) {
+        if (event.isStartClicked()) {
+            AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
+            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+        }
     }
 
     public void onToolbarClick(View view) {
