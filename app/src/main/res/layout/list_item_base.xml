@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/gallery_item_owner"
-            style="@style/ListItemTextStyle"
+            style="@style/ListItemGridTextStyle"
             fontPath="@string/font_bold"
             android:ellipsize="marquee"
             android:maxLines="1"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/gallery_item_title"
-            style="@style/ListItemTextStyle"
+            style="@style/ListItemGridTextStyle"
             android:layout_marginTop="@dimen/dimen_small_margin"
             android:ellipsize="marquee"
             android:maxLines="3"

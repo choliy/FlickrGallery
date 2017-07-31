@@ -130,18 +130,18 @@ public class PictureFragment extends Fragment implements RequestListener {
     private String getPictureUrl(boolean bigPicture) {
         String url;
         String noUrl = FlickrConstants.JSON_NO_SUCH_SIZE;
-        if (!mItem.getBigPictureUrl().equals(noUrl) && bigPicture)
-            url = mItem.getBigPictureUrl();
-        else if (!mItem.getMediumPictureUrl().equals(noUrl))
-            url = mItem.getMediumPictureUrl();
-        else if (!mItem.getSmallPictureUrl().equals(noUrl))
-            url = mItem.getSmallPictureUrl();
-        else if (!mItem.getExtraSmallPictureUrl().equals(noUrl)) {
+        if (!mItem.getBigPicUrl().equals(noUrl) && bigPicture)
+            url = mItem.getBigPicUrl();
+        else if (!mItem.getMediumPicUrl().equals(noUrl))
+            url = mItem.getMediumPicUrl();
+        else if (!mItem.getSmallPicUrl().equals(noUrl))
+            url = mItem.getSmallPicUrl();
+        else if (!mItem.getExtraSmallPicUrl().equals(noUrl)) {
             smallPicture();
-            url = mItem.getExtraSmallPictureUrl();
+            url = mItem.getExtraSmallPicUrl();
         } else {
             smallPicture();
-            url = mItem.getListPictureUrl();
+            url = mItem.getListPicUrl();
         }
         return url;
     }
@@ -163,6 +163,6 @@ public class PictureFragment extends Fragment implements RequestListener {
     }
 
     private void smallPicture() {
-        ExtraUtils.showLongInfo(getActivity(), getString(R.string.text_picture_small));
+        ExtraUtils.showLongToast(getActivity(), getString(R.string.text_picture_small));
     }
 }

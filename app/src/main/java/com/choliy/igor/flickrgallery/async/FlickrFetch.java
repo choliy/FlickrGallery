@@ -113,32 +113,32 @@ public class FlickrFetch {
             item.setOwnerId(photoJsonObject.getString(FlickrConstants.JSON_OWNER_ID));
             item.setOwnerName(photoJsonObject.getString(FlickrConstants.JSON_OWNER_NAME));
             item.setDescription(photoJsonObject.getString(FlickrConstants.JSON_DESCRIPTION));
-            item.setSmallListPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_LIST_PICTURE_URL));
-            item.setListPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_LIST_PICTURE_URL));
+            item.setSmallListPicUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_LIST_PICTURE_URL));
+            item.setListPicUrl(photoJsonObject.getString(FlickrConstants.JSON_LIST_PICTURE_URL));
 
             // Extra small picture
             if (photoJsonObject.has(FlickrConstants.JSON_EXTRA_SMALL_PICTURE_URL))
-                item.setExtraSmallPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_EXTRA_SMALL_PICTURE_URL));
+                item.setExtraSmallPicUrl(photoJsonObject.getString(FlickrConstants.JSON_EXTRA_SMALL_PICTURE_URL));
             else
-                item.setExtraSmallPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+                item.setExtraSmallPicUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
 
             // Small picture
             if (photoJsonObject.has(FlickrConstants.JSON_SMALL_PICTURE_URL))
-                item.setSmallPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_PICTURE_URL));
+                item.setSmallPicUrl(photoJsonObject.getString(FlickrConstants.JSON_SMALL_PICTURE_URL));
             else
-                item.setSmallPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+                item.setSmallPicUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
 
             // Medium picture
             if (photoJsonObject.has(FlickrConstants.JSON_MEDIUM_PICTURE_URL))
-                item.setMediumPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_MEDIUM_PICTURE_URL));
+                item.setMediumPicUrl(photoJsonObject.getString(FlickrConstants.JSON_MEDIUM_PICTURE_URL));
             else
-                item.setMediumPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+                item.setMediumPicUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
 
             // Big picture
             if (photoJsonObject.has(FlickrConstants.JSON_BIG_PICTURE_URL))
-                item.setBigPictureUrl(photoJsonObject.getString(FlickrConstants.JSON_BIG_PICTURE_URL));
+                item.setBigPicUrl(photoJsonObject.getString(FlickrConstants.JSON_BIG_PICTURE_URL));
             else
-                item.setBigPictureUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
+                item.setBigPicUrl(FlickrConstants.JSON_NO_SUCH_SIZE);
 
             items.add(item);
         }

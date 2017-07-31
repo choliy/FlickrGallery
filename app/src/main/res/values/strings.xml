@@ -12,8 +12,6 @@
     <!-- Info Text-->
     <string name="text_hint_search">Search photo</string>
     <string name="text_oops">OOPS!</string>
-    <string name="text_history_empty">History is empty</string>
-    <string name="text_history_text">Get started by searching new photos</string>
     <string name="text_no_connection">No internet connection</string>
     <string name="text_no_results">No results for your query</string>
     <string name="text_wrong_uri">Wrong URI to download data</string>
@@ -43,6 +41,8 @@
     <!-- Dialog History -->
     <string name="dialog_history_title">Search History</string>
     <string name="dialog_history_tag" translatable="false">history_tag</string>
+    <string name="dialog_history_empty">History is empty</string>
+    <string name="dialog_history_text">Get started by searching new photos</string>
     <string name="dialog_start_btn">START SEARCH</string>
     <string name="dialog_clear_btn">CLEAR HISTORY</string>
 
@@ -56,6 +56,13 @@
     <string name="dialog_undo_btn">UNDO</string>
     <string name="dialog_yes_btn">YES</string>
     <string name="dialog_no_btn">NO</string>
+
+    <!-- Saved Pictures -->
+    <string name="text_no_saved_pic">No saved pictures</string>
+    <string name="text_no_saved_desc">Get started by saving new pictures</string>
+    <string name="text_delete_message">Do you really want to delete all saved pictures?</string>
+    <string name="text_delete_removed">All saved pictures has been removed</string>
+    <string name="text_delete_nothing">Nothing to delete</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_tools">Tools</string>
@@ -77,6 +84,7 @@
     <string name="fab_share">Share</string>
     <string name="fab_save">Save</string>
     <string name="fab_download">Download</string>
+    <string name="fab_picture_saved">Picture saved</string>
 
     <!-- Picture Fragment Text -->
     <string name="text_picture_owner">Owner:</string>

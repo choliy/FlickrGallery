@@ -16,14 +16,14 @@
     <TextView
         style="@style/InfoTextStyle"
         fontPath="@string/font_bold"
-        android:text="@string/text_history_empty"
+        android:text="@string/dialog_history_empty"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
         android:textStyle="bold"/>
 
     <TextView
         style="@style/InfoTextStyle"
         android:layout_marginTop="@dimen/dimen_list_card_margin"
-        android:text="@string/text_history_text"
+        android:text="@string/dialog_history_text"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
 
     <TextView

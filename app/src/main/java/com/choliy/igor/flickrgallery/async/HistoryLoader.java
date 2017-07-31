@@ -11,12 +11,10 @@ import java.util.List;
 public class HistoryLoader extends AsyncTaskLoader<List<HistoryItem>> {
 
     public static final int HISTORY_LOADER_ID = 333;
-    private Context mContext;
     private List<HistoryItem> mHistoryItems;
 
     public HistoryLoader(Context context) {
         super(context);
-        mContext = context;
     }
 
     @Override
@@ -27,7 +25,7 @@ public class HistoryLoader extends AsyncTaskLoader<List<HistoryItem>> {
 
     @Override
     public List<HistoryItem> loadInBackground() {
-        return FlickrLab.getInstance(mContext).getHistory();
+        return FlickrLab.getInstance(getContext()).getHistory();
     }
 
     @Override

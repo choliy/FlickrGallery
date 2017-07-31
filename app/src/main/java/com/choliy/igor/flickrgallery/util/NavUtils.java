@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.activity.SavedActivity;
 import com.choliy.igor.flickrgallery.activity.SettingsActivity;
+import com.choliy.igor.flickrgallery.adapter.SavedAdapter;
 import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
 
 import java.util.Calendar;
@@ -31,7 +33,7 @@ public final class NavUtils {
     public static void onNavDrawerClicked(Context context, int id) {
         switch (id) {
             case R.id.nav_saved:
-                // TODO saved pictures
+                showSaved(context);
                 break;
             case R.id.nav_history:
                 showHistory(context);
@@ -55,6 +57,10 @@ public final class NavUtils {
                 appsIntent(context);
                 break;
         }
+    }
+
+    private static void showSaved(Context context) {
+        context.startActivity(new Intent(context, SavedActivity.class));
     }
 
     public static void showHistory(Context context) {
@@ -123,8 +129,8 @@ public final class NavUtils {
         version.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                dialog.dismiss();
                 secretDialog(context);
+                dialog.dismiss();
                 return Boolean.TRUE;
             }
         });

@@ -28,7 +28,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/ListItemTextStyle"
+            style="@style/ListItemGridTextStyle"
             android:paddingBottom="@dimen/dimen_small_margin"
             android:paddingEnd="@dimen/dimen_small_margin"
             android:text="@string/app_name"/>

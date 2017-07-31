@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/dimen_small_margin"
+    android:layout_marginStart="@dimen/dimen_small_margin"
+    android:layout_marginTop="@dimen/dimen_small_margin"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dimen_material_margin">
+
+        <FrameLayout
+            android:layout_width="@dimen/dimen_image_dialog_size"
+            android:layout_height="@dimen/dimen_image_dialog_size">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="@dimen/dimen_material_margin"
+                app:indicatorColor="@color/colorTextLightGray"
+                app:indicatorName="BallSpinFadeLoaderIndicator"/>
+
+            <ImageView
+                android:id="@+id/picture_saved"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/secret_image"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_material_margin"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_saved_owner"
+                style="@style/ListItemSavedTextStyle"
+                fontPath="@string/font_bold"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/dimen_zero"
+                android:layout_marginStart="@dimen/dimen_zero"
+                tools:text="Bilbo Baggins"/>
+
+            <TextView
+                android:id="@+id/text_saved_title"
+                style="@style/ListItemSavedTextStyle"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/dimen_zero"
+                android:layout_marginStart="@dimen/dimen_zero"
+                android:layout_marginTop="@dimen/dimen_small_margin"
+                tools:text="Hobbit from the Shire"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

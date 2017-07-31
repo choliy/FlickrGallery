@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_saved"
+    style="@style/ToolbarLayoutStyle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ic_return_saved"
+            style="@style/ToolbarImageStyle"
+            android:contentDescription="@null"/>
+
+        <TextView
+            style="@style/ToolbarTextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/nav_saved_pictures"/>
+
+        <ImageView
+            android:id="@+id/ic_delete_pictures"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/dimen_icon_padding"
+            android:src="@drawable/ic_delete"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>

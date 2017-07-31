@@ -12,12 +12,12 @@ public class GalleryItem implements Parcelable {
     private String mOwnerId;
     private String mOwnerName;
     private String mDescription;
-    private String mSmallListPictureUrl;
-    private String mListPictureUrl;
-    private String mExtraSmallPictureUrl;
-    private String mSmallPictureUrl;
-    private String mMediumPictureUrl;
-    private String mBigPictureUrl;
+    private String mSmallListPicUrl;
+    private String mListPicUrl;
+    private String mExtraSmallPicUrl;
+    private String mSmallPicUrl;
+    private String mMediumPicUrl;
+    private String mBigPicUrl;
 
     public GalleryItem() {
     }
@@ -29,12 +29,12 @@ public class GalleryItem implements Parcelable {
         mOwnerId = in.readString();
         mOwnerName = in.readString();
         mDescription = in.readString();
-        mSmallListPictureUrl = in.readString();
-        mListPictureUrl = in.readString();
-        mExtraSmallPictureUrl = in.readString();
-        mSmallPictureUrl = in.readString();
-        mMediumPictureUrl = in.readString();
-        mBigPictureUrl = in.readString();
+        mSmallListPicUrl = in.readString();
+        mListPicUrl = in.readString();
+        mExtraSmallPicUrl = in.readString();
+        mSmallPicUrl = in.readString();
+        mMediumPicUrl = in.readString();
+        mBigPicUrl = in.readString();
     }
 
     public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {
@@ -73,7 +73,7 @@ public class GalleryItem implements Parcelable {
         mDate = date;
     }
 
-    private String getOwnerId() {
+    public String getOwnerId() {
         return mOwnerId;
     }
 
@@ -97,52 +97,52 @@ public class GalleryItem implements Parcelable {
         mDescription = description;
     }
 
-    public String getSmallListPictureUrl() {
-        return mSmallListPictureUrl;
+    public String getSmallListPicUrl() {
+        return mSmallListPicUrl;
     }
 
-    public void setSmallListPictureUrl(String smallListPictureUrl) {
-        mSmallListPictureUrl = smallListPictureUrl;
+    public void setSmallListPicUrl(String smallListPicUrl) {
+        mSmallListPicUrl = smallListPicUrl;
     }
 
-    public String getListPictureUrl() {
-        return mListPictureUrl;
+    public String getListPicUrl() {
+        return mListPicUrl;
     }
 
-    public void setListPictureUrl(String listPictureUrl) {
-        mListPictureUrl = listPictureUrl;
+    public void setListPicUrl(String listPicUrl) {
+        mListPicUrl = listPicUrl;
     }
 
-    public String getExtraSmallPictureUrl() {
-        return mExtraSmallPictureUrl;
+    public String getExtraSmallPicUrl() {
+        return mExtraSmallPicUrl;
     }
 
-    public void setExtraSmallPictureUrl(String extraSmallPictureUrl) {
-        mExtraSmallPictureUrl = extraSmallPictureUrl;
+    public void setExtraSmallPicUrl(String extraSmallPicUrl) {
+        mExtraSmallPicUrl = extraSmallPicUrl;
     }
 
-    public String getSmallPictureUrl() {
-        return mSmallPictureUrl;
+    public String getSmallPicUrl() {
+        return mSmallPicUrl;
     }
 
-    public void setSmallPictureUrl(String smallPictureUrl) {
-        mSmallPictureUrl = smallPictureUrl;
+    public void setSmallPicUrl(String smallPicUrl) {
+        mSmallPicUrl = smallPicUrl;
     }
 
-    public String getMediumPictureUrl() {
-        return mMediumPictureUrl;
+    public String getMediumPicUrl() {
+        return mMediumPicUrl;
     }
 
-    public void setMediumPictureUrl(String mediumPictureUrl) {
-        mMediumPictureUrl = mediumPictureUrl;
+    public void setMediumPicUrl(String mediumPicUrl) {
+        mMediumPicUrl = mediumPicUrl;
     }
 
-    public String getBigPictureUrl() {
-        return mBigPictureUrl;
+    public String getBigPicUrl() {
+        return mBigPicUrl;
     }
 
-    public void setBigPictureUrl(String bigPictureUrl) {
-        mBigPictureUrl = bigPictureUrl;
+    public void setBigPicUrl(String bigPicUrl) {
+        mBigPicUrl = bigPicUrl;
     }
 
     public String getItemUri() {
@@ -168,11 +168,11 @@ public class GalleryItem implements Parcelable {
         parcel.writeString(mOwnerId);
         parcel.writeString(mOwnerName);
         parcel.writeString(mDescription);
-        parcel.writeString(mSmallListPictureUrl);
-        parcel.writeString(mListPictureUrl);
-        parcel.writeString(mExtraSmallPictureUrl);
-        parcel.writeString(mSmallPictureUrl);
-        parcel.writeString(mMediumPictureUrl);
-        parcel.writeString(mBigPictureUrl);
+        parcel.writeString(mSmallListPicUrl);
+        parcel.writeString(mListPicUrl);
+        parcel.writeString(mExtraSmallPicUrl);
+        parcel.writeString(mSmallPicUrl);
+        parcel.writeString(mMediumPicUrl);
+        parcel.writeString(mBigPicUrl);
     }
 }

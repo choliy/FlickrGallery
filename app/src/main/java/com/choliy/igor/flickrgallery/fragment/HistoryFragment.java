@@ -192,7 +192,7 @@ public class HistoryFragment extends EventFragment implements
         protected Void doInBackground(Boolean... bool) {
             mClearHistoryBase = bool[FlickrConstants.INT_ZERO];
             if (mClearHistoryBase) {
-                FlickrLab.getInstance(getActivity()).deleteAllHistory();
+                FlickrLab.getInstance(getActivity()).clearAllHistory();
                 PrefUtils.setStoredQuery(getActivity(), null);
             } else {
                 FlickrLab.getInstance(getActivity()).restoreHistory(mSavedHistory);
@@ -238,7 +238,7 @@ public class HistoryFragment extends EventFragment implements
                 if (historyItem.getId().equals(id)) mSingleHistory = historyItem;
             }
             mRemovedPosition = mHistoryAdapter.removeItem(mSingleHistory);
-            FlickrLab.getInstance(getActivity()).deleteSingleHistory(id);
+            FlickrLab.getInstance(getActivity()).deleteHistory(id);
             checkHistory();
             restoreSingleHistory(mRemovedPosition, mSingleHistory);
         }

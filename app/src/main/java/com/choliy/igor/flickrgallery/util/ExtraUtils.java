@@ -28,7 +28,11 @@ public final class ExtraUtils {
         Snackbar.make(view, infoText, Snackbar.LENGTH_SHORT).show();
     }
 
-    public static void showLongInfo(Context context, String infoText) {
+    public static void showShortToast(Context context, String infoText) {
+        Toast.makeText(context, infoText, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showLongToast(Context context, String infoText) {
         Toast.makeText(context, infoText, Toast.LENGTH_LONG).show();
     }
 

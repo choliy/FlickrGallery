@@ -17,16 +17,8 @@
 
         <TextView
             android:id="@+id/text_history_title"
+            style="@style/ListItemSavedTextStyle"
             fontPath="@string/font_bold"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimen_small_margin"
-            android:layout_marginStart="@dimen/dimen_small_margin"
-            android:layout_weight="1"
-            android:ellipsize="marquee"
-            android:maxLines="1"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorTextGray"
             tools:text="Lord of the rings"/>
 
         <LinearLayout
@@ -37,22 +29,12 @@
 
             <TextView
                 android:id="@+id/text_history_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_date"
-                android:drawablePadding="@dimen/dimen_small_margin"
-                android:gravity="center"
-                android:textColor="@color/colorTextLightGray"
+                style="@style/ListItemDateStyle"
                 tools:text="03.07.2001"/>
 
             <TextView
                 android:id="@+id/text_history_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/ic_time"
-                android:drawablePadding="@dimen/dimen_small_margin"
-                android:gravity="center"
-                android:textColor="@color/colorTextLightGray"
+                style="@style/ListItemTimeStyle"
                 tools:text="11:30"/>
 
         </LinearLayout>

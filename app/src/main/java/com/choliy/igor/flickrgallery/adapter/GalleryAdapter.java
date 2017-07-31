@@ -113,10 +113,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void loadPicture(int position) {
-            String urlSmallList = mItems.get(position).getSmallListPictureUrl();
-            String urlList = mItems.get(position).getListPictureUrl();
-            String urlExtraSmall = mItems.get(position).getExtraSmallPictureUrl();
-            String urlSmall = mItems.get(position).getSmallPictureUrl();
+            String urlSmallList = mItems.get(position).getSmallListPicUrl();
+            String urlList = mItems.get(position).getListPicUrl();
+            String urlExtraSmall = mItems.get(position).getExtraSmallPicUrl();
+            String urlSmall = mItems.get(position).getSmallPicUrl();
 
             Context context = mItemView.getContext();
             String grid1x2 = context.getString(R.string.pref_grid_size_value_1);

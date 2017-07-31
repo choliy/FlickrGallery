@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/layout_no_pic"
+    style="@style/InfoLayoutStyle"
+    tool:visibility="visible">
+
+    <ImageView
+        style="@style/InfoImageStyle"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_save_light"/>
+
+    <TextView
+        style="@style/InfoTextStyle"
+        fontPath="@string/font_bold"
+        android:text="@string/text_no_saved_pic"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textStyle="bold"/>
+
+    <TextView
+        style="@style/InfoTextStyle"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
+        android:layout_marginStart="@dimen/dimen_material_margin"
+        android:layout_marginTop="@dimen/dimen_small_margin"
+        android:gravity="center"
+        android:text="@string/text_no_saved_desc"/>
+
+</LinearLayout>

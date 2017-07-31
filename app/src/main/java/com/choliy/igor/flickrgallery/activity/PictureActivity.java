@@ -7,9 +7,11 @@ import android.widget.Toast;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.PictureFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
+import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -89,7 +91,8 @@ public class PictureActivity extends BroadcastActivity {
                 break;
             case R.id.fab_save:
                 enablePictureScreen(Boolean.TRUE);
-                // TODO save
+                FlickrLab.getInstance(this).addPicture(mItem);
+                ExtraUtils.showShortToast(this, getString(R.string.fab_picture_saved));
                 break;
             case R.id.fab_download:
                 enablePictureScreen(Boolean.TRUE);
