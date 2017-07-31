@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WebPictureActivity extends BroadcastActivity {
+public class WebActivity extends BroadcastActivity {
 
     @BindView(R.id.text_picture_title) TextView mPictureTitle;
     @BindView(R.id.layout_no_uri) LinearLayout mNoUriLayout;
@@ -36,7 +36,7 @@ public class WebPictureActivity extends BroadcastActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_picture_web);
+        setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
         setupUi();
         setupWebView();

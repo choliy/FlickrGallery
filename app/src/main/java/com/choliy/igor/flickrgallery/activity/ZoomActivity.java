@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BigPictureActivity extends AppCompatActivity implements RequestListener {
+public class ZoomActivity extends AppCompatActivity implements RequestListener {
 
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.picture_full_screen) PhotoView mPicture;
@@ -23,7 +23,7 @@ public class BigPictureActivity extends AppCompatActivity implements RequestList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_big_picture);
+        setContentView(R.layout.activity_zoom);
         ButterKnife.bind(this);
 
         String url = getIntent().getStringExtra(FlickrConstants.PICTURE_KEY);

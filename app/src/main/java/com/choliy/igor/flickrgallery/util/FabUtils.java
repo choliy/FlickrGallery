@@ -10,7 +10,7 @@ import android.support.v4.app.ShareCompat;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.activity.WebPictureActivity;
+import com.choliy.igor.flickrgallery.activity.WebActivity;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 
 public final class FabUtils {
@@ -24,7 +24,7 @@ public final class FabUtils {
     }
 
     public static void goWeb(Context context, GalleryItem item) {
-        Intent intent = new Intent(context, WebPictureActivity.class);
+        Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(FlickrConstants.TITLE_KEY, item.getTitle());
         intent.putExtra(FlickrConstants.URI_KEY, item.getItemUri());
         context.startActivity(intent);

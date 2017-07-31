@@ -37,12 +37,12 @@
             android:parentActivityName=".activity.GalleryActivity"/>
 
         <activity
-            android:name=".activity.BigPictureActivity"
+            android:name=".activity.ZoomActivity"
             android:parentActivityName=".activity.PictureActivity"
             android:theme="@style/ActivityTransparentStyle"/>
 
         <activity
-            android:name=".activity.WebPictureActivity"
+            android:name=".activity.WebActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".activity.PictureActivity"/>
 

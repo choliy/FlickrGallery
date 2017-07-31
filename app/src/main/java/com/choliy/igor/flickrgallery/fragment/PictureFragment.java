@@ -19,7 +19,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.activity.BigPictureActivity;
+import com.choliy.igor.flickrgallery.activity.ZoomActivity;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
@@ -71,7 +71,7 @@ public class PictureFragment extends Fragment implements RequestListener {
 
     @OnClick(R.id.picture_view)
     public void onPictureClick() {
-        Intent intent = new Intent(getActivity(), BigPictureActivity.class);
+        Intent intent = new Intent(getActivity(), ZoomActivity.class);
         intent.putExtra(FlickrConstants.PICTURE_KEY, getPictureUrl(Boolean.TRUE));
         startActivity(intent);
     }
