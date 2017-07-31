@@ -70,6 +70,7 @@ public final class NavUtils {
         final TextView email = (TextView) view.findViewById(R.id.btn_dialog_email);
         final TextView feedback = (TextView) view.findViewById(R.id.btn_dialog_feedback);
         final TextView close = (TextView) view.findViewById(R.id.btn_about_close);
+        final TextView version = (TextView) view.findViewById(R.id.view_version);
 
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -111,6 +112,31 @@ public final class NavUtils {
                 dialog.dismiss();
             }
         });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        version.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                dialog.dismiss();
+                secretDialog(context);
+                return Boolean.TRUE;
+            }
+        });
+    }
+
+    private static void secretDialog(Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final View view = View.inflate(context, R.layout.dialog_secret, null);
+        final TextView close = (TextView) view.findViewById(R.id.btn_secret_close);
+
+        builder.setView(view);
+        final AlertDialog dialog = builder.show();
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
