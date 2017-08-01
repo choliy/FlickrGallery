@@ -29,6 +29,7 @@ import com.choliy.igor.flickrgallery.util.DialogUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,12 +44,13 @@ import butterknife.OnClick;
 public class HistoryFragment extends DialogFragment implements
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
-    private HistoryAdapter mHistoryAdapter;
-    private List<HistoryItem> mSavedHistory;
-
+    @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
+
+    private List<HistoryItem> mSavedHistory;
+    private HistoryAdapter mHistoryAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +62,13 @@ public class HistoryFragment extends DialogFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_history, container, Boolean.FALSE);
         ButterKnife.bind(this, view);
-        getActivity()
-                .getSupportLoaderManager()
-                .restartLoader(HistoryLoader.HISTORY_LOADER_ID, null, this);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        setupUi();
+        getActivity().getSupportLoaderManager().restartLoader(HistoryLoader.HISTORY_LOADER_ID, null, this);
     }
 
     @NonNull
@@ -96,7 +101,9 @@ public class HistoryFragment extends DialogFragment implements
 
     @Override
     public void onLoadFinished(Loader<List<HistoryItem>> loader, List<HistoryItem> historyItems) {
-        setupUi(historyItems);
+        mHistoryAdapter.setHistory(historyItems);
+        mProgress.smoothToHide();
+        checkHistory();
     }
 
     @Override
@@ -124,8 +131,8 @@ public class HistoryFragment extends DialogFragment implements
         closeHistoryDialog();
     }
 
-    private void setupUi(List<HistoryItem> historyItems) {
-        mHistoryAdapter = new HistoryAdapter(historyItems);
+    private void setupUi() {
+        mHistoryAdapter = new HistoryAdapter();
         mRvHistory.setAdapter(mHistoryAdapter);
         mRvHistory.setHasFixedSize(Boolean.TRUE);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -135,11 +142,10 @@ public class HistoryFragment extends DialogFragment implements
         mRvHistory.setLayoutManager(layoutManager);
         ItemTouchHelper touchHelper = new ItemTouchHelper(new OnHistorySwipeCallback());
         touchHelper.attachToRecyclerView(mRvHistory);
-        checkHistory();
     }
 
     private void checkHistory() {
-        if (mHistoryAdapter.getItemCount() > 0) {
+        if (mHistoryAdapter.getItemCount() > FlickrConstants.INT_ZERO) {
             mNoHistory.setVisibility(View.GONE);
             mBtnClear.setVisibility(View.VISIBLE);
         } else {
@@ -185,6 +191,11 @@ public class HistoryFragment extends DialogFragment implements
         private boolean mClearHistoryBase;
 
         @Override
+        protected void onPreExecute() {
+            mProgress.smoothToShow();
+        }
+
+        @Override
         protected Void doInBackground(Boolean... bool) {
             mClearHistoryBase = bool[FlickrConstants.INT_ZERO];
             if (mClearHistoryBase) {
@@ -200,12 +211,13 @@ public class HistoryFragment extends DialogFragment implements
         protected void onPostExecute(Void aVoid) {
             if (mClearHistoryBase) {
                 mSavedHistory = mHistoryAdapter.getHistory();
-                mHistoryAdapter.updateHistory(new ArrayList<HistoryItem>());
+                mHistoryAdapter.setHistory(new ArrayList<HistoryItem>());
                 restoreHistory();
             } else {
-                mHistoryAdapter.updateHistory(mSavedHistory);
+                mHistoryAdapter.setHistory(mSavedHistory);
                 InfoUtils.showShortShack(mBtnClear, getString(R.string.dialog_restore_restored));
             }
+            mProgress.smoothToHide();
             checkHistory();
         }
     }

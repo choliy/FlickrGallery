@@ -12,6 +12,7 @@ import com.choliy.igor.flickrgallery.model.HistoryItem;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,11 +20,7 @@ import butterknife.ButterKnife;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
 
-    private List<HistoryItem> mHistory;
-
-    public HistoryAdapter(List<HistoryItem> history) {
-        mHistory = history;
-    }
+    private List<HistoryItem> mHistory = new ArrayList<>();
 
     @Override
     public HistoryAdapter.HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,7 +39,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         return mHistory.size();
     }
 
-    public void updateHistory(List<HistoryItem> history) {
+    public void setHistory(List<HistoryItem> history) {
         mHistory = history;
         notifyDataSetChanged();
     }

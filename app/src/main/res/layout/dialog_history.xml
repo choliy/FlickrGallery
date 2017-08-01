@@ -37,6 +37,8 @@
 
         <include layout="@layout/view_no_history"/>
 
+        <include layout="@layout/view_progress"/>
+
     </FrameLayout>
 
     <LinearLayout

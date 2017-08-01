@@ -58,14 +58,10 @@ public final class NavUtils {
         }
     }
 
-    private static void showSavedPictures(Context context) {
-        context.startActivity(new Intent(context, SavedActivity.class));
-    }
-
     public static void showHistory(Context context) {
-        sIsHistoryDialogShown = Boolean.TRUE;
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
         new HistoryFragment().show(fragmentManager, context.getString(R.string.dialog_history_tag));
+        sIsHistoryDialogShown = Boolean.TRUE;
     }
 
     public static void aboutDialog(final Context context) {
@@ -125,12 +121,16 @@ public final class NavUtils {
             }
         });
 
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 sIsAboutDialogShown = Boolean.FALSE;
             }
         });
+    }
+
+    private static void showSavedPictures(Context context) {
+        context.startActivity(new Intent(context, SavedActivity.class));
     }
 
     private static void startSettings(Activity activity) {
