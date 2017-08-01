@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class FlickrDbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "flickrBase.db";
+    private static final String DATABASE_NAME = "flickrGalleryBase.db";
     private static final int DATABASE_VERSION = 1;
 
     FlickrDbHelper(Context context) {
@@ -21,42 +21,37 @@ class FlickrDbHelper extends SQLiteOpenHelper {
                 FlickrContract.COLUMN_HISTORY_DATE + " TEXT NOT NULL, " +
                 FlickrContract.COLUMN_HISTORY_TIME + " TEXT NOT NULL);");
 
-        db.execSQL("CREATE TABLE " + FlickrContract.TABLE_SAVED + " (" +
-                FlickrContract._ID + " INTEGER PRIMARY KEY, " +
-                FlickrContract.COLUMN_PICTURE_USER_ID + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_TITLE + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_DATE + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_OWNER_ID + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_OWNER_NAME + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_DESCRIPTION + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_SMALL_LIST_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_LIST_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_EXTRA_SMALL_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_SMALL_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_MEDIUM_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_BIG_URL + " TEXT NOT NULL);");
+        db.execSQL(createPicTable(FlickrContract.TABLE_SAVED));
 
-        db.execSQL("CREATE TABLE " + FlickrContract.TABLE_CASH + " (" +
-                FlickrContract._ID + " INTEGER PRIMARY KEY, " +
-                FlickrContract.COLUMN_PICTURE_USER_ID + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_TITLE + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_DATE + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_OWNER_ID + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_OWNER_NAME + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_DESCRIPTION + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_SMALL_LIST_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_LIST_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_EXTRA_SMALL_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_SMALL_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_MEDIUM_URL + " TEXT NOT NULL, " +
-                FlickrContract.COLUMN_PICTURE_BIG_URL + " TEXT NOT NULL);");
+        db.execSQL(createPicTable(FlickrContract.TABLE_CASH));
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + FlickrContract.TABLE_HISTORY);
-        db.execSQL("DROP TABLE IF EXISTS " + FlickrContract.TABLE_SAVED);
-        db.execSQL("DROP TABLE IF EXISTS " + FlickrContract.TABLE_CASH);
+        db.execSQL(updateTable(FlickrContract.TABLE_HISTORY));
+        db.execSQL(updateTable(FlickrContract.TABLE_SAVED));
+        db.execSQL(updateTable(FlickrContract.TABLE_CASH));
         onCreate(db);
+    }
+
+    private String createPicTable(String tableName) {
+        return "CREATE TABLE " + tableName + " (" +
+                FlickrContract._ID + " INTEGER PRIMARY KEY, " +
+                FlickrContract.COLUMN_PICTURE_USER_ID + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_TITLE + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_DATE + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_OWNER_ID + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_OWNER_NAME + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_DESCRIPTION + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_SMALL_LIST_URL + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_LIST_URL + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_EXTRA_SMALL_URL + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_SMALL_URL + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_MEDIUM_URL + " TEXT NOT NULL, " +
+                FlickrContract.COLUMN_PICTURE_BIG_URL + " TEXT NOT NULL);";
+    }
+
+    private String updateTable(String tableName) {
+        return "DROP TABLE IF EXISTS " + tableName;
     }
 }
