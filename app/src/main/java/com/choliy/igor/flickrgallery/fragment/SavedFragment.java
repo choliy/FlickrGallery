@@ -22,6 +22,7 @@ import com.choliy.igor.flickrgallery.event.RemovePicEvent;
 import com.choliy.igor.flickrgallery.event.ToolbarEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+import com.choliy.igor.flickrgallery.util.DialogUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.view.HidingScrollListener;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -68,7 +69,7 @@ public class SavedFragment extends EventFragment implements
         if (event.isShowDialog()) {
             if (mAdapter.getItemCount() == FlickrConstants.INT_ZERO)
                 InfoUtils.showShortShack(mRecyclerView, getString(R.string.text_delete_nothing));
-            else InfoUtils.deleteDialog(getActivity(), new DeletePicTask());
+            else DialogUtils.deleteDialog(getActivity(), new DeletePicTask());
         }
     }
 
@@ -132,6 +133,7 @@ public class SavedFragment extends EventFragment implements
             public void onClick(View view) {
                 mAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).restorePicture(item);
+                checkData();
                 InfoUtils.showShortShack(mRecyclerView, getString(R.string.text_delete_single_restored));
             }
         });

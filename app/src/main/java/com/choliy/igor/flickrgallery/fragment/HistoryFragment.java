@@ -25,6 +25,7 @@ import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
 import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
+import com.choliy.igor.flickrgallery.util.DialogUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
@@ -110,7 +111,7 @@ public class HistoryFragment extends DialogFragment implements
                 EventBus.getDefault().post(new HistoryStartEvent(Boolean.TRUE));
                 break;
             case R.id.btn_history_clear:
-                InfoUtils.clearDialog(getActivity(), new SaveHistoryAsyncTask());
+                DialogUtils.clearDialog(getActivity(), new SaveHistoryAsyncTask());
                 break;
             case R.id.btn_history_close:
                 closeHistoryDialog();

@@ -10,6 +10,7 @@ import android.preference.SwitchPreference;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.event.PrefRestoreEvent;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
+import com.choliy.igor.flickrgallery.util.DialogUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +73,7 @@ public class SettingsFragment extends PreferenceFragment implements
         if (preference.getKey().equals(getString(R.string.pref_key_notification)))
             setupNotificationService(mNotificationPref.isChecked());
         else
-            InfoUtils.restoreDialog(getActivity());
+            DialogUtils.restoreDialog(getActivity());
         return true;
     }
 

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.SavedActivity;
 import com.choliy.igor.flickrgallery.activity.SettingsActivity;
-import com.choliy.igor.flickrgallery.adapter.SavedAdapter;
 import com.choliy.igor.flickrgallery.fragment.HistoryFragment;
 
 import java.util.Calendar;
@@ -33,7 +32,7 @@ public final class NavUtils {
     public static void onNavDrawerClicked(Context context, int id) {
         switch (id) {
             case R.id.nav_saved:
-                showSaved(context);
+                showSavedPictures(context);
                 break;
             case R.id.nav_history:
                 showHistory(context);
@@ -59,7 +58,7 @@ public final class NavUtils {
         }
     }
 
-    private static void showSaved(Context context) {
+    private static void showSavedPictures(Context context) {
         context.startActivity(new Intent(context, SavedActivity.class));
     }
 
@@ -77,17 +76,8 @@ public final class NavUtils {
         final TextView feedback = (TextView) view.findViewById(R.id.btn_dialog_feedback);
         final TextView close = (TextView) view.findViewById(R.id.btn_about_close);
         final TextView version = (TextView) view.findViewById(R.id.view_version);
-
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                sIsAboutDialogShown = Boolean.FALSE;
-            }
-        });
-
+        final AlertDialog dialog = builder.setView(view).show();
         sIsAboutDialogShown = Boolean.TRUE;
-        builder.setView(view);
-        final AlertDialog dialog = builder.show();
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String text = context.getString(R.string.dialog_developer, String.valueOf(year));
@@ -129,25 +119,16 @@ public final class NavUtils {
         version.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                secretDialog(context);
+                DialogUtils.secretDialog(context);
                 dialog.dismiss();
                 return Boolean.TRUE;
             }
         });
-    }
 
-    private static void secretDialog(Context context) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        final View view = View.inflate(context, R.layout.dialog_secret, null);
-        final TextView close = (TextView) view.findViewById(R.id.btn_secret_close);
-
-        builder.setView(view);
-        final AlertDialog dialog = builder.show();
-
-        close.setOnClickListener(new View.OnClickListener() {
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+            public void onDismiss(DialogInterface dialogInterface) {
+                sIsAboutDialogShown = Boolean.FALSE;
             }
         });
     }
