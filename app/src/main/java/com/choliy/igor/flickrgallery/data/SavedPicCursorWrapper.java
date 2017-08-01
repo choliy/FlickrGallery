@@ -12,6 +12,7 @@ class SavedPicCursorWrapper extends CursorWrapper {
     }
 
     GalleryItem getPictureItem() {
+        String dbId = getString(getColumnIndex(FlickrContract._ID));
         String userId = getString(getColumnIndex(FlickrContract.COLUMN_PICTURE_USER_ID));
         String title = getString(getColumnIndex(FlickrContract.COLUMN_PICTURE_TITLE));
         String date = getString(getColumnIndex(FlickrContract.COLUMN_PICTURE_DATE));
@@ -26,7 +27,8 @@ class SavedPicCursorWrapper extends CursorWrapper {
         String bigUrl = getString(getColumnIndex(FlickrContract.COLUMN_PICTURE_BIG_URL));
 
         GalleryItem item = new GalleryItem();
-        item.setId(userId);
+        item.setDbId(dbId);
+        item.setUserId(userId);
         item.setTitle(title);
         item.setDate(date);
         item.setOwnerId(ownerId);

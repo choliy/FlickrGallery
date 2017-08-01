@@ -5,9 +5,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -25,7 +25,7 @@ import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
 import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
-import com.choliy.igor.flickrgallery.util.ExtraUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
@@ -39,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HistoryFragment extends EventFragment implements
+public class HistoryFragment extends DialogFragment implements
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     private HistoryAdapter mHistoryAdapter;
@@ -48,6 +48,12 @@ public class HistoryFragment extends EventFragment implements
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(Boolean.TRUE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +74,18 @@ public class HistoryFragment extends EventFragment implements
                 closeHistoryDialog();
             }
         };
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -92,7 +110,7 @@ public class HistoryFragment extends EventFragment implements
                 EventBus.getDefault().post(new HistoryStartEvent(Boolean.TRUE));
                 break;
             case R.id.btn_history_clear:
-                clearDialog();
+                InfoUtils.clearDialog(getActivity(), new SaveHistoryAsyncTask());
                 break;
             case R.id.btn_history_close:
                 closeHistoryDialog();
@@ -129,29 +147,6 @@ public class HistoryFragment extends EventFragment implements
         }
     }
 
-    private void clearDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view = View.inflate(getActivity(), R.layout.dialog_clear, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_clear_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_clear_no);
-        final AlertDialog dialog = builder.setView(view).show();
-
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new SaveHistoryAsyncTask().execute(Boolean.TRUE);
-                dialog.dismiss();
-            }
-        });
-
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
-
     private void restoreHistory() {
         String text = getActivity().getString(R.string.dialog_restore_cleaned);
         Snackbar snackbar = Snackbar.make(mBtnClear, text, Snackbar.LENGTH_LONG);
@@ -172,7 +167,7 @@ public class HistoryFragment extends EventFragment implements
             public void onClick(View view) {
                 mHistoryAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).addHistory(item, Boolean.TRUE);
-                ExtraUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored_single));
+                InfoUtils.showShortShack(mBtnClear, getString(R.string.dialog_restore_restored_single));
                 checkHistory();
             }
         });
@@ -184,7 +179,7 @@ public class HistoryFragment extends EventFragment implements
         getDialog().dismiss();
     }
 
-    private class SaveHistoryAsyncTask extends AsyncTask<Boolean, Void, Void> {
+    public class SaveHistoryAsyncTask extends AsyncTask<Boolean, Void, Void> {
 
         private boolean mClearHistoryBase;
 
@@ -208,7 +203,7 @@ public class HistoryFragment extends EventFragment implements
                 restoreHistory();
             } else {
                 mHistoryAdapter.updateHistory(mSavedHistory);
-                ExtraUtils.showInfo(mBtnClear, getString(R.string.dialog_restore_restored));
+                InfoUtils.showShortShack(mBtnClear, getString(R.string.dialog_restore_restored));
             }
             checkHistory();
         }
@@ -216,8 +211,7 @@ public class HistoryFragment extends EventFragment implements
 
     private class OnHistorySwipeCallback extends ItemTouchHelper.SimpleCallback {
 
-        private int mRemovedPosition;
-        private HistoryItem mSingleHistory;
+        private int mPosition;
 
         OnHistorySwipeCallback() {
             super(FlickrConstants.INT_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
@@ -233,14 +227,11 @@ public class HistoryFragment extends EventFragment implements
 
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            String id = (String) viewHolder.itemView.getTag();
-            for (HistoryItem historyItem : mHistoryAdapter.getHistory()) {
-                if (historyItem.getId().equals(id)) mSingleHistory = historyItem;
-            }
-            mRemovedPosition = mHistoryAdapter.removeItem(mSingleHistory);
-            FlickrLab.getInstance(getActivity()).deleteHistory(id);
+            mPosition = viewHolder.getAdapterPosition();
+            HistoryItem item = mHistoryAdapter.removeItem(mPosition);
+            FlickrLab.getInstance(getActivity()).deleteHistory(item.getId());
+            restoreSingleHistory(mPosition, item);
             checkHistory();
-            restoreSingleHistory(mRemovedPosition, mSingleHistory);
         }
     }
 }

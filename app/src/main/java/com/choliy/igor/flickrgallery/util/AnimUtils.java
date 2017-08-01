@@ -43,8 +43,7 @@ public final class AnimUtils {
         startAnimation(context, view, animResId);
     }
 
-    public static void animateToolbarVisibility(Context context, boolean show) {
-        Toolbar toolbar = (Toolbar) ((AppCompatActivity) context).findViewById(R.id.toolbar_gallery);
+    public static void animToolbarVisibility(Toolbar toolbar, boolean show) {
         if (show) {
             toolbar.animate()
                     .translationY(0)

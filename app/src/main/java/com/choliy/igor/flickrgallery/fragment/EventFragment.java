@@ -1,11 +1,11 @@
 package com.choliy.igor.flickrgallery.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class EventFragment extends DialogFragment {
+public abstract class EventFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

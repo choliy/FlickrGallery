@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,31 +18,35 @@ import android.widget.TextView;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
-import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
+import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarEvent;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
+import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GalleryActivity extends BroadcastActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
-    private FragmentManager mFragmentManager;
-    private boolean mShowSearchType;
-
+    @BindView(R.id.image_top_list) ImageView mTopList;
     @BindView(R.id.toolbar_gallery) Toolbar mToolbar;
     @BindView(R.id.search_view) SearchView mSearchView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
+    private boolean mShowSearchType;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, GalleryActivity.class);
@@ -76,8 +78,8 @@ public class GalleryActivity extends BroadcastActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == NavUtils.REQUEST_CODE && resultCode == RESULT_OK) {
-            AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
-            mFragmentManager
+            AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
+            getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, new GalleryFragment())
                     .commit();
@@ -94,16 +96,23 @@ public class GalleryActivity extends BroadcastActivity implements
     @Subscribe
     public void onEvent(HistoryTitleEvent event) {
         PrefUtils.setStoredQuery(this, event.getHistoryTitle());
-        AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
-        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+        showSearchToolbar();
     }
 
     @Subscribe
     public void onEvent(HistoryStartEvent event) {
-        if (event.isStartClicked()) {
-            AnimUtils.animateToolbarVisibility(this, Boolean.TRUE);
-            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
-        }
+        if (event.isStartClicked()) showSearchToolbar();
+    }
+
+    @Subscribe
+    public void onEvent(ToolbarEvent event) {
+        AnimUtils.animToolbarVisibility(mToolbar, event.isShowToolbar());
+        AnimUtils.animateView(this, mTopList, !event.isShowToolbar());
+    }
+
+    @OnClick(R.id.image_top_list)
+    public void onTopClicked() {
+        EventBus.getDefault().post(new TopListEvent(FlickrConstants.INT_ZERO));
     }
 
     public void onToolbarClick(View view) {
@@ -120,14 +129,11 @@ public class GalleryActivity extends BroadcastActivity implements
         }
     }
 
-    private void setupUi(Bundle bundle) {
-        mFragmentManager = getSupportFragmentManager();
-        Fragment fragment = mFragmentManager.findFragmentById(R.id.fragment_container);
-        if (fragment == null) {
-            fragment = GalleryFragment.newInstance();
-            mFragmentManager
+    private void setupUi(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.fragment_container, new GalleryFragment())
                     .commit();
         }
 
@@ -136,8 +142,8 @@ public class GalleryActivity extends BroadcastActivity implements
         setSupportActionBar(mToolbar);
         setupSearchView();
 
-        if (bundle != null) {
-            mShowSearchType = bundle.getBoolean(FlickrConstants.TOOLBAR_KEY);
+        if (savedInstanceState != null) {
+            mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_KEY);
             AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
         }
 
@@ -173,9 +179,9 @@ public class GalleryActivity extends BroadcastActivity implements
                 FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
 
                 AnimUtils.animateToolbarType(GalleryActivity.this, mSearchView, query.isEmpty());
-                mFragmentManager
+                getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, GalleryFragment.newInstance())
+                        .replace(R.id.fragment_container, new GalleryFragment())
                         .commit();
                 return Boolean.TRUE;
             }
@@ -193,9 +199,14 @@ public class GalleryActivity extends BroadcastActivity implements
             @Override
             public void onClick(View view) {
                 mSearchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
-                ExtraUtils.showInfo(view, getString(R.string.text_search_query));
+                InfoUtils.showShortShack(view, getString(R.string.text_search_query));
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }
         });
+    }
+
+    private void showSearchToolbar() {
+        AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
+        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
     }
 }

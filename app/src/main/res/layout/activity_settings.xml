@@ -8,7 +8,6 @@
     <include layout="@layout/toolbar_settings"/>
 
     <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_settings"
         android:name="com.choliy.igor.flickrgallery.fragment.SettingsFragment"
         android:layout_width="match_parent"

@@ -6,7 +6,8 @@ import android.os.Parcelable;
 
 public class GalleryItem implements Parcelable {
 
-    private String mId;
+    private String mDbId;
+    private String mUserId;
     private String mTitle;
     private String mDate;
     private String mOwnerId;
@@ -23,7 +24,8 @@ public class GalleryItem implements Parcelable {
     }
 
     private GalleryItem(Parcel in) {
-        mId = in.readString();
+        mDbId = in.readString();
+        mUserId = in.readString();
         mTitle = in.readString();
         mDate = in.readString();
         mOwnerId = in.readString();
@@ -49,12 +51,20 @@ public class GalleryItem implements Parcelable {
         }
     };
 
-    public String getId() {
-        return mId;
+    public String getDbId() {
+        return mDbId;
     }
 
-    public void setId(String id) {
-        mId = id;
+    public void setDbId(String dbId) {
+        mDbId = dbId;
+    }
+
+    public String getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(String userId) {
+        mUserId = userId;
     }
 
     public String getTitle() {
@@ -149,7 +159,7 @@ public class GalleryItem implements Parcelable {
         Uri uri = Uri.parse("http://www.flickr.com/photos/")
                 .buildUpon()
                 .appendPath(getOwnerId())
-                .appendPath(getId())
+                .appendPath(getUserId())
                 .build();
 
         return uri.toString();
@@ -162,7 +172,8 @@ public class GalleryItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mId);
+        parcel.writeString(mDbId);
+        parcel.writeString(mUserId);
         parcel.writeString(mTitle);
         parcel.writeString(mDate);
         parcel.writeString(mOwnerId);

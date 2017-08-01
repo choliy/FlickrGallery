@@ -4,6 +4,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/layout_no_pic"
     style="@style/InfoLayoutStyle"
+    android:paddingTop="?attr/actionBarSize"
     tool:visibility="visible">
 
     <ImageView

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_saved"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/dimen_small_margin"
+        android:paddingTop="?attr/actionBarSize"
+        android:scrollbarThumbVertical="@drawable/shape_scrollbar_gray"
+        android:scrollbars="vertical"/>
+
+    <include layout="@layout/view_no_saved_pic"/>
+
+    <include layout="@layout/view_progress"/>
+
+</FrameLayout>

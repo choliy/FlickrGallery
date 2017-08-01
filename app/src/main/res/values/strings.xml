@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Flickr Gallery</string>
     <string name="app_url" translatable="false">
-        https://play.google.com/store/apps/details?id=com.choliy.igor.todolist</string>
+        https://play.google.com/store/apps/details?userId=com.choliy.igor.todolist</string>
     <string name="apps_url" translatable="false">
         https://play.google.com/store/search?q=igor%20choliy&amp;c=apps</string>
     <string name="broadcast_action_name" translatable="false">
@@ -61,8 +61,12 @@
     <string name="text_no_saved_pic">No saved pictures</string>
     <string name="text_no_saved_desc">Get started by saving new pictures</string>
     <string name="text_delete_message">Do you really want to delete all saved pictures?</string>
-    <string name="text_delete_removed">All saved pictures has been removed</string>
+    <string name="text_delete_single_removed">Picture has been removed</string>
+    <string name="text_delete_single_restored">Picture has been restored</string>
+    <string name="text_delete_all_removed">All saved pictures has been removed</string>
+    <string name="text_delete_all_restored">All saved pictures has been restored</string>
     <string name="text_delete_nothing">Nothing to delete</string>
+    <string name="text_already_saved">Picture already saved in library</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_tools">Tools</string>

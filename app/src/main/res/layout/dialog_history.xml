@@ -28,8 +28,11 @@
             android:id="@+id/rv_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/dimen_small_margin"
             android:paddingEnd="@dimen/dimen_material_margin"
             android:paddingStart="@dimen/dimen_material_margin"
+            android:scrollbarThumbVertical="@drawable/shape_scrollbar_gray"
             android:scrollbars="vertical"/>
 
         <include layout="@layout/view_no_history"/>

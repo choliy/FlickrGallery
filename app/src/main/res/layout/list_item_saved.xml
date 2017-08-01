@@ -20,8 +20,8 @@
         android:paddingEnd="@dimen/dimen_material_margin">
 
         <FrameLayout
-            android:layout_width="@dimen/dimen_image_dialog_size"
-            android:layout_height="@dimen/dimen_image_dialog_size">
+            android:layout_width="@dimen/dimen_saved_picture_size"
+            android:layout_height="@dimen/dimen_saved_picture_size">
 
             <com.wang.avi.AVLoadingIndicatorView
                 android:layout_width="match_parent"

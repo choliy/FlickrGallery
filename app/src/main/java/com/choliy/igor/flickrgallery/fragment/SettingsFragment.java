@@ -6,13 +6,14 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.TextView;
 
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.event.PrefRestoreEvent;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
-import com.choliy.igor.flickrgallery.util.ExtraUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class SettingsFragment extends PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener,
@@ -50,6 +51,7 @@ public class SettingsFragment extends PreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
         getPreferenceScreen()
                 .getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
@@ -59,6 +61,7 @@ public class SettingsFragment extends PreferenceFragment implements
     @Override
     public void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
         getPreferenceScreen()
                 .getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
@@ -69,7 +72,7 @@ public class SettingsFragment extends PreferenceFragment implements
         if (preference.getKey().equals(getString(R.string.pref_key_notification)))
             setupNotificationService(mNotificationPref.isChecked());
         else
-            restoreDialog();
+            InfoUtils.restoreDialog(getActivity());
         return true;
     }
 
@@ -91,35 +94,17 @@ public class SettingsFragment extends PreferenceFragment implements
         }
     }
 
-    private void restoreDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view = View.inflate(getActivity(), R.layout.dialog_restore, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_restore_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_restore_no);
-
-        builder.setView(view);
-        final AlertDialog dialog = builder.show();
-
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                mGridPref.setValueIndex(2);
-                mStylePref.setValueIndex(0);
-                mPicturePref.setValueIndex(0);
-                mAnimationPref.setChecked(Boolean.TRUE);
-                mNotificationPref.setChecked(Boolean.FALSE);
-                setupNotificationService(Boolean.FALSE);
-                ExtraUtils.showInfo(getView(), getString(R.string.pref_restore_info));
-            }
-        });
-
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+    @Subscribe
+    public void onEvent(PrefRestoreEvent event) {
+        if (event.isRestoreSettings()) {
+            mGridPref.setValueIndex(2);
+            mStylePref.setValueIndex(0);
+            mPicturePref.setValueIndex(0);
+            mAnimationPref.setChecked(Boolean.TRUE);
+            mNotificationPref.setChecked(Boolean.FALSE);
+            setupNotificationService(Boolean.FALSE);
+            InfoUtils.showShortShack(getView(), getString(R.string.pref_restore_info));
+        }
     }
 
     private void setupNotificationService(boolean startService) {

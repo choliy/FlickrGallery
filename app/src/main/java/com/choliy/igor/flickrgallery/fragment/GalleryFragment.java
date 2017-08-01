@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
@@ -22,9 +20,11 @@ import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
 import com.choliy.igor.flickrgallery.async.FlickrFetch;
 import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
 import com.choliy.igor.flickrgallery.event.ItemLastEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarEvent;
+import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.view.HidingScrollListener;
 import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
@@ -38,9 +38,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends EventFragment {
 
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
@@ -51,22 +50,11 @@ public class GalleryFragment extends Fragment {
     private GalleryAdapter mGalleryAdapter;
     private List<GalleryItem> mItems = new ArrayList<>();
 
-    @BindView(R.id.image_top_list) ImageView mTopListView;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.layout_no_connection) LinearLayout mConnectionLayout;
     @BindView(R.id.layout_no_results) LinearLayout mResultsLayout;
-
-    public static Fragment newInstance() {
-        return new GalleryFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(Boolean.TRUE);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,22 +64,9 @@ public class GalleryFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Subscribe
     public void onEvent(ItemGalleryEvent event) {
-        Intent intent = new Intent(getActivity(), PictureActivity.class);
-        intent.putExtra(FlickrConstants.ITEM_KEY, event.getItem());
+        Intent intent = PictureActivity.getInstance(getActivity(), event.getItem(), Boolean.FALSE);
         startActivity(intent);
     }
 
@@ -104,9 +79,9 @@ public class GalleryFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.image_top_list)
-    public void topList() {
-        mRvGallery.scrollToPosition(FlickrConstants.DEFAULT_LIST_POSITION);
+    @Subscribe
+    public void onEvent(TopListEvent event) {
+        mRvGallery.scrollToPosition(event.getScrollPosition());
     }
 
     private void setupUi() {
@@ -116,7 +91,7 @@ public class GalleryFragment extends Fragment {
         mGalleryAdapter = new GalleryAdapter(mItems, gridSize, gridStyle, isAnimationOn);
         mRvGallery.setAdapter(mGalleryAdapter);
         mRvGallery.setHasFixedSize(Boolean.TRUE);
-        setScrollListener();
+        setOnScrollListener();
         setRefreshLayout();
         setRvStyle();
 
@@ -124,19 +99,16 @@ public class GalleryFragment extends Fragment {
         else fetchData();
     }
 
-    private void setScrollListener() {
+    private void setOnScrollListener() {
         mRvGallery.addOnScrollListener(new HidingScrollListener() {
-
             @Override
             public void onHide() {
-                AnimUtils.animateView(getActivity(), mTopListView, Boolean.TRUE);
-                AnimUtils.animateToolbarVisibility(getActivity(), Boolean.FALSE);
+                EventBus.getDefault().post(new ToolbarEvent(Boolean.FALSE));
             }
 
             @Override
             public void onShow() {
-                AnimUtils.animateView(getActivity(), mTopListView, Boolean.FALSE);
-                AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
+                EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
             }
         });
     }
@@ -206,7 +178,7 @@ public class GalleryFragment extends Fragment {
     }
 
     private boolean isConnected() {
-        boolean connected = ExtraUtils.isNetworkConnected(getActivity());
+        boolean connected = InfoUtils.isNetworkConnected(getActivity());
         if (connected) {
             mConnectionLayout.setVisibility(View.GONE);
             mRvGallery.setVisibility(View.VISIBLE);
@@ -216,7 +188,7 @@ public class GalleryFragment extends Fragment {
             mRvGallery.setVisibility(View.GONE);
             mProgressView.smoothToHide();
             mRefreshLayout.setRefreshing(Boolean.FALSE);
-            AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
+            EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
         }
         return connected;
     }
@@ -232,7 +204,7 @@ public class GalleryFragment extends Fragment {
         if (mGalleryAdapter.getItemCount() == 0) {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
-            AnimUtils.animateToolbarVisibility(getActivity(), Boolean.TRUE);
+            EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
         } else
             mResultsLayout.setVisibility(View.GONE);
     }

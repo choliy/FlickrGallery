@@ -4,9 +4,11 @@ public interface FlickrConstants {
 
     // Keys
     String NOTIFICATION_KEY = "notification_key";
-    String TOOLBAR_KEY = "toolbar_key";
+    String PICTURE_SAVED_KEY = "picture_saved_key";
     String PICTURE_KEY = "picture_key";
+    String TOOLBAR_KEY = "toolbar_key";
     String TITLE_KEY = "title_key";
+    String SAVE_KEY = "save_key";
     String ITEM_KEY = "item_key";
     String URI_KEY = "uri_key";
 
@@ -31,7 +33,7 @@ public interface FlickrConstants {
     String INFO_DATE_FORMAT_UK = DATE_FORMAT + " (" + TIME_FORMAT_UK + ")";
     String INFO_DATE_FORMAT_US = DATE_FORMAT + " (" + TIME_FORMAT_US + ")";
 
-    // Flickr API
+    // REST API
     String API_KEY = "780abee617798d7558c97719e544db7f";
     String METHOD_GET_RECENT = "flickr.photos.getRecent";
     String METHOD_SEARCH = "flickr.photos.search";

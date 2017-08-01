@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
@@ -17,7 +16,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="?attr/actionBarSize"
-            android:scrollbarThumbVertical="@drawable/shape_scrollbar"
+            android:scrollbarThumbVertical="@drawable/shape_scrollbar_pink"
             android:scrollbars="vertical"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -27,18 +26,5 @@
     <include layout="@layout/view_no_results"/>
 
     <include layout="@layout/view_progress"/>
-
-    <ImageView
-        android:id="@+id/image_top_list"
-        android:layout_width="@dimen/dimen_toolbar_icon_size"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="@dimen/dimen_material_margin"
-        android:clickable="true"
-        android:contentDescription="@null"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_top"
-        android:visibility="invisible"
-        tools:visibility="visible"/>
 
 </FrameLayout>

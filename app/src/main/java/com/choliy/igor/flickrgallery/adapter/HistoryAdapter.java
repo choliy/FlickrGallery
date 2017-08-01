@@ -51,12 +51,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         return mHistory;
     }
 
-    public int removeItem(HistoryItem item) {
-        int position = mHistory.indexOf(item);
+    public HistoryItem removeItem(int position) {
+        HistoryItem item = mHistory.get(position);
         mHistory.remove(position);
         notifyItemRemoved(position);
-
-        return position;
+        return item;
     }
 
     public void restoreItem(int position, HistoryItem item) {
@@ -84,7 +83,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
         void bindHistory(int position) {
             HistoryItem item = mHistory.get(position);
-            itemView.setTag(item.getId());
             mTextTitle.setText(item.getHistoryTitle());
             mTextDate.setText(item.getHistoryDate());
             mTextTime.setText(item.getHistoryTime());

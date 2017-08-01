@@ -22,6 +22,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.ZoomActivity;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -163,6 +164,6 @@ public class PictureFragment extends Fragment implements RequestListener {
     }
 
     private void smallPicture() {
-        ExtraUtils.showLongToast(getActivity(), getString(R.string.text_picture_small));
+        InfoUtils.showLongToast(getActivity(), getString(R.string.text_picture_small));
     }
 }

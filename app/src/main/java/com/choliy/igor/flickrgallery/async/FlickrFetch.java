@@ -107,7 +107,7 @@ public class FlickrFetch {
             if (!photoJsonObject.has(FlickrConstants.JSON_LIST_PICTURE_URL)) continue;
 
             GalleryItem item = new GalleryItem();
-            item.setId(photoJsonObject.getString(FlickrConstants.JSON_ID));
+            item.setUserId(photoJsonObject.getString(FlickrConstants.JSON_ID));
             item.setTitle(photoJsonObject.getString(FlickrConstants.JSON_TITLE));
             item.setDate(photoJsonObject.getString(FlickrConstants.JSON_DATE));
             item.setOwnerId(photoJsonObject.getString(FlickrConstants.JSON_OWNER_ID));

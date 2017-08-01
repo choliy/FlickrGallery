@@ -1,5 +1,6 @@
 package com.choliy.igor.flickrgallery.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,9 +42,25 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
         return mItems.size();
     }
 
+    public List<GalleryItem> getItems() {
+        return mItems;
+    }
+
     public void setItems(List<GalleryItem> items) {
         mItems = items;
         notifyDataSetChanged();
+    }
+
+    public GalleryItem removeItem(int position) {
+        GalleryItem item = mItems.get(position);
+        mItems.remove(position);
+        notifyItemRemoved(position);
+        return item;
+    }
+
+    public void restoreItem(int position, GalleryItem item) {
+        mItems.add(position, item);
+        notifyItemInserted(position);
     }
 
     class SavedHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -62,9 +79,10 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
 
         @Override
         public void onClick(View view) {
-            Intent intent = new Intent(view.getContext(), PictureActivity.class);
-            intent.putExtra(FlickrConstants.ITEM_KEY, mItems.get(getAdapterPosition()));
-            view.getContext().startActivity(intent);
+            Context context = view.getContext();
+            GalleryItem item = mItems.get(getAdapterPosition());
+            Intent intent = PictureActivity.getInstance(context, item, Boolean.TRUE);
+            context.startActivity(intent);
         }
 
         private void bindView(int position) {

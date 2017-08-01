@@ -84,10 +84,14 @@ public class FlickrLab {
     }
 
     /**
-     * Saved DB functions
+     * Saved pictures DB functions
      */
     public void addPicture(GalleryItem item) {
-        mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item));
+        mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.FALSE));
+    }
+
+    public void restorePicture(GalleryItem item) {
+        mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.TRUE));
     }
 
     public List<GalleryItem> getSavedPictures() {
@@ -114,20 +118,27 @@ public class FlickrLab {
         return pictures;
     }
 
-    public void deletePicture(GalleryItem item) {
+    public void restoreAllPictures(List<GalleryItem> items) {
+        for (GalleryItem item : items) {
+            mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.TRUE));
+        }
+    }
+
+    public void deletePicture(String id) {
         mDatabase.delete(
                 FlickrContract.TABLE_SAVED,
-                FlickrContract.COLUMN_PICTURE_USER_ID + " = ?",
-                new String[]{item.getId()});
+                FlickrContract._ID + " = ?",
+                new String[]{id});
     }
 
     public void deleteAllPictures() {
         mDatabase.delete(FlickrContract.TABLE_SAVED, null, null);
     }
 
-    private ContentValues getContentValue(GalleryItem item) {
+    private ContentValues getContentValue(GalleryItem item, boolean restored) {
         ContentValues values = new ContentValues();
-        values.put(FlickrContract.COLUMN_PICTURE_USER_ID, item.getId());
+        if (restored) values.put(FlickrContract._ID, item.getDbId());
+        values.put(FlickrContract.COLUMN_PICTURE_USER_ID, item.getUserId());
         values.put(FlickrContract.COLUMN_PICTURE_TITLE, item.getTitle());
         values.put(FlickrContract.COLUMN_PICTURE_DATE, item.getDate());
         values.put(FlickrContract.COLUMN_PICTURE_OWNER_ID, item.getOwnerId());
