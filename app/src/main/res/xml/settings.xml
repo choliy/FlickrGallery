@@ -30,6 +30,13 @@
             android:summary="@string/pref_animation_summary"
             android:title="@string/pref_animation_title"/>
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:icon="@drawable/ic_splash"
+            android:key="@string/pref_key_splash"
+            android:summary="@string/pref_splash_summary"
+            android:title="@string/pref_splash_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

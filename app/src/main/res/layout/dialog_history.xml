@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="@dimen/dimen_dialog_min_size"
@@ -52,7 +53,8 @@
             style="@style/DialogButtonStyle"
             android:layout_marginStart="@dimen/dimen_medium_margin"
             android:paddingStart="@dimen/dimen_zero"
-            android:text="@string/dialog_clear_btn"/>
+            android:text="@string/dialog_clear_btn"
+            tools:ignore="RtlSymmetry"/>
 
         <View style="@style/ViewWeightStyle"/>
 
@@ -61,7 +63,8 @@
             style="@style/DialogButtonStyle"
             android:layout_marginEnd="@dimen/dimen_medium_margin"
             android:paddingEnd="@dimen/dimen_zero"
-            android:text="@string/dialog_close_btn"/>
+            android:text="@string/dialog_close_btn"
+            tools:ignore="RtlSymmetry"/>
 
     </LinearLayout>
 

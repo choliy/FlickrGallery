@@ -4,10 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:toola="http://schemas.android.com/tools"
     android:id="@+id/toolbar_search"
-    android:layout_width="match_parent"
+    style="@style/LayoutToolbarStyle"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
     android:visibility="gone"
     toola:visibility="visible">
 

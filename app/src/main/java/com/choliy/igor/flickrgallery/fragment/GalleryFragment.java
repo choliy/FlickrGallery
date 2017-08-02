@@ -41,20 +41,20 @@ import butterknife.ButterKnife;
 
 public class GalleryFragment extends EventFragment {
 
-    private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
-    private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
-    private boolean mNoMoreData;
-    private boolean mDataLoaded;
-    private boolean mDataRefreshing;
-
-    private GalleryAdapter mGalleryAdapter;
-    private List<GalleryItem> mItems = new ArrayList<>();
-
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.layout_no_connection) LinearLayout mConnectionLayout;
     @BindView(R.id.layout_no_results) LinearLayout mResultsLayout;
+
+    private GalleryAdapter mGalleryAdapter;
+    private List<GalleryItem> mItems = new ArrayList<>();
+
+    private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
+    private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
+    private boolean mNoMoreData;
+    private boolean mDataLoaded;
+    private boolean mDataRefreshing;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

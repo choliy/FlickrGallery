@@ -21,8 +21,6 @@
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
     <string name="text_subject" translatable="false">About \"Flickr Gallery\"</string>
     <string name="text_hello" translatable="false">Hello Igor.\n\n\n</string>
-    <string name="text_def_description" translatable="false">{\"_content\":\"\"}</string>
-    <string name="text_replace_chars" translatable="false">{\"_content\":\"</string>
 
     <!-- Dialog About -->
     <string name="dialog_about_title">About App</string>
@@ -107,10 +105,12 @@
     <string name="pref_category_ui">UI Settings</string>
     <string name="pref_grid_size_title">Grid size</string>
     <string name="pref_grid_style_title">Grid style</string>
-    <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_animation_title">Picture animation</string>
     <string name="pref_animation_summary">Scale animation after finishing loading picture</string>
+    <string name="pref_splash_title">Splash screen</string>
+    <string name="pref_splash_summary">Animation on application start</string>
+    <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_notification_title">Gallery notification</string>
     <string name="pref_notification_summary">Notify about new available pictures from last search query</string>
     <string name="pref_restore_title">Default settings</string>
@@ -123,8 +123,9 @@
     <string name="pref_key_last_id" translatable="false">key_last_id</string>
     <string name="pref_key_grid" translatable="false">key_grid</string>
     <string name="pref_key_style" translatable="false">key_style</string>
-    <string name="pref_key_picture" translatable="false">key_picture</string>
     <string name="pref_key_animation" translatable="false">key_animation</string>
+    <string name="pref_key_splash" translatable="false">key_splash</string>
+    <string name="pref_key_picture" translatable="false">key_picture</string>
     <string name="pref_key_notification" translatable="false">key_notification</string>
     <string name="pref_key_restore" translatable="false">key_restore</string>
 
@@ -164,7 +165,11 @@
     <string name="pref_picture_value_500" translatable="false">500</string>
 
     <!-- Fonts -->
-    <string name="font_medium" translatable="false">"font/raleway-medium.ttf"</string>
-    <string name="font_bold" translatable="false">"font/raleway-bold.ttf"</string>
+    <string name="font_normal" translatable="false">"font/raleway_normal.ttf"</string>
+    <string name="font_bold" translatable="false">"font/raleway_bold.ttf"</string>
+
+    <!-- Parse -->
+    <string name="text_def_description" translatable="false">{\"_content\":\"\"}</string>
+    <string name="text_replace_chars" translatable="false">{\"_content\":\"</string>
 
 </resources>

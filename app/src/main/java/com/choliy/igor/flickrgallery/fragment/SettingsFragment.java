@@ -2,11 +2,13 @@ package com.choliy.igor.flickrgallery.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.event.PrefRestoreEvent;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
@@ -23,6 +25,7 @@ public class SettingsFragment extends PreferenceFragment implements
     private ListPreference mGridPref;
     private ListPreference mStylePref;
     private ListPreference mPicturePref;
+    private CheckBoxPreference mSplashPref;
     private SwitchPreference mAnimationPref;
     private SwitchPreference mNotificationPref;
 
@@ -35,6 +38,7 @@ public class SettingsFragment extends PreferenceFragment implements
         mGridPref = (ListPreference) findPreference(getString(R.string.pref_key_grid));
         mStylePref = (ListPreference) findPreference(getString(R.string.pref_key_style));
         mPicturePref = (ListPreference) findPreference(getString(R.string.pref_key_picture));
+        mSplashPref = (CheckBoxPreference) findPreference(getString(R.string.pref_key_splash));
         mAnimationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_animation));
         mNotificationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_notification));
         mNotificationPref.setOnPreferenceClickListener(this);
@@ -89,7 +93,7 @@ public class SettingsFragment extends PreferenceFragment implements
 
     private void setPreferenceSummary(ListPreference listPref, String value) {
         int prefIndex = listPref.findIndexOfValue(value);
-        if (prefIndex >= 0) {
+        if (prefIndex >= FlickrConstants.INT_ZERO) {
             CharSequence prefLabel = listPref.getEntries()[prefIndex];
             listPref.setSummary(prefLabel);
         }
@@ -98,11 +102,12 @@ public class SettingsFragment extends PreferenceFragment implements
     @Subscribe
     public void onEvent(PrefRestoreEvent event) {
         if (event.isRestoreSettings()) {
-            mGridPref.setValueIndex(2);
-            mStylePref.setValueIndex(0);
-            mPicturePref.setValueIndex(0);
-            mAnimationPref.setChecked(Boolean.TRUE);
-            mNotificationPref.setChecked(Boolean.FALSE);
+            mGridPref.setValueIndex(FlickrConstants.DEFAULT_GRID_POSITION);
+            mStylePref.setValueIndex(FlickrConstants.DEFAULT_STYLE_POSITION);
+            mPicturePref.setValueIndex(FlickrConstants.DEFAULT_PICTURE_POSITION);
+            mSplashPref.setChecked(FlickrConstants.DEFAULT_SPLASH);
+            mAnimationPref.setChecked(FlickrConstants.DEFAULT_ANIMATION);
+            mNotificationPref.setChecked(FlickrConstants.DEFAULT_NOTIFICATION);
             setupNotificationService(Boolean.FALSE);
             InfoUtils.showShortShack(getView(), getString(R.string.pref_restore_info));
         }

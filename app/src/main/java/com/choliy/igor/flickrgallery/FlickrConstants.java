@@ -17,11 +17,12 @@ public interface FlickrConstants {
     int INT_ZERO = 0;
 
     // Default values
-    int DEFAULT_LIST_POSITION = 0;
+    int DEFAULT_LIST_POSITION = INT_ZERO;
     int DEFAULT_PAGE_NUMBER = 1;
-    String DEFAULT_GRID = "35";
-    String DEFAULT_STYLE = "simple";
-    String DEFAULT_PICTURE = "100";
+    int DEFAULT_GRID_POSITION = 2;
+    int DEFAULT_STYLE_POSITION = INT_ZERO;
+    int DEFAULT_PICTURE_POSITION = INT_ZERO;
+    boolean DEFAULT_SPLASH = Boolean.TRUE;
     boolean DEFAULT_ANIMATION = Boolean.TRUE;
     boolean DEFAULT_NOTIFICATION = Boolean.FALSE;
 

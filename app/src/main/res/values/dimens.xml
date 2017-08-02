@@ -19,6 +19,7 @@
     <dimen name="dimen_saved_picture_size">112dp</dimen>
     <dimen name="dimen_image_list_size">128dp</dimen>
     <dimen name="dimen_header_height">160dp</dimen>
+    <dimen name="dimen_splash_image_size">164dp</dimen>
     <dimen name="dimen_dialog_min_size">1024dp</dimen>
 
     <!-- Text_sizes -->

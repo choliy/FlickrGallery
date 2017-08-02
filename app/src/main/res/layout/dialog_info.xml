@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/dialog_app_version"
-            android:textColor="@color/colorTextLightGray"
+            android:textColor="@drawable/selector_version"
             android:textSize="@dimen/dimen_text_medium"/>
 
     </LinearLayout>
@@ -64,7 +64,8 @@
             android:id="@+id/btn_dialog_email"
             style="@style/DialogButtonStyle"
             android:paddingStart="@dimen/dimen_zero"
-            android:text="@string/dialog_email_btn"/>
+            android:text="@string/dialog_email_btn"
+            tools:ignore="RtlSymmetry"/>
 
         <TextView
             android:id="@+id/btn_dialog_feedback"
@@ -78,7 +79,8 @@
             android:id="@+id/btn_about_close"
             style="@style/DialogButtonStyle"
             android:paddingEnd="@dimen/dimen_zero"
-            android:text="@string/dialog_close_btn"/>
+            android:text="@string/dialog_close_btn"
+            tools:ignore="RtlSymmetry"/>
 
     </LinearLayout>
 

@@ -62,10 +62,18 @@
     </style>
 
     <style name="ToolbarTextStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
         <item name="android:textColor">@color/colorTextGray</item>
+    </style>
+
+    <style name="LayoutToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="InfoImageStyle">
@@ -196,6 +204,13 @@
         <item name="android:maxLines">1</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
         <item name="android:textColor">@color/colorTextGray</item>
+    </style>
+
+    <style name="SplashImageStyle">
+        <item name="android:layout_width">@dimen/dimen_splash_image_size</item>
+        <item name="android:layout_height">@dimen/dimen_splash_image_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
 </resources>

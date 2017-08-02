@@ -10,7 +10,7 @@ public class FlickrApplication extends Application {
     public void onCreate() {
         super.onCreate();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(getString(R.string.font_medium))
+                .setDefaultFontPath(getString(R.string.font_normal))
                 .setFontAttrId(R.attr.fontPath)
                 .build());
     }

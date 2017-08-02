@@ -4,13 +4,17 @@
     android:id="@+id/toolbar_settings"
     style="@style/ToolbarLayoutStyle">
 
-    <ImageView
-        android:id="@+id/ic_return_settings"
-        style="@style/ToolbarImageStyle"
-        android:contentDescription="@null"/>
+    <LinearLayout style="@style/LayoutToolbarStyle">
 
-    <TextView
-        style="@style/ToolbarTextStyle"
-        android:text="@string/nav_settings"/>
+        <ImageView
+            android:id="@+id/ic_return_settings"
+            style="@style/ToolbarImageStyle"
+            android:contentDescription="@null"/>
+
+        <TextView
+            style="@style/ToolbarTextStyle"
+            android:text="@string/nav_settings"/>
+
+    </LinearLayout>
 
 </android.support.v7.widget.Toolbar>

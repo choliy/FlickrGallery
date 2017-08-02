@@ -18,12 +18,34 @@ public final class PrefUtils {
                 context.getString(R.string.pref_key_first_start), Boolean.FALSE);
         if (!previouslyStarted) {
             SharedPreferences.Editor edit = preferences.edit();
-            edit.putBoolean(context.getString(R.string.pref_key_first_start), Boolean.TRUE);
-            edit.putString(context.getString(R.string.pref_key_grid), FlickrConstants.DEFAULT_GRID);
-            edit.putString(context.getString(R.string.pref_key_style), FlickrConstants.DEFAULT_STYLE);
-            edit.putString(context.getString(R.string.pref_key_picture), FlickrConstants.DEFAULT_PICTURE);
-            edit.putBoolean(context.getString(R.string.pref_key_animation), FlickrConstants.DEFAULT_ANIMATION);
-            edit.putBoolean(context.getString(R.string.pref_key_notification), FlickrConstants.DEFAULT_NOTIFICATION);
+
+            edit.putBoolean(
+                    context.getString(R.string.pref_key_first_start),
+                    Boolean.TRUE);
+
+            edit.putString(
+                    context.getString(R.string.pref_key_grid),
+                    context.getString(R.string.pref_grid_size_value_3));
+
+            edit.putString(
+                    context.getString(R.string.pref_key_style),
+                    context.getString(R.string.pref_grid_style_value_1));
+
+            edit.putString(
+                    context.getString(R.string.pref_key_picture),
+                    context.getString(R.string.pref_picture_value_100));
+
+            edit.putBoolean(
+                    context.getString(R.string.pref_key_splash),
+                    FlickrConstants.DEFAULT_SPLASH);
+            edit.putBoolean(
+                    context.getString(R.string.pref_key_animation),
+                    FlickrConstants.DEFAULT_ANIMATION);
+
+            edit.putBoolean(
+                    context.getString(R.string.pref_key_notification),
+                    FlickrConstants.DEFAULT_NOTIFICATION);
+
             edit.apply();
         }
     }
@@ -57,14 +79,12 @@ public final class PrefUtils {
         String styleValue = getStyleSettings(context);
         String pictureValue = getPictureSettings(context);
         boolean animationValue = getAnimationSettings(context);
-        boolean notificationValue = getNotificationSettings(context);
 
         return new String[]{
                 gridValue,
                 styleValue,
                 pictureValue,
-                String.valueOf(animationValue),
-                String.valueOf(notificationValue)};
+                String.valueOf(animationValue)};
     }
 
     public static String getGridSettings(Context context) {
@@ -77,14 +97,19 @@ public final class PrefUtils {
         return preferences.getString(context.getString(R.string.pref_key_style), null);
     }
 
-    public static String getPictureSettings(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(context.getString(R.string.pref_key_picture), null);
-    }
-
     public static boolean getAnimationSettings(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(context.getString(R.string.pref_key_animation), Boolean.FALSE);
+    }
+
+    public static boolean getSplashSettings(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(context.getString(R.string.pref_key_splash), Boolean.FALSE);
+    }
+
+    public static String getPictureSettings(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(context.getString(R.string.pref_key_picture), null);
     }
 
     public static boolean getNotificationSettings(Context context) {

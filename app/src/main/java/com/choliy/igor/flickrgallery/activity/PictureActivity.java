@@ -28,6 +28,7 @@ public class PictureActivity extends BroadcastActivity {
     @BindView(R.id.fab_menu_picture) FloatingActionMenu mFabMenu;
     @BindView(R.id.picture_ic_back) ImageView mBackButton;
     @BindView(R.id.fence_picture_view) View mFenceView;
+
     private GalleryItem mItem;
     private boolean mPictureSaved;
 

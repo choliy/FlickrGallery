@@ -5,17 +5,21 @@
     android:id="@+id/toolbar_picture"
     style="@style/ToolbarLayoutStyle">
 
-    <ImageView
-        android:id="@+id/ic_return_picture"
-        style="@style/ToolbarImageStyle"
-        android:contentDescription="@null"/>
+    <LinearLayout style="@style/LayoutToolbarStyle">
 
-    <TextView
-        android:id="@+id/text_picture_title"
-        style="@style/ToolbarTextStyle"
-        android:layout_marginEnd="@dimen/dimen_material_margin"
-        android:ellipsize="marquee"
-        android:maxLines="1"
-        tools:text="Lord of the Rings"/>
+        <ImageView
+            android:id="@+id/ic_return_picture"
+            style="@style/ToolbarImageStyle"
+            android:contentDescription="@null"/>
+
+        <TextView
+            android:id="@+id/text_picture_title"
+            style="@style/ToolbarTextStyle"
+            android:layout_marginEnd="@dimen/dimen_material_margin"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            tools:text="Lord of the Rings"/>
+
+    </LinearLayout>
 
 </android.support.v7.widget.Toolbar>

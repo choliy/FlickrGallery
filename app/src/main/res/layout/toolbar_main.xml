@@ -2,11 +2,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar_main"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:visibility="visible">
+    style="@style/LayoutToolbarStyle"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/toolbar_icon_menu"
@@ -19,13 +16,9 @@
         android:src="@drawable/ic_toolbar"/>
 
     <TextView
+        android:id="@+id/toolbar_title"
         style="@style/ToolbarTextStyle"
         android:text="@string/app_name"/>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
 
     <ImageView
         android:id="@+id/toolbar_icon_search"

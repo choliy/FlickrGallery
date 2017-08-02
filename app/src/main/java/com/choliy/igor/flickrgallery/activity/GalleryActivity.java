@@ -56,7 +56,6 @@ public class GalleryActivity extends BroadcastActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        PrefUtils.isFirstStart(this);
         ButterKnife.bind(this);
         setupUi(savedInstanceState);
     }
