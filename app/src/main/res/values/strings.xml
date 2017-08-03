@@ -80,7 +80,7 @@
 
     <!-- Fab Text -->
     <string name="fab_browser">Open in browser</string>
-    <string name="fab_go_web">Go web</string>
+    <string name="fab_web">Go web</string>
     <string name="fab_copy">Copy</string>
     <string name="fab_copied">URL copied:\n\n%1$s</string>
     <string name="fab_share">Share</string>

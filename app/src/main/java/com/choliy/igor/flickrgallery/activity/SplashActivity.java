@@ -39,16 +39,11 @@ public class SplashActivity extends BroadcastActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startAnimation();
-    }
-
-    private void startAnimation() {
         firstAnimation();
     }
 
     private void firstAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_show);
-        animation.setDuration(getResources().getInteger(R.integer.anim_duration_500));
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_splash_show);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -67,6 +62,25 @@ public class SplashActivity extends BroadcastActivity {
     }
 
     private void secondAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_splash_hide);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                thirdAnimation();
+            }
+        });
+        mImageWhite.startAnimation(animation);
+    }
+
+    private void thirdAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -80,7 +94,7 @@ public class SplashActivity extends BroadcastActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mImageWhite.setVisibility(View.INVISIBLE);
-                thirdAnimation();
+                fourthAnimation();
             }
         });
         mImageShadow.startAnimation(animation);
@@ -89,29 +103,8 @@ public class SplashActivity extends BroadcastActivity {
         mBackground.setVisibility(View.VISIBLE);
     }
 
-    private void thirdAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_translate_toolbar);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                fourthAnimation();
-            }
-        });
-        mToolbar.startAnimation(animation);
-        mToolbar.setVisibility(View.VISIBLE);
-    }
-
     private void fourthAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_translate_toolbar);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -126,8 +119,8 @@ public class SplashActivity extends BroadcastActivity {
                 fifthAnimation();
             }
         });
-        mImageSearch.startAnimation(animation);
-        mImageSearch.setVisibility(View.VISIBLE);
+        mToolbar.startAnimation(animation);
+        mToolbar.setVisibility(View.VISIBLE);
     }
 
     private void fifthAnimation() {
@@ -147,8 +140,8 @@ public class SplashActivity extends BroadcastActivity {
                 sixthAnimation();
             }
         });
-        mTextTitle.startAnimation(animation);
-        mTextTitle.setVisibility(View.VISIBLE);
+        mImageSearch.startAnimation(animation);
+        mImageSearch.setVisibility(View.VISIBLE);
     }
 
     private void sixthAnimation() {
@@ -168,11 +161,32 @@ public class SplashActivity extends BroadcastActivity {
                 seventhAnimation();
             }
         });
+        mTextTitle.startAnimation(animation);
+        mTextTitle.setVisibility(View.VISIBLE);
+    }
+
+    private void seventhAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
+        animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                eighthAnimation();
+            }
+        });
         mImageMenu.startAnimation(animation);
         mImageMenu.setVisibility(View.VISIBLE);
     }
 
-    private void seventhAnimation() {
+    private void eighthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_hide);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override

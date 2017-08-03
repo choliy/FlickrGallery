@@ -24,7 +24,7 @@ public interface FlickrConstants {
     int DEFAULT_PAGE_NUMBER = INT_ONE;
     int DEFAULT_GRID_POSITION = INT_TWO;
     int DEFAULT_STYLE_POSITION = INT_ZERO;
-    int DEFAULT_PICTURE_POSITION = INT_ZERO;
+    int DEFAULT_PICTURE_POSITION = INT_ONE;
     boolean DEFAULT_SPLASH = Boolean.TRUE;
     boolean DEFAULT_ANIMATION = Boolean.TRUE;
     boolean DEFAULT_NOTIFICATION = Boolean.FALSE;

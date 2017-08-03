@@ -35,11 +35,11 @@
         android:id="@+id/fab_go_web"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_browser"
+        android:src="@drawable/ic_web"
         app:fab_colorNormal="@color/colorPrimary"
         app:fab_colorPressed="@color/colorPrimary"
         app:fab_colorRipple="@color/colorAccent"
-        app:fab_label="@string/fab_go_web"
+        app:fab_label="@string/fab_web"
         app:fab_size="normal"/>
 
     <com.github.clans.fab.FloatingActionButton

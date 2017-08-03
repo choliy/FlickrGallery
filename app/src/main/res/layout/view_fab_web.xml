@@ -35,7 +35,7 @@
         android:id="@+id/fab_browser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_browser"
+        android:src="@drawable/ic_web"
         app:fab_colorNormal="@color/colorPrimary"
         app:fab_colorPressed="@color/colorPrimary"
         app:fab_colorRipple="@color/colorAccent"

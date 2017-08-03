@@ -33,7 +33,7 @@ public final class PrefUtils {
 
             edit.putString(
                     context.getString(R.string.pref_key_picture),
-                    context.getString(R.string.pref_picture_value_100));
+                    context.getString(R.string.pref_picture_value_200));
 
             edit.putBoolean(
                     context.getString(R.string.pref_key_splash),
