@@ -55,7 +55,11 @@ public final class ExtraUtils {
             description = description.replace(
                     context.getString(R.string.text_replace_chars),
                     FlickrConstants.STRING_EMPTY);
-            description = description.substring(0, description.length() - 2);
+
+            description = description.substring(
+                    FlickrConstants.INT_ZERO,
+                    description.length() - FlickrConstants.INT_TWO);
+
             return description;
         }
     }

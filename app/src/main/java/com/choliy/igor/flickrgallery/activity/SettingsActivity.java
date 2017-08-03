@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 
@@ -25,10 +26,10 @@ public class SettingsActivity extends BroadcastActivity {
 
         if (savedInstanceState == null) {
             String[] settings = PrefUtils.getSettings(this);
-            mGridValue = settings[0];
-            mStyleValue = settings[1];
-            mPictureValue = settings[2];
-            mAnimationValue = settings[3];
+            mGridValue = settings[FlickrConstants.INT_ZERO];
+            mStyleValue = settings[FlickrConstants.INT_ONE];
+            mPictureValue = settings[FlickrConstants.INT_TWO];
+            mAnimationValue = settings[FlickrConstants.INT_THREE];
         } else {
             mGridValue = savedInstanceState.getString(getString(R.string.pref_key_grid));
             mStyleValue = savedInstanceState.getString(getString(R.string.pref_key_style));
@@ -58,10 +59,10 @@ public class SettingsActivity extends BroadcastActivity {
 
     private void checkAndFinish() {
         String[] settings = PrefUtils.getSettings(this);
-        String gridValue = settings[0];
-        String styleValue = settings[1];
-        String pictureValue = settings[2];
-        String animationValue = settings[3];
+        String gridValue = settings[FlickrConstants.INT_ZERO];
+        String styleValue = settings[FlickrConstants.INT_ONE];
+        String pictureValue = settings[FlickrConstants.INT_TWO];
+        String animationValue = settings[FlickrConstants.INT_THREE];
 
         boolean gridEquals = gridValue.equals(mGridValue);
         boolean styleEquals = styleValue.equals(mStyleValue);

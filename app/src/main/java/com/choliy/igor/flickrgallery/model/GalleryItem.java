@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
+
 public class GalleryItem implements Parcelable {
 
     private String mDbId;
@@ -37,6 +39,28 @@ public class GalleryItem implements Parcelable {
         mSmallPicUrl = in.readString();
         mMediumPicUrl = in.readString();
         mBigPicUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mDbId);
+        parcel.writeString(mUserId);
+        parcel.writeString(mTitle);
+        parcel.writeString(mDate);
+        parcel.writeString(mOwnerId);
+        parcel.writeString(mOwnerName);
+        parcel.writeString(mDescription);
+        parcel.writeString(mSmallListPicUrl);
+        parcel.writeString(mListPicUrl);
+        parcel.writeString(mExtraSmallPicUrl);
+        parcel.writeString(mSmallPicUrl);
+        parcel.writeString(mMediumPicUrl);
+        parcel.writeString(mBigPicUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return FlickrConstants.INT_ZERO;
     }
 
     public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {
@@ -163,27 +187,5 @@ public class GalleryItem implements Parcelable {
                 .build();
 
         return uri.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mDbId);
-        parcel.writeString(mUserId);
-        parcel.writeString(mTitle);
-        parcel.writeString(mDate);
-        parcel.writeString(mOwnerId);
-        parcel.writeString(mOwnerName);
-        parcel.writeString(mDescription);
-        parcel.writeString(mSmallListPicUrl);
-        parcel.writeString(mListPicUrl);
-        parcel.writeString(mExtraSmallPicUrl);
-        parcel.writeString(mSmallPicUrl);
-        parcel.writeString(mMediumPicUrl);
-        parcel.writeString(mBigPicUrl);
     }
 }

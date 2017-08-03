@@ -8,9 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
@@ -27,7 +25,7 @@ import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.view.HidingScrollListener;
-import com.choliy.igor.flickrgallery.view.ItemOffsetDecoration;
+import com.choliy.igor.flickrgallery.view.ItemDividerDecoration;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class GalleryFragment extends EventFragment {
 
@@ -57,11 +54,24 @@ public class GalleryFragment extends EventFragment {
     private boolean mDataRefreshing;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gallery, container, Boolean.FALSE);
-        ButterKnife.bind(this, view);
-        setupUi();
-        return view;
+    int layoutRes() {
+        return R.layout.fragment_gallery;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        String gridSize = PrefUtils.getGridSettings(getActivity());
+        String gridStyle = PrefUtils.getStyleSettings(getActivity());
+        boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
+        mGalleryAdapter = new GalleryAdapter(mItems, gridSize, gridStyle, isAnimationOn);
+        mRvGallery.setAdapter(mGalleryAdapter);
+        mRvGallery.setHasFixedSize(Boolean.TRUE);
+        setOnScrollListener();
+        setRefreshLayout();
+        setRvStyle();
+
+        if (mDataLoaded && isConnected()) updateUi();
+        else fetchData();
     }
 
     @Subscribe
@@ -82,21 +92,6 @@ public class GalleryFragment extends EventFragment {
     @Subscribe
     public void onEvent(TopListEvent event) {
         mRvGallery.scrollToPosition(event.getScrollPosition());
-    }
-
-    private void setupUi() {
-        String gridSize = PrefUtils.getGridSettings(getActivity());
-        String gridStyle = PrefUtils.getStyleSettings(getActivity());
-        boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
-        mGalleryAdapter = new GalleryAdapter(mItems, gridSize, gridStyle, isAnimationOn);
-        mRvGallery.setAdapter(mGalleryAdapter);
-        mRvGallery.setHasFixedSize(Boolean.TRUE);
-        setOnScrollListener();
-        setRefreshLayout();
-        setRvStyle();
-
-        if (mDataLoaded && isConnected()) updateUi();
-        else fetchData();
     }
 
     private void setOnScrollListener() {
@@ -129,14 +124,14 @@ public class GalleryFragment extends EventFragment {
         // Set the offset from top of the screen for SwipeRefreshLayout
         mRefreshLayout.setProgressViewOffset(
                 Boolean.FALSE, // scaling animation
-                40, // top position of the loading indicator
-                300); // max scrolling bottom position of current indicator
+                40,            // top position of the loading indicator
+                300);          // max scrolling bottom position of current indicator
     }
 
     private int[] setGridLayoutManager() {
         String gridSize = PrefUtils.getGridSettings(getActivity());
-        int sizeVertical = Character.getNumericValue(gridSize.charAt(0));
-        int sizeHorizontal = Character.getNumericValue(gridSize.charAt(1));
+        int sizeVertical = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ZERO));
+        int sizeHorizontal = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ONE));
 
         int screenOrientation = getResources().getConfiguration().orientation;
         if (screenOrientation == Configuration.ORIENTATION_PORTRAIT)
@@ -152,15 +147,15 @@ public class GalleryFragment extends EventFragment {
         String dividerStyle = getString(R.string.pref_grid_style_value_2);
         String cardStyle = getString(R.string.pref_grid_style_value_3);
         int[] gridSize = setGridLayoutManager();
-        int orientation = gridSize[0];
-        int verticalGrid = gridSize[1];
-        int horizontalGrid = gridSize[2];
+        int orientation = gridSize[FlickrConstants.INT_ZERO];
+        int verticalGrid = gridSize[FlickrConstants.INT_ONE];
+        int horizontalGrid = gridSize[FlickrConstants.INT_TWO];
         int gridMargin = Math.round(getResources().getDimension(R.dimen.dimen_list_divider_margin));
-        ItemOffsetDecoration decoration;
+        ItemDividerDecoration decoration;
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT)
-            decoration = new ItemOffsetDecoration(gridMargin, verticalGrid);
-        else decoration = new ItemOffsetDecoration(gridMargin, horizontalGrid);
+            decoration = new ItemDividerDecoration(gridMargin, verticalGrid);
+        else decoration = new ItemDividerDecoration(gridMargin, horizontalGrid);
 
         if (savedStyle.equals(dividerStyle)) {
             mRvGallery.addItemDecoration(decoration);
@@ -201,7 +196,7 @@ public class GalleryFragment extends EventFragment {
         mDataRefreshing = Boolean.FALSE;
         mDataLoaded = Boolean.TRUE;
 
-        if (mGalleryAdapter.getItemCount() == 0) {
+        if (mGalleryAdapter.getItemCount() == FlickrConstants.INT_ZERO) {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
             EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
@@ -225,11 +220,10 @@ public class GalleryFragment extends EventFragment {
         protected void onPostExecute(List<GalleryItem> items) {
             mNoMoreData = items.isEmpty();
             if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
-                for (int i = 0; i < items.size(); i++) {
-                    mItems.add(items.get(i));
+                for (GalleryItem item : items) {
+                    mItems.add(item);
                 }
             } else mItems = items;
-
             updateUi();
         }
     }

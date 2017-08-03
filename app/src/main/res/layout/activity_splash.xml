@@ -26,15 +26,15 @@
     <ImageView
         android:id="@+id/image_splash_white"
         style="@style/SplashImageStyle"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_flickr_white"/>
+        android:contentDescription="@null"/>
+    <!--android:src="@drawable/ic_flickr_white"-->
 
     <ImageView
         android:id="@+id/image_splash_shadow"
         style="@style/SplashImageStyle"
         android:contentDescription="@null"
-        android:src="@drawable/ic_flickr_shadow"
         android:visibility="invisible"
         tools:visibility="visible"/>
+    <!--android:src="@drawable/ic_flickr_shadow"-->
 
 </FrameLayout>

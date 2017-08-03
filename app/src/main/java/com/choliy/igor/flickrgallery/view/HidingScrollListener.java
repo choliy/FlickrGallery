@@ -22,7 +22,7 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
                 .findFirstVisibleItemPosition();
 
         // show views if first item is on first visible position and views are hidden
-        if (firstVisibleItem == 0) {
+        if (firstVisibleItem == FlickrConstants.INT_ZERO) {
             if (!controlsVisible) {
                 onShow();
                 controlsVisible = Boolean.TRUE;
@@ -31,15 +31,16 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
             if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
                 onHide();
                 controlsVisible = Boolean.FALSE;
-                scrolledDistance = 0;
+                scrolledDistance = FlickrConstants.INT_ZERO;
             } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
                 onShow();
                 controlsVisible = Boolean.TRUE;
-                scrolledDistance = 0;
+                scrolledDistance = FlickrConstants.INT_ZERO;
             }
         }
 
-        if ((controlsVisible && dy > 0) || (!controlsVisible && dy < 0)) {
+        if ((controlsVisible && dy > FlickrConstants.INT_ZERO)
+                || (!controlsVisible && dy < FlickrConstants.INT_ZERO)) {
             scrolledDistance += dy;
         }
     }

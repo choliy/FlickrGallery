@@ -108,7 +108,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             setData(position);
 
             // Callback on the end of the list
-            if (position == getItemCount() - 1)
+            if (position == getItemCount() - FlickrConstants.INT_ONE)
                 EventBus.getDefault().post(new ItemLastEvent(getItemCount()));
         }
 
@@ -148,9 +148,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
                 setDescription(position);
             } else if (mGridSize.equals(grid2x3)) {
                 setDescription(position);
-                mOwner.setTextSize(17.0f);
-                mTitle.setTextSize(15.0f);
-                mTitle.setMaxLines(1);
+                mOwner.setTextSize(context.getResources().getInteger(R.integer.text_size_17));
+                mTitle.setTextSize(context.getResources().getInteger(R.integer.text_size_15));
+                mTitle.setMaxLines(FlickrConstants.INT_ONE);
             }
         }
 

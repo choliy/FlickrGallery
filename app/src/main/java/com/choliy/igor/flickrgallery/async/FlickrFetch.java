@@ -23,6 +23,7 @@ import java.util.List;
 public class FlickrFetch {
 
     private static final String TAG = FlickrFetch.class.getSimpleName();
+    private static final int BUFFER_SIZE = 1024;
 
     public List<GalleryItem> downloadGallery(Context context, int pageNumber) {
         List<GalleryItem> items = new ArrayList<>();
@@ -79,10 +80,10 @@ public class FlickrFetch {
                 throw new IOException(connection.getResponseMessage() + ": with " + stringUrl);
 
             int bytesRead;
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[BUFFER_SIZE];
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            while ((bytesRead = inputStream.read(buffer)) > 0) {
+            while ((bytesRead = inputStream.read(buffer)) > FlickrConstants.INT_ZERO) {
                 outputStream.write(buffer, FlickrConstants.INT_ZERO, bytesRead);
             }
 
@@ -100,7 +101,7 @@ public class FlickrFetch {
         JSONObject baseJsonObject = jsonBody.getJSONObject(FlickrConstants.JSON_BASE);
         JSONArray photoJsonArray = baseJsonObject.getJSONArray(FlickrConstants.JSON_ARRAY);
 
-        for (int i = 0; i < photoJsonArray.length(); i++) {
+        for (int i = FlickrConstants.INT_ZERO; i < photoJsonArray.length(); i++) {
             JSONObject photoJsonObject = photoJsonArray.getJSONObject(i);
 
             // If there is no picture URL - iterate another object

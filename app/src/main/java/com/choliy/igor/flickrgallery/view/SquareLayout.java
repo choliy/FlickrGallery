@@ -7,12 +7,13 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 
 public class SquareLayout extends FrameLayout {
 
-    private int aspectWidth = 1;
-    private int aspectHeight = 1;
+    private int aspectWidth = FlickrConstants.INT_ONE;
+    private int aspectHeight = FlickrConstants.INT_ONE;
 
     public SquareLayout(Context context) {
         super(context);
@@ -37,8 +38,8 @@ public class SquareLayout extends FrameLayout {
         if (attrs == null) return;
         TypedArray a = context.getResources().obtainAttributes(attrs, R.styleable.SquareLayout);
         try {
-            aspectWidth = a.getInteger(R.styleable.SquareLayout_aspect_width, 1);
-            aspectHeight = a.getInteger(R.styleable.SquareLayout_aspect_height, 1);
+            aspectWidth = a.getInteger(R.styleable.SquareLayout_aspect_width, FlickrConstants.INT_ONE);
+            aspectHeight = a.getInteger(R.styleable.SquareLayout_aspect_height, FlickrConstants.INT_ONE);
         } finally {
             a.recycle();
         }
@@ -51,6 +52,7 @@ public class SquareLayout extends FrameLayout {
         int newSpecWidth = MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY);
         int newH = Math.round(((float) getMeasuredWidth()) * aspectHeight / aspectWidth);
         int newSpecHeight = MeasureSpec.makeMeasureSpec(newH, MeasureSpec.EXACTLY);
+
         super.onMeasure(newSpecWidth, newSpecHeight);
     }
 }

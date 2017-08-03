@@ -12,14 +12,17 @@ public interface FlickrConstants {
     String ITEM_KEY = "item_key";
     String URI_KEY = "uri_key";
 
-    // Empty values
+    // Default variables
     String STRING_EMPTY = "";
     int INT_ZERO = 0;
+    int INT_ONE = 1;
+    int INT_TWO = 2;
+    int INT_THREE = 3;
 
     // Default values
     int DEFAULT_LIST_POSITION = INT_ZERO;
-    int DEFAULT_PAGE_NUMBER = 1;
-    int DEFAULT_GRID_POSITION = 2;
+    int DEFAULT_PAGE_NUMBER = INT_ONE;
+    int DEFAULT_GRID_POSITION = INT_TWO;
     int DEFAULT_STYLE_POSITION = INT_ZERO;
     int DEFAULT_PICTURE_POSITION = INT_ZERO;
     boolean DEFAULT_SPLASH = Boolean.TRUE;

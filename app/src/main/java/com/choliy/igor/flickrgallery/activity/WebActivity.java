@@ -31,6 +31,8 @@ public class WebActivity extends BroadcastActivity {
     @BindView(R.id.web_view_picture) WebView mWebView;
     @BindView(R.id.fab_menu_web) FloatingActionMenu mFabMenu;
     @BindView(R.id.fence_web_view) View mFenceView;
+
+    private static final int ONE_HUNDRED_PERCENT = 100;
     private String mItemUri = FlickrConstants.STRING_EMPTY;
 
     @Override
@@ -124,7 +126,7 @@ public class WebActivity extends BroadcastActivity {
         mWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) mProgressView.smoothToHide();
+                if (newProgress == ONE_HUNDRED_PERCENT) mProgressView.smoothToHide();
                 else mProgressView.smoothToShow();
             }
         });

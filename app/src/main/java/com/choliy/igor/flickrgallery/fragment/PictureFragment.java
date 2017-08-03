@@ -2,12 +2,9 @@ package com.choliy.igor.flickrgallery.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,10 +24,9 @@ import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PictureFragment extends Fragment implements RequestListener {
+public class PictureFragment extends EventFragment implements RequestListener {
 
     @BindView(R.id.picture_owner) TextView mOwner;
     @BindView(R.id.picture_title) TextView mTitle;
@@ -52,21 +48,13 @@ public class PictureFragment extends Fragment implements RequestListener {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(Boolean.TRUE);
-        mItem = getArguments().getParcelable(FlickrConstants.ITEM_KEY);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_picture, container, Boolean.FALSE);
-        ButterKnife.bind(this, view);
-        return view;
+    int layoutRes() {
+        return R.layout.fragment_picture;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        mItem = getArguments().getParcelable(FlickrConstants.ITEM_KEY);
         setData();
     }
 

@@ -11,7 +11,7 @@
 
     <!-- Info Text-->
     <string name="text_hint_search">Search photo</string>
-    <string name="text_oops">OOPS!</string>
+    <string name="text_oops">oops!</string>
     <string name="text_no_connection">No internet connection</string>
     <string name="text_no_results">No results for your query</string>
     <string name="text_wrong_uri">Wrong URI to download data</string>
@@ -32,17 +32,17 @@
         If you find translating issue, please send me an email or write feedback</string>
     <string name="dialog_developer" translatable="false">© %1$s by Igor Choliy</string>
     <string name="dialog_url" translatable="false">https://www.linkedin.com/in/choliy</string>
-    <string name="dialog_close_btn">CLOSE</string>
-    <string name="dialog_feedback_btn">FEEDBACK</string>
-    <string name="dialog_email_btn">EMAIL</string>
+    <string name="dialog_close_btn">close</string>
+    <string name="dialog_feedback_btn">feedback</string>
+    <string name="dialog_email_btn">email</string>
 
     <!-- Dialog History -->
     <string name="dialog_history_title">Search History</string>
     <string name="dialog_history_tag" translatable="false">history_tag</string>
     <string name="dialog_history_empty">History is empty</string>
     <string name="dialog_history_text">Get started by searching new photos</string>
-    <string name="dialog_start_btn">START SEARCH</string>
-    <string name="dialog_clear_btn">CLEAR HISTORY</string>
+    <string name="dialog_start_btn">start search</string>
+    <string name="dialog_clear_btn">clear history</string>
 
     <!-- Dialog Clear-Restore -->
     <string name="dialog_clear_message">Do you really want to clear history?</string>
@@ -51,9 +51,9 @@
     <string name="dialog_restore_restored">All history has been restored</string>
     <string name="dialog_restore_removed">History has been removed</string>
     <string name="dialog_restore_restored_single">History has been restored</string>
-    <string name="dialog_undo_btn">UNDO</string>
-    <string name="dialog_yes_btn">YES</string>
-    <string name="dialog_no_btn">NO</string>
+    <string name="dialog_undo_btn">undo</string>
+    <string name="dialog_yes_btn">yes</string>
+    <string name="dialog_no_btn">no</string>
 
     <!-- Saved Pictures -->
     <string name="text_no_saved_pic">No saved pictures</string>

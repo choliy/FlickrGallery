@@ -46,12 +46,12 @@ public final class AnimUtils {
     public static void animToolbarVisibility(Toolbar toolbar, boolean show) {
         if (show) {
             toolbar.animate()
-                    .translationY(0)
-                    .setInterpolator(new DecelerateInterpolator(2));
+                    .translationY(FlickrConstants.INT_ZERO)
+                    .setInterpolator(new DecelerateInterpolator(FlickrConstants.INT_TWO));
         } else {
             toolbar.animate()
                     .translationY(-toolbar.getHeight())
-                    .setInterpolator(new AccelerateInterpolator(2));
+                    .setInterpolator(new AccelerateInterpolator(FlickrConstants.INT_TWO));
         }
     }
 

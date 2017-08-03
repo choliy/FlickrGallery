@@ -9,8 +9,8 @@ import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.event.RemovePicEvent;
 import com.choliy.igor.flickrgallery.event.ToolbarEvent;
-import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
+import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 
 import org.greenrobot.eventbus.EventBus;

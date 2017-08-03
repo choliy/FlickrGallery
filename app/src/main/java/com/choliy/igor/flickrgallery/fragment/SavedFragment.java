@@ -8,9 +8,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
@@ -34,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SavedFragment extends EventFragment implements
         LoaderManager.LoaderCallbacks<List<GalleryItem>> {
@@ -47,10 +44,8 @@ public class SavedFragment extends EventFragment implements
     private SavedAdapter mAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_saved, container, Boolean.FALSE);
-        ButterKnife.bind(this, view);
-        return view;
+    int layoutRes() {
+        return R.layout.fragment_saved;
     }
 
     @Override

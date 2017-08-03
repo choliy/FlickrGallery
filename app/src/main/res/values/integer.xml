@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer name="text_size_15">15</integer>
+    <integer name="text_size_17">17</integer>
     <integer name="anim_duration_300">300</integer>
     <integer name="anim_duration_500">500</integer>
 </resources>
