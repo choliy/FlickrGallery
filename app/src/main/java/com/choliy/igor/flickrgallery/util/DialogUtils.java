@@ -20,8 +20,8 @@ public final class DialogUtils {
     public static void clearDialog(Context context, final HistoryFragment.SaveHistoryAsyncTask asyncTask) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_clear, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_clear_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_clear_no);
+        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
+        final TextView no = (TextView) view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -43,8 +43,8 @@ public final class DialogUtils {
     public static void deleteDialog(Context context, final SavedFragment.DeletePicTask picTask) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_delete, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_delete_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_delete_no);
+        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
+        final TextView no = (TextView) view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {
@@ -67,8 +67,8 @@ public final class DialogUtils {
     public static void restoreDialog(Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_restore, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_restore_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_restore_no);
+        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
+        final TextView no = (TextView) view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {

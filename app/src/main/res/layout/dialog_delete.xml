@@ -7,19 +7,6 @@
         style="@style/MessageTextStyle"
         android:text="@string/text_delete_message"/>
 
-    <LinearLayout style="@style/QuestionLayoutInnerStyle">
-
-        <TextView
-            android:id="@+id/btn_delete_no"
-            style="@style/DialogButtonStyle"
-            android:layout_marginEnd="@dimen/dimen_medium_margin"
-            android:text="@string/dialog_no_btn"/>
-
-        <TextView
-            android:id="@+id/btn_delete_yes"
-            style="@style/DialogButtonStyle"
-            android:text="@string/dialog_yes_btn"/>
-
-    </LinearLayout>
+    <include layout="@layout/view_dialog_buttons"/>
 
 </LinearLayout>

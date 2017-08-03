@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/QuestionLayoutInnerStyle">
+
+    <TextView
+        android:id="@+id/btn_no"
+        style="@style/DialogButtonStyle"
+        android:layout_marginEnd="@dimen/dimen_medium_margin"
+        android:text="@string/dialog_no_btn"/>
+
+    <TextView
+        android:id="@+id/btn_yes"
+        style="@style/DialogButtonStyle"
+        android:text="@string/dialog_yes_btn"/>
+
+</LinearLayout>
