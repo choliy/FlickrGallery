@@ -73,4 +73,8 @@ public final class ExtraUtils {
                     .into(image);
         } else Glide.with(context).load(url).listener(listener).into(image);
     }
+
+    public static int getOrientation(Context context) {
+        return context.getResources().getConfiguration().orientation;
+    }
 }

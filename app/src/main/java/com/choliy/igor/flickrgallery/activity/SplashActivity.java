@@ -43,8 +43,9 @@ public class SplashActivity extends BroadcastActivity {
     }
 
     private void firstAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_splash_show);
-        animation.setAnimationListener(new Animation.AnimationListener() {
+        Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_show);
+        Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
+        animScale.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -58,11 +59,13 @@ public class SplashActivity extends BroadcastActivity {
                 secondAnimation();
             }
         });
-        mImageWhite.startAnimation(animation);
+        mImageWhite.startAnimation(animScale);
+        mBackground.startAnimation(animAlpha);
+        mBackground.setVisibility(View.VISIBLE);
     }
 
     private void secondAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_splash_hide);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_hide);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -98,9 +101,7 @@ public class SplashActivity extends BroadcastActivity {
             }
         });
         mImageShadow.startAnimation(animation);
-        mBackground.startAnimation(animation);
         mImageShadow.setVisibility(View.VISIBLE);
-        mBackground.setVisibility(View.VISIBLE);
     }
 
     private void fourthAnimation() {
@@ -187,7 +188,26 @@ public class SplashActivity extends BroadcastActivity {
     }
 
     private void eighthAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_hide);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_show);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ninthAnimation();
+            }
+        });
+        mImageShadow.startAnimation(animation);
+    }
+
+    private void ninthAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_hide);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

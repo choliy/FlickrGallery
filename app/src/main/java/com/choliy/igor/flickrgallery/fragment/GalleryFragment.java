@@ -133,7 +133,7 @@ public class GalleryFragment extends EventFragment {
         int sizeVertical = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ZERO));
         int sizeHorizontal = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ONE));
 
-        int screenOrientation = getResources().getConfiguration().orientation;
+        int screenOrientation = ExtraUtils.getOrientation(getActivity());
         if (screenOrientation == Configuration.ORIENTATION_PORTRAIT)
             mRvGallery.setLayoutManager(new GridLayoutManager(getActivity(), sizeVertical));
         else
