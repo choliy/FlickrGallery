@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dimen_picture_bottom_padding"
+        android:paddingBottom="@dimen/dimen_picture_padding"
         android:paddingTop="@dimen/dimen_toolbar_height">
 
         <LinearLayout style="@style/PictureLayoutStyle">

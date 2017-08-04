@@ -1,19 +1,14 @@
 package com.choliy.igor.flickrgallery.fragment;
 
-import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +22,6 @@ import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.DialogUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
-import com.choliy.igor.flickrgallery.util.NavUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -38,10 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HistoryFragment extends DialogFragment implements
+public class HistoryFragment extends CustomFragment implements
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
@@ -49,49 +42,19 @@ public class HistoryFragment extends DialogFragment implements
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
 
+    public static final String HISTORY_TAG = HistoryFragment.class.getSimpleName();
     private List<HistoryItem> mSavedHistory;
     private HistoryAdapter mHistoryAdapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(Boolean.TRUE);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_history, container, Boolean.FALSE);
-        ButterKnife.bind(this, view);
-        return view;
+    int layoutRes() {
+        return R.layout.dialog_history;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setupUi();
         getActivity().getSupportLoaderManager().restartLoader(HistoryLoader.HISTORY_LOADER_ID, null, this);
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(getActivity(), getTheme()) {
-            @Override
-            public void onBackPressed() {
-                closeHistoryDialog();
-            }
-        };
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -182,7 +145,6 @@ public class HistoryFragment extends DialogFragment implements
     }
 
     private void closeHistoryDialog() {
-        NavUtils.sIsHistoryDialogShown = Boolean.FALSE;
         getDialog().dismiss();
     }
 

@@ -36,7 +36,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
-            tools:src="@mipmap/ic_launcher"/>
+            tools:src="@drawable/ic_flickr_shadow"/>
 
         <View
             android:id="@+id/picture_view"

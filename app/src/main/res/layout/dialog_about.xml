@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/dimen_medium_margin">
@@ -22,7 +22,7 @@
             android:textSize="@dimen/dimen_text_medium"/>
 
         <TextView
-            android:id="@+id/view_version"
+            android:id="@+id/btn_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_material_margin"
@@ -46,7 +46,7 @@
         android:textSize="@dimen/dimen_text_small"/>
 
     <TextView
-        android:id="@+id/developer_url"
+        android:id="@+id/btn_developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -61,14 +61,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btn_dialog_email"
+            android:id="@+id/btn_email"
             style="@style/DialogButtonStyle"
             android:paddingStart="@dimen/dimen_zero"
             android:text="@string/dialog_email_btn"
             tools:ignore="RtlSymmetry"/>
 
         <TextView
-            android:id="@+id/btn_dialog_feedback"
+            android:id="@+id/btn_feedback"
             style="@style/DialogButtonStyle"
             android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/dialog_feedback_btn"/>
@@ -76,7 +76,7 @@
         <View style="@style/ViewWeightStyle"/>
 
         <TextView
-            android:id="@+id/btn_about_close"
+            android:id="@+id/btn_close"
             style="@style/DialogButtonStyle"
             android:paddingEnd="@dimen/dimen_zero"
             android:text="@string/dialog_close_btn"

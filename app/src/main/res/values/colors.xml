@@ -23,5 +23,6 @@
     <color name="colorListBackground">#50000000</color>
     <color name="colorPictureBackground">#dc000000</color>
     <color name="colorScrollbarGray">#BDBDBD</color>
+    <color name="colorSecretBackground">@color/colorScrollbarGray</color>
 
 </resources>

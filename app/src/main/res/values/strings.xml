@@ -38,7 +38,6 @@
 
     <!-- Dialog History -->
     <string name="dialog_history_title">Search History</string>
-    <string name="dialog_history_tag" translatable="false">history_tag</string>
     <string name="dialog_history_empty">History is empty</string>
     <string name="dialog_history_text">Get started by searching new photos</string>
     <string name="dialog_start_btn">start search</string>

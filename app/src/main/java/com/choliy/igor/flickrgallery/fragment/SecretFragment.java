@@ -1,32 +1,45 @@
 package com.choliy.igor.flickrgallery.fragment;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.view.SquareLayout;
 
-import butterknife.ButterKnife;
+import butterknife.BindView;
+import butterknife.OnClick;
 
-public class SecretFragment extends DialogFragment {
+public class SecretFragment extends CustomFragment {
+
+    @BindView(R.id.layout_secret_off) SquareLayout mLayoutOff;
+    @BindView(R.id.layout_secret_on) SquareLayout mLayoutOn;
+
+    public static final String SECRET_TAG = SecretFragment.class.getSimpleName();
+    private MediaPlayer mPlayer;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(Boolean.TRUE);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_secret, container, Boolean.FALSE);
-        ButterKnife.bind(this, view);
-        return view;
+    int layoutRes() {
+        return R.layout.dialog_secret;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // TODO
+        mPlayer = MediaPlayer.create(getActivity(), R.raw.flash_sound);
+    }
+
+    @OnClick({R.id.flash_off, R.id.flash_on})
+    public void onClick(View view) {
+        mPlayer.start();
+        switch (view.getId()) {
+            case R.id.flash_off:
+                mLayoutOff.setVisibility(View.INVISIBLE);
+                mLayoutOn.setVisibility(View.VISIBLE);
+                break;
+            case R.id.flash_on:
+                mLayoutOff.setVisibility(View.VISIBLE);
+                mLayoutOn.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 }

@@ -46,6 +46,8 @@ public class GalleryActivity extends BroadcastActivity implements
     @BindView(R.id.search_view) SearchView mSearchView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view) NavigationView mNavigationView;
+
+    public static final int REQUEST_CODE = 777;
     private boolean mShowSearchType;
 
     public static Intent newIntent(Context context) {
@@ -76,7 +78,7 @@ public class GalleryActivity extends BroadcastActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NavUtils.REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -134,20 +136,15 @@ public class GalleryActivity extends BroadcastActivity implements
                     .beginTransaction()
                     .add(R.id.fragment_container, new GalleryFragment())
                     .commit();
+        } else {
+            mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_KEY);
+            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
         }
 
         mNavigationView.setNavigationItemSelectedListener(this);
         ExtraUtils.setupDevDate(this, mNavigationView);
         setSupportActionBar(mToolbar);
         setupSearchView();
-
-        if (savedInstanceState != null) {
-            mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_KEY);
-            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
-        }
-
-        if (NavUtils.sIsHistoryDialogShown) NavUtils.showHistory(this);
-        if (NavUtils.sIsAboutDialogShown) NavUtils.aboutDialog(this);
     }
 
     private void setupSearchView() {
