@@ -2,6 +2,13 @@
 <resources>
     <integer name="text_size_15">15</integer>
     <integer name="text_size_17">17</integer>
+    <integer name="anim_duration_200">200</integer>
     <integer name="anim_duration_300">300</integer>
+    <integer name="anim_duration_400">400</integer>
     <integer name="anim_duration_500">500</integer>
+    <integer name="anim_duration_600">600</integer>
+    <integer name="anim_duration_700">700</integer>
+    <integer name="anim_duration_800">800</integer>
+    <integer name="anim_duration_900">900</integer>
+    <integer name="anim_duration_1000">1000</integer>
 </resources>

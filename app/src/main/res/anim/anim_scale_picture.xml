@@ -2,12 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <alpha
-        android:duration="700"
+        android:duration="@integer/anim_duration_700"
         android:fromAlpha="0.0"
         android:toAlpha="1.0"/>
 
     <scale
-        android:duration="1000"
+        android:duration="@integer/anim_duration_1000"
         android:fromXScale="1.5"
         android:fromYScale="1.5"
         android:pivotX="50%"

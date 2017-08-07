@@ -72,6 +72,8 @@ public class GalleryActivity extends BroadcastActivity implements
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        else if (mShowSearchType)
+            animateToolbar(mShowSearchType = Boolean.FALSE);
         else super.onBackPressed();
     }
 
@@ -122,10 +124,10 @@ public class GalleryActivity extends BroadcastActivity implements
                 mDrawerLayout.openDrawer(mNavigationView);
                 break;
             case R.id.toolbar_icon_back:
-                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.FALSE);
+                animateToolbar(mShowSearchType = Boolean.FALSE);
                 break;
             case R.id.toolbar_icon_search:
-                AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+                animateToolbar(mShowSearchType = Boolean.TRUE);
                 break;
         }
     }
@@ -138,7 +140,7 @@ public class GalleryActivity extends BroadcastActivity implements
                     .commit();
         } else {
             mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_KEY);
-            AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType);
+            animateToolbar(mShowSearchType);
         }
 
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -174,11 +176,12 @@ public class GalleryActivity extends BroadcastActivity implements
                         TimeUtils.getTime(GalleryActivity.this));
                 FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
 
-                AnimUtils.animateToolbarType(GalleryActivity.this, mSearchView, query.isEmpty());
+                animateToolbar(mShowSearchType = Boolean.FALSE);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new GalleryFragment())
                         .commit();
+
                 return Boolean.TRUE;
             }
         });
@@ -203,6 +206,13 @@ public class GalleryActivity extends BroadcastActivity implements
 
     private void showSearchToolbar() {
         AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
-        AnimUtils.animateToolbarType(this, mSearchView, mShowSearchType = Boolean.TRUE);
+        animateToolbar(mShowSearchType = Boolean.TRUE);
+    }
+
+    private void animateToolbar(boolean showSearchType) {
+        AnimUtils.animateToolbarType(
+                GalleryActivity.this,
+                mSearchView,
+                showSearchType);
     }
 }

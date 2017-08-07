@@ -2,12 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <translate
-        android:duration="900"
+        android:duration="@integer/anim_duration_900"
         android:fromYDelta="0"
         android:toYDelta="2000"/>
 
     <alpha
-        android:duration="800"
+        android:duration="@integer/anim_duration_800"
         android:fromAlpha="1.0"
         android:toAlpha="0.0"/>
 
