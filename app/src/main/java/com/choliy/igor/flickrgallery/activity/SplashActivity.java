@@ -30,7 +30,6 @@ public class SplashActivity extends BroadcastActivity {
         super.onCreate(savedInstanceState);
         PrefUtils.isFirstStart(this);
         if (!PrefUtils.getSplashSettings(this)) startGalleryActivity();
-
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         disableViews();
@@ -227,7 +226,7 @@ public class SplashActivity extends BroadcastActivity {
     }
 
     private void startGalleryActivity() {
-        startActivity(new Intent(SplashActivity.this, GalleryActivity.class));
+        startActivity(new Intent(this, GalleryActivity.class));
         finish();
     }
 
