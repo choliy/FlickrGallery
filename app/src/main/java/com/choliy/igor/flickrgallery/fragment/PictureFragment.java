@@ -19,7 +19,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.ZoomActivity;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
-import com.choliy.igor.flickrgallery.util.InfoUtils;
+import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -61,7 +61,7 @@ public class PictureFragment extends EventFragment implements RequestListener {
     @OnClick(R.id.picture_view)
     public void onPictureClick() {
         Intent intent = new Intent(getActivity(), ZoomActivity.class);
-        intent.putExtra(FlickrConstants.PICTURE_KEY, getPictureUrl(Boolean.TRUE));
+        intent.putExtra(FlickrConstants.PICTURE_KEY, getUrl(Boolean.TRUE));
         startActivity(intent);
     }
 
@@ -112,31 +112,12 @@ public class PictureFragment extends EventFragment implements RequestListener {
         mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
 
         // set picture url
-        String url = getPictureUrl(Boolean.FALSE);
+        String url = getUrl(Boolean.FALSE);
         ExtraUtils.loadPicture(getActivity(), url, mPicture, this);
     }
 
-    private String getPictureUrl(boolean bigPicture) {
-        String url;
-        String noUrl = FlickrConstants.JSON_NO_SUCH_SIZE;
-        if (!mItem.getBigPicUrl().equals(noUrl) && bigPicture)
-            url = mItem.getBigPicUrl();
-        else if (!mItem.getMediumPicUrl().equals(noUrl))
-            url = mItem.getMediumPicUrl();
-        else if (!mItem.getSmallPicUrl().equals(noUrl))
-            url = mItem.getSmallPicUrl();
-        else if (!mItem.getExtraSmallPicUrl().equals(noUrl)) {
-            smallPicture();
-            url = mItem.getExtraSmallPicUrl();
-        } else {
-            smallPicture();
-            url = mItem.getListPicUrl();
-        }
-        return url;
-    }
-
     private void loadPictureResolution() {
-        Glide.with(this).load(getPictureUrl(Boolean.TRUE)).into(new SimpleTarget<GlideDrawable>() {
+        Glide.with(this).load(getUrl(Boolean.TRUE)).into(new SimpleTarget<GlideDrawable>() {
             @Override
             public void onResourceReady(
                     GlideDrawable resource,
@@ -151,7 +132,7 @@ public class PictureFragment extends EventFragment implements RequestListener {
         });
     }
 
-    private void smallPicture() {
-        InfoUtils.showLongToast(getActivity(), getString(R.string.text_picture_small));
+    private String getUrl(boolean bigPicture) {
+        return FabUtils.getPictureUrl(getActivity(), mItem, bigPicture);
     }
 }
