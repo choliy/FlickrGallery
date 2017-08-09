@@ -75,7 +75,7 @@ public class ImageSaver {
     private File getAlbumStorageDir(String albumName) {
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), albumName);
-        if (!file.mkdirs()) Log.e(TAG, "Directory not created");
+        if (!file.mkdirs()) Log.i(TAG, "Directory not created");
         return file;
     }
 

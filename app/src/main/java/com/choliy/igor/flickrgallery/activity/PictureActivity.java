@@ -1,9 +1,14 @@
 package com.choliy.igor.flickrgallery.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -35,6 +40,7 @@ public class PictureActivity extends BroadcastActivity {
     @BindView(R.id.picture_ic_back) ImageView mBackButton;
     @BindView(R.id.fence_picture_view) View mFenceView;
 
+    private static final int REQUEST_CODE = 111;
     private GalleryItem mItem;
     private boolean mPictureSaved;
     private boolean mPictureDownloaded;
@@ -97,6 +103,20 @@ public class PictureActivity extends BroadcastActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+
+        int zero = FlickrConstants.INT_ZERO;
+        boolean requestCodeSame = requestCode == REQUEST_CODE;
+        boolean resultsNotEmpty = grantResults.length > zero;
+        boolean permissionGranted = grantResults[zero] == PackageManager.PERMISSION_GRANTED;
+        if (requestCodeSame && resultsNotEmpty && permissionGranted) onDownloadClick();
+        else InfoUtils.showShortToast(this, getString(R.string.text_permission));
+    }
+
     @OnClick(R.id.picture_ic_back)
     public void onBackClicked() {
         finish();
@@ -119,7 +139,7 @@ public class PictureActivity extends BroadcastActivity {
                 onSaveClick();
                 break;
             case R.id.fab_download:
-                onDownloadClick();
+                checkPermissionAndDownload();
                 break;
         }
     }
@@ -138,6 +158,13 @@ public class PictureActivity extends BroadcastActivity {
             FlickrLab.getInstance(this).addPicture(mItem);
             InfoUtils.showShortToast(this, getString(R.string.fab_picture_saved));
         }
+    }
+
+    private void checkPermissionAndDownload() {
+        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE);
+        else onDownloadClick();
     }
 
     private void onDownloadClick() {

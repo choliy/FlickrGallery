@@ -19,6 +19,7 @@
     <string name="text_no_browser">There is no browser on your device</string>
     <string name="text_search_query">Search query was restored</string>
     <string name="text_exit">Exit the application?</string>
+    <string name="text_permission">You can\'t download picture without this permission</string>
     <string name="text_new_pictures">You have new pictures from search query - \"%1$s\"</string>
     <string name="text_email" translatable="false">choliy.igor@gmail.com</string>
     <string name="text_subject" translatable="false">About \"Flickr Gallery\"</string>
