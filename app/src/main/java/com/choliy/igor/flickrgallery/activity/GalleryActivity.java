@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -74,7 +75,7 @@ public class GalleryActivity extends BroadcastActivity implements
             mDrawerLayout.closeDrawer(GravityCompat.START);
         else if (mShowSearchType)
             animateToolbar(mShowSearchType = Boolean.FALSE);
-        else super.onBackPressed();
+        else finishApp();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class GalleryActivity extends BroadcastActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         NavUtils.onNavDrawerClicked(this, item.getItemId());
         mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+        return Boolean.TRUE;
     }
 
     @Subscribe
@@ -153,7 +154,6 @@ public class GalleryActivity extends BroadcastActivity implements
         final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
         TextView hintText = (TextView) mSearchView.findViewById(R.id.search_src_text);
         hintText.setHintTextColor(ContextCompat.getColor(this, R.color.colorTextLightGray));
-
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -214,5 +214,17 @@ public class GalleryActivity extends BroadcastActivity implements
                 GalleryActivity.this,
                 mSearchView,
                 showSearchType);
+    }
+
+    private void finishApp() {
+        String text = getString(R.string.text_exit);
+        Snackbar snackbar = Snackbar.make(mToolbar, text, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.dialog_yes_btn, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        snackbar.show();
     }
 }

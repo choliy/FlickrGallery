@@ -6,17 +6,20 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.ShareCompat;
+import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.activity.WebActivity;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public final class FabUtils {
 
@@ -50,22 +53,6 @@ public final class FabUtils {
         clipboard.setPrimaryClip(clip);
     }
 
-    public static void downloadPicture(
-            final Context context,
-            String stringUrl,
-            final PictureActivity.DownloadTask downloadTask) {
-
-        Glide.with(context)
-                .load(stringUrl)
-                .asBitmap()
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                        downloadTask.execute(bitmap);
-                    }
-                });
-    }
-
     public static String getPictureUrl(Context context, GalleryItem item, boolean bigPicture) {
         String url;
         String noUrl = FlickrConstants.JSON_NO_SUCH_SIZE;
@@ -82,6 +69,20 @@ public final class FabUtils {
             url = item.getListPicUrl();
         }
         return url;
+    }
+
+    public static Bitmap getBitmapFromURL(String picUrl) {
+        try {
+            URL url = new URL(picUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(Boolean.TRUE);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            return BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+            Log.e(FabUtils.class.getSimpleName(), e.getMessage());
+            return null;
+        }
     }
 
     private static void smallPicture(Context context) {

@@ -3,14 +3,13 @@ package com.choliy.igor.flickrgallery.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.async.DownloadTask;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.PictureFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -18,7 +17,6 @@ import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
-import com.choliy.igor.flickrgallery.view.ImageSaver;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -115,9 +113,7 @@ public class PictureActivity extends BroadcastActivity {
                 FabUtils.shareUrl(this, mItem.getItemUri());
                 break;
             case R.id.fab_copy:
-                String url = mItem.getItemUri();
-                FabUtils.copyUrl(this, url);
-                InfoUtils.showShortToast(this, getString(R.string.fab_copied, url));
+                onCopyClick();
                 break;
             case R.id.fab_save:
                 onSaveClick();
@@ -126,6 +122,12 @@ public class PictureActivity extends BroadcastActivity {
                 onDownloadClick();
                 break;
         }
+    }
+
+    private void onCopyClick() {
+        String url = mItem.getItemUri();
+        FabUtils.copyUrl(this, url);
+        InfoUtils.showShortToast(this, getString(R.string.fab_copied, url));
     }
 
     private void onSaveClick() {
@@ -143,8 +145,7 @@ public class PictureActivity extends BroadcastActivity {
             InfoUtils.showShortToast(this, getString(R.string.text_already_downloaded));
         } else {
             mPictureDownloaded = Boolean.TRUE;
-            String pictureUrl = FabUtils.getPictureUrl(this, mItem, Boolean.TRUE);
-            FabUtils.downloadPicture(this, pictureUrl, new DownloadTask());
+            new DownloadTask(this, mItem).execute();
         }
     }
 
@@ -188,32 +189,5 @@ public class PictureActivity extends BroadcastActivity {
         mFabCopy.setButtonSize(size);
         mFabSave.setButtonSize(size);
         mFabDownload.setButtonSize(size);
-    }
-
-    public class DownloadTask extends AsyncTask<Bitmap, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            Context context = PictureActivity.this;
-            InfoUtils.showShortToast(context, getString(R.string.fab_downloading));
-        }
-
-        @Override
-        protected Void doInBackground(Bitmap... bitmap) {
-            Context context = PictureActivity.this;
-            String fileName = mItem.getOwnerName() + mItem.getOwnerId();
-            new ImageSaver(context)
-                    .setDirectoryName(context.getString(R.string.app_dir))
-                    .setFileName(fileName)
-                    .setExternal(Boolean.TRUE)
-                    .save(bitmap[FlickrConstants.INT_ZERO]);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Context context = PictureActivity.this;
-            InfoUtils.showShortToast(context, getString(R.string.fab_downloaded));
-        }
     }
 }
