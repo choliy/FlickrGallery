@@ -3,6 +3,7 @@ package com.choliy.igor.flickrgallery.util;
 import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -59,6 +60,14 @@ public final class ExtraUtils {
             description = description.substring(
                     FlickrConstants.INT_ZERO,
                     description.length() - FlickrConstants.INT_TWO);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+                description = Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY).toString();
+            else
+                description = Html.fromHtml(description).toString();
+
+            description = description.replaceAll("\\\\n", FlickrConstants.STRING_EMPTY);
+            description = description.replaceAll("\\\\/", FlickrConstants.STRING_EMPTY);
 
             return description;
         }
