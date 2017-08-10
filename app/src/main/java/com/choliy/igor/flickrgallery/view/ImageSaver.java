@@ -16,7 +16,7 @@ public class ImageSaver {
 
     private static final String TAG = ImageSaver.class.getSimpleName();
     private static final String FORMAT_JPEG = ".jpeg";
-    private static final int QUALITY = 100;
+    public static final int QUALITY = 100;
 
     private Context mContext;
     private String mDirectoryName;

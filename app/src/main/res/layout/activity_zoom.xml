@@ -5,7 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/colorPictureBackground">
 
-    <include layout="@layout/view_progress"/>
+    <!--<ProgressBar-->
+        <!--android:id="@+id/loading_bar"-->
+        <!--style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:indeterminate="true"/>-->
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/picture_full_screen"

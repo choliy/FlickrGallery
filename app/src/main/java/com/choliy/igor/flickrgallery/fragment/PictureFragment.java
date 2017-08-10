@@ -1,32 +1,41 @@
 package com.choliy.igor.flickrgallery.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.ZoomActivity;
+import com.choliy.igor.flickrgallery.async.SinglePicLoader;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
+import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
+import com.choliy.igor.flickrgallery.view.ImageSaver;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PictureFragment extends EventFragment implements RequestListener {
+public class PictureFragment extends EventFragment implements
+        LoaderManager.LoaderCallbacks<Bitmap> {
 
     @BindView(R.id.picture_owner) TextView mOwner;
     @BindView(R.id.picture_title) TextView mTitle;
@@ -37,7 +46,9 @@ public class PictureFragment extends EventFragment implements RequestListener {
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.top_picture_shadow) View mTopShadow;
     @BindView(R.id.bottom_picture_shadow) View mBottomShadow;
+
     private GalleryItem mItem;
+    private Bitmap mBitmap;
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
@@ -58,30 +69,33 @@ public class PictureFragment extends EventFragment implements RequestListener {
         setData();
     }
 
+    @Override
+    public Loader<Bitmap> onCreateLoader(int id, Bundle args) {
+        String picUrl = getUrl(Boolean.FALSE);
+        return new SinglePicLoader(getActivity(), picUrl);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Bitmap> loader, Bitmap bitmap) {
+        mBitmap = bitmap;
+        setPicture(bitmap);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Bitmap> loader) {
+    }
+
     @OnClick(R.id.picture_view)
     public void onPictureClick() {
+        String picUrl = getUrl(Boolean.TRUE);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, ImageSaver.QUALITY, stream);
+        byte[] byteArray = stream.toByteArray();
+
         Intent intent = new Intent(getActivity(), ZoomActivity.class);
-        intent.putExtra(FlickrConstants.PICTURE_KEY, getUrl(Boolean.TRUE));
+        intent.putExtra(FlickrConstants.STRING_KEY, picUrl);
+        intent.putExtra(FlickrConstants.BITMAP_KEY, byteArray);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
-        return Boolean.FALSE;
-    }
-
-    @Override
-    public boolean onResourceReady(
-            Object resource,
-            Object model,
-            Target target,
-            boolean isFromMemoryCache,
-            boolean isFirstResource) {
-
-        mProgress.smoothToHide();
-        mTopShadow.setVisibility(View.VISIBLE);
-        mBottomShadow.setVisibility(View.VISIBLE);
-        return Boolean.FALSE;
     }
 
     private void setData() {
@@ -112,8 +126,23 @@ public class PictureFragment extends EventFragment implements RequestListener {
         mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
 
         // set picture url
-        String url = getUrl(Boolean.FALSE);
-        ExtraUtils.loadPicture(getActivity(), url, mPicture, this);
+        getActivity()
+                .getSupportLoaderManager()
+                .initLoader(SinglePicLoader.SINGLE_PIC_LOADER_ID, null, this);
+    }
+
+    private void setPicture(Bitmap bitmap) {
+        if (PrefUtils.getAnimationSettings(getActivity())) {
+            Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_scale_picture);
+            mPicture.setVisibility(View.INVISIBLE);
+            mPicture.setImageBitmap(bitmap);
+            mPicture.startAnimation(animation);
+            mPicture.setVisibility(View.VISIBLE);
+        } else mPicture.setImageBitmap(bitmap);
+
+        mProgress.smoothToHide();
+        mTopShadow.setVisibility(View.VISIBLE);
+        mBottomShadow.setVisibility(View.VISIBLE);
     }
 
     private void loadPictureResolution() {
