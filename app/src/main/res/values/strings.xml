@@ -31,7 +31,7 @@
     <string name="dialog_message">
         Application which allows you to search,
         view and save the last public photos from Flickr service</string>
-    <string name="dialog_issue" translatable="false">
+    <string name="dialog_issue">
         If you find translating issue, please send me an email or write feedback</string>
     <string name="dialog_developer" translatable="false">© %1$s by Igor Choliy</string>
     <string name="dialog_url" translatable="false">https://www.linkedin.com/in/choliy</string>
@@ -95,7 +95,7 @@
 
     <!-- Picture Fragment Text -->
     <string name="text_picture_owner">Owner:</string>
-    <string name="text_picture_title">Title:\u0020</string>
+    <string name="text_picture_title">Title:</string>
     <string name="text_picture_date">Date:</string>
     <string name="text_picture_description">Description:</string>
     <string name="text_picture_res">Resolution:</string>
@@ -110,11 +110,11 @@
     <string name="pref_category_ui">UI Settings</string>
     <string name="pref_grid_size_title">Grid size</string>
     <string name="pref_grid_style_title">Grid style</string>
-    <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_animation_title">Picture animation</string>
     <string name="pref_animation_summary">Scale animation after finishing loading picture</string>
     <string name="pref_splash_title">Splash screen</string>
     <string name="pref_splash_summary">Animation on application start</string>
+    <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_notification_title">Gallery notification</string>
     <string name="pref_notification_summary">Notify about new available pictures from last search query</string>
