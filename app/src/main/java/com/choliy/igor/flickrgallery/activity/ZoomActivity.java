@@ -1,8 +1,13 @@
 package com.choliy.igor.flickrgallery.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,49 +15,46 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.loader.ZoomPicLoader;
 import com.github.chrisbanes.photoview.PhotoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ZoomActivity extends AppCompatActivity {
+public class ZoomActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Bitmap> {
 
-    //@BindView(R.id.loading_bar) ProgressBar mLoading;
+    @BindView(R.id.loading_bar) ProgressBar mLoading;
     @BindView(R.id.picture_full_screen) PhotoView mPicture;
-    private String mPicUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zoom);
         ButterKnife.bind(this);
+        getSupportLoaderManager().initLoader(ZoomPicLoader.ZOOM_PIC_LOADER_ID, null, this);
+        mLoading.getIndeterminateDrawable().setColorFilter(
+                ContextCompat.getColor(this, R.color.colorAccent),
+                PorterDuff.Mode.SRC_IN);
+    }
 
-        mPicUrl = getIntent().getStringExtra(FlickrConstants.STRING_KEY);
+    @Override
+    public Loader<Bitmap> onCreateLoader(int id, Bundle args) {
         byte[] byteArray = getIntent().getByteArrayExtra(FlickrConstants.BITMAP_KEY);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, FlickrConstants.INT_ZERO, byteArray.length);
-        mPicture.setImageBitmap(bitmap);
-
-        if (savedInstanceState != null)
-            mPicUrl = savedInstanceState.getString(FlickrConstants.URL_KEY);
+        return new ZoomPicLoader(this, byteArray);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //loadLargeImage();
-        //load();
+    public void onLoadFinished(Loader<Bitmap> loader, Bitmap bitmap) {
+        String picUrl = getIntent().getStringExtra(FlickrConstants.STRING_KEY);
+        loadLargePicture(picUrl, bitmap);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(FlickrConstants.URL_KEY, mPicUrl);
-        super.onSaveInstanceState(outState);
+    public void onLoaderReset(Loader<Bitmap> loader) {
     }
 
     @OnClick(R.id.picture_full_screen)
@@ -60,43 +62,34 @@ public class ZoomActivity extends AppCompatActivity {
         finish();
     }
 
-    private void loadLargeImage() {
-        Glide.with(this).load(mPicUrl).listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(
-                    Exception e,
-                    String model,
-                    Target<GlideDrawable> target,
-                    boolean isFirstResource) {
-
-                return Boolean.FALSE;
-            }
-
-            @Override
-            public boolean onResourceReady(
-                    GlideDrawable resource,
-                    String model,
-                    Target<GlideDrawable> target,
-                    boolean isFromMemoryCache,
-                    boolean isFirstResource) {
-
-                //mLoading.setVisibility(View.GONE);
-                mPicture.setImageDrawable(resource);
-                return Boolean.FALSE;
-            }
-        }).into(mPicture);
-    }
-
-    private void load() {
+    private void loadLargePicture(String picUrl, Bitmap bitmap) {
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
         Glide.with(this)
-                .load(mPicUrl)
-                .asBitmap()
-                .into(new SimpleTarget<Bitmap>() {
+                .load(picUrl)
+                .dontAnimate()
+                .placeholder(drawable)
+                .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        //mLoading.setVisibility(View.GONE);
-                        mPicture.setImageBitmap(resource);
+                    public boolean onException(
+                            Exception e,
+                            String model,
+                            Target<GlideDrawable> target,
+                            boolean isFirstResource) {
+
+                        return Boolean.FALSE;
                     }
-                });
+
+                    @Override
+                    public boolean onResourceReady(
+                            GlideDrawable resource,
+                            String model,
+                            Target<GlideDrawable> target,
+                            boolean isFromMemoryCache,
+                            boolean isFirstResource) {
+
+                        mLoading.setVisibility(View.GONE);
+                        return Boolean.FALSE;
+                    }
+                }).into(mPicture);
     }
 }

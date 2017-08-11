@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.async.DownloadTask;
+import com.choliy.igor.flickrgallery.async.DownloadService;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.PictureFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -172,7 +172,8 @@ public class PictureActivity extends BroadcastActivity {
             InfoUtils.showShortToast(this, getString(R.string.text_already_downloaded));
         } else {
             mPictureDownloaded = Boolean.TRUE;
-            new DownloadTask(this, mItem).execute();
+            InfoUtils.showShortToast(this, getString(R.string.fab_downloading));
+            startService(DownloadService.newIntent(this, mItem));
         }
     }
 
@@ -205,7 +206,6 @@ public class PictureActivity extends BroadcastActivity {
     private void checkOrientationSize() {
         int orientation = ExtraUtils.getOrientation(this);
         int size;
-
         if (orientation == Configuration.ORIENTATION_PORTRAIT)
             size = FloatingActionButton.SIZE_NORMAL;
         else

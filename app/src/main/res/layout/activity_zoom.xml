@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPictureBackground">
-
-    <!--<ProgressBar-->
-        <!--android:id="@+id/loading_bar"-->
-        <!--style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:indeterminate="true"/>-->
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/picture_full_screen"
@@ -19,6 +13,14 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_flickr_shadow"/>
+
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"/>
 
 </FrameLayout>

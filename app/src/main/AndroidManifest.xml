@@ -61,6 +61,8 @@
 
         <service android:name=".async.NotificationService"/>
 
+        <service android:name=".async.DownloadService"/>
+
         <receiver android:name=".async.StartupReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

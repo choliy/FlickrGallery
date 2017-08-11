@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+import com.choliy.igor.flickrgallery.tool.FlickrFetch;
 import com.choliy.igor.flickrgallery.util.AlarmUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;

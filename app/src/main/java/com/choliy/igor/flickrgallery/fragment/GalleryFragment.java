@@ -15,7 +15,7 @@ import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
-import com.choliy.igor.flickrgallery.async.FlickrFetch;
+import com.choliy.igor.flickrgallery.tool.FlickrFetch;
 import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
 import com.choliy.igor.flickrgallery.event.ItemLastEvent;
 import com.choliy.igor.flickrgallery.event.ToolbarEvent;

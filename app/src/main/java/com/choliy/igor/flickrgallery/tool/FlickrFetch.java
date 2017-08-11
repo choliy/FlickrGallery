@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.async;
+package com.choliy.igor.flickrgallery.tool;
 
 import android.content.Context;
 import android.net.Uri;

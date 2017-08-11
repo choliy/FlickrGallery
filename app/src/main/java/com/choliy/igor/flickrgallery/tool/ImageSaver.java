@@ -1,4 +1,4 @@
-package com.choliy.igor.flickrgallery.view;
+package com.choliy.igor.flickrgallery.tool;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,7 +16,8 @@ public class ImageSaver {
 
     private static final String TAG = ImageSaver.class.getSimpleName();
     private static final String FORMAT_JPEG = ".jpeg";
-    public static final int QUALITY = 100;
+    private static final int QUALITY_HIGH = 100;
+    public static final int QUALITY_MID = 50;
 
     private Context mContext;
     private String mDirectoryName;
@@ -46,7 +47,7 @@ public class ImageSaver {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(createFile());
-            bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_HIGH, fileOutputStream);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             e.printStackTrace();

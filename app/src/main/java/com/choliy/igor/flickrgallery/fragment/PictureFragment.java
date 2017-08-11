@@ -2,6 +2,7 @@ package com.choliy.igor.flickrgallery.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -20,13 +21,13 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.ZoomActivity;
-import com.choliy.igor.flickrgallery.async.SinglePicLoader;
+import com.choliy.igor.flickrgallery.loader.SinglePicLoader;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
-import com.choliy.igor.flickrgallery.view.ImageSaver;
+import com.choliy.igor.flickrgallery.tool.ImageSaver;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.ByteArrayOutputStream;
@@ -87,15 +88,7 @@ public class PictureFragment extends EventFragment implements
 
     @OnClick(R.id.picture_view)
     public void onPictureClick() {
-        String picUrl = getUrl(Boolean.TRUE);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        mBitmap.compress(Bitmap.CompressFormat.JPEG, ImageSaver.QUALITY, stream);
-        byte[] byteArray = stream.toByteArray();
-
-        Intent intent = new Intent(getActivity(), ZoomActivity.class);
-        intent.putExtra(FlickrConstants.STRING_KEY, picUrl);
-        intent.putExtra(FlickrConstants.BITMAP_KEY, byteArray);
-        startActivity(intent);
+        new OnClickTask().execute();
     }
 
     private void setData() {
@@ -109,7 +102,7 @@ public class PictureFragment extends EventFragment implements
         else
             mTitle.setText(title);
 
-        // ser resolution
+        // set resolution
         loadPictureResolution();
 
         // set date
@@ -125,7 +118,7 @@ public class PictureFragment extends EventFragment implements
         String description = mItem.getDescription();
         mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
 
-        // set picture url
+        // set picture
         getActivity()
                 .getSupportLoaderManager()
                 .initLoader(SinglePicLoader.SINGLE_PIC_LOADER_ID, null, this);
@@ -138,7 +131,8 @@ public class PictureFragment extends EventFragment implements
             mPicture.setImageBitmap(bitmap);
             mPicture.startAnimation(animation);
             mPicture.setVisibility(View.VISIBLE);
-        } else mPicture.setImageBitmap(bitmap);
+        } else
+            mPicture.setImageBitmap(bitmap);
 
         mProgress.smoothToHide();
         mTopShadow.setVisibility(View.VISIBLE);
@@ -163,5 +157,24 @@ public class PictureFragment extends EventFragment implements
 
     private String getUrl(boolean bigPicture) {
         return FabUtils.getPictureUrl(getActivity(), mItem, bigPicture);
+    }
+
+    private class OnClickTask extends AsyncTask<Void, Void, byte[]> {
+
+        @Override
+        protected byte[] doInBackground(Void... params) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, ImageSaver.QUALITY_MID, stream);
+            return stream.toByteArray();
+        }
+
+        @Override
+        protected void onPostExecute(byte[] bytes) {
+            String picUrl = getUrl(Boolean.TRUE);
+            Intent intent = new Intent(getActivity(), ZoomActivity.class);
+            intent.putExtra(FlickrConstants.STRING_KEY, picUrl);
+            intent.putExtra(FlickrConstants.BITMAP_KEY, bytes);
+            startActivity(intent);
+        }
     }
 }

@@ -17,7 +17,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:background="@color/colorFabBackground">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/progress_view"
