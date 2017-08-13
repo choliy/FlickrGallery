@@ -15,12 +15,13 @@ import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.activity.PictureActivity;
 import com.choliy.igor.flickrgallery.adapter.GalleryAdapter;
-import com.choliy.igor.flickrgallery.tool.FlickrFetch;
 import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
 import com.choliy.igor.flickrgallery.event.ItemLastEvent;
-import com.choliy.igor.flickrgallery.event.ToolbarEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarTypeEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarVisibilityEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+import com.choliy.igor.flickrgallery.tool.FlickrFetch;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.PrefUtils;
@@ -98,12 +99,12 @@ public class GalleryFragment extends EventFragment {
         mRvGallery.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
-                EventBus.getDefault().post(new ToolbarEvent(Boolean.FALSE));
+                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.FALSE));
             }
 
             @Override
             public void onShow() {
-                EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
             }
         });
     }
@@ -118,6 +119,7 @@ public class GalleryFragment extends EventFragment {
                 mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
                 ExtraUtils.hideKeyboard(getActivity());
+                EventBus.getDefault().post(new ToolbarTypeEvent(Boolean.FALSE));
             }
         });
 
@@ -183,7 +185,7 @@ public class GalleryFragment extends EventFragment {
             mRvGallery.setVisibility(View.GONE);
             mProgressView.smoothToHide();
             mRefreshLayout.setRefreshing(Boolean.FALSE);
-            EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
+            EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
         }
         return connected;
     }
@@ -199,7 +201,7 @@ public class GalleryFragment extends EventFragment {
         if (mGalleryAdapter.getItemCount() == FlickrConstants.INT_ZERO) {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
-            EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
+            EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
         } else
             mResultsLayout.setVisibility(View.GONE);
     }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.event.RemovePicEvent;
-import com.choliy.igor.flickrgallery.event.ToolbarEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarVisibilityEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
@@ -55,7 +55,7 @@ public class SavedActivity extends BroadcastActivity {
     }
 
     @Subscribe
-    public void onEvent(ToolbarEvent event) {
+    public void onEvent(ToolbarVisibilityEvent event) {
         AnimUtils.animToolbarVisibility(mToolbar, event.isShowToolbar());
         AnimUtils.animateView(this, mTopList, !event.isShowToolbar());
     }

@@ -125,7 +125,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void fifthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setDuration(getResources().getInteger(R.integer.anim_duration_200));
+        animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -146,7 +146,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void sixthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setDuration(getResources().getInteger(R.integer.anim_duration_200));
+        animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -167,7 +167,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void seventhAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setDuration(getResources().getInteger(R.integer.anim_duration_200));
+        animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

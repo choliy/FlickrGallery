@@ -16,7 +16,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.SavedAdapter;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.event.RemovePicEvent;
-import com.choliy.igor.flickrgallery.event.ToolbarEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarVisibilityEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.loader.SavedPicLoader;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -94,12 +94,12 @@ public class SavedFragment extends EventFragment implements
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
-                EventBus.getDefault().post(new ToolbarEvent(Boolean.FALSE));
+                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.FALSE));
             }
 
             @Override
             public void onShow() {
-                EventBus.getDefault().post(new ToolbarEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
             }
         });
     }

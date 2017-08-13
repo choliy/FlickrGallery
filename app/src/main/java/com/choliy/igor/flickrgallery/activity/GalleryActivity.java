@@ -11,8 +11,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +23,8 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.event.HistoryStartEvent;
 import com.choliy.igor.flickrgallery.event.HistoryTitleEvent;
-import com.choliy.igor.flickrgallery.event.ToolbarEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarTypeEvent;
+import com.choliy.igor.flickrgallery.event.ToolbarVisibilityEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
@@ -109,9 +112,14 @@ public class GalleryActivity extends BroadcastActivity implements
     }
 
     @Subscribe
-    public void onEvent(ToolbarEvent event) {
+    public void onEvent(ToolbarVisibilityEvent event) {
         AnimUtils.animToolbarVisibility(mToolbar, event.isShowToolbar());
         AnimUtils.animateView(this, mTopList, !event.isShowToolbar());
+    }
+
+    @Subscribe
+    public void onEvent(ToolbarTypeEvent event) {
+        if (mShowSearchType) animateToolbar(mShowSearchType = event.isToolbarSearch());
     }
 
     @OnClick(R.id.image_top_list)
@@ -151,30 +159,20 @@ public class GalleryActivity extends BroadcastActivity implements
     }
 
     private void setupSearchView() {
-        final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
-        TextView hintText = (TextView) mSearchView.findViewById(R.id.search_src_text);
-        hintText.setHintTextColor(ContextCompat.getColor(this, R.color.colorTextLightGray));
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        EditText searchPlate = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        searchPlate.setHintTextColor(ContextCompat.getColor(this, R.color.colorTextLightGray));
+        searchPlate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) {
-                    closeIcon.setClickable(Boolean.FALSE);
-                    closeIcon.setImageResource(FlickrConstants.INT_ZERO);
-                } else {
-                    closeIcon.setClickable(Boolean.TRUE);
-                    closeIcon.setImageResource(R.drawable.ic_close);
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (mSearchView.getQuery().length() > FlickrConstants.INT_ZERO) {
+                    String query = mSearchView.getQuery().toString();
+                    PrefUtils.setStoredQuery(GalleryActivity.this, query);
+                    HistoryItem item = new HistoryItem(
+                            query,
+                            TimeUtils.getDate(),
+                            TimeUtils.getTime(GalleryActivity.this));
+                    FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
                 }
-                return Boolean.TRUE;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                PrefUtils.setStoredQuery(GalleryActivity.this, query);
-                HistoryItem item = new HistoryItem(
-                        query,
-                        TimeUtils.getDate(),
-                        TimeUtils.getTime(GalleryActivity.this));
-                FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
 
                 animateToolbar(mShowSearchType = Boolean.FALSE);
                 getSupportFragmentManager()
@@ -191,6 +189,26 @@ public class GalleryActivity extends BroadcastActivity implements
             public void onClick(View view) {
                 String query = PrefUtils.getStoredQuery(GalleryActivity.this);
                 mSearchView.setQuery(query, Boolean.FALSE);
+            }
+        });
+
+        final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    closeIcon.setClickable(Boolean.FALSE);
+                    closeIcon.setImageResource(FlickrConstants.INT_ZERO);
+                } else {
+                    closeIcon.setClickable(Boolean.TRUE);
+                    closeIcon.setImageResource(R.drawable.ic_close);
+                }
+                return Boolean.TRUE;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return Boolean.TRUE;
             }
         });
 

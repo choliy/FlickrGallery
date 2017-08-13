@@ -1,10 +1,10 @@
 package com.choliy.igor.flickrgallery.event;
 
-public class ToolbarEvent {
+public class ToolbarVisibilityEvent {
 
     private boolean mShowToolbar;
 
-    public ToolbarEvent(boolean showToolbar) {
+    public ToolbarVisibilityEvent(boolean showToolbar) {
         setShowToolbar(showToolbar);
     }
 

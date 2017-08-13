@@ -14,7 +14,7 @@ public class ItemGalleryEvent {
         return mItem;
     }
 
-    public void setItem(GalleryItem item) {
+    private void setItem(GalleryItem item) {
         mItem = item;
     }
 }
