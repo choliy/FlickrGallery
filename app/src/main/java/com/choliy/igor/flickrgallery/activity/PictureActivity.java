@@ -11,8 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.ImageView;
 
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.PictureAdapter;
@@ -21,7 +21,6 @@ import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
 import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
@@ -40,7 +39,6 @@ public class PictureActivity extends BroadcastActivity {
     @BindView(R.id.fab_save) FloatingActionButton mFabSave;
     @BindView(R.id.fab_download) FloatingActionButton mFabDownload;
     @BindView(R.id.fab_menu_pic) FloatingActionMenu mFabMenu;
-    @BindView(R.id.picture_ic_back) ImageView mBackButton;
     @BindView(R.id.fence_picture_view) View mFenceView;
     @BindView(R.id.picture_pager) ViewPager mPicturePager;
 
@@ -75,7 +73,6 @@ public class PictureActivity extends BroadcastActivity {
     protected void onResume() {
         super.onResume();
         if (mIsFabOpened) enablePictureScreen(Boolean.FALSE);
-        else animateViews(Boolean.TRUE);
     }
 
     @Override
@@ -113,11 +110,6 @@ public class PictureActivity extends BroadcastActivity {
         else InfoUtils.showShortToast(this, getString(R.string.text_permission));
     }
 
-    @OnClick(R.id.picture_ic_back)
-    public void onBackClicked() {
-        finish();
-    }
-
     @OnClick({R.id.fab_web, R.id.fab_share, R.id.fab_copy, R.id.fab_save, R.id.fab_download})
     public void onFabClicked(View view) {
         enablePictureScreen(Boolean.TRUE);
@@ -143,6 +135,7 @@ public class PictureActivity extends BroadcastActivity {
     private void setupViewPager() {
         mPicturePager.setAdapter(new PictureAdapter(getSupportFragmentManager(), mSavedLibrary));
         mPicturePager.setCurrentItem(mItemPosition);
+        mPicturePager.setPageTransformer(Boolean.TRUE, new AccordionTransformer());
         mPicturePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -241,11 +234,6 @@ public class PictureActivity extends BroadcastActivity {
             mSavedLibrary = getIntent().getBooleanExtra(FlickrConstants.SAVE_KEY, Boolean.FALSE);
         }
         if (mSavedLibrary) mFabMenu.removeMenuButton(mFabSave);
-    }
-
-    private void animateViews(boolean show) {
-        AnimUtils.animateBackButton(this, mBackButton, show);
-        AnimUtils.animateView(this, mFabMenu, show);
     }
 
     private void updateItemByPosition() {

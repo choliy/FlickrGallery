@@ -25,7 +25,7 @@ import butterknife.OnClick;
 
 public class WebActivity extends BroadcastActivity {
 
-    @BindView(R.id.text_picture_title) TextView mPictureTitle;
+    @BindView(R.id.picture_owner) TextView mPictureOwner;
     @BindView(R.id.layout_no_uri) LinearLayout mNoUriLayout;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.web_view_picture) WebView mWebView;
@@ -78,7 +78,7 @@ public class WebActivity extends BroadcastActivity {
         } else super.onBackPressed();
     }
 
-    @OnClick(R.id.ic_return_picture)
+    @OnClick(R.id.picture_return)
     public void onReturnClick() {
         finish();
     }
@@ -86,11 +86,11 @@ public class WebActivity extends BroadcastActivity {
     private void setupUi() {
         Intent intent = getIntent();
         if (intent != null) {
-            String pictureTitle = intent.getStringExtra(FlickrConstants.TITLE_KEY);
+            String pictureOwner = intent.getStringExtra(FlickrConstants.OWNER_KEY);
             mItemUri = intent.getStringExtra(FlickrConstants.URI_KEY);
-            if (pictureTitle.isEmpty())
-                pictureTitle = getString(R.string.text_empty_title);
-            mPictureTitle.setText(pictureTitle);
+            if (pictureOwner.isEmpty())
+                pictureOwner = getString(R.string.text_empty_title);
+            mPictureOwner.setText(pictureOwner);
         }
 
         mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {

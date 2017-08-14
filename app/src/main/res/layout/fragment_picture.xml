@@ -3,35 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/dimen_picture_padding"
-        android:paddingTop="@dimen/dimen_toolbar_height">
+        android:paddingBottom="@dimen/dimen_picture_padding">
+
+        <include layout="@layout/toolbar_picture"/>
+
+        <include layout="@layout/view_picture"/>
 
         <LinearLayout style="@style/PictureLayoutStyle">
-
-            <TextView
-                style="@style/PictureSecondaryTextStyle"
-                android:text="@string/text_picture_owner"/>
-
-            <TextView
-                android:id="@+id/picture_owner"
-                style="@style/PicturePrimaryTextStyle"
-                fontPath="@string/font_bold"
-                android:maxLines="1"
-                tools:text="Legolas"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/dimen_material_margin">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -44,8 +29,6 @@
                 tools:text="Hey Aragorn! Where is Gimli?"/>
 
         </LinearLayout>
-
-        <include layout="@layout/view_picture"/>
 
         <LinearLayout style="@style/PictureLayoutStyle">
 

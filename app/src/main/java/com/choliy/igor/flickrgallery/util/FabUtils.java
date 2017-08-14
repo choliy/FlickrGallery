@@ -33,7 +33,7 @@ public final class FabUtils {
 
     public static void goWeb(Context context, GalleryItem item) {
         Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra(FlickrConstants.TITLE_KEY, item.getTitle());
+        intent.putExtra(FlickrConstants.OWNER_KEY, item.getOwnerName());
         intent.putExtra(FlickrConstants.URI_KEY, item.getItemUri());
         context.startActivity(intent);
     }
@@ -65,7 +65,6 @@ public final class FabUtils {
         else if (!item.getExtraSmallPicUrl().equals(noUrl)) {
             url = item.getExtraSmallPicUrl();
         } else {
-            smallPicture(context);
             url = item.getListPicUrl();
         }
         return url;
@@ -83,9 +82,5 @@ public final class FabUtils {
             Log.e(FabUtils.class.getSimpleName(), e.getMessage());
             return null;
         }
-    }
-
-    private static void smallPicture(Context context) {
-        InfoUtils.showLongToast(context, context.getString(R.string.text_picture_small));
     }
 }

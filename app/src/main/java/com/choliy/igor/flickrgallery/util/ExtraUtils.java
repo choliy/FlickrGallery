@@ -1,6 +1,7 @@
 package com.choliy.igor.flickrgallery.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -73,14 +74,20 @@ public final class ExtraUtils {
         }
     }
 
-    public static void loadPicture(Context context, String url, ImageView image, RequestListener listener) {
+    public static void loadPicture(
+            Context context,
+            String url,
+            ImageView image,
+            RequestListener<String, Bitmap> listener) {
+
         if (PrefUtils.getAnimationSettings(context)) {
             Glide.with(context)
                     .load(url)
+                    .asBitmap()
                     .listener(listener)
                     .animate(R.anim.anim_scale_picture)
                     .into(image);
-        } else Glide.with(context).load(url).listener(listener).into(image);
+        } else Glide.with(context).load(url).asBitmap().listener(listener).into(image);
     }
 
     public static int getOrientation(Context context) {

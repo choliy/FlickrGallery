@@ -12,7 +12,7 @@ public interface FlickrConstants {
     String TOOLBAR_KEY = "toolbar_key";
     String STRING_KEY = "string_key";
     String BITMAP_KEY = "bitmap_key";
-    String TITLE_KEY = "title_key";
+    String OWNER_KEY = "title_key";
     String SAVE_KEY = "save_key";
     String ITEM_KEY = "item_key";
     String URI_KEY = "uri_key";

@@ -41,6 +41,7 @@ public class SavedFragment extends EventFragment implements
     @BindView(R.id.rv_saved) RecyclerView mRecyclerView;
 
     public static List<GalleryItem> sSavedItems;
+    private List<GalleryItem> mRestoreItems;
     private SavedAdapter mAdapter;
 
     @Override
@@ -153,6 +154,7 @@ public class SavedFragment extends EventFragment implements
 
         @Override
         protected Void doInBackground(Void... voids) {
+            mRestoreItems = sSavedItems;
             FlickrLab.getInstance(getActivity()).deleteAllPictures();
             return null;
         }
@@ -174,7 +176,7 @@ public class SavedFragment extends EventFragment implements
 
         @Override
         protected Void doInBackground(Void... voids) {
-            FlickrLab.getInstance(getActivity()).restoreAllPictures(sSavedItems);
+            FlickrLab.getInstance(getActivity()).restoreAllPictures(mRestoreItems);
             return null;
         }
 

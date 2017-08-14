@@ -10,16 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <ImageView
-        android:id="@+id/picture_ic_back"
-        android:layout_width="@dimen/dimen_toolbar_icon_size"
-        android:layout_height="@dimen/dimen_toolbar_height"
-        android:layout_marginStart="@dimen/dimen_material_margin"
-        android:clickable="true"
-        android:contentDescription="@null"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_back"/>
-
     <View
         android:id="@+id/fence_picture_view"
         style="@style/FenceViewStyle"/>

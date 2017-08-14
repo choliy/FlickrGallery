@@ -19,6 +19,7 @@
 
     <!-- Other Colors -->
     <color name="colorBlue">#3F51B5</color>
+    <color name="colorShadow">#64000000</color>
     <color name="colorSelector">#82ff4081</color>
     <color name="colorListBackground">#50000000</color>
     <color name="colorPictureBackground">#dc000000</color>

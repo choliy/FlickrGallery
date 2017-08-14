@@ -1,34 +1,32 @@
 package com.choliy.igor.flickrgallery.fragment;
 
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.async.OnPictureClickTask;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
-import com.choliy.igor.flickrgallery.util.PrefUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PictureFragment extends EventFragment {
+public class PictureFragment extends EventFragment implements RequestListener<String, Bitmap> {
 
     @BindView(R.id.picture_owner) TextView mOwner;
     @BindView(R.id.picture_title) TextView mTitle;
@@ -37,13 +35,11 @@ public class PictureFragment extends EventFragment {
     @BindView(R.id.picture_resolution) TextView mResolution;
     @BindView(R.id.picture_description) TextView mDescription;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
-    @BindView(R.id.top_picture_shadow) View mTopShadow;
-    @BindView(R.id.bottom_picture_shadow) View mBottomShadow;
+    @BindView(R.id.picture_return) ImageView mReturnImage;
+    @BindView(R.id.picture_shadow) View mPictureShadow;
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
-    private Animation mAnimation;
-    private boolean mAnimationOn;
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
@@ -61,19 +57,52 @@ public class PictureFragment extends EventFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mItem = getArguments().getParcelable(FlickrConstants.ITEM_KEY);
-        mAnimationOn = PrefUtils.getAnimationSettings(getActivity());
-        mAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_scale_picture);
         setData();
     }
 
-    @OnClick(R.id.picture_view)
-    public void onPictureClick() {
-        new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
+    @Override
+    public boolean onException(
+            Exception e,
+            String model,
+            Target<Bitmap> target,
+            boolean isFirstResource) {
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public boolean onResourceReady(
+            Bitmap resource,
+            String model,
+            Target<Bitmap> target,
+            boolean isFromMemoryCache,
+            boolean isFirstResource) {
+
+        mBitmap = resource;
+        mProgress.smoothToHide();
+        mPicture.setClickable(Boolean.TRUE);
+        mPictureShadow.setVisibility(View.VISIBLE);
+        return Boolean.FALSE;
+    }
+
+    @OnClick({R.id.picture_view, R.id.picture_return})
+    public void onPictureClick(View view) {
+        switch (view.getId()) {
+            case R.id.picture_view:
+                new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
+                break;
+            case R.id.picture_return:
+                getActivity().finish();
+                break;
+        }
     }
 
     private void setData() {
         // set owner name
         mOwner.setText(mItem.getOwnerName());
+
+        // set picture
+        String picUrl = getUrl(Boolean.FALSE);
+        ExtraUtils.loadPicture(getActivity(), picUrl, mPicture, this);
 
         // set title
         String title = mItem.getTitle();
@@ -81,9 +110,6 @@ public class PictureFragment extends EventFragment {
             mTitle.setText(getString(R.string.text_empty_title));
         else
             mTitle.setText(title);
-
-        // set resolution
-        loadPictureResolution();
 
         // set date
         String date = mItem.getDate();
@@ -94,28 +120,12 @@ public class PictureFragment extends EventFragment {
             mDate.setText(date);
         }
 
+        // set resolution
+        loadPictureResolution();
+
         // set description
         String description = mItem.getDescription();
         mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
-
-        // set picture
-        String picUrl = getUrl(Boolean.FALSE);
-        new PictureTask().execute(picUrl);
-    }
-
-    private void setPicture(Bitmap bitmap) {
-        if (mAnimationOn) {
-            mPicture.setVisibility(View.INVISIBLE);
-            mPicture.setImageBitmap(bitmap);
-            mPicture.startAnimation(mAnimation);
-            mPicture.setVisibility(View.VISIBLE);
-        } else
-            mPicture.setImageBitmap(bitmap);
-
-        mProgress.smoothToHide();
-        mPicture.setClickable(Boolean.TRUE);
-        mTopShadow.setVisibility(View.VISIBLE);
-        mBottomShadow.setVisibility(View.VISIBLE);
     }
 
     private void loadPictureResolution() {
@@ -136,19 +146,5 @@ public class PictureFragment extends EventFragment {
 
     private String getUrl(boolean bigPicture) {
         return FabUtils.getPictureUrl(getActivity(), mItem, bigPicture);
-    }
-
-    private class PictureTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            return FabUtils.getBitmapFromURL(params[FlickrConstants.INT_ZERO]);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            mBitmap = bitmap;
-            setPicture(bitmap);
-        }
     }
 }
