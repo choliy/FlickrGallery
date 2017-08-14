@@ -40,7 +40,7 @@ public class SavedFragment extends EventFragment implements
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.rv_saved) RecyclerView mRecyclerView;
 
-    private List<GalleryItem> mSavedPictures;
+    public static List<GalleryItem> sSavedItems;
     private SavedAdapter mAdapter;
 
     @Override
@@ -56,7 +56,9 @@ public class SavedFragment extends EventFragment implements
         ItemTouchHelper touchHelper = new ItemTouchHelper(new OnSavedPicSwipeCallback());
         touchHelper.attachToRecyclerView(mRecyclerView);
         setOnScrollListener();
-        getActivity().getSupportLoaderManager().initLoader(SavedPicLoader.SAVED_PIC_LOADER_ID, null, this);
+        getActivity()
+                .getSupportLoaderManager()
+                .initLoader(SavedPicLoader.SAVED_PIC_LOADER_ID, null, this);
     }
 
     @Subscribe
@@ -82,6 +84,7 @@ public class SavedFragment extends EventFragment implements
     public void onLoadFinished(Loader<List<GalleryItem>> loader, List<GalleryItem> data) {
         mProgress.smoothToHide();
         mAdapter.setItems(data);
+        sSavedItems = data;
         checkData();
     }
 
@@ -150,7 +153,6 @@ public class SavedFragment extends EventFragment implements
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mSavedPictures = mAdapter.getItems();
             FlickrLab.getInstance(getActivity()).deleteAllPictures();
             return null;
         }
@@ -172,7 +174,7 @@ public class SavedFragment extends EventFragment implements
 
         @Override
         protected Void doInBackground(Void... voids) {
-            FlickrLab.getInstance(getActivity()).restoreAllPictures(mSavedPictures);
+            FlickrLab.getInstance(getActivity()).restoreAllPictures(sSavedItems);
             return null;
         }
 

@@ -42,10 +42,6 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
         return mItems.size();
     }
 
-    public List<GalleryItem> getItems() {
-        return mItems;
-    }
-
     public void setItems(List<GalleryItem> items) {
         mItems = items;
         notifyDataSetChanged();
@@ -80,8 +76,7 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
-            GalleryItem item = mItems.get(getAdapterPosition());
-            Intent intent = PictureActivity.getInstance(context, item, Boolean.TRUE);
+            Intent intent = PictureActivity.newInstance(context, getAdapterPosition(), Boolean.TRUE);
             context.startActivity(intent);
         }
 

@@ -5,8 +5,10 @@ public interface FlickrConstants {
     // Keys
     String PICTURE_DOWNLOADED_KEY = "picture_downloaded_key";
     String PICTURE_SAVED_KEY = "picture_saved_key";
+    String SAVED_LIBRARY_KEY = "saved_library_key";
     String NOTIFICATION_KEY = "notification_key";
     String MENU_OPENED_KEY = "menu_key";
+    String POSITION_KEY = "position_key";
     String TOOLBAR_KEY = "toolbar_key";
     String STRING_KEY = "string_key";
     String BITMAP_KEY = "bitmap_key";
@@ -14,7 +16,6 @@ public interface FlickrConstants {
     String SAVE_KEY = "save_key";
     String ITEM_KEY = "item_key";
     String URI_KEY = "uri_key";
-    String URL_KEY = "url_key";
 
     // Default variables
     String STRING_EMPTY = "";

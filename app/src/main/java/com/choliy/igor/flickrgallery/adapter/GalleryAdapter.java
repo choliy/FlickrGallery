@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
 import com.choliy.igor.flickrgallery.event.ItemLastEvent;
+import com.choliy.igor.flickrgallery.event.ItemPositionEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 
 import org.greenrobot.eventbus.EventBus;
@@ -99,8 +99,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         @Override
         public void onClick(View view) {
-            GalleryItem item = mItems.get(getAdapterPosition());
-            EventBus.getDefault().post(new ItemGalleryEvent(item));
+            EventBus.getDefault().post(new ItemPositionEvent(getAdapterPosition()));
         }
 
         private void bindItem(int position) {

@@ -9,14 +9,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
+import com.choliy.igor.flickrgallery.adapter.PictureAdapter;
 import com.choliy.igor.flickrgallery.async.DownloadService;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
-import com.choliy.igor.flickrgallery.fragment.PictureFragment;
+import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
+import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
@@ -39,16 +42,19 @@ public class PictureActivity extends BroadcastActivity {
     @BindView(R.id.fab_menu_pic) FloatingActionMenu mFabMenu;
     @BindView(R.id.picture_ic_back) ImageView mBackButton;
     @BindView(R.id.fence_picture_view) View mFenceView;
+    @BindView(R.id.picture_pager) ViewPager mPicturePager;
 
     private static final int REQUEST_CODE = 111;
     private GalleryItem mItem;
+    private int mItemPosition;
     private boolean mPictureSaved;
     private boolean mPictureDownloaded;
     private boolean mIsFabOpened;
+    private boolean mSavedLibrary;
 
-    public static Intent getInstance(Context context, GalleryItem item, boolean savedPicture) {
+    public static Intent newInstance(Context context, int position, boolean savedPicture) {
         Intent intent = new Intent(context, PictureActivity.class);
-        intent.putExtra(FlickrConstants.ITEM_KEY, item);
+        intent.putExtra(FlickrConstants.POSITION_KEY, position);
         intent.putExtra(FlickrConstants.SAVE_KEY, savedPicture);
         return intent;
     }
@@ -58,23 +64,11 @@ public class PictureActivity extends BroadcastActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
         ButterKnife.bind(this);
+        restoreData(savedInstanceState);
+        updateItemByPosition();
         checkOrientationSize();
+        setupViewPager();
         onMenuClick();
-
-        mItem = getIntent().getParcelableExtra(FlickrConstants.ITEM_KEY);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.picture_container, PictureFragment.newInstance(mItem))
-                    .commit();
-        } else {
-            mPictureSaved = savedInstanceState.getBoolean(FlickrConstants.PICTURE_SAVED_KEY);
-            mPictureDownloaded = savedInstanceState.getBoolean(FlickrConstants.PICTURE_DOWNLOADED_KEY);
-            mIsFabOpened = savedInstanceState.getBoolean(FlickrConstants.MENU_OPENED_KEY);
-        }
-
-        boolean savedPicture = getIntent().getBooleanExtra(FlickrConstants.SAVE_KEY, Boolean.FALSE);
-        if (savedPicture) mFabMenu.removeMenuButton(mFabSave);
     }
 
     @Override
@@ -100,6 +94,8 @@ public class PictureActivity extends BroadcastActivity {
         outState.putBoolean(FlickrConstants.PICTURE_SAVED_KEY, mPictureSaved);
         outState.putBoolean(FlickrConstants.PICTURE_DOWNLOADED_KEY, mPictureDownloaded);
         outState.putBoolean(FlickrConstants.MENU_OPENED_KEY, mIsFabOpened);
+        outState.putBoolean(FlickrConstants.SAVED_LIBRARY_KEY, mSavedLibrary);
+        outState.putInt(FlickrConstants.POSITION_KEY, mItemPosition);
         super.onSaveInstanceState(outState);
     }
 
@@ -144,6 +140,28 @@ public class PictureActivity extends BroadcastActivity {
         }
     }
 
+    private void setupViewPager() {
+        mPicturePager.setAdapter(new PictureAdapter(getSupportFragmentManager(), mSavedLibrary));
+        mPicturePager.setCurrentItem(mItemPosition);
+        mPicturePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mItemPosition = position;
+                mPictureSaved = Boolean.FALSE;
+                mPictureDownloaded = Boolean.FALSE;
+                updateItemByPosition();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
     private void onCopyClick() {
         String url = mItem.getItemUri();
         FabUtils.copyUrl(this, url);
@@ -151,13 +169,12 @@ public class PictureActivity extends BroadcastActivity {
     }
 
     private void onSaveClick() {
-        if (mPictureSaved) {
-            InfoUtils.showShortToast(this, getString(R.string.text_already_saved));
-        } else {
+        if (!mPictureSaved) {
             mPictureSaved = Boolean.TRUE;
             FlickrLab.getInstance(this).addPicture(mItem);
             InfoUtils.showShortToast(this, getString(R.string.fab_picture_saved));
-        }
+        } else
+            InfoUtils.showShortToast(this, getString(R.string.text_already_saved));
     }
 
     private void checkPermissionAndDownload() {
@@ -168,13 +185,12 @@ public class PictureActivity extends BroadcastActivity {
     }
 
     private void onDownloadClick() {
-        if (mPictureDownloaded) {
-            InfoUtils.showShortToast(this, getString(R.string.text_already_downloaded));
-        } else {
+        if (!mPictureDownloaded) {
             mPictureDownloaded = Boolean.TRUE;
             InfoUtils.showShortToast(this, getString(R.string.fab_downloading));
             startService(DownloadService.newIntent(this, mItem));
-        }
+        } else
+            InfoUtils.showShortToast(this, getString(R.string.text_already_downloaded));
     }
 
     private void onMenuClick() {
@@ -185,11 +201,6 @@ public class PictureActivity extends BroadcastActivity {
                 else enablePictureScreen(Boolean.FALSE);
             }
         });
-    }
-
-    private void animateViews(boolean show) {
-        AnimUtils.animateBackButton(this, mBackButton, show);
-        AnimUtils.animateView(this, mFabMenu, show);
     }
 
     private void enablePictureScreen(boolean enable) {
@@ -216,5 +227,29 @@ public class PictureActivity extends BroadcastActivity {
         mFabCopy.setButtonSize(size);
         mFabSave.setButtonSize(size);
         mFabDownload.setButtonSize(size);
+    }
+
+    private void restoreData(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mPictureSaved = savedInstanceState.getBoolean(FlickrConstants.PICTURE_SAVED_KEY);
+            mPictureDownloaded = savedInstanceState.getBoolean(FlickrConstants.PICTURE_DOWNLOADED_KEY);
+            mIsFabOpened = savedInstanceState.getBoolean(FlickrConstants.MENU_OPENED_KEY);
+            mSavedLibrary = savedInstanceState.getBoolean(FlickrConstants.SAVED_LIBRARY_KEY);
+            mItemPosition = savedInstanceState.getInt(FlickrConstants.POSITION_KEY);
+        } else {
+            mItemPosition = getIntent().getIntExtra(FlickrConstants.POSITION_KEY, FlickrConstants.INT_ZERO);
+            mSavedLibrary = getIntent().getBooleanExtra(FlickrConstants.SAVE_KEY, Boolean.FALSE);
+        }
+        if (mSavedLibrary) mFabMenu.removeMenuButton(mFabSave);
+    }
+
+    private void animateViews(boolean show) {
+        AnimUtils.animateBackButton(this, mBackButton, show);
+        AnimUtils.animateView(this, mFabMenu, show);
+    }
+
+    private void updateItemByPosition() {
+        if (mSavedLibrary) mItem = SavedFragment.sSavedItems.get(mItemPosition);
+        else mItem = GalleryFragment.sItems.get(mItemPosition);
     }
 }
