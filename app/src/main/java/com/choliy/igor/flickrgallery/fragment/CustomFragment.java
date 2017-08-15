@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
 
@@ -26,6 +27,7 @@ public abstract class CustomFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(layoutRes(), container, Boolean.FALSE);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         ButterKnife.bind(this, view);
         return view;
     }

@@ -1,10 +1,12 @@
 package com.choliy.igor.flickrgallery.fragment;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,9 +38,10 @@ public class PictureFragment extends EventFragment implements RequestListener<St
     @BindView(R.id.picture_date) TextView mDate;
     @BindView(R.id.picture_resolution) TextView mResolution;
     @BindView(R.id.picture_description) TextView mDescription;
-    @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.picture_return) ImageView mReturnImage;
     @BindView(R.id.picture_shadow) View mPictureShadow;
+    @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
+    @BindView(R.id.selector_layout) FrameLayout mSelectorLayout;
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
@@ -63,6 +66,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mItem = getArguments().getParcelable(FlickrConstants.ITEM_KEY);
+        setSelectorView();
         setData();
     }
 
@@ -90,16 +94,9 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         return Boolean.FALSE;
     }
 
-    @OnClick({R.id.picture_view, R.id.picture_return})
-    public void onPictureClick(View view) {
-        switch (view.getId()) {
-            case R.id.picture_view:
-                new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
-                break;
-            case R.id.picture_return:
-                getActivity().finish();
-                break;
-        }
+    @OnClick(R.id.picture_return)
+    public void onPictureClick() {
+        getActivity().finish();
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})
@@ -126,6 +123,29 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
         InfoUtils.showToast(getActivity(), text);
         return Boolean.TRUE;
+    }
+
+    private void setSelectorView() {
+        View view = new View(getActivity());
+        view.setLayoutParams(new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT));
+
+        boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+        if (newVersion)
+            view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_new));
+        else
+            view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_old));
+
+        view.setClickable(Boolean.TRUE);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
+            }
+        });
+
+        mSelectorLayout.addView(view);
     }
 
     private void setData() {

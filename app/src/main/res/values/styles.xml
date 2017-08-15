@@ -51,6 +51,7 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:gravity">center</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/dimen_shadow_height</item>
     </style>
 
     <style name="ToolbarImageStyle">

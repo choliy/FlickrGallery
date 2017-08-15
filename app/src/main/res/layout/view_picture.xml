@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/selector_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:background="@color/colorFabBackground">
@@ -31,13 +32,6 @@
             android:contentDescription="@null"
             android:scaleType="fitCenter"
             tools:src="@drawable/ic_flickr_shadow"/>
-
-        <View
-            android:id="@+id/picture_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/selector_list_new"
-            android:clickable="true"/>
 
     </FrameLayout>
 
