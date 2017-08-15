@@ -94,26 +94,28 @@
     <string name="fab_picture_saved">Picture saved</string>
 
     <!-- Picture Fragment Text -->
-    <string name="text_picture_owner">Owner:</string>
     <string name="text_picture_title">Title:</string>
     <string name="text_picture_date">Date:</string>
     <string name="text_picture_description">Description:</string>
     <string name="text_picture_res">Resolution:</string>
     <string name="text_picture_res_loading">Loading…</string>
     <string name="text_picture_res_data" translatable="false">%1$s x %2$s</string>
-    <string name="text_picture_small">Only low res picture available :(</string>
     <string name="text_empty_title">No picture title</string>
     <string name="text_empty_date">No date info</string>
     <string name="text_empty_description">No picture description</string>
+    <string name="text_copied_title">Title copied</string>
+    <string name="text_copied_date">Date copied</string>
+    <string name="text_copied_resolution">Resolution copied</string>
+    <string name="text_copied_description">Description copied</string>
 
     <!-- Preferences Text -->
     <string name="pref_category_ui">UI Settings</string>
     <string name="pref_grid_size_title">Grid size</string>
     <string name="pref_grid_style_title">Grid style</string>
     <string name="pref_animation_title">Picture animation</string>
-    <string name="pref_animation_summary">Scale animation after finishing loading picture</string>
+    <string name="pref_animation_summary">Scale animation after finish loading picture</string>
     <string name="pref_splash_title">Splash screen</string>
-    <string name="pref_splash_summary">Animation on application start</string>
+    <string name="pref_splash_summary">Animation when application starts</string>
     <string name="pref_category_extra">Extra Settings</string>
     <string name="pref_picture_title">Pictures uploaded per time</string>
     <string name="pref_notification_title">Gallery notification</string>

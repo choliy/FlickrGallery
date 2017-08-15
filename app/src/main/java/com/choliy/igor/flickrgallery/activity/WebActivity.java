@@ -53,7 +53,7 @@ public class WebActivity extends BroadcastActivity {
                 FabUtils.shareUrl(this, mItemUri);
                 break;
             case R.id.fab_copy:
-                FabUtils.copyUrl(this, mItemUri);
+                FabUtils.copyData(this, mItemUri);
                 Toast.makeText(this, getString(R.string.fab_copied, mItemUri), Toast.LENGTH_SHORT).show();
                 break;
         }

@@ -47,9 +47,9 @@ public final class FabUtils {
                 .startChooser();
     }
 
-    public static void copyUrl(Context context, String stringUrl) {
+    public static void copyData(Context context, String stringData) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), stringUrl);
+        ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), stringData);
         clipboard.setPrimaryClip(clip);
     }
 

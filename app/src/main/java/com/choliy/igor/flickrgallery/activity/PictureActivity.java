@@ -156,7 +156,7 @@ public class PictureActivity extends BroadcastActivity {
 
     private void onCopyClick() {
         String url = mItem.getItemUri();
-        FabUtils.copyUrl(this, url);
+        FabUtils.copyData(this, url);
         InfoUtils.showToast(this, getString(R.string.fab_copied, url));
     }
 

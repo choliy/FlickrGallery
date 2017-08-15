@@ -14,7 +14,7 @@
     <dimen name="dimen_view_length">48dp</dimen>
     <dimen name="dimen_toolbar_height">56dp</dimen>
     <dimen name="dimen_toolbar_icon_size">64dp</dimen>
-    <dimen name="dimen_picture_padding">72dp</dimen>
+    <dimen name="dimen_picture_padding">78dp</dimen>
     <dimen name="dimen_picture_margin">84dp</dimen>
     <dimen name="dimen_image_dialog_size">96dp</dimen>
     <dimen name="dimen_saved_picture_size">112dp</dimen>

@@ -150,15 +150,14 @@
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">end</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
-        <item name="android:textIsSelectable">true</item>
+        <item name="android:textSize">@dimen/dimen_text_small</item>
         <item name="android:textColor">@color/colorTextBlack</item>
     </style>
 
     <style name="PictureSecondaryTextStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+        <item name="android:textSize">@dimen/dimen_text_small</item>
         <item name="android:layout_marginEnd">@dimen/dimen_small_margin</item>
         <item name="android:textColor">@color/colorTextLightGray</item>
     </style>
@@ -167,9 +166,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:paddingEnd">@dimen/dimen_material_margin</item>
-        <item name="android:paddingStart">@dimen/dimen_material_margin</item>
-        <item name="android:paddingTop">@dimen/dimen_material_margin</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">@dimen/dimen_material_margin</item>
     </style>
 
     <style name="ListItemDateStyle">

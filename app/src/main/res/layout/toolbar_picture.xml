@@ -15,11 +15,11 @@
         <TextView
             android:id="@+id/picture_owner"
             style="@style/ToolbarTextStyle"
-            fontPath="@string/font_bold"
             android:layout_marginEnd="@dimen/dimen_material_margin"
             android:ellipsize="marquee"
             android:gravity="end"
             android:maxLines="1"
+            android:textIsSelectable="true"
             tools:text="Legolas"/>
 
     </LinearLayout>

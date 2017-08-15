@@ -7,6 +7,8 @@
 
     <include layout="@layout/toolbar_settings"/>
 
+    <include layout="@layout/view_divider"/>
+
     <fragment
         android:id="@+id/fragment_settings"
         android:name="com.choliy.igor.flickrgallery.fragment.SettingsFragment"

@@ -20,11 +20,13 @@ import com.choliy.igor.flickrgallery.async.OnPictureClickTask;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
+import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class PictureFragment extends EventFragment implements RequestListener<String, Bitmap> {
 
@@ -40,6 +42,10 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
+    private String mPictureTitle;
+    private String mPictureDate;
+    private String mPictureRes;
+    private String mPictureDesc;
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
@@ -96,6 +102,32 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         }
     }
 
+    @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})
+    public boolean onLayoutClick(View view) {
+        String text = null;
+        switch (view.getId()) {
+            case R.id.layout_title:
+                FabUtils.copyData(getActivity(), mPictureTitle);
+                text = getString(R.string.text_copied_title);
+                break;
+            case R.id.layout_date:
+                FabUtils.copyData(getActivity(), mPictureDate);
+                text = getString(R.string.text_copied_date);
+                break;
+            case R.id.layout_resolution:
+                FabUtils.copyData(getActivity(), mPictureRes);
+                text = getString(R.string.text_copied_resolution);
+                break;
+            case R.id.layout_description:
+                FabUtils.copyData(getActivity(), mPictureDesc);
+                text = getString(R.string.text_copied_description);
+                break;
+        }
+
+        InfoUtils.showToast(getActivity(), text);
+        return Boolean.TRUE;
+    }
+
     private void setData() {
         // set owner name
         mOwner.setText(mItem.getOwnerName());
@@ -107,25 +139,23 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         // set title
         String title = mItem.getTitle();
         if (title.equals(FlickrConstants.STRING_EMPTY))
-            mTitle.setText(getString(R.string.text_empty_title));
-        else
-            mTitle.setText(title);
+            mPictureTitle = getString(R.string.text_empty_title);
+        else mPictureTitle = title;
+        mTitle.setText(mPictureTitle);
 
         // set date
         String date = mItem.getDate();
         if (date.equals(FlickrConstants.STRING_EMPTY))
-            mDate.setText(getString(R.string.text_empty_date));
-        else {
-            date = TimeUtils.formatDate(getActivity(), date);
-            mDate.setText(date);
-        }
+            mPictureDate = getString(R.string.text_empty_date);
+        else mPictureDate = TimeUtils.formatDate(getActivity(), date);
+        mDate.setText(mPictureDate);
 
         // set resolution
         loadPictureResolution();
 
         // set description
-        String description = mItem.getDescription();
-        mDescription.setText(ExtraUtils.parseDescription(getActivity(), description));
+        mPictureDesc = ExtraUtils.parseDescription(getActivity(), mItem.getDescription());
+        mDescription.setText(mPictureDesc);
     }
 
     private void loadPictureResolution() {
@@ -137,9 +167,9 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
                 String width = String.valueOf(resource.getIntrinsicWidth());
                 String height = String.valueOf(resource.getIntrinsicHeight());
-                String resolution = getString(R.string.text_picture_res_data, width, height);
+                mPictureRes = getString(R.string.text_picture_res_data, width, height);
                 mResolution.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTextBlack));
-                mResolution.setText(resolution);
+                mResolution.setText(mPictureRes);
             }
         });
     }

@@ -14,9 +14,13 @@
 
         <include layout="@layout/toolbar_picture"/>
 
+        <include layout="@layout/view_divider"/>
+
         <include layout="@layout/view_picture"/>
 
-        <LinearLayout style="@style/PictureLayoutStyle">
+        <LinearLayout
+            android:id="@+id/layout_title"
+            style="@style/PictureLayoutStyle">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -25,12 +29,15 @@
             <TextView
                 android:id="@+id/picture_title"
                 style="@style/PicturePrimaryTextStyle"
-                android:maxLines="3"
                 tools:text="Hey Aragorn! Where is Gimli?"/>
 
         </LinearLayout>
 
-        <LinearLayout style="@style/PictureLayoutStyle">
+        <include layout="@layout/view_divider"/>
+
+        <LinearLayout
+            android:id="@+id/layout_date"
+            style="@style/PictureLayoutStyle">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -44,7 +51,11 @@
 
         </LinearLayout>
 
-        <LinearLayout style="@style/PictureLayoutStyle">
+        <include layout="@layout/view_divider"/>
+
+        <LinearLayout
+            android:id="@+id/layout_resolution"
+            style="@style/PictureLayoutStyle">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
@@ -59,11 +70,11 @@
 
         </LinearLayout>
 
+        <include layout="@layout/view_divider"/>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/dimen_material_margin">
+            android:id="@+id/layout_description"
+            style="@style/PictureLayoutStyle">
 
             <TextView
                 style="@style/PictureSecondaryTextStyle"
