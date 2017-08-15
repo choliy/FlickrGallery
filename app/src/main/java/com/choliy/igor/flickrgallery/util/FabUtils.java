@@ -53,7 +53,7 @@ public final class FabUtils {
         clipboard.setPrimaryClip(clip);
     }
 
-    public static String getPictureUrl(Context context, GalleryItem item, boolean bigPicture) {
+    public static String getPictureUrl(GalleryItem item, boolean bigPicture) {
         String url;
         String noUrl = FlickrConstants.JSON_NO_SUCH_SIZE;
         if (!item.getBigPicUrl().equals(noUrl) && bigPicture)

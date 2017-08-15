@@ -18,7 +18,7 @@ import butterknife.OnLongClick;
 
 public class AboutFragment extends CustomFragment {
 
-    public static final String ABOUT_TAG = AboutFragment.class.getCanonicalName();
+    public static final String TAG = AboutFragment.class.getSimpleName();
     @BindView(R.id.btn_developer) TextView mDeveloper;
 
     @Override
@@ -55,7 +55,7 @@ public class AboutFragment extends CustomFragment {
 
     @OnLongClick(R.id.btn_version)
     public boolean onLongClick() {
-        DialogUtils.showSecretDialog(getActivity());
+        DialogUtils.secretDialog(getActivity());
         getDialog().dismiss();
         return Boolean.TRUE;
     }

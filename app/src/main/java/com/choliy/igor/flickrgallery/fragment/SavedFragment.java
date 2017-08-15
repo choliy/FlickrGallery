@@ -51,11 +51,7 @@ public class SavedFragment extends EventFragment implements
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mAdapter = new SavedAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ItemTouchHelper touchHelper = new ItemTouchHelper(new OnSavedPicSwipeCallback());
-        touchHelper.attachToRecyclerView(mRecyclerView);
+        setRecyclerView();
         setOnScrollListener();
         getActivity()
                 .getSupportLoaderManager()
@@ -66,7 +62,7 @@ public class SavedFragment extends EventFragment implements
     public void onEvent(RemovePicEvent event) {
         if (event.isShowDialog()) {
             if (mAdapter.getItemCount() == FlickrConstants.INT_ZERO)
-                InfoUtils.showShortShack(mRecyclerView, getString(R.string.text_delete_nothing));
+                InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_nothing));
             else DialogUtils.deleteDialog(getActivity(), new DeletePicTask());
         }
     }
@@ -92,6 +88,14 @@ public class SavedFragment extends EventFragment implements
     @Override
     public void onLoaderReset(Loader<List<GalleryItem>> loader) {
         mAdapter.setItems(new ArrayList<GalleryItem>());
+    }
+
+    private void setRecyclerView() {
+        mAdapter = new SavedAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new OnSavedPicSwipeCallback());
+        touchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void setOnScrollListener() {
@@ -133,7 +137,7 @@ public class SavedFragment extends EventFragment implements
                 mAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).restorePicture(item);
                 checkData();
-                InfoUtils.showShortShack(mRecyclerView, getString(R.string.text_delete_single_restored));
+                InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_single_restored));
             }
         });
         snackbar.show();
@@ -183,7 +187,7 @@ public class SavedFragment extends EventFragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             restartLoader();
-            InfoUtils.showShortShack(mRecyclerView, getString(R.string.text_delete_all_restored));
+            InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_all_restored));
         }
     }
 

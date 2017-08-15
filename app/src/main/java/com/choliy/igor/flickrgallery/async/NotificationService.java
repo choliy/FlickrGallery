@@ -44,12 +44,12 @@ public class NotificationService extends IntentService {
         if (!resultId.equals(lastResultId)) {
             Context context = getApplicationContext();
             String contentText = getString(R.string.text_new_pictures, query);
-            showBackgroundNotification(AlarmUtils.getNotification(context, contentText));
+            showNotification(AlarmUtils.getNotification(context, contentText));
             PrefUtils.setLastResultId(this, resultId);
         }
     }
 
-    private void showBackgroundNotification(Notification notification) {
+    private void showNotification(Notification notification) {
         Intent intent = new Intent(getString(R.string.broadcast_action_name));
         intent.putExtra(FlickrConstants.NOTIFICATION_KEY, notification);
         sendOrderedBroadcast(

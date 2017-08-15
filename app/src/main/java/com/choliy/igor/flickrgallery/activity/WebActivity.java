@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.github.clans.fab.FloatingActionMenu;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -44,29 +43,21 @@ public class WebActivity extends BroadcastActivity {
         setupWebView();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        AnimUtils.animateView(this, mFabMenu, Boolean.TRUE);
-    }
-
     @OnClick({R.id.fab_browser, R.id.fab_share, R.id.fab_copy})
     public void onFabClicked(View view) {
         switch (view.getId()) {
             case R.id.fab_browser:
-                mFabMenu.close(Boolean.TRUE);
                 FabUtils.browserUrl(this, mItemUri);
                 break;
             case R.id.fab_share:
-                mFabMenu.close(Boolean.TRUE);
                 FabUtils.shareUrl(this, mItemUri);
                 break;
             case R.id.fab_copy:
-                mFabMenu.close(Boolean.TRUE);
                 FabUtils.copyUrl(this, mItemUri);
                 Toast.makeText(this, getString(R.string.fab_copied, mItemUri), Toast.LENGTH_SHORT).show();
                 break;
         }
+        mFabMenu.close(Boolean.TRUE);
     }
 
     @Override

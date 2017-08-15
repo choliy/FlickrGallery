@@ -91,18 +91,18 @@ public final class DialogUtils {
         });
     }
 
-    public static void showSecretDialog(Context context) {
+    public static void secretDialog(Context context) {
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-        new SecretFragment().show(fragmentManager, SecretFragment.SECRET_TAG);
+        new SecretFragment().show(fragmentManager, SecretFragment.TAG);
     }
 
-    static void showHistoryDialog(Context context) {
+    static void historyDialog(Context context) {
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-        new HistoryFragment().show(fragmentManager, HistoryFragment.HISTORY_TAG);
+        new HistoryFragment().show(fragmentManager, HistoryFragment.TAG);
     }
 
-    static void showAboutDialog(Context context) {
+    static void aboutDialog(Context context) {
         FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-        new AboutFragment().show(fragmentManager, AboutFragment.ABOUT_TAG);
+        new AboutFragment().show(fragmentManager, AboutFragment.TAG);
     }
 }

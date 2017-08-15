@@ -15,7 +15,7 @@ public class SecretFragment extends CustomFragment {
     @BindView(R.id.layout_secret_off) SquareLayout mLayoutOff;
     @BindView(R.id.layout_secret_on) SquareLayout mLayoutOn;
 
-    public static final String SECRET_TAG = SecretFragment.class.getSimpleName();
+    public static final String TAG = SecretFragment.class.getSimpleName();
     private MediaPlayer mPlayer;
 
     @Override

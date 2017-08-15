@@ -34,7 +34,7 @@ public class OnPictureClickTask extends AsyncTask<Void, Void, byte[]> {
 
     @Override
     protected void onPostExecute(byte[] bytes) {
-        String picUrl = FabUtils.getPictureUrl(mContext, mItem, Boolean.TRUE);
+        String picUrl = FabUtils.getPictureUrl(mItem, Boolean.TRUE);
         Intent intent = new Intent(mContext, ZoomActivity.class);
         intent.putExtra(FlickrConstants.STRING_KEY, picUrl);
         intent.putExtra(FlickrConstants.BITMAP_KEY, bytes);

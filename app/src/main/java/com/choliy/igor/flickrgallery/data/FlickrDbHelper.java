@@ -22,15 +22,12 @@ class FlickrDbHelper extends SQLiteOpenHelper {
                 FlickrContract.COLUMN_HISTORY_TIME + " TEXT NOT NULL);");
 
         db.execSQL(createPicTable(FlickrContract.TABLE_SAVED));
-
-        db.execSQL(createPicTable(FlickrContract.TABLE_CASH));
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(updateTable(FlickrContract.TABLE_HISTORY));
         db.execSQL(updateTable(FlickrContract.TABLE_SAVED));
-        db.execSQL(updateTable(FlickrContract.TABLE_CASH));
         onCreate(db);
     }
 

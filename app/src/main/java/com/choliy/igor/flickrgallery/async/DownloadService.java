@@ -11,9 +11,9 @@ import android.util.Log;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
+import com.choliy.igor.flickrgallery.tool.ImageSaver;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
-import com.choliy.igor.flickrgallery.tool.ImageSaver;
 
 import java.io.File;
 
@@ -35,7 +35,7 @@ public class DownloadService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         final Context context = getApplicationContext();
         GalleryItem item = intent.getParcelableExtra(FlickrConstants.ITEM_KEY);
-        String picUrl = FabUtils.getPictureUrl(context, item, Boolean.TRUE);
+        String picUrl = FabUtils.getPictureUrl(item, Boolean.TRUE);
         Bitmap bitmap = FabUtils.getBitmapFromURL(picUrl);
         String appDirectory = getString(R.string.app_dir);
         String fileName = item.getOwnerName() + File.pathSeparator + item.getOwnerId();
@@ -51,7 +51,7 @@ public class DownloadService extends IntentService {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                InfoUtils.showShortToast(context, getString(R.string.fab_downloaded));
+                InfoUtils.showToast(context, getString(R.string.fab_downloaded));
             }
         });
     }

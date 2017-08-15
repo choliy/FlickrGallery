@@ -60,12 +60,7 @@ public class GalleryFragment extends EventFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        String gridSize = PrefUtils.getGridSettings(getActivity());
-        String gridStyle = PrefUtils.getStyleSettings(getActivity());
-        boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
-        mGalleryAdapter = new GalleryAdapter(sItems, gridSize, gridStyle, isAnimationOn);
-        mRvGallery.setAdapter(mGalleryAdapter);
-        mRvGallery.setHasFixedSize(Boolean.TRUE);
+        setRecyclerView();
         setOnScrollListener();
         setRefreshLayout();
         setRvStyle();
@@ -92,6 +87,16 @@ public class GalleryFragment extends EventFragment {
     @Subscribe
     public void onEvent(TopListEvent event) {
         mRvGallery.scrollToPosition(event.getScrollPosition());
+    }
+
+    private void setRecyclerView() {
+        String gridSize = PrefUtils.getGridSettings(getActivity());
+        String gridStyle = PrefUtils.getStyleSettings(getActivity());
+        boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
+
+        mGalleryAdapter = new GalleryAdapter(sItems, gridSize, gridStyle, isAnimationOn);
+        mRvGallery.setAdapter(mGalleryAdapter);
+        mRvGallery.setHasFixedSize(Boolean.TRUE);
     }
 
     private void setOnScrollListener() {
@@ -134,7 +139,7 @@ public class GalleryFragment extends EventFragment {
         int sizeVertical = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ZERO));
         int sizeHorizontal = Character.getNumericValue(gridSize.charAt(FlickrConstants.INT_ONE));
 
-        int screenOrientation = ExtraUtils.getOrientation(getActivity());
+        int screenOrientation = InfoUtils.getOrientation(getActivity());
         if (screenOrientation == Configuration.ORIENTATION_PORTRAIT)
             mRvGallery.setLayoutManager(new GridLayoutManager(getActivity(), sizeVertical));
         else
@@ -162,7 +167,7 @@ public class GalleryFragment extends EventFragment {
             mRvGallery.addItemDecoration(decoration);
         } else if (savedStyle.equals(cardStyle)) {
             int padding = Math.round(getResources().getDimension(R.dimen.dimen_list_card_margin));
-            int paddingTop = ExtraUtils.getActionBarHeight(getActivity()) + padding;
+            int paddingTop = InfoUtils.getActionBarHeight(getActivity()) + padding;
             mRvGallery.setPadding(padding, paddingTop, padding, padding);
         }
     }
@@ -199,8 +204,7 @@ public class GalleryFragment extends EventFragment {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
             EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
-        } else
-            mResultsLayout.setVisibility(View.GONE);
+        } else mResultsLayout.setVisibility(View.GONE);
     }
 
     private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>> {

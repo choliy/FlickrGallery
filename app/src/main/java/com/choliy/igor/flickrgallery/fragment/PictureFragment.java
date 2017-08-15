@@ -145,6 +145,6 @@ public class PictureFragment extends EventFragment implements RequestListener<St
     }
 
     private String getUrl(boolean bigPicture) {
-        return FabUtils.getPictureUrl(getActivity(), mItem, bigPicture);
+        return FabUtils.getPictureUrl(mItem, bigPicture);
     }
 }

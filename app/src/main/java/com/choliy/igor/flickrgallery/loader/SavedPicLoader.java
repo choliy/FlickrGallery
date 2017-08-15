@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SavedPicLoader extends AsyncTaskLoader<List<GalleryItem>> {
 
-    public static final int SAVED_PIC_LOADER_ID = 555;
+    public static final int SAVED_PIC_LOADER_ID = 222;
     private List<GalleryItem> mGalleryItems;
 
     public SavedPicLoader(Context context) {

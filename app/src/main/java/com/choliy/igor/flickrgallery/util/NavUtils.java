@@ -24,13 +24,13 @@ public final class NavUtils {
                 showSavedPictures(context);
                 break;
             case R.id.nav_history:
-                DialogUtils.showHistoryDialog(context);
+                DialogUtils.historyDialog(context);
                 break;
             case R.id.nav_settings:
-                startSettings((AppCompatActivity) context);
+                showSettings((AppCompatActivity) context);
                 break;
             case R.id.nav_about:
-                DialogUtils.showAboutDialog(context);
+                DialogUtils.aboutDialog(context);
                 break;
             case R.id.nav_share:
                 shareIntent((AppCompatActivity) context);
@@ -87,7 +87,7 @@ public final class NavUtils {
         context.startActivity(new Intent(context, SavedActivity.class));
     }
 
-    private static void startSettings(Activity activity) {
+    private static void showSettings(Activity activity) {
         Intent intent = new Intent(activity.getApplicationContext(), SettingsActivity.class);
         activity.startActivityForResult(intent, GalleryActivity.REQUEST_CODE);
     }

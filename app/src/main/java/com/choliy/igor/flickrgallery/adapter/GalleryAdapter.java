@@ -122,30 +122,26 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
             String grid5x8 = context.getString(R.string.pref_grid_size_value_5);
 
-            if (mGridSize.equals(grid2x3)
-                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
+            if (mGridSize.equals(grid2x3) && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
                 glideLoading(urlExtraSmall);
-            } else if (mGridSize.equals(grid1x2)
-                    && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
+            else if (mGridSize.equals(grid1x2) && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
                 glideLoading(urlSmall);
-            } else if (mGridSize.equals(grid1x2)
+            else if (mGridSize.equals(grid1x2)
                     && urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)
-                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)) {
+                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
                 glideLoading(urlExtraSmall);
-            } else if (mGridSize.equals(grid5x8)) {
+            else if (mGridSize.equals(grid5x8))
                 glideLoading(urlSmallList);
-            } else {
+            else
                 glideLoading(urlList);
-            }
         }
 
         private void setData(int position) {
             Context context = mItemView.getContext();
             String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
-            if (mGridSize.equals(grid1x2)) {
-                setDescription(position);
-            } else if (mGridSize.equals(grid2x3)) {
+            if (mGridSize.equals(grid1x2)) setDescription(position);
+            else if (mGridSize.equals(grid2x3)) {
                 setDescription(position);
                 mOwner.setTextSize(context.getResources().getInteger(R.integer.text_size_17));
                 mTitle.setTextSize(context.getResources().getInteger(R.integer.text_size_15));

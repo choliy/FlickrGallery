@@ -12,7 +12,9 @@
         android:src="@drawable/ic_wrong_uri"/>
 
     <TextView
-        style="@style/OopsTextStyle"/>
+        style="@style/OopsTextStyle"
+        fontPath="@string/font_bold"
+        android:textStyle="bold"/>
 
     <TextView
         style="@style/InfoTextStyle"

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -30,14 +29,6 @@ public final class ExtraUtils {
             imm.hideSoftInputFromWindow(view.getWindowToken(), FlickrConstants.INT_ZERO);
             view.clearFocus();
         }
-    }
-
-    public static int getActionBarHeight(Context context) {
-        TypedValue tv = new TypedValue();
-        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, Boolean.TRUE))
-            return TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());
-        else
-            return Math.round(context.getResources().getDimension(R.dimen.dimen_toolbar_height));
     }
 
     public static void setupDevDate(Context context, NavigationView view) {
@@ -88,9 +79,5 @@ public final class ExtraUtils {
                     .animate(R.anim.anim_scale_picture)
                     .into(image);
         } else Glide.with(context).load(url).asBitmap().listener(listener).into(image);
-    }
-
-    public static int getOrientation(Context context) {
-        return context.getResources().getConfiguration().orientation;
     }
 }

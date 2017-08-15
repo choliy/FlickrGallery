@@ -31,18 +31,6 @@ public final class AnimUtils {
         startAnimation(context, view, animResId);
     }
 
-    public static void animateBackButton(Context context, View view, boolean show) {
-        int animResId;
-        if (show) {
-            animResId = R.anim.anim_translate_show_back;
-            view.setVisibility(View.VISIBLE);
-        } else {
-            animResId = R.anim.anim_translate_hide_back;
-            view.setVisibility(View.INVISIBLE);
-        }
-        startAnimation(context, view, animResId);
-    }
-
     public static void animToolbarVisibility(Toolbar toolbar, boolean show) {
         if (show) {
             toolbar.animate()

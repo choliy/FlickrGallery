@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class HistoryFragment extends CustomFragment implements
     @BindView(R.id.btn_history_clear) TextView mBtnClear;
     @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
 
-    public static final String HISTORY_TAG = HistoryFragment.class.getSimpleName();
+    public static final String TAG = HistoryFragment.class.getSimpleName();
     private List<HistoryItem> mSavedHistory;
     private HistoryAdapter mHistoryAdapter;
 
@@ -91,7 +92,7 @@ public class HistoryFragment extends CustomFragment implements
 
     @Subscribe
     public void onEvent(HistoryTitleEvent event) {
-        closeHistoryDialog();
+        if (!TextUtils.isEmpty(event.getHistoryTitle())) closeHistoryDialog();
     }
 
     private void setupUi() {
@@ -137,7 +138,7 @@ public class HistoryFragment extends CustomFragment implements
             public void onClick(View view) {
                 mHistoryAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).addHistory(item, Boolean.TRUE);
-                InfoUtils.showShortShack(mBtnClear, getString(R.string.dialog_restore_restored_single));
+                InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored_single));
                 checkHistory();
             }
         });
@@ -163,9 +164,8 @@ public class HistoryFragment extends CustomFragment implements
             if (mClearHistoryBase) {
                 FlickrLab.getInstance(getActivity()).clearAllHistory();
                 PrefUtils.setStoredQuery(getActivity(), null);
-            } else {
+            } else
                 FlickrLab.getInstance(getActivity()).restoreHistory(mSavedHistory);
-            }
             return null;
         }
 
@@ -177,7 +177,7 @@ public class HistoryFragment extends CustomFragment implements
                 restoreHistory();
             } else {
                 mHistoryAdapter.setHistory(mSavedHistory);
-                InfoUtils.showShortShack(mBtnClear, getString(R.string.dialog_restore_restored));
+                InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored));
             }
             mProgress.smoothToHide();
             checkHistory();

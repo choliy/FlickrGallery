@@ -21,7 +21,6 @@ import com.choliy.igor.flickrgallery.data.FlickrLab;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
 import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
-import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.github.clans.fab.FloatingActionButton;
@@ -107,12 +106,11 @@ public class PictureActivity extends BroadcastActivity {
         boolean resultsNotEmpty = grantResults.length > zero;
         boolean permissionGranted = grantResults[zero] == PackageManager.PERMISSION_GRANTED;
         if (requestCodeSame && resultsNotEmpty && permissionGranted) onDownloadClick();
-        else InfoUtils.showShortToast(this, getString(R.string.text_permission));
+        else InfoUtils.showToast(this, getString(R.string.text_permission));
     }
 
     @OnClick({R.id.fab_web, R.id.fab_share, R.id.fab_copy, R.id.fab_save, R.id.fab_download})
     public void onFabClicked(View view) {
-        enablePictureScreen(Boolean.TRUE);
         switch (view.getId()) {
             case R.id.fab_web:
                 FabUtils.goWeb(this, mItem);
@@ -130,6 +128,7 @@ public class PictureActivity extends BroadcastActivity {
                 checkPermissionAndDownload();
                 break;
         }
+        enablePictureScreen(Boolean.TRUE);
     }
 
     private void setupViewPager() {
@@ -158,16 +157,16 @@ public class PictureActivity extends BroadcastActivity {
     private void onCopyClick() {
         String url = mItem.getItemUri();
         FabUtils.copyUrl(this, url);
-        InfoUtils.showShortToast(this, getString(R.string.fab_copied, url));
+        InfoUtils.showToast(this, getString(R.string.fab_copied, url));
     }
 
     private void onSaveClick() {
         if (!mPictureSaved) {
             mPictureSaved = Boolean.TRUE;
             FlickrLab.getInstance(this).addPicture(mItem);
-            InfoUtils.showShortToast(this, getString(R.string.fab_picture_saved));
+            InfoUtils.showToast(this, getString(R.string.fab_picture_saved));
         } else
-            InfoUtils.showShortToast(this, getString(R.string.text_already_saved));
+            InfoUtils.showToast(this, getString(R.string.text_already_saved));
     }
 
     private void checkPermissionAndDownload() {
@@ -180,10 +179,10 @@ public class PictureActivity extends BroadcastActivity {
     private void onDownloadClick() {
         if (!mPictureDownloaded) {
             mPictureDownloaded = Boolean.TRUE;
-            InfoUtils.showShortToast(this, getString(R.string.fab_downloading));
+            InfoUtils.showToast(this, getString(R.string.fab_downloading));
             startService(DownloadService.newIntent(this, mItem));
         } else
-            InfoUtils.showShortToast(this, getString(R.string.text_already_downloaded));
+            InfoUtils.showToast(this, getString(R.string.text_already_downloaded));
     }
 
     private void onMenuClick() {
@@ -208,7 +207,7 @@ public class PictureActivity extends BroadcastActivity {
     }
 
     private void checkOrientationSize() {
-        int orientation = ExtraUtils.getOrientation(this);
+        int orientation = InfoUtils.getOrientation(this);
         int size;
         if (orientation == Configuration.ORIENTATION_PORTRAIT)
             size = FloatingActionButton.SIZE_NORMAL;

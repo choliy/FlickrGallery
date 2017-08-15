@@ -216,7 +216,7 @@ public class GalleryActivity extends BroadcastActivity implements
             @Override
             public void onClick(View view) {
                 mSearchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
-                InfoUtils.showShortShack(view, getString(R.string.text_search_query));
+                InfoUtils.showShack(view, getString(R.string.text_search_query));
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }
         });

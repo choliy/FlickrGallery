@@ -109,7 +109,7 @@ public class SettingsFragment extends PreferenceFragment implements
             mAnimationPref.setChecked(FlickrConstants.DEFAULT_ANIMATION);
             mNotificationPref.setChecked(FlickrConstants.DEFAULT_NOTIFICATION);
             setupNotificationService(Boolean.FALSE);
-            InfoUtils.showShortShack(getView(), getString(R.string.pref_restore_info));
+            InfoUtils.showShack(getView(), getString(R.string.pref_restore_info));
         }
     }
 

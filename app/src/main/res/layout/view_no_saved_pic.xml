@@ -4,7 +4,6 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/layout_no_pic"
     style="@style/InfoLayoutStyle"
-    android:paddingTop="?attr/actionBarSize"
     tool:visibility="visible">
 
     <ImageView
@@ -23,7 +22,7 @@
         style="@style/InfoTextStyle"
         android:layout_marginEnd="@dimen/dimen_material_margin"
         android:layout_marginStart="@dimen/dimen_material_margin"
-        android:layout_marginTop="@dimen/dimen_small_margin"
+        android:layout_marginTop="@dimen/dimen_list_card_margin"
         android:gravity="center"
         android:text="@string/text_no_saved_desc"/>
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HistoryLoader extends AsyncTaskLoader<List<HistoryItem>> {
 
-    public static final int HISTORY_LOADER_ID = 333;
+    public static final int HISTORY_LOADER_ID = 111;
     private List<HistoryItem> mHistoryItems;
 
     public HistoryLoader(Context context) {

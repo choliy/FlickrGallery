@@ -10,9 +10,6 @@ final class FlickrContract implements BaseColumns {
     static final String COLUMN_HISTORY_DATE = "column_history_date";
     static final String COLUMN_HISTORY_TIME = "column_history_time";
 
-    // Cash Table
-    static final String TABLE_CASH = "table_cash";
-
     // Saved Table
     static final String TABLE_SAVED = "table_saved";
     static final String COLUMN_PICTURE_USER_ID = "column_saved_user_id";
