@@ -14,8 +14,6 @@
 
         <include layout="@layout/toolbar_picture"/>
 
-        <include layout="@layout/view_divider"/>
-
         <include layout="@layout/view_picture"/>
 
         <LinearLayout

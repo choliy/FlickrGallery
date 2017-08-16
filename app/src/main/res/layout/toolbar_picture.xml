@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar_picture"
-    style="@style/ToolbarLayoutStyle"
-    android:elevation="@dimen/dimen_zero"
-    tools:targetApi="lollipop">
+    style="@style/ToolbarLayoutStyle">
 
     <LinearLayout style="@style/LayoutToolbarStyle">
 
