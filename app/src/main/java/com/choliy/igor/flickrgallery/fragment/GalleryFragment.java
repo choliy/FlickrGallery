@@ -1,9 +1,11 @@
 package com.choliy.igor.flickrgallery.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -69,10 +71,20 @@ public class GalleryFragment extends EventFragment {
         else fetchData();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PictureActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            final int scrollPosition = data.getExtras().getInt(FlickrConstants.POSITION_KEY);
+            mRvGallery.scrollToPosition(scrollPosition);
+            highlightPicture(scrollPosition);
+        }
+    }
+
     @Subscribe
     public void onEvent(ItemPositionEvent event) {
         Intent intent = PictureActivity.newInstance(getActivity(), event.getPosition(), Boolean.FALSE);
-        startActivity(intent);
+        startActivityForResult(intent, PictureActivity.REQUEST_CODE);
     }
 
     @Subscribe
@@ -205,6 +217,20 @@ public class GalleryFragment extends EventFragment {
             mConnectionLayout.setVisibility(View.GONE);
             EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
         } else mResultsLayout.setVisibility(View.GONE);
+    }
+
+    private void highlightPicture(final int scrollPosition) {
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                GalleryAdapter.PictureHolder holder = (GalleryAdapter.PictureHolder)
+                        mRvGallery.findViewHolderForAdapterPosition(scrollPosition);
+                holder.highlightPicture();
+            }
+        };
+        int milliseconds = getResources().getInteger(R.integer.anim_duration_1000);
+        handler.postDelayed(runnable, milliseconds);
     }
 
     private class FetchItemsTask extends AsyncTask<Void, Void, List<GalleryItem>> {

@@ -19,12 +19,15 @@ import com.bumptech.glide.request.target.Target;
 import com.choliy.igor.flickrgallery.FlickrConstants;
 import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.async.OnPictureClickTask;
+import com.choliy.igor.flickrgallery.event.ResultEvent;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
 import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.choliy.igor.flickrgallery.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -96,7 +99,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
     @OnClick(R.id.picture_return)
     public void onPictureClick() {
-        getActivity().finish();
+        EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})

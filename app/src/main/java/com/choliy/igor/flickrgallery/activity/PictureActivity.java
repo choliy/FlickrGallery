@@ -18,6 +18,7 @@ import com.choliy.igor.flickrgallery.R;
 import com.choliy.igor.flickrgallery.adapter.PictureAdapter;
 import com.choliy.igor.flickrgallery.async.DownloadService;
 import com.choliy.igor.flickrgallery.data.FlickrLab;
+import com.choliy.igor.flickrgallery.event.ResultEvent;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
 import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.model.GalleryItem;
@@ -25,6 +26,8 @@ import com.choliy.igor.flickrgallery.util.FabUtils;
 import com.choliy.igor.flickrgallery.util.InfoUtils;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +44,7 @@ public class PictureActivity extends BroadcastActivity {
     @BindView(R.id.fence_picture_view) View mFenceView;
     @BindView(R.id.picture_pager) ViewPager mPicturePager;
 
-    private static final int REQUEST_CODE = 111;
+    public static final int REQUEST_CODE = 111;
     private GalleryItem mItem;
     private int mItemPosition;
     private boolean mPictureSaved;
@@ -75,14 +78,9 @@ public class PictureActivity extends BroadcastActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onBackPressed() {
         if (mFabMenu.isOpened()) enablePictureScreen(Boolean.TRUE);
-        else super.onBackPressed();
+        else setResultAndFinish();
     }
 
     @Override
@@ -107,6 +105,11 @@ public class PictureActivity extends BroadcastActivity {
         boolean permissionGranted = grantResults[zero] == PackageManager.PERMISSION_GRANTED;
         if (requestCodeSame && resultsNotEmpty && permissionGranted) onDownloadClick();
         else InfoUtils.showToast(this, getString(R.string.text_permission));
+    }
+
+    @Subscribe
+    public void onEvent(ResultEvent event) {
+        if (event.isResultOk()) setResultAndFinish();
     }
 
     @OnClick({R.id.fab_web, R.id.fab_share, R.id.fab_copy, R.id.fab_save, R.id.fab_download})
@@ -238,5 +241,12 @@ public class PictureActivity extends BroadcastActivity {
     private void updateItemByPosition() {
         if (mSavedLibrary) mItem = SavedFragment.sSavedItems.get(mItemPosition);
         else mItem = GalleryFragment.sItems.get(mItemPosition);
+    }
+
+    private void setResultAndFinish() {
+        Intent intent = new Intent();
+        intent.putExtra(FlickrConstants.POSITION_KEY, mItemPosition);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

@@ -1,6 +1,5 @@
 package com.choliy.igor.flickrgallery.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 
@@ -70,7 +69,7 @@ public class SettingsActivity extends BroadcastActivity {
         boolean animationEquals = animationValue.equals(mAnimationValue);
 
         if (!gridEquals || !styleEquals || !pictureEquals || !animationEquals) {
-            setResult(RESULT_OK, new Intent());
+            setResult(RESULT_OK);
             finish();
         } else {
             NavUtils.navigateUpFromSameTask(this);

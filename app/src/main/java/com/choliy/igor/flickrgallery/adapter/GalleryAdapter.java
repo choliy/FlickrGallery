@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -82,12 +84,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         return layout;
     }
 
-    class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.gallery_item_description) LinearLayout mDescription;
         @BindView(R.id.gallery_item_image) ImageView mPicture;
         @BindView(R.id.gallery_item_owner) TextView mOwner;
         @BindView(R.id.gallery_item_title) TextView mTitle;
+        @BindView(R.id.highlight_picture) View mHighlight;
         private View mItemView;
 
         PictureHolder(View itemView) {
@@ -167,6 +170,27 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
                         .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
             } else Glide.with(mItemView.getContext()).load(url).into(mPicture);
+        }
+
+        public void highlightPicture() {
+            Context context = mItemView.getContext();
+            final Animation show = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_show);
+            final Animation hide = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_hide);
+            show.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mHighlight.startAnimation(hide);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+            mHighlight.startAnimation(show);
         }
     }
 }
