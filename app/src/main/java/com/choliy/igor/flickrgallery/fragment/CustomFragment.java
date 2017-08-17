@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
+import com.choliy.igor.flickrgallery.event.ResultEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -52,7 +52,7 @@ public abstract class CustomFragment extends DialogFragment {
     }
 
     @Subscribe
-    public void onEvent(ItemGalleryEvent event) {
-        // empty event for avoid crashes
+    public void onEvent(ResultEvent event) {
+        // empty event for avoid crashes in non subscribed fragments
     }
 }

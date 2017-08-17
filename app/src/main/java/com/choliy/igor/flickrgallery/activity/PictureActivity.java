@@ -240,7 +240,7 @@ public class PictureActivity extends BroadcastActivity {
 
     private void updateItemByPosition() {
         if (mSavedLibrary) mItem = SavedFragment.sSavedItems.get(mItemPosition);
-        else mItem = GalleryFragment.sItems.get(mItemPosition);
+        else mItem = GalleryFragment.sGalleryItems.get(mItemPosition);
     }
 
     private void setResultAndFinish() {

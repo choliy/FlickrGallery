@@ -27,6 +27,7 @@ import com.choliy.igor.flickrgallery.event.ToolbarTypeEvent;
 import com.choliy.igor.flickrgallery.event.ToolbarVisibilityEvent;
 import com.choliy.igor.flickrgallery.event.TopListEvent;
 import com.choliy.igor.flickrgallery.fragment.GalleryFragment;
+import com.choliy.igor.flickrgallery.fragment.SavedFragment;
 import com.choliy.igor.flickrgallery.model.HistoryItem;
 import com.choliy.igor.flickrgallery.util.AnimUtils;
 import com.choliy.igor.flickrgallery.util.ExtraUtils;
@@ -173,7 +174,6 @@ public class GalleryActivity extends BroadcastActivity implements
                             TimeUtils.getTime(GalleryActivity.this));
                     FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
                 }
-
                 animateToolbar(mShowSearchType = Boolean.FALSE);
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -240,6 +240,8 @@ public class GalleryActivity extends BroadcastActivity implements
         snackbar.setAction(R.string.dialog_yes_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GalleryFragment.sGalleryItems = null;
+                SavedFragment.sSavedItems = null;
                 finish();
             }
         });

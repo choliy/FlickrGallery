@@ -48,7 +48,7 @@ public class GalleryFragment extends EventFragment {
     @BindView(R.id.layout_no_results) LinearLayout mResultsLayout;
 
     private GalleryAdapter mGalleryAdapter;
-    public static List<GalleryItem> sItems = new ArrayList<>();
+    public static List<GalleryItem> sGalleryItems = new ArrayList<>();
     private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
     private boolean mNoMoreData;
@@ -106,7 +106,7 @@ public class GalleryFragment extends EventFragment {
         String gridStyle = PrefUtils.getStyleSettings(getActivity());
         boolean isAnimationOn = PrefUtils.getAnimationSettings(getActivity());
 
-        mGalleryAdapter = new GalleryAdapter(sItems, gridSize, gridStyle, isAnimationOn);
+        mGalleryAdapter = new GalleryAdapter(sGalleryItems, gridSize, gridStyle, isAnimationOn);
         mRvGallery.setAdapter(mGalleryAdapter);
         mRvGallery.setHasFixedSize(Boolean.TRUE);
     }
@@ -173,7 +173,8 @@ public class GalleryFragment extends EventFragment {
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT)
             decoration = new ItemDividerDecoration(gridMargin, verticalGrid);
-        else decoration = new ItemDividerDecoration(gridMargin, horizontalGrid);
+        else
+            decoration = new ItemDividerDecoration(gridMargin, horizontalGrid);
 
         if (savedStyle.equals(dividerStyle)) {
             mRvGallery.addItemDecoration(decoration);
@@ -205,7 +206,7 @@ public class GalleryFragment extends EventFragment {
     }
 
     private void updateUi() {
-        mGalleryAdapter.updateItems(sItems);
+        mGalleryAdapter.updateItems(sGalleryItems);
         mRvGallery.scrollToPosition(mListPosition);
         mProgressView.smoothToHide();
         mRefreshLayout.setRefreshing(Boolean.FALSE);
@@ -226,7 +227,7 @@ public class GalleryFragment extends EventFragment {
             public void run() {
                 GalleryAdapter.PictureHolder holder = (GalleryAdapter.PictureHolder)
                         mRvGallery.findViewHolderForAdapterPosition(scrollPosition);
-                holder.highlightPicture();
+                if (holder != null) holder.highlightPicture();
             }
         };
         int milliseconds = getResources().getInteger(R.integer.anim_duration_1000);
@@ -250,9 +251,9 @@ public class GalleryFragment extends EventFragment {
             mNoMoreData = items.isEmpty();
             if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
                 for (GalleryItem item : items) {
-                    sItems.add(item);
+                    sGalleryItems.add(item);
                 }
-            } else sItems = items;
+            } else sGalleryItems = items;
             updateUi();
         }
     }

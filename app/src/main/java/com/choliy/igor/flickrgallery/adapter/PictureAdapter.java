@@ -22,13 +22,13 @@ public class PictureAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         GalleryItem item;
         if (mSavedLibrary) item = SavedFragment.sSavedItems.get(position);
-        else item = GalleryFragment.sItems.get(position);
+        else item = GalleryFragment.sGalleryItems.get(position);
         return PictureFragment.newInstance(item);
     }
 
     @Override
     public int getCount() {
         if (mSavedLibrary) return SavedFragment.sSavedItems.size();
-        else return GalleryFragment.sItems.size();
+        else return GalleryFragment.sGalleryItems.size();
     }
 }

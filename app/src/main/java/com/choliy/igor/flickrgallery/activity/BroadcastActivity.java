@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 
 import com.choliy.igor.flickrgallery.R;
-import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
+import com.choliy.igor.flickrgallery.event.ResultEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,7 +45,7 @@ public abstract class BroadcastActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onEvent(ItemGalleryEvent event) {
-        // empty event for avoid crashes
+    public void onEvent(ResultEvent event) {
+        // empty event for avoid crashes in non subscribed activities
     }
 }

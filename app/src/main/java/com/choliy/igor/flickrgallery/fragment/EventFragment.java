@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.choliy.igor.flickrgallery.event.ItemGalleryEvent;
+import com.choliy.igor.flickrgallery.event.ResultEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +43,7 @@ public abstract class EventFragment extends Fragment {
     }
 
     @Subscribe
-    public void onEvent(ItemGalleryEvent event) {
-        // empty event for avoid crashes
+    public void onEvent(ResultEvent event) {
+        // empty event for avoid crashes in non subscribed fragments
     }
 }
