@@ -39,6 +39,8 @@ import com.choliy.igor.flickrgallery.util.TimeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -240,8 +242,8 @@ public class GalleryActivity extends BroadcastActivity implements
         snackbar.setAction(R.string.dialog_yes_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GalleryFragment.sGalleryItems = null;
-                SavedFragment.sSavedItems = null;
+                GalleryFragment.sGalleryItems = new ArrayList<>();
+                SavedFragment.sSavedItems = new ArrayList<>();
                 finish();
             }
         });
