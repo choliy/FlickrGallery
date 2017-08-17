@@ -64,14 +64,14 @@
             android:id="@+id/btn_email"
             style="@style/DialogButtonStyle"
             android:paddingStart="@dimen/dimen_zero"
-            android:text="@string/dialog_email_btn"
+            android:text="@string/nav_email"
             tools:ignore="RtlSymmetry"/>
 
         <TextView
             android:id="@+id/btn_feedback"
             style="@style/DialogButtonStyle"
             android:layout_marginStart="@dimen/dimen_material_margin"
-            android:text="@string/dialog_feedback_btn"/>
+            android:text="@string/nav_feedback"/>
 
         <View style="@style/ViewWeightStyle"/>
 

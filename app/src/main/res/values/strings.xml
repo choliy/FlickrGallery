@@ -36,8 +36,6 @@
     <string name="dialog_developer" translatable="false">© %1$s by Igor Choliy</string>
     <string name="dialog_url" translatable="false">https://www.linkedin.com/in/choliy</string>
     <string name="dialog_close_btn">close</string>
-    <string name="dialog_feedback_btn">feedback</string>
-    <string name="dialog_email_btn">email</string>
 
     <!-- Dialog History -->
     <string name="dialog_history_title">Search History</string>
