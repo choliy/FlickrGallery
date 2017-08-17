@@ -41,17 +41,12 @@ public class PictureFragment extends EventFragment implements RequestListener<St
     @BindView(R.id.picture_date) TextView mDate;
     @BindView(R.id.picture_resolution) TextView mResolution;
     @BindView(R.id.picture_description) TextView mDescription;
-    @BindView(R.id.picture_return) ImageView mReturnImage;
     @BindView(R.id.picture_shadow) View mPictureShadow;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.selector_layout) FrameLayout mSelectorLayout;
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
-    private String mPictureTitle;
-    private String mPictureDate;
-    private String mPictureRes;
-    private String mPictureDesc;
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
@@ -107,19 +102,19 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         String text = null;
         switch (view.getId()) {
             case R.id.layout_title:
-                FabUtils.copyData(getActivity(), mPictureTitle);
+                FabUtils.copyData(getActivity(), mTitle.getText().toString());
                 text = getString(R.string.text_copied_title);
                 break;
             case R.id.layout_date:
-                FabUtils.copyData(getActivity(), mPictureDate);
+                FabUtils.copyData(getActivity(), mDate.getText().toString());
                 text = getString(R.string.text_copied_date);
                 break;
             case R.id.layout_resolution:
-                FabUtils.copyData(getActivity(), mPictureRes);
+                FabUtils.copyData(getActivity(), mResolution.getText().toString());
                 text = getString(R.string.text_copied_resolution);
                 break;
             case R.id.layout_description:
-                FabUtils.copyData(getActivity(), mPictureDesc);
+                FabUtils.copyData(getActivity(), mDescription.getText().toString());
                 text = getString(R.string.text_copied_description);
                 break;
         }
@@ -162,23 +157,21 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         // set title
         String title = mItem.getTitle();
         if (title.equals(FlickrConstants.STRING_EMPTY))
-            mPictureTitle = getString(R.string.text_empty_title);
-        else mPictureTitle = title;
-        mTitle.setText(mPictureTitle);
+            mTitle.setText(getString(R.string.text_empty_title));
+        else mTitle.setText(title);
 
         // set date
         String date = mItem.getDate();
         if (date.equals(FlickrConstants.STRING_EMPTY))
-            mPictureDate = getString(R.string.text_empty_date);
-        else mPictureDate = TimeUtils.formatDate(getActivity(), date);
-        mDate.setText(mPictureDate);
+            mDate.setText(getString(R.string.text_empty_date));
+        else mDate.setText(TimeUtils.formatDate(getActivity(), date));
 
         // set resolution
         loadPictureResolution();
 
         // set description
-        mPictureDesc = ExtraUtils.parseDescription(getActivity(), mItem.getDescription());
-        mDescription.setText(mPictureDesc);
+        String description = ExtraUtils.parseDescription(getActivity(), mItem.getDescription());
+        mDescription.setText(description);
     }
 
     private void loadPictureResolution() {
@@ -190,9 +183,9 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
                 String width = String.valueOf(resource.getIntrinsicWidth());
                 String height = String.valueOf(resource.getIntrinsicHeight());
-                mPictureRes = getString(R.string.text_picture_res_data, width, height);
+                String resolution = getString(R.string.text_picture_res_data, width, height);
                 mResolution.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTextBlack));
-                mResolution.setText(mPictureRes);
+                mResolution.setText(resolution);
             }
         });
     }
