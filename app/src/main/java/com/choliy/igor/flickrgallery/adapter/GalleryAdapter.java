@@ -164,12 +164,16 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void glideLoading(String url) {
-            if (mIsAnimationOn) {
+            if (mIsAnimationOn)
                 Glide.with(mItemView.getContext())
                         .load(url)
+                        .error(R.drawable.ic_error)
                         .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
-            } else Glide.with(mItemView.getContext()).load(url).into(mPicture);
+            else Glide.with(mItemView.getContext())
+                    .load(url)
+                    .error(R.drawable.ic_error)
+                    .into(mPicture);
         }
 
         public void highlightPicture() {

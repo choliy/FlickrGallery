@@ -71,13 +71,19 @@ public final class ExtraUtils {
             ImageView image,
             RequestListener<String, Bitmap> listener) {
 
-        if (PrefUtils.getAnimationSettings(context)) {
+        if (PrefUtils.getAnimationSettings(context))
             Glide.with(context)
                     .load(url)
                     .asBitmap()
+                    .error(R.drawable.ic_error)
                     .listener(listener)
                     .animate(R.anim.anim_scale_picture)
                     .into(image);
-        } else Glide.with(context).load(url).asBitmap().listener(listener).into(image);
+        else Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .error(R.drawable.ic_error)
+                .listener(listener)
+                .into(image);
     }
 }
