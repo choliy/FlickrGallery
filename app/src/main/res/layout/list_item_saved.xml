@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:padding="@dimen/dimen_material_margin"
-                app:indicatorColor="@color/colorTextLightGray"
+                app:indicatorColor="@color/colorAccent"
                 app:indicatorName="BallSpinFadeLoaderIndicator"/>
 
             <ImageView

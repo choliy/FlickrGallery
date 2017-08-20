@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr Gallery</string>
+    <string name="app_name">גלריה עבור פליקר</string>
     <string name="dialog_about_title">על האפליקציה</string>
     <string name="dialog_clear_btn">נקה היסטוריה</string>
     <string name="dialog_clear_message">האם אתה באמת רוצה לנקות את ההיסטוריה?</string>

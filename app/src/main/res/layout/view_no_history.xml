@@ -30,6 +30,7 @@
         android:id="@+id/btn_history_start"
         style="@style/DialogButtonStyle"
         android:layout_marginTop="@dimen/dimen_material_margin"
+        android:maxWidth="@dimen/dimen_dialog_min_size"
         android:text="@string/dialog_start_btn"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 

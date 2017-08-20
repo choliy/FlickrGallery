@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr Gallery</string>
+    <string name="app_name">Galleri for Flickr</string>
     <string name="dialog_about_title">Om App</string>
     <string name="dialog_clear_btn">Slett logg</string>
     <string name="dialog_clear_message">Vil du virkelig slette historien?</string>

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Flickr Gallery</string>
-    <string name="app_dir" translatable="false">FlickrGallery</string>
+    <string name="app_name">Gallery for Flickr</string>
+    <string name="app_dir" translatable="false">GalleryForFlickr</string>
     <string name="app_url" translatable="false">
-        https://play.google.com/store/apps/details?id=com.choliy.igor.flickrgallery</string>
+        https://play.google.com/store/apps/details?id=com.choliy.igor.galleryforflickr</string>
     <string name="apps_url" translatable="false">
         https://play.google.com/store/search?q=choliy%20igor&amp;c=apps</string>
     <string name="broadcast_action_name" translatable="false">

@@ -24,16 +24,16 @@
     </android.support.v7.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/image_splash_white"
+        android:id="@+id/image_splash_clear"
         style="@style/SplashImageStyle"
         android:contentDescription="@null"
-        android:src="@drawable/ic_flickr_white"/>
+        android:src="@mipmap/ic_flickr_clear"/>
 
     <ImageView
         android:id="@+id/image_splash_shadow"
         style="@style/SplashImageStyle"
         android:contentDescription="@null"
-        android:src="@drawable/ic_flickr_shadow"
+        android:src="@mipmap/ic_flickr_shadow"
         android:visibility="invisible"
         tools:visibility="visible"/>
 

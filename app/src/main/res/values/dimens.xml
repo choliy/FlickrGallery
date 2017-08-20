@@ -5,7 +5,6 @@
     <dimen name="dimen_list_divider_margin">2dp</dimen>
     <dimen name="dimen_fab_corner_radius">3dp</dimen>
     <dimen name="dimen_list_card_margin">4dp</dimen>
-    <dimen name="dimen_shadow_height">6dp</dimen>
     <dimen name="dimen_small_margin">8dp</dimen>
     <dimen name="dimen_icon_padding">12dp</dimen>
     <dimen name="dimen_material_margin">16dp</dimen>
@@ -16,6 +15,7 @@
     <dimen name="dimen_toolbar_icon_size">64dp</dimen>
     <dimen name="dimen_picture_padding">78dp</dimen>
     <dimen name="dimen_picture_margin">84dp</dimen>
+    <dimen name="dimen_button_max_width">92dp</dimen>
     <dimen name="dimen_image_dialog_size">96dp</dimen>
     <dimen name="dimen_saved_picture_size">112dp</dimen>
     <dimen name="dimen_image_list_size">128dp</dimen>

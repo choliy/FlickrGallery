@@ -31,14 +31,14 @@
             android:clickable="false"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
-            tools:src="@drawable/ic_flickr_shadow"/>
+            tools:src="@mipmap/ic_flickr_shadow"/>
 
     </FrameLayout>
 
     <View
         android:id="@+id/picture_shadow"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_shadow_height"
+        android:layout_height="@dimen/dimen_list_card_margin"
         android:background="@drawable/shape_picture_shadow"
         android:visibility="invisible"
         tools:visibility="visible"/>

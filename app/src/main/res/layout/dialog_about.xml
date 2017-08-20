@@ -73,11 +73,12 @@
             android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/nav_feedback"/>
 
-        <View style="@style/ViewWeightStyle"/>
-
         <TextView
             android:id="@+id/btn_close"
             style="@style/DialogButtonStyle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="end"
             android:paddingEnd="@dimen/dimen_zero"
             android:text="@string/dialog_close_btn"
             tools:ignore="RtlSymmetry"/>

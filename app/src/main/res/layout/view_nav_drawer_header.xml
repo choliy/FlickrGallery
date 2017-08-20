@@ -29,6 +29,8 @@
 
         <TextView
             style="@style/ListItemGridTextStyle"
+            android:ellipsize="marquee"
+            android:maxLines="1"
             android:paddingBottom="@dimen/dimen_small_margin"
             android:paddingEnd="@dimen/dimen_small_margin"
             android:text="@string/app_name"

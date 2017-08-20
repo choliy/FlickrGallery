@@ -13,7 +13,7 @@
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_toolbar"/>
+        android:src="@mipmap/ic_menu"/>
 
     <TextView
         android:id="@+id/toolbar_title"

@@ -52,6 +52,7 @@
             android:id="@+id/btn_history_clear"
             style="@style/DialogButtonStyle"
             android:layout_marginStart="@dimen/dimen_medium_margin"
+            android:maxWidth="@dimen/dimen_splash_image_size"
             android:paddingStart="@dimen/dimen_zero"
             android:text="@string/dialog_clear_btn"
             tools:ignore="RtlSymmetry"/>

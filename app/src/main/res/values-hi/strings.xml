@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr Gallery</string>
+    <string name="app_name">फ़्लिकर के लिए गैलरी</string>
     <string name="dialog_about_title">ऐप के बारे में</string>
     <string name="dialog_clear_btn">इतिहास मिटा दें</string>
     <string name="dialog_clear_message">क्या आप वास्तव में इतिहास साफ़ करना चाहते हैं?</string>

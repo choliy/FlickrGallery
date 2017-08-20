@@ -16,7 +16,7 @@
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_back"/>
+        android:src="@mipmap/ic_back"/>
 
     <android.support.v7.widget.SearchView
         android:id="@+id/search_view"
