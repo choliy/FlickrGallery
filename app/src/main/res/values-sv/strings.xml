@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galleri för Flickr</string>
+    <string name="app_name">Fotogalleri</string>
     <string name="dialog_about_title">Om App</string>
     <string name="dialog_clear_btn">rensa historik</string>
     <string name="dialog_clear_message">Vill du verkligen rensa historiken?</string>

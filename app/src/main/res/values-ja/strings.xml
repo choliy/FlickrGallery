@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickrのためのギャラリー</string>
+    <string name="app_name">フォトギャラリー</string>
     <string name="dialog_about_title">アプリケーションについて</string>
     <string name="dialog_clear_btn">履歴をクリア</string>
     <string name="dialog_clear_message">あなたは本当に歴史をクリアしたいですか？</string>

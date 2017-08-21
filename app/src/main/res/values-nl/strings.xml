@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galerij voor Flickr</string>
+    <string name="app_name">Fotogallerij</string>
     <string name="dialog_about_title">Over App</string>
     <string name="dialog_clear_btn">geschiedenis wissen</string>
     <string name="dialog_clear_message">Wil je de geschiedenis echt wissen?</string>

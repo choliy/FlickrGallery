@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Γκαλερί για το Flickr</string>
+    <string name="app_name">Φωτογραφίες</string>
     <string name="dialog_about_title">Σχετικά με την εφαρμογή</string>
     <string name="dialog_clear_btn">καθαρισμός ιστορικού</string>
     <string name="dialog_clear_message">Θέλετε πραγματικά να καθαρίσετε την ιστορία;</string>
