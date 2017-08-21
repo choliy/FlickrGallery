@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galleria Flickrille</string>
+    <string name="app_name">Kuvagalleria</string>
     <string name="dialog_about_title">Tietoja App</string>
     <string name="dialog_clear_btn">Tyhjennä historia</string>
     <string name="dialog_clear_message">Haluatko todella poistaa historian?</string>

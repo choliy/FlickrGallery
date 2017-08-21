@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galéria a Flickr számára</string>
+    <string name="app_name">Képgaléria</string>
     <string name="dialog_about_title">Az alkalmazásról</string>
     <string name="dialog_clear_btn">Előzmények törlése</string>
     <string name="dialog_clear_message">Tényleg törölni szeretné a történelmet?</string>

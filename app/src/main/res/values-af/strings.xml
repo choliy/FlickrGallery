@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galery vir Flickr</string>
+    <string name="app_name">Foto gallery</string>
     <string name="dialog_about_title">Oor App</string>
     <string name="dialog_clear_btn">verwyder geskiedenis</string>
     <string name="dialog_clear_message">Wil jy regtig die geskiedenis skoonmaak?</string>

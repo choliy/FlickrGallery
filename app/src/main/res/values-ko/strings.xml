@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">플리커를위한 갤러리</string>
+    <string name="app_name">사진 갤러리</string>
     <string name="dialog_about_title">앱 정보</string>
     <string name="dialog_clear_btn">역사를 깨끗하게하다</string>
     <string name="dialog_clear_message">정말로 역사를 정리하고 싶습니까?</string>

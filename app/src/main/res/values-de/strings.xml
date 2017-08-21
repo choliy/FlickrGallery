@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galerie für Flickr</string>
+    <string name="app_name">Fotogallerie</string>
     <string name="dialog_about_title">Über App</string>
     <string name="dialog_clear_btn">Klare Geschichte</string>
     <string name="dialog_clear_message">Möchten Sie die Geschichte wirklich klären?</string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr için Galeri</string>
+    <string name="app_name">Fotoğraf Galerisi</string>
     <string name="dialog_about_title">App Hakkında</string>
     <string name="dialog_clear_btn">Geçmişi temizle</string>
     <string name="dialog_clear_message">Gerçekten tarihi temizlemek istiyor musun?</string>

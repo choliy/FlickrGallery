@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr畫廊</string>
+    <string name="app_name">照片庫</string>
     <string name="dialog_about_title">關於應用</string>
     <string name="dialog_clear_btn">清除歷史記錄</string>
     <string name="dialog_clear_message">你真的想清除歷史嗎？</string>

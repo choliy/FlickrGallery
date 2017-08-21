@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galleria per Flickr</string>
+    <string name="app_name">Galleria fotografica</string>
     <string name="dialog_about_title">Informazioni su App</string>
     <string name="dialog_clear_btn">cancellare la cronologia</string>
     <string name="dialog_clear_message">Vuoi veramente cancellare la storia?</string>

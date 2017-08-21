@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Thư viện ảnh cho Flickr</string>
+    <string name="app_name">Triển lãm ảnh</string>
     <string name="dialog_about_title">Giới thiệu về ứng dụng</string>
     <string name="dialog_clear_btn">xóa lịch sử</string>
     <string name="dialog_clear_message">Bạn có thực sự muốn xóa lịch sử?</string>

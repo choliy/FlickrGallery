@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flickr үшін галерея</string>
+    <string name="app_name">Фотогалерея</string>
     <string name="dialog_about_title">App туралы</string>
     <string name="dialog_clear_btn">Нақты тарих</string>
     <string name="dialog_clear_message">Сіз шынымен тарихты тазалауды қалайсыз ба?</string>
