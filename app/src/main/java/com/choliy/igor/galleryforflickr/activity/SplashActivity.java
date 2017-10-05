@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.tool.AnimationEnd;
 import com.choliy.igor.galleryforflickr.util.PrefUtils;
 
 import butterknife.BindView;
@@ -44,15 +45,7 @@ public class SplashActivity extends BroadcastActivity {
     private void firstAnimation() {
         Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_show);
         Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animScale.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animScale.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 secondAnimation();
@@ -65,15 +58,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void secondAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_hide);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 thirdAnimation();
@@ -84,15 +69,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void thirdAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mImageClear.setVisibility(View.INVISIBLE);
@@ -105,15 +82,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void fourthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_translate_toolbar);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 fifthAnimation();
@@ -126,15 +95,7 @@ public class SplashActivity extends BroadcastActivity {
     private void fifthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 sixthAnimation();
@@ -147,15 +108,7 @@ public class SplashActivity extends BroadcastActivity {
     private void sixthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 seventhAnimation();
@@ -168,15 +121,7 @@ public class SplashActivity extends BroadcastActivity {
     private void seventhAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 eighthAnimation();
@@ -188,15 +133,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void eighthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_show);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 ninthAnimation();
@@ -207,15 +144,7 @@ public class SplashActivity extends BroadcastActivity {
 
     private void ninthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_hide);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+        animation.setAnimationListener(new AnimationEnd() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startGalleryActivity();

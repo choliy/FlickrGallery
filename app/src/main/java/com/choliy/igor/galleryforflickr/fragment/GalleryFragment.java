@@ -207,6 +207,7 @@ public class GalleryFragment extends EventFragment {
 
     private void updateUi() {
         mGalleryAdapter.updateItems(sGalleryItems);
+        mGalleryAdapter.setClickable(Boolean.TRUE);
         mRvGallery.scrollToPosition(mListPosition);
         mProgressView.smoothToHide();
         mRefreshLayout.setRefreshing(Boolean.FALSE);
@@ -238,7 +239,10 @@ public class GalleryFragment extends EventFragment {
 
         @Override
         protected void onPreExecute() {
-            if (!mDataRefreshing) mProgressView.smoothToShow();
+            if (!mDataRefreshing) {
+                mProgressView.smoothToShow();
+                mGalleryAdapter.setClickable(Boolean.FALSE);
+            }
         }
 
         @Override

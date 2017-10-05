@@ -18,6 +18,7 @@ import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.event.ItemLastEvent;
 import com.choliy.igor.galleryforflickr.event.ItemPositionEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.AnimationEnd;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,6 +33,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
     private String mGridSize;
     private String mGridStyle;
     private boolean mIsAnimationOn;
+    private boolean mClickable = Boolean.TRUE;
 
     public GalleryAdapter(
             List<GalleryItem> items,
@@ -84,6 +86,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         return layout;
     }
 
+    public void setClickable(boolean clickable) {
+        mClickable = clickable;
+    }
+
     public class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.gallery_item_description) LinearLayout mDescription;
@@ -102,7 +108,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         @Override
         public void onClick(View view) {
-            EventBus.getDefault().post(new ItemPositionEvent(getAdapterPosition()));
+            if (mClickable) EventBus.getDefault().post(new ItemPositionEvent(getAdapterPosition()));
         }
 
         private void bindItem(int position) {
@@ -180,18 +186,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             Context context = mItemView.getContext();
             final Animation show = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_show);
             final Animation hide = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_hide);
-            show.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
+            show.setAnimationListener(new AnimationEnd() {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     mHighlight.startAnimation(hide);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
                 }
             });
             mHighlight.startAnimation(show);

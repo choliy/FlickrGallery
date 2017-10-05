@@ -47,6 +47,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
+    private boolean mClickable = Boolean.TRUE;
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
@@ -74,6 +75,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
             String model,
             Target<Bitmap> target,
             boolean isFirstResource) {
+        mClickable = Boolean.FALSE;
         return Boolean.FALSE;
     }
 
@@ -94,7 +96,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
     @OnClick(R.id.picture_return)
     public void onPictureClick() {
-        EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
+        if (mClickable) EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})
