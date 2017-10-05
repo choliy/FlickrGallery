@@ -90,6 +90,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         mClickable = clickable;
     }
 
+    public void setAnimation(boolean isAnimationOn) {
+        mIsAnimationOn = isAnimationOn;
+    }
+
     public class PictureHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.gallery_item_description) LinearLayout mDescription;

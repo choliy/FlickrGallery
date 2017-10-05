@@ -17,6 +17,7 @@ import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.activity.PictureActivity;
 import com.choliy.igor.galleryforflickr.adapter.GalleryAdapter;
+import com.choliy.igor.galleryforflickr.event.AnimPrefEvent;
 import com.choliy.igor.galleryforflickr.event.ItemLastEvent;
 import com.choliy.igor.galleryforflickr.event.ItemPositionEvent;
 import com.choliy.igor.galleryforflickr.event.ToolbarTypeEvent;
@@ -33,6 +34,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,6 @@ public class GalleryFragment extends EventFragment {
 
     private GalleryAdapter mGalleryAdapter;
     public static List<GalleryItem> sGalleryItems = new ArrayList<>();
-    private int mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
     private int mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
     private boolean mNoMoreData;
     private boolean mDataLoaded;
@@ -91,7 +92,6 @@ public class GalleryFragment extends EventFragment {
     public void onEvent(ItemLastEvent event) {
         if (!mNoMoreData) {
             ++mPageNumber;
-            mListPosition = event.getPosition();
             fetchData();
         }
     }
@@ -99,6 +99,12 @@ public class GalleryFragment extends EventFragment {
     @Subscribe
     public void onEvent(TopListEvent event) {
         mRvGallery.scrollToPosition(event.getScrollPosition());
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEvent(AnimPrefEvent event) {
+        mGalleryAdapter.setAnimation(event.isAnimationOn());
+        EventBus.getDefault().removeStickyEvent(event);
     }
 
     private void setRecyclerView() {
@@ -132,7 +138,6 @@ public class GalleryFragment extends EventFragment {
             public void onRefresh() {
                 mDataRefreshing = Boolean.TRUE;
                 mPageNumber = FlickrConstants.DEFAULT_PAGE_NUMBER;
-                mListPosition = FlickrConstants.DEFAULT_LIST_POSITION;
                 fetchData();
                 ExtraUtils.hideKeyboard(getActivity());
                 EventBus.getDefault().post(new ToolbarTypeEvent(Boolean.FALSE));
@@ -208,7 +213,6 @@ public class GalleryFragment extends EventFragment {
     private void updateUi() {
         mGalleryAdapter.updateItems(sGalleryItems);
         mGalleryAdapter.setClickable(Boolean.TRUE);
-        mRvGallery.scrollToPosition(mListPosition);
         mProgressView.smoothToHide();
         mRefreshLayout.setRefreshing(Boolean.FALSE);
         mDataRefreshing = Boolean.FALSE;
@@ -253,11 +257,8 @@ public class GalleryFragment extends EventFragment {
         @Override
         protected void onPostExecute(List<GalleryItem> items) {
             mNoMoreData = items.isEmpty();
-            if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) {
-                for (GalleryItem item : items) {
-                    sGalleryItems.add(item);
-                }
-            } else sGalleryItems = items;
+            if (mPageNumber > FlickrConstants.DEFAULT_PAGE_NUMBER) sGalleryItems.addAll(items);
+            else sGalleryItems = items;
             updateUi();
         }
     }

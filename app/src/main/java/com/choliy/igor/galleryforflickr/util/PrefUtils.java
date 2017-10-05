@@ -77,13 +77,11 @@ public final class PrefUtils {
     public static String[] getSettings(Context context) {
         String gridValue = getGridSettings(context);
         String styleValue = getStyleSettings(context);
-        String pictureValue = getPictureSettings(context);
         boolean animationValue = getAnimationSettings(context);
 
         return new String[]{
                 gridValue,
                 styleValue,
-                pictureValue,
                 String.valueOf(animationValue)};
     }
 

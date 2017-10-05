@@ -95,8 +95,8 @@ public class PictureFragment extends EventFragment implements RequestListener<St
     }
 
     @OnClick(R.id.picture_return)
-    public void onPictureClick() {
-        if (mClickable) EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
+    public void onReturnClick() {
+        EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})
@@ -141,7 +141,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
+                if (mClickable) new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
             }
         });
 

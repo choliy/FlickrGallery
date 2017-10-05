@@ -22,10 +22,8 @@ public interface FlickrConstants {
     int INT_ZERO = 0;
     int INT_ONE = 1;
     int INT_TWO = 2;
-    int INT_THREE = 3;
 
     // Default values
-    int DEFAULT_LIST_POSITION = INT_ZERO;
     int DEFAULT_PAGE_NUMBER = INT_ONE;
     int DEFAULT_GRID_POSITION = INT_TWO;
     int DEFAULT_STYLE_POSITION = INT_ZERO;
