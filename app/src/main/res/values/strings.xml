@@ -27,7 +27,7 @@
 
     <!-- Dialog About -->
     <string name="dialog_about_title">About App</string>
-    <string name="dialog_app_version" translatable="false">v1.0.2</string>
+    <string name="dialog_app_version" translatable="false">v1.0.3</string>
     <string name="dialog_message">
         Application which allows you to search,
         view and save the last public photos from Flickr service</string>
