@@ -4,7 +4,7 @@
     <string name="app_url" translatable="false">
         https://play.google.com/store/apps/details?id=com.choliy.igor.galleryforflickr</string>
     <string name="apps_url" translatable="false">
-        https://play.google.com/store/search?q=choliy%20igor&amp;c=apps</string>
+        https://play.google.com/store/search?q=ihor%20choliy&amp;c=apps</string>
     <string name="broadcast_action_name" translatable="false">
         com.choliy.igor.flickrgallery.ACTION_SHOW_NOTIFICATION</string>
     <string name="broadcast_permission" translatable="false">
@@ -27,7 +27,7 @@
 
     <!-- Dialog About -->
     <string name="dialog_about_title">About App</string>
-    <string name="dialog_app_version" translatable="false">v1.0.3</string>
+    <string name="dialog_app_version" translatable="false">v1.0.5</string>
     <string name="dialog_message">
         Application which allows you to search,
         view and save the last public photos from Flickr service</string>
