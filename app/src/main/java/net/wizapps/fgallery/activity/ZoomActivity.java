@@ -40,12 +40,12 @@ public class ZoomActivity extends BaseActivity implements LoaderManager.LoaderCa
     }
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_zoom;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         getSupportLoaderManager().initLoader(ZoomPicLoader.ZOOM_PIC_LOADER_ID, null, this);
         mLoading.getIndeterminateDrawable().setColorFilter(
                 ContextCompat.getColor(this, R.color.colorAccent),

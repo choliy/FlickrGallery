@@ -26,6 +26,7 @@ import net.wizapps.fgallery.fragment.SavedFragment;
 import net.wizapps.fgallery.model.GalleryItem;
 import net.wizapps.fgallery.tool.Constants;
 import net.wizapps.fgallery.tool.Events;
+import net.wizapps.fgallery.tool.OnPageSelectedListener;
 import net.wizapps.fgallery.util.FabUtils;
 import net.wizapps.fgallery.util.InfoUtils;
 
@@ -63,12 +64,12 @@ public class PictureActivity extends BaseActivity {
     }
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_picture;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         restoreData(savedInstanceState);
         updateItemByPosition();
         checkOrientationSize();
@@ -146,10 +147,7 @@ public class PictureActivity extends BaseActivity {
         mPicturePager.setCurrentItem(mItemPosition);
         mPicturePager.setOffscreenPageLimit(PAGE_LIMIT);
         mPicturePager.setPageTransformer(Boolean.TRUE, new AccordionTransformer());
-        mPicturePager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
+        mPicturePager.addOnPageChangeListener(new OnPageSelectedListener() {
             @Override
             public void onPageSelected(int position) {
                 mItemPosition = position;
@@ -157,9 +155,6 @@ public class PictureActivity extends BaseActivity {
                 mPictureDownloaded = Boolean.FALSE;
                 updateItemByPosition();
             }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {}
         });
     }
 

@@ -29,12 +29,7 @@ public class FlickrLab {
      * History DB functions
      */
     public void addHistory(HistoryItem item, boolean restored) {
-        ContentValues values = new ContentValues();
-        if (restored) values.put(FlickrContract._ID, item.getId());
-        values.put(FlickrContract.COLUMN_HISTORY_TITLE, item.getHistoryTitle());
-        values.put(FlickrContract.COLUMN_HISTORY_DATE, item.getHistoryDate());
-        values.put(FlickrContract.COLUMN_HISTORY_TIME, item.getHistoryTime());
-        mDatabase.insert(FlickrContract.TABLE_HISTORY, null, values);
+        insertHistory(item, restored);
     }
 
     public List<HistoryItem> getHistory() {
@@ -63,12 +58,7 @@ public class FlickrLab {
 
     public void restoreHistory(List<HistoryItem> history) {
         for (HistoryItem item : history) {
-            ContentValues values = new ContentValues();
-            values.put(FlickrContract._ID, item.getId());
-            values.put(FlickrContract.COLUMN_HISTORY_TITLE, item.getHistoryTitle());
-            values.put(FlickrContract.COLUMN_HISTORY_DATE, item.getHistoryDate());
-            values.put(FlickrContract.COLUMN_HISTORY_TIME, item.getHistoryTime());
-            mDatabase.insert(FlickrContract.TABLE_HISTORY, null, values);
+            insertHistory(item, Boolean.TRUE);
         }
     }
 
@@ -83,15 +73,24 @@ public class FlickrLab {
         mDatabase.delete(FlickrContract.TABLE_HISTORY, null, null);
     }
 
+    private void insertHistory(HistoryItem item, boolean restored) {
+        ContentValues values = new ContentValues();
+        if (restored) values.put(FlickrContract._ID, item.getId());
+        values.put(FlickrContract.COLUMN_HISTORY_TITLE, item.getHistoryTitle());
+        values.put(FlickrContract.COLUMN_HISTORY_DATE, item.getHistoryDate());
+        values.put(FlickrContract.COLUMN_HISTORY_TIME, item.getHistoryTime());
+        mDatabase.insert(FlickrContract.TABLE_HISTORY, null, values);
+    }
+
     /**
      * Saved pictures DB functions
      */
     public void addPicture(GalleryItem item) {
-        mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.FALSE));
+        insertPictures(item, Boolean.FALSE);
     }
 
     public void restorePicture(GalleryItem item) {
-        mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.TRUE));
+        insertPictures(item, Boolean.TRUE);
     }
 
     public List<GalleryItem> getSavedPictures() {
@@ -120,7 +119,7 @@ public class FlickrLab {
 
     public void restoreAllPictures(List<GalleryItem> items) {
         for (GalleryItem item : items) {
-            mDatabase.insert(FlickrContract.TABLE_SAVED, null, getContentValue(item, Boolean.TRUE));
+            insertPictures(item, Boolean.TRUE);
         }
     }
 
@@ -135,7 +134,7 @@ public class FlickrLab {
         mDatabase.delete(FlickrContract.TABLE_SAVED, null, null);
     }
 
-    private ContentValues getContentValue(GalleryItem item, boolean restored) {
+    private void insertPictures(GalleryItem item, boolean restored) {
         ContentValues values = new ContentValues();
         if (restored) values.put(FlickrContract._ID, item.getDbId());
         values.put(FlickrContract.COLUMN_PICTURE_USER_ID, item.getUserId());
@@ -150,6 +149,6 @@ public class FlickrLab {
         values.put(FlickrContract.COLUMN_PICTURE_SMALL_URL, item.getSmallPicUrl());
         values.put(FlickrContract.COLUMN_PICTURE_MEDIUM_URL, item.getMediumPicUrl());
         values.put(FlickrContract.COLUMN_PICTURE_BIG_URL, item.getBigPicUrl());
-        return values;
+        mDatabase.insert(FlickrContract.TABLE_SAVED, null, values);
     }
 }

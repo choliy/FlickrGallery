@@ -19,12 +19,12 @@ public class SettingsActivity extends BaseActivity {
     private String mAnimationValue;
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_settings;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             String[] settings = PrefUtils.getSettings(this);
             mGridValue = settings[Constants.ZERO];

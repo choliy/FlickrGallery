@@ -30,7 +30,7 @@ public final class AnimUtils {
         startAnimation(context, view, animResId);
     }
 
-    public static void animToolbarVisibility(Toolbar toolbar, boolean show) {
+    public static void animToolbarVisibility(View toolbar, boolean show) {
         if (show) {
             toolbar.animate()
                     .translationY(Constants.ZERO)

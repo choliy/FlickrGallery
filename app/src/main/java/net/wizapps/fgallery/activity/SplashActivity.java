@@ -3,15 +3,12 @@ package net.wizapps.fgallery.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import net.wizapps.fgallery.R;
-import net.wizapps.fgallery.tool.AnimationEnd;
+import net.wizapps.fgallery.tool.OnAnimationEndListener;
 import net.wizapps.fgallery.util.PrefUtils;
 
 import butterknife.BindView;
@@ -19,21 +16,24 @@ import butterknife.ButterKnife;
 
 public class SplashActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar_splash) Toolbar mToolbar;
-    @BindView(R.id.toolbar_icon_menu) ImageView mImageMenu;
-    @BindView(R.id.toolbar_icon_search) ImageView mImageSearch;
-    @BindView(R.id.toolbar_title) TextView mTextTitle;
+    @BindView(R.id.toolbar_splash) View mToolbar;
+    @BindView(R.id.toolbar_icon_menu) View mImageMenu;
+    @BindView(R.id.toolbar_icon_search) View mImageSearch;
+    @BindView(R.id.toolbar_title) View mTextTitle;
     @BindView(R.id.dark_background) View mBackground;
-    @BindView(R.id.image_splash_clear) ImageView mImageClear;
-    @BindView(R.id.image_splash_shadow) ImageView mImageShadow;
+    @BindView(R.id.image_splash_clear) View mImageClear;
+    @BindView(R.id.image_splash_shadow) View mImageShadow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!PrefUtils.getSplashSettings(this)) startGalleryActivity();
-        setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
-        disableViews();
+        if (!PrefUtils.getSplashSettings(this)) {
+            startGalleryActivity();
+        } else {
+            setContentView(R.layout.activity_splash);
+            ButterKnife.bind(this);
+            disableViews();
+        }
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
     private void firstAnimation() {
         Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_show);
         Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animScale.setAnimationListener(new AnimationEnd() {
+        animScale.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 secondAnimation();
@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void secondAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_start_hide);
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 thirdAnimation();
@@ -69,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void thirdAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mImageClear.setVisibility(View.INVISIBLE);
@@ -82,7 +82,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void fourthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_translate_toolbar);
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 fifthAnimation();
@@ -95,7 +95,7 @@ public class SplashActivity extends AppCompatActivity {
     private void fifthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 sixthAnimation();
@@ -108,7 +108,7 @@ public class SplashActivity extends AppCompatActivity {
     private void sixthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 seventhAnimation();
@@ -121,7 +121,7 @@ public class SplashActivity extends AppCompatActivity {
     private void seventhAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_show);
         animation.setDuration(getResources().getInteger(R.integer.anim_duration_300));
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 eighthAnimation();
@@ -133,7 +133,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void eighthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_show);
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 ninthAnimation();
@@ -144,7 +144,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void ninthAnimation() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale_end_hide);
-        animation.setAnimationListener(new AnimationEnd() {
+        animation.setAnimationListener(new OnAnimationEndListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
                 startGalleryActivity();

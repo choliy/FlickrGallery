@@ -1,9 +1,7 @@
 package net.wizapps.fgallery.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
 import net.wizapps.fgallery.R;
 import net.wizapps.fgallery.base.BaseActivity;
@@ -19,16 +17,16 @@ import butterknife.OnClick;
 
 public class SavedActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar_saved) Toolbar mToolbar;
-    @BindView(R.id.image_top_list) ImageView mTopList;
+    @BindView(R.id.toolbar_saved) View mToolbar;
+    @BindView(R.id.image_top_list) View mTopList;
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_saved;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()

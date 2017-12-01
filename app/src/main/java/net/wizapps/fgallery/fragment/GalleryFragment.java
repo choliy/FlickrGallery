@@ -10,7 +10,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -42,11 +41,12 @@ public class GalleryFragment extends BaseFragment {
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.rv_gallery) RecyclerView mRvGallery;
     @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
-    @BindView(R.id.layout_no_connection) LinearLayout mConnectionLayout;
-    @BindView(R.id.layout_no_results) LinearLayout mResultsLayout;
+    @BindView(R.id.layout_no_connection) View mConnectionLayout;
+    @BindView(R.id.layout_no_results) View mResultsLayout;
 
-    private GalleryAdapter mGalleryAdapter;
     public static List<GalleryItem> sGalleryItems = new ArrayList<>();
+    private GalleryAdapter mGalleryAdapter;
+
     private int mPageNumber = Constants.DEFAULT_PAGE_NUMBER;
     private boolean mNoMoreData;
     private boolean mDataLoaded;

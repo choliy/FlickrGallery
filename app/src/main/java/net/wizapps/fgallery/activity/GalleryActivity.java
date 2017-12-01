@@ -43,7 +43,7 @@ import butterknife.OnClick;
 
 public class GalleryActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @BindView(R.id.image_top_list) ImageView mTopList;
+    @BindView(R.id.image_top_list) View mTopList;
     @BindView(R.id.toolbar_gallery) Toolbar mToolbar;
     @BindView(R.id.search_view) SearchView mSearchView;
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -57,12 +57,12 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
     }
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_gallery;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()

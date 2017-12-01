@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide;
 
 import net.wizapps.fgallery.R;
 import net.wizapps.fgallery.model.GalleryItem;
-import net.wizapps.fgallery.tool.AnimationEnd;
 import net.wizapps.fgallery.tool.Constants;
 import net.wizapps.fgallery.tool.Events;
+import net.wizapps.fgallery.tool.OnAnimationEndListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -194,7 +194,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             Context context = itemView.getContext();
             final Animation show = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_show);
             final Animation hide = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_hide);
-            show.setAnimationListener(new AnimationEnd() {
+            show.setAnimationListener(new OnAnimationEndListener() {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     mHighlight.startAnimation(hide);

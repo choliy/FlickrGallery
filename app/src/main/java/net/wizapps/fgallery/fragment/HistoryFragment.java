@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -41,8 +39,8 @@ public class HistoryFragment extends BaseDialog implements
 
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
     @BindView(R.id.rv_history) RecyclerView mRvHistory;
-    @BindView(R.id.btn_history_clear) TextView mBtnClear;
-    @BindView(R.id.layout_no_history) LinearLayout mNoHistory;
+    @BindView(R.id.btn_history_clear) View mBtnClear;
+    @BindView(R.id.layout_no_history) View mNoHistory;
 
     public static final String TAG = HistoryFragment.class.getSimpleName();
     private List<HistoryItem> mSavedHistory;
@@ -74,22 +72,6 @@ public class HistoryFragment extends BaseDialog implements
     @Override
     public void onLoaderReset(Loader<List<HistoryItem>> loader) {}
 
-    @OnClick({R.id.btn_history_start, R.id.btn_history_clear, R.id.btn_history_close})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_history_start:
-                closeHistoryDialog();
-                EventBus.getDefault().post(new Events.HistoryStartEvent());
-                break;
-            case R.id.btn_history_clear:
-                DialogUtils.clearDialog(getActivity(), new SaveHistoryTask(Boolean.TRUE, mSavedHistory));
-                break;
-            case R.id.btn_history_close:
-                closeHistoryDialog();
-                break;
-        }
-    }
-
     @Subscribe
     public void onEvent(Events.HistoryTitleEvent event) {
         if (!TextUtils.isEmpty(event.getHistoryTitle())) closeHistoryDialog();
@@ -116,10 +98,26 @@ public class HistoryFragment extends BaseDialog implements
             restoreHistory();
         } else {
             mHistoryAdapter.setHistory(mSavedHistory);
-            InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored));
+            InfoUtils.showShack(view(), getString(R.string.dialog_restore_restored));
         }
         mProgress.smoothToHide();
         checkHistory();
+    }
+
+    @OnClick({R.id.btn_history_start, R.id.btn_history_clear, R.id.btn_history_close})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_history_start:
+                closeHistoryDialog();
+                EventBus.getDefault().post(new Events.HistoryStartEvent());
+                break;
+            case R.id.btn_history_clear:
+                DialogUtils.clearDialog(getActivity(), new SaveHistoryTask(Boolean.TRUE, mSavedHistory));
+                break;
+            case R.id.btn_history_close:
+                closeHistoryDialog();
+                break;
+        }
     }
 
     private void setupUi() {
@@ -147,7 +145,7 @@ public class HistoryFragment extends BaseDialog implements
 
     private void restoreHistory() {
         String text = getActivity().getString(R.string.dialog_restore_cleaned);
-        Snackbar snackbar = Snackbar.make(mBtnClear, text, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view(), text, Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.dialog_undo_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,13 +157,13 @@ public class HistoryFragment extends BaseDialog implements
 
     private void restoreSingleHistory(final int position, final HistoryItem item) {
         String text = getActivity().getString(R.string.dialog_restore_removed);
-        Snackbar snackbar = Snackbar.make(mBtnClear, text, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view(), text, Snackbar.LENGTH_LONG);
         snackbar.setAction(R.string.dialog_undo_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mHistoryAdapter.restoreItem(position, item);
                 FlickrLab.getInstance(getActivity()).addHistory(item, Boolean.TRUE);
-                InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored_single));
+                InfoUtils.showShack(view(), getString(R.string.dialog_restore_restored_single));
                 checkHistory();
             }
         });
@@ -174,5 +172,9 @@ public class HistoryFragment extends BaseDialog implements
 
     private void closeHistoryDialog() {
         getDialog().dismiss();
+    }
+
+    private View view() {
+        return getActivity().findViewById(android.R.id.content);
     }
 }

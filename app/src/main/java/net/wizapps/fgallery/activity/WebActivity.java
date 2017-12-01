@@ -8,7 +8,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +25,7 @@ import butterknife.OnClick;
 public class WebActivity extends BaseActivity {
 
     @BindView(R.id.picture_owner) TextView mPictureOwner;
-    @BindView(R.id.layout_no_uri) LinearLayout mNoUriLayout;
+    @BindView(R.id.layout_no_uri) View mNoUriLayout;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgressView;
     @BindView(R.id.web_view_picture) WebView mWebView;
     @BindView(R.id.fab_menu_web) FloatingActionMenu mFabMenu;
@@ -36,12 +35,12 @@ public class WebActivity extends BaseActivity {
     private String mItemUri = Constants.EMPTY;
 
     @Override
-    public int layoutRes() {
+    protected int layoutRes() {
         return R.layout.activity_web;
     }
 
     @Override
-    public void setUi(Bundle savedInstanceState) {
+    protected void setUi(Bundle savedInstanceState) {
         getPictureOwner();
         setupWebView();
         setupFab();
