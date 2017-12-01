@@ -9,7 +9,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.choliy.igor.galleryforflickr"
+        applicationId "net.wizapps.fgallery"
         minSdkVersion 17
         //noinspection OldTargetApi
         targetSdkVersion 26

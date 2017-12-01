@@ -2,17 +2,17 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.choliy.igor.galleryforflickr">
+    package="net.wizapps.fgallery">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="com.choliy.igor.flickrgallery.PERMISSION_PRIVATE"/>
+    <uses-permission android:name="net.wizapps.fgallery.PERMISSION_PRIVATE"/>
 
     <permission
-        android:name="com.choliy.igor.galleryforflickr.PERMISSION_PRIVATE"
+        android:name="net.wizapps.fgallery.PERMISSION_PRIVATE"
         android:protectionLevel="signature"/>
 
     <application
@@ -25,7 +25,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,46 +34,46 @@
         </activity>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.GalleryActivity"
+            android:name=".activity.GalleryActivity"
             android:launchMode="singleTop"/>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.PictureActivity"
-            android:parentActivityName="com.choliy.igor.galleryforflickr.activity.GalleryActivity"/>
+            android:name=".activity.PictureActivity"
+            android:parentActivityName=".activity.GalleryActivity"/>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.ZoomActivity"
-            android:parentActivityName="com.choliy.igor.galleryforflickr.activity.PictureActivity"
+            android:name=".activity.ZoomActivity"
+            android:parentActivityName=".activity.PictureActivity"
             android:theme="@style/ActivityTransparentStyle"/>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.WebActivity"
+            android:name=".activity.WebActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:parentActivityName="com.choliy.igor.galleryforflickr.activity.PictureActivity"/>
+            android:parentActivityName=".activity.PictureActivity"/>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.SettingsActivity"
-            android:parentActivityName="com.choliy.igor.galleryforflickr.activity.GalleryActivity"/>
+            android:name=".activity.SettingsActivity"
+            android:parentActivityName=".activity.GalleryActivity"/>
 
         <activity
-            android:name="com.choliy.igor.galleryforflickr.activity.SavedActivity"
-            android:parentActivityName="com.choliy.igor.galleryforflickr.activity.GalleryActivity"/>
+            android:name=".activity.SavedActivity"
+            android:parentActivityName=".activity.GalleryActivity"/>
 
-        <service android:name="com.choliy.igor.galleryforflickr.async.NotificationService"/>
+        <service android:name=".async.NotificationService"/>
 
-        <service android:name="com.choliy.igor.galleryforflickr.async.DownloadService"/>
+        <service android:name=".async.DownloadService"/>
 
-        <receiver android:name="com.choliy.igor.galleryforflickr.async.StartupReceiver">
+        <receiver android:name=".async.StartupReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
         <receiver
-            android:name="com.choliy.igor.galleryforflickr.async.NotificationReceiver"
+            android:name=".async.NotificationReceiver"
             android:exported="false">
             <intent-filter android:priority="-999">
-                <action android:name="com.choliy.igor.flickrgallery.ACTION_SHOW_NOTIFICATION"/>
+                <action android:name="net.wizapps.fgallery.ACTION_SHOW_NOTIFICATION"/>
             </intent-filter>
         </receiver>
 
