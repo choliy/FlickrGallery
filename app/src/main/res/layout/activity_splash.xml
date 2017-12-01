@@ -33,7 +33,7 @@
         android:id="@+id/image_splash_shadow"
         style="@style/SplashImageStyle"
         android:contentDescription="@null"
-        android:src="@mipmap/ic_flickr_shadow"
+        android:src="@mipmap/ic_launcher"
         android:visibility="invisible"
         tools:visibility="visible"/>
 
