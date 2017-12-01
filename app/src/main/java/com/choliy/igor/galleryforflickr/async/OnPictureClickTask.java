@@ -3,8 +3,8 @@ package com.choliy.igor.galleryforflickr.async;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.choliy.igor.galleryforflickr.event.PictureClickEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.tool.ImageSaver;
 import com.choliy.igor.galleryforflickr.util.FabUtils;
 
@@ -14,8 +14,8 @@ import java.io.ByteArrayOutputStream;
 
 public class OnPictureClickTask extends AsyncTask<Void, Void, byte[]> {
 
-    private Bitmap mBitmap;
-    private GalleryItem mItem;
+    private final Bitmap mBitmap;
+    private final GalleryItem mItem;
 
     public OnPictureClickTask(Bitmap bitmap, GalleryItem item) {
         mBitmap = bitmap;
@@ -32,6 +32,6 @@ public class OnPictureClickTask extends AsyncTask<Void, Void, byte[]> {
     @Override
     protected void onPostExecute(byte[] bytes) {
         String picUrl = FabUtils.getPictureUrl(mItem, Boolean.TRUE);
-        EventBus.getDefault().post(new PictureClickEvent(picUrl, bytes));
+        EventBus.getDefault().post(new Events.PictureClickEvent(picUrl, bytes));
     }
 }

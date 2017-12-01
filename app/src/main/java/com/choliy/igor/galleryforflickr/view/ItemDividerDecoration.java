@@ -8,8 +8,8 @@ import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
 
-    private int mGridMarginPx;
-    private int mGridSize;
+    private final int mGridMarginPx;
+    private final int mGridSize;
     private boolean mNeedLeftSpacing;
 
     public ItemDividerDecoration(int gridMarginPx, int gridSize) {

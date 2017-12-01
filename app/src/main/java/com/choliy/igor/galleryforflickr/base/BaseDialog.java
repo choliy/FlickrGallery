@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.choliy.igor.galleryforflickr.event.ResultEvent;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -51,7 +51,7 @@ public abstract class BaseDialog extends DialogFragment {
     }
 
     @Subscribe
-    public void onEvent(ResultEvent event) {
+    public void onEvent(Events.BaseEvent event) {
         // empty event for avoid crashes in non subscribed dialogs
     }
 }

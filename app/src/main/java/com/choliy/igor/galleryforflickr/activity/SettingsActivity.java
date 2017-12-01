@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.base.BaseActivity;
-import com.choliy.igor.galleryforflickr.event.AnimPrefEvent;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.PrefUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,7 +69,7 @@ public class SettingsActivity extends BaseActivity {
 
         if (!animationEquals) {
             boolean isAnimationOn = PrefUtils.getAnimationSettings(this);
-            EventBus.getDefault().postSticky(new AnimPrefEvent(isAnimationOn));
+            EventBus.getDefault().postSticky(new Events.AnimPrefEvent(isAnimationOn));
         }
 
         finish();

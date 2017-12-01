@@ -4,9 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.SaveFinishEvent;
-import com.choliy.igor.galleryforflickr.event.SaveStartEvent;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.PrefUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -15,8 +14,8 @@ import java.util.List;
 
 public class SaveHistoryTask extends AsyncTask<Context, Void, Void> {
 
-    private boolean mClearHistoryBase;
-    private List<HistoryItem> mSavedHistory;
+    private final boolean mClearHistoryBase;
+    private final List<HistoryItem> mSavedHistory;
 
     public SaveHistoryTask(boolean clearHistoryBase, List<HistoryItem> savedHistory) {
         mClearHistoryBase = clearHistoryBase;
@@ -25,7 +24,7 @@ public class SaveHistoryTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        EventBus.getDefault().post(new SaveStartEvent());
+        EventBus.getDefault().post(new Events.SaveStartEvent());
     }
 
     @Override
@@ -40,6 +39,6 @@ public class SaveHistoryTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        EventBus.getDefault().post(new SaveFinishEvent(mClearHistoryBase));
+        EventBus.getDefault().post(new Events.SaveFinishEvent(mClearHistoryBase));
     }
 }

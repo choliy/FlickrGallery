@@ -21,15 +21,11 @@ import android.widget.TextView;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.base.BaseActivity;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.HistoryStartEvent;
-import com.choliy.igor.galleryforflickr.event.HistoryTitleEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarTypeEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
-import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.fragment.GalleryFragment;
 import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.AnimUtils;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -120,30 +116,30 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
     }
 
     @Subscribe
-    public void onEvent(HistoryTitleEvent event) {
+    public void onEvent(Events.HistoryTitleEvent event) {
         PrefUtils.setStoredQuery(this, event.getHistoryTitle());
         showSearchToolbar();
     }
 
     @Subscribe
-    public void onEvent(HistoryStartEvent event) {
-        if (event.isStartClicked()) showSearchToolbar();
+    public void onEvent(Events.HistoryStartEvent event) {
+        showSearchToolbar();
     }
 
     @Subscribe
-    public void onEvent(ToolbarVisibilityEvent event) {
+    public void onEvent(Events.ToolbarVisibilityEvent event) {
         AnimUtils.animToolbarVisibility(mToolbar, event.isShowToolbar());
         AnimUtils.animateView(this, mTopList, !event.isShowToolbar());
     }
 
     @Subscribe
-    public void onEvent(ToolbarTypeEvent event) {
-        if (mShowSearchType) animateToolbar(mShowSearchType = event.isToolbarSearch());
+    public void onEvent(Events.ToolbarTypeEvent event) {
+        if (mShowSearchType) animateToolbar(mShowSearchType = Boolean.FALSE);
     }
 
     @OnClick(R.id.image_top_list)
     public void onTopClicked() {
-        EventBus.getDefault().post(new TopListEvent(Constants.ZERO));
+        EventBus.getDefault().post(new Events.TopListEvent());
     }
 
     public void onToolbarClick(View view) {

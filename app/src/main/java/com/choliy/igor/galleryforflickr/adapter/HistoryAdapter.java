@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.choliy.igor.galleryforflickr.R;
-import com.choliy.igor.galleryforflickr.event.HistoryTitleEvent;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -75,7 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         @Override
         public void onClick(View view) {
             String historyTitle = mHistory.get(getAdapterPosition()).getHistoryTitle();
-            EventBus.getDefault().post(new HistoryTitleEvent(historyTitle));
+            EventBus.getDefault().post(new Events.HistoryTitleEvent(historyTitle));
         }
 
         void bindHistory(int position) {

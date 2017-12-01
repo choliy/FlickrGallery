@@ -20,7 +20,7 @@
     <string name="dialog_undo_btn">解開</string>
     <string name="dialog_yes_btn">是</string>
     <string name="fab_browser">在瀏覽器中打開</string>
-    <string name="fab_copied">已復製網址：\n\n％1$s</string>
+    <string name="fab_copied">已復製網址：\n\n%1$s</string>
     <string name="fab_copy">複製</string>
     <string name="fab_download">下載</string>
     <string name="fab_downloading">下載…</string>
@@ -78,7 +78,7 @@
     <string name="text_empty_title">沒有圖片標題</string>
     <string name="text_exit">退出應用程序？</string>
     <string name="text_hint_search">搜索照片</string>
-    <string name="text_new_pictures">您有來自搜索查詢的新照片 - “％1$s”</string>
+    <string name="text_new_pictures">您有來自搜索查詢的新照片 - \"%1$s\"</string>
     <string name="text_no_browser">您的設備上沒有瀏覽器</string>
     <string name="text_no_connection">沒有網絡連接</string>
     <string name="text_no_results">沒有查詢結果</string>

@@ -20,7 +20,7 @@
     <string name="dialog_undo_btn">元に戻す</string>
     <string name="dialog_yes_btn">はい</string>
     <string name="fab_browser">ブラウザで開く</string>
-    <string name="fab_copied">コピーされたURL：％1$s</string>
+    <string name="fab_copied">コピーされたURL：%1$s</string>
     <string name="fab_copy">コピー</string>
     <string name="fab_download">ダウンロード</string>
     <string name="fab_downloaded">ダウンロードした画像</string>
@@ -78,7 +78,7 @@
     <string name="text_empty_title">画像のタイトルがありません</string>
     <string name="text_exit">アプリケーションを終了しますか？</string>
     <string name="text_hint_search">写真を検索する</string>
-    <string name="text_new_pictures">検索クエリ - 「％1$s」の新しい写真があります</string>
+    <string name="text_new_pictures">検索クエリ - \"%1$s\"の新しい写真があります</string>
     <string name="text_no_browser">端末にブラウザがありません</string>
     <string name="text_no_connection">インターネット接続なし</string>
     <string name="text_no_results">あなたの質問に対する結果はありません</string>

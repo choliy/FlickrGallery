@@ -7,11 +7,8 @@ import android.widget.ImageView;
 
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.base.BaseActivity;
-import com.choliy.igor.galleryforflickr.event.RemovePicEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
-import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
-import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.AnimUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,16 +44,16 @@ public class SavedActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ic_delete_pictures:
-                EventBus.getDefault().post(new RemovePicEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new Events.RemovePicEvent());
                 break;
             case R.id.image_top_list:
-                EventBus.getDefault().post(new TopListEvent(Constants.ZERO));
+                EventBus.getDefault().post(new Events.TopListEvent());
                 break;
         }
     }
 
     @Subscribe
-    public void onEvent(ToolbarVisibilityEvent event) {
+    public void onEvent(Events.ToolbarVisibilityEvent event) {
         AnimUtils.animToolbarVisibility(mToolbar, event.isShowToolbar());
         AnimUtils.animateView(this, mTopList, !event.isShowToolbar());
     }

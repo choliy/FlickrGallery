@@ -13,12 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
-import com.choliy.igor.galleryforflickr.event.ItemLastEvent;
-import com.choliy.igor.galleryforflickr.event.ItemPositionEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.AnimationEnd;
+import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,8 +29,8 @@ import butterknife.ButterKnife;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureHolder> {
 
     private List<GalleryItem> mItems;
-    private String mGridSize;
-    private String mGridStyle;
+    private final String mGridSize;
+    private final String mGridStyle;
     private boolean mIsAnimationOn;
     private boolean mClickable = Boolean.TRUE;
 
@@ -102,18 +101,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         @BindView(R.id.gallery_item_owner) TextView mOwner;
         @BindView(R.id.gallery_item_title) TextView mTitle;
         @BindView(R.id.highlight_picture) View mHighlight;
-        private View mItemView;
 
         PictureHolder(View itemView) {
             super(itemView);
-            mItemView = itemView;
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickable) EventBus.getDefault().post(new ItemPositionEvent(getAdapterPosition()));
+            if (mClickable) {
+                EventBus.getDefault().post(new Events.ItemPositionEvent(getAdapterPosition()));
+            }
         }
 
         private void bindItem(int position) {
@@ -121,8 +120,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             setData(position);
 
             // Callback on the end of the list
-            if (position == getItemCount() - Constants.ONE)
-                EventBus.getDefault().post(new ItemLastEvent());
+            if (position == getItemCount() - Constants.ONE) {
+                EventBus.getDefault().post(new Events.ItemLastEvent());
+            }
         }
 
         private void loadPicture(int position) {
@@ -131,7 +131,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             String urlExtraSmall = mItems.get(position).getExtraSmallPicUrl();
             String urlSmall = mItems.get(position).getSmallPicUrl();
 
-            Context context = mItemView.getContext();
+            Context context = itemView.getContext();
             String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
             String grid5x8 = context.getString(R.string.pref_grid_size_value_5);
@@ -150,7 +150,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         private void setData(int position) {
-            Context context = mItemView.getContext();
+            Context context = itemView.getContext();
             String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
             if (mGridSize.equals(grid1x2)) {
@@ -176,13 +176,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
 
         private void glideLoading(String url) {
             if (mIsAnimationOn) {
-                Glide.with(mItemView.getContext())
+                Glide.with(itemView.getContext())
                         .load(url)
                         .error(R.mipmap.ic_error)
                         .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
             } else {
-                Glide.with(mItemView.getContext())
+                Glide.with(itemView.getContext())
                         .load(url)
                         .error(R.mipmap.ic_error)
                         .into(mPicture);
@@ -190,7 +190,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         }
 
         public void highlightPicture() {
-            Context context = mItemView.getContext();
+            Context context = itemView.getContext();
             final Animation show = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_show);
             final Animation hide = AnimationUtils.loadAnimation(context, R.anim.anim_alpha_hide);
             show.setAnimationListener(new AnimationEnd() {

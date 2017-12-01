@@ -8,8 +8,8 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
 import com.choliy.igor.galleryforflickr.R;
-import com.choliy.igor.galleryforflickr.event.PrefRestoreEvent;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.AlarmUtils;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -92,17 +92,15 @@ public class SettingsFragment extends PreferenceFragment implements
     }
 
     @Subscribe
-    public void onEvent(PrefRestoreEvent event) {
-        if (event.isRestoreSettings()) {
-            mGridPref.setValueIndex(Constants.DEFAULT_GRID_POSITION);
-            mStylePref.setValueIndex(Constants.DEFAULT_STYLE_POSITION);
-            mPicturePref.setValueIndex(Constants.DEFAULT_PICTURE_POSITION);
-            mSplashPref.setChecked(Constants.DEFAULT_SPLASH);
-            mAnimationPref.setChecked(Constants.DEFAULT_ANIMATION);
-            mNotificationPref.setChecked(Constants.DEFAULT_NOTIFICATION);
-            setupNotificationService(Boolean.FALSE);
-            InfoUtils.showShack(getView(), getString(R.string.pref_restore_info));
-        }
+    public void onEvent(Events.PrefRestoreEvent event) {
+        mGridPref.setValueIndex(Constants.DEFAULT_GRID_POSITION);
+        mStylePref.setValueIndex(Constants.DEFAULT_STYLE_POSITION);
+        mPicturePref.setValueIndex(Constants.DEFAULT_PICTURE_POSITION);
+        mSplashPref.setChecked(Constants.DEFAULT_SPLASH);
+        mAnimationPref.setChecked(Constants.DEFAULT_ANIMATION);
+        mNotificationPref.setChecked(Constants.DEFAULT_NOTIFICATION);
+        setupNotificationService(Boolean.FALSE);
+        InfoUtils.showShack(getView(), getString(R.string.pref_restore_info));
     }
 
     private void setPreferenceSummary(ListPreference listPref, String value) {

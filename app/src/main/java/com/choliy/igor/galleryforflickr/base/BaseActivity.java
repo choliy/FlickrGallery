@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.choliy.igor.galleryforflickr.R;
-import com.choliy.igor.galleryforflickr.event.ResultEvent;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -18,11 +18,11 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    public abstract int layoutRes();
+    protected abstract int layoutRes();
 
-    public abstract void setUi(Bundle savedInstanceState);
+    protected abstract void setUi(Bundle savedInstanceState);
 
-    private BroadcastReceiver mOnShowReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mOnShowReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             setResultCode(Activity.RESULT_CANCELED);
@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void onEvent(ResultEvent event) {
+    public void onEvent(Events.BaseEvent event) {
         // empty event for avoid crashes in non subscribed activities
     }
 }

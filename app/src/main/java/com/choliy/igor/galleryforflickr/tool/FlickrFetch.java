@@ -98,7 +98,7 @@ public class FlickrFetch {
         }
     }
 
-    private void parseItems(List<GalleryItem> items, JSONObject jsonBody) throws IOException, JSONException {
+    private void parseItems(List<GalleryItem> items, JSONObject jsonBody) throws JSONException {
         JSONObject baseJsonObject = jsonBody.getJSONObject(Constants.JSON_BASE);
         JSONArray photoJsonArray = baseJsonObject.getJSONArray(Constants.JSON_ARRAY);
 

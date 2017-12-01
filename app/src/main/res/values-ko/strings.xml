@@ -78,7 +78,7 @@
     <string name="text_empty_title">그림 제목 없음</string>
     <string name="text_exit">응용 프로그램을 종료 하시겠습니까?</string>
     <string name="text_hint_search">사진 검색</string>
-    <string name="text_new_pictures">검색어 ( \'%1$s\')의 새로운 사진이 있습니다.</string>
+    <string name="text_new_pictures">검색어 ( \"%1$s\")의 새로운 사진이 있습니다.</string>
     <string name="text_no_browser">기기에 브라우저가 없습니다.</string>
     <string name="text_no_connection">인터넷에 연결되어 있지 않습니다.</string>
     <string name="text_no_results">검색어에 대한 결과가 없습니다.</string>

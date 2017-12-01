@@ -18,11 +18,11 @@ import com.choliy.igor.galleryforflickr.adapter.PictureAdapter;
 import com.choliy.igor.galleryforflickr.async.DownloadService;
 import com.choliy.igor.galleryforflickr.base.BaseActivity;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.ResultEvent;
 import com.choliy.igor.galleryforflickr.fragment.GalleryFragment;
 import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.FabUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
 import com.github.clans.fab.FloatingActionButton;
@@ -45,7 +45,8 @@ public class PictureActivity extends BaseActivity {
     @BindView(R.id.picture_pager) ViewPager mPicturePager;
 
     public static final int REQUEST_CODE = 111;
-    public static final int PAGE_LIMIT = 3;
+    private static final int PAGE_LIMIT = 3;
+
     private GalleryItem mItem;
     private int mItemPosition;
     private boolean mPictureSaved;
@@ -100,11 +101,7 @@ public class PictureActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(
-            int requestCode,
-            @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         int zero = Constants.ZERO;
         boolean requestCodeSame = requestCode == REQUEST_CODE;
         boolean resultsNotEmpty = grantResults.length > zero;
@@ -117,8 +114,8 @@ public class PictureActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void onEvent(ResultEvent event) {
-        if (event.isResultOk()) setResultAndFinish();
+    public void onEvent(Events.BackPressedEvent event) {
+        setResultAndFinish();
     }
 
     @OnClick({R.id.fab_web, R.id.fab_share, R.id.fab_copy, R.id.fab_save, R.id.fab_download})
@@ -204,8 +201,11 @@ public class PictureActivity extends BaseActivity {
         mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFabMenu.isOpened()) enablePictureScreen(Boolean.TRUE);
-                else enablePictureScreen(Boolean.FALSE);
+                if (mFabMenu.isOpened()) {
+                    enablePictureScreen(Boolean.TRUE);
+                } else {
+                    enablePictureScreen(Boolean.FALSE);
+                }
             }
         });
     }

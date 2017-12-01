@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.activity.PictureActivity;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 
 import java.util.ArrayList;
@@ -64,13 +64,11 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
         @BindView(R.id.picture_saved) ImageView mPicture;
         @BindView(R.id.text_saved_owner) TextView mOwner;
         @BindView(R.id.text_saved_title) TextView mTitle;
-        private View mItemView;
 
         SavedHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
-            mItemView = itemView;
         }
 
         @Override
@@ -82,11 +80,11 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
 
         private void bindView(int position) {
             String url = mItems.get(position).getListPicUrl();
-            ExtraUtils.loadPicture(mItemView.getContext(), url, mPicture, null);
+            ExtraUtils.loadPicture(itemView.getContext(), url, mPicture, null);
             mOwner.setText(mItems.get(position).getOwnerName());
             String title = mItems.get(position).getTitle();
             if (title.equals(Constants.EMPTY)) {
-                title = mItemView.getContext().getString(R.string.text_empty_title);
+                title = itemView.getContext().getString(R.string.text_empty_title);
             }
             mTitle.setText(title);
         }

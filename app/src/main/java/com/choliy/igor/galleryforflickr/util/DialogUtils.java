@@ -10,10 +10,10 @@ import android.widget.TextView;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.async.PicDeleteTask;
 import com.choliy.igor.galleryforflickr.async.SaveHistoryTask;
-import com.choliy.igor.galleryforflickr.event.PrefRestoreEvent;
 import com.choliy.igor.galleryforflickr.fragment.AboutFragment;
 import com.choliy.igor.galleryforflickr.fragment.HistoryFragment;
 import com.choliy.igor.galleryforflickr.fragment.SecretFragment;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,7 +78,7 @@ public final class DialogUtils {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new PrefRestoreEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new Events.PrefRestoreEvent());
                 dialog.dismiss();
             }
         });

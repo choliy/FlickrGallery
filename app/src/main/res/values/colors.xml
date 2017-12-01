@@ -13,12 +13,10 @@
     <color name="colorTextBlack">#212121</color>
 
     <!-- Fab Colors -->
-    <color name="colorFabIcon">@color/colorTextGray</color>
     <color name="colorFabBackground">#96000000</color>
     <color name="colorFabShadow">@color/colorFabBackground</color>
 
     <!-- Other Colors -->
-    <color name="colorBlue">#3F51B5</color>
     <color name="colorGray">#BDBDBD</color>
     <color name="colorShadow">#64000000</color>
     <color name="colorDivider">#E0E0E0</color>

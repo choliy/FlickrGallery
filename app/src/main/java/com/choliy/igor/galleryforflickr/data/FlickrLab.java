@@ -14,7 +14,7 @@ import java.util.List;
 public class FlickrLab {
 
     private static FlickrLab sFlickrLab;
-    private SQLiteDatabase mDatabase;
+    private final SQLiteDatabase mDatabase;
 
     private FlickrLab(Context context) {
         mDatabase = new FlickrDbHelper(context.getApplicationContext()).getWritableDatabase();

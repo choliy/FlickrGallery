@@ -20,10 +20,9 @@ import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.activity.ZoomActivity;
 import com.choliy.igor.galleryforflickr.async.OnPictureClickTask;
 import com.choliy.igor.galleryforflickr.base.BaseFragment;
-import com.choliy.igor.galleryforflickr.event.PictureClickEvent;
-import com.choliy.igor.galleryforflickr.event.ResultEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 import com.choliy.igor.galleryforflickr.util.FabUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -100,13 +99,13 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
     }
 
     @Subscribe
-    public void onEvent(PictureClickEvent event) {
+    public void onEvent(Events.PictureClickEvent event) {
         startActivity(ZoomActivity.newInstance(getActivity(), event.getPicUrl(), event.getBytes()));
     }
 
     @OnClick(R.id.picture_return)
     public void onReturnClick() {
-        EventBus.getDefault().post(new ResultEvent(Boolean.TRUE));
+        EventBus.getDefault().post(new Events.BackPressedEvent());
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})

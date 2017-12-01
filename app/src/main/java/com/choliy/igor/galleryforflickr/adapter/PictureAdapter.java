@@ -11,7 +11,7 @@ import com.choliy.igor.galleryforflickr.model.GalleryItem;
 
 public class PictureAdapter extends FragmentStatePagerAdapter {
 
-    private boolean mSavedLibrary;
+    private final boolean mSavedLibrary;
 
     public PictureAdapter(FragmentManager fm, boolean savedLibrary) {
         super(fm);

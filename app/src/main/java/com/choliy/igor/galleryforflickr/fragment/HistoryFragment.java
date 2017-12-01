@@ -17,14 +17,10 @@ import com.choliy.igor.galleryforflickr.adapter.HistoryAdapter;
 import com.choliy.igor.galleryforflickr.async.SaveHistoryTask;
 import com.choliy.igor.galleryforflickr.base.BaseDialog;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.HistoryStartEvent;
-import com.choliy.igor.galleryforflickr.event.HistoryTitleEvent;
-import com.choliy.igor.galleryforflickr.event.SaveFinishEvent;
-import com.choliy.igor.galleryforflickr.event.SaveStartEvent;
-import com.choliy.igor.galleryforflickr.event.SwipePositionEvent;
 import com.choliy.igor.galleryforflickr.loader.HistoryLoader;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
 import com.choliy.igor.galleryforflickr.view.SwipeCallback;
@@ -82,7 +78,7 @@ public class HistoryFragment extends BaseDialog implements
         switch (view.getId()) {
             case R.id.btn_history_start:
                 closeHistoryDialog();
-                EventBus.getDefault().post(new HistoryStartEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new Events.HistoryStartEvent());
                 break;
             case R.id.btn_history_clear:
                 DialogUtils.clearDialog(getActivity(), new SaveHistoryTask(Boolean.TRUE, mSavedHistory));
@@ -94,12 +90,12 @@ public class HistoryFragment extends BaseDialog implements
     }
 
     @Subscribe
-    public void onEvent(HistoryTitleEvent event) {
+    public void onEvent(Events.HistoryTitleEvent event) {
         if (!TextUtils.isEmpty(event.getHistoryTitle())) closeHistoryDialog();
     }
 
     @Subscribe
-    public void onEvent(SwipePositionEvent event) {
+    public void onEvent(Events.SwipePositionEvent event) {
         HistoryItem item = mHistoryAdapter.removeItem(event.getPosition());
         FlickrLab.getInstance(getActivity()).deleteHistory(item.getId());
         restoreSingleHistory(event.getPosition(), item);
@@ -107,12 +103,12 @@ public class HistoryFragment extends BaseDialog implements
     }
 
     @Subscribe
-    public void onEvent(SaveStartEvent event) {
+    public void onEvent(Events.SaveStartEvent event) {
         mProgress.smoothToShow();
     }
 
     @Subscribe
-    public void onEvent(SaveFinishEvent event) {
+    public void onEvent(Events.SaveFinishEvent event) {
         if (event.isClearHistoryBase()) {
             mSavedHistory = mHistoryAdapter.getHistory();
             mHistoryAdapter.setHistory(new ArrayList<HistoryItem>());

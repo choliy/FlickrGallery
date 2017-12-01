@@ -10,7 +10,7 @@ import com.choliy.igor.galleryforflickr.tool.Constants;
 public class ZoomPicLoader extends AsyncTaskLoader<Bitmap> {
 
     public static final int ZOOM_PIC_LOADER_ID = 333;
-    private byte[] mByteArray;
+    private final byte[] mByteArray;
     private Bitmap mBitmap;
 
     public ZoomPicLoader(Context context, byte[] byteArray) {

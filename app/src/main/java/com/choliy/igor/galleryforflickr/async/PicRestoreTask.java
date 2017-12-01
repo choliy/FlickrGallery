@@ -4,9 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.RestoreFinishEvent;
-import com.choliy.igor.galleryforflickr.event.RestoreStartEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class PicRestoreTask extends AsyncTask<Context, Void, Void> {
 
-    private List<GalleryItem> mRestoreItems;
+    private final List<GalleryItem> mRestoreItems;
 
     public PicRestoreTask(List<GalleryItem> restoreItems) {
         mRestoreItems = restoreItems;
@@ -22,7 +21,7 @@ public class PicRestoreTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        EventBus.getDefault().post(new RestoreStartEvent());
+        EventBus.getDefault().post(new Events.RestoreStartEvent());
     }
 
     @Override
@@ -33,6 +32,6 @@ public class PicRestoreTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        EventBus.getDefault().post(new RestoreFinishEvent());
+        EventBus.getDefault().post(new Events.RestoreFinishEvent());
     }
 }

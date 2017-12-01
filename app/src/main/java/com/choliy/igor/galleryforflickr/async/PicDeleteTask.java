@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.DeleteFinishEvent;
-import com.choliy.igor.galleryforflickr.event.DeleteStartEvent;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -13,7 +12,7 @@ public class PicDeleteTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-        EventBus.getDefault().post(new DeleteStartEvent());
+        EventBus.getDefault().post(new Events.DeleteStartEvent());
     }
 
     @Override
@@ -24,6 +23,6 @@ public class PicDeleteTask extends AsyncTask<Context, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        EventBus.getDefault().post(new DeleteFinishEvent());
+        EventBus.getDefault().post(new Events.DeleteFinishEvent());
     }
 }

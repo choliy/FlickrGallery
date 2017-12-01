@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 import com.choliy.igor.galleryforflickr.tool.Constants;
-import com.choliy.igor.galleryforflickr.event.SwipePositionEvent;
+import com.choliy.igor.galleryforflickr.tool.Events;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,6 +25,6 @@ public class SwipeCallback extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        EventBus.getDefault().post(new SwipePositionEvent(viewHolder.getAdapterPosition()));
+        EventBus.getDefault().post(new Events.SwipePositionEvent(viewHolder.getAdapterPosition()));
     }
 }

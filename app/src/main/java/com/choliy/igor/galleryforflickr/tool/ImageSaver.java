@@ -19,7 +19,7 @@ public class ImageSaver {
     private static final int QUALITY_HIGH = 100;
     public static final int QUALITY_MID = 50;
 
-    private Context mContext;
+    private final Context mContext;
     private String mDirectoryName;
     private String mFileName;
     private boolean mExternal;

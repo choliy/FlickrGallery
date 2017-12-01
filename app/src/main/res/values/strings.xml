@@ -123,7 +123,6 @@
     <string name="pref_restore_info">Default settings was restored</string>
 
     <!-- Preferences Keys -->
-    <string name="pref_key_first_start" translatable="false">key_first_start</string>
     <string name="pref_key_search" translatable="false">key_search</string>
     <string name="pref_key_last_id" translatable="false">key_last_id</string>
     <string name="pref_key_grid" translatable="false">key_grid</string>
@@ -168,10 +167,6 @@
     <string name="pref_picture_value_300" translatable="false">300</string>
     <string name="pref_picture_value_400" translatable="false">400</string>
     <string name="pref_picture_value_500" translatable="false">500</string>
-
-    <!-- Fonts -->
-    <string name="font_normal" translatable="false">"font/raleway_normal.ttf"</string>
-    <string name="font_bold" translatable="false">"font/raleway_bold.ttf"</string>
 
     <!-- Parse -->
     <string name="text_def_description" translatable="false">{\"_content\":\"\"}</string>

@@ -16,17 +16,10 @@ import com.choliy.igor.galleryforflickr.async.PicDeleteTask;
 import com.choliy.igor.galleryforflickr.async.PicRestoreTask;
 import com.choliy.igor.galleryforflickr.base.BaseFragment;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
-import com.choliy.igor.galleryforflickr.event.DeleteFinishEvent;
-import com.choliy.igor.galleryforflickr.event.DeleteStartEvent;
-import com.choliy.igor.galleryforflickr.event.RemovePicEvent;
-import com.choliy.igor.galleryforflickr.event.RestoreFinishEvent;
-import com.choliy.igor.galleryforflickr.event.RestoreStartEvent;
-import com.choliy.igor.galleryforflickr.event.SwipePositionEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
-import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.loader.SavedPicLoader;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
 import com.choliy.igor.galleryforflickr.view.HidingScrollListener;
@@ -85,23 +78,21 @@ public class SavedFragment extends BaseFragment implements
     }
 
     @Subscribe
-    public void onEvent(RemovePicEvent event) {
-        if (event.isShowDialog()) {
-            if (mAdapter.getItemCount() == Constants.ZERO) {
-                InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_nothing));
-            } else {
-                DialogUtils.deleteDialog(getActivity(), new PicDeleteTask());
-            }
+    public void onEvent(Events.RemovePicEvent event) {
+        if (mAdapter.getItemCount() == Constants.ZERO) {
+            InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_nothing));
+        } else {
+            DialogUtils.deleteDialog(getActivity(), new PicDeleteTask());
         }
     }
 
     @Subscribe
-    public void onEvent(TopListEvent event) {
-        mRecyclerView.scrollToPosition(event.getScrollPosition());
+    public void onEvent(Events.TopListEvent event) {
+        mRecyclerView.scrollToPosition(Constants.ZERO);
     }
 
     @Subscribe
-    public void onEvent(SwipePositionEvent event) {
+    public void onEvent(Events.SwipePositionEvent event) {
         GalleryItem item = mAdapter.removeItem(event.getPosition());
         FlickrLab.getInstance(getActivity()).deletePicture(item.getDbId());
         restorePicture(event.getPosition(), item);
@@ -109,25 +100,25 @@ public class SavedFragment extends BaseFragment implements
     }
 
     @Subscribe
-    public void onEvent(DeleteStartEvent event) {
+    public void onEvent(Events.DeleteStartEvent event) {
         mProgress.smoothToShow();
         mRestoreItems = sSavedItems;
     }
 
     @Subscribe
-    public void onEvent(DeleteFinishEvent event) {
+    public void onEvent(Events.DeleteFinishEvent event) {
         restartLoader();
         restoreAllPictures();
     }
 
     @Subscribe
-    public void onEvent(RestoreStartEvent event) {
+    public void onEvent(Events.RestoreStartEvent event) {
         mEmptyList.setVisibility(View.INVISIBLE);
         mProgress.smoothToShow();
     }
 
     @Subscribe
-    public void onEvent(RestoreFinishEvent event) {
+    public void onEvent(Events.RestoreFinishEvent event) {
         restartLoader();
         InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_all_restored));
     }
@@ -144,12 +135,12 @@ public class SavedFragment extends BaseFragment implements
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
-                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.FALSE));
+                EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.FALSE));
             }
 
             @Override
             public void onShow() {
-                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.TRUE));
             }
         });
     }

@@ -19,7 +19,7 @@ import java.io.File;
 
 public class DownloadService extends IntentService {
 
-    public static final String TAG = DownloadService.class.getSimpleName();
+    private static final String TAG = DownloadService.class.getSimpleName();
 
     public DownloadService() {
         super(TAG);

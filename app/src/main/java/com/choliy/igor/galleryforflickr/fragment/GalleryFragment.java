@@ -17,16 +17,9 @@ import com.choliy.igor.galleryforflickr.activity.PictureActivity;
 import com.choliy.igor.galleryforflickr.adapter.GalleryAdapter;
 import com.choliy.igor.galleryforflickr.async.FetchPicturesTask;
 import com.choliy.igor.galleryforflickr.base.BaseFragment;
-import com.choliy.igor.galleryforflickr.event.AnimPrefEvent;
-import com.choliy.igor.galleryforflickr.event.FetchFinishEvent;
-import com.choliy.igor.galleryforflickr.event.FetchStartEvent;
-import com.choliy.igor.galleryforflickr.event.ItemLastEvent;
-import com.choliy.igor.galleryforflickr.event.ItemPositionEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarTypeEvent;
-import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
-import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.Constants;
+import com.choliy.igor.galleryforflickr.tool.Events;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
 import com.choliy.igor.galleryforflickr.util.PrefUtils;
@@ -88,13 +81,13 @@ public class GalleryFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onEvent(ItemPositionEvent event) {
+    public void onEvent(Events.ItemPositionEvent event) {
         Intent intent = PictureActivity.newInstance(getActivity(), event.getPosition(), Boolean.FALSE);
         startActivityForResult(intent, PictureActivity.REQUEST_CODE);
     }
 
     @Subscribe
-    public void onEvent(ItemLastEvent event) {
+    public void onEvent(Events.ItemLastEvent event) {
         if (!mNoMoreData) {
             ++mPageNumber;
             fetchData();
@@ -102,18 +95,18 @@ public class GalleryFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onEvent(TopListEvent event) {
-        mRvGallery.scrollToPosition(event.getScrollPosition());
+    public void onEvent(Events.TopListEvent event) {
+        mRvGallery.scrollToPosition(Constants.ZERO);
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onEvent(AnimPrefEvent event) {
+    public void onEvent(Events.AnimPrefEvent event) {
         mGalleryAdapter.setAnimation(event.isAnimationOn());
         EventBus.getDefault().removeStickyEvent(event);
     }
 
     @Subscribe
-    public void onEvent(FetchStartEvent event) {
+    public void onEvent(Events.FetchStartEvent event) {
         if (!mDataRefreshing) {
             mProgressView.smoothToShow();
             mGalleryAdapter.setClickable(Boolean.FALSE);
@@ -121,7 +114,7 @@ public class GalleryFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void onEvent(FetchFinishEvent event) {
+    public void onEvent(Events.FetchFinishEvent event) {
         mNoMoreData = event.getPictures().isEmpty();
         if (mPageNumber > Constants.DEFAULT_PAGE_NUMBER) {
             sGalleryItems.addAll(event.getPictures());
@@ -146,12 +139,12 @@ public class GalleryFragment extends BaseFragment {
         mRvGallery.addOnScrollListener(new HidingScrollListener() {
             @Override
             public void onHide() {
-                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.FALSE));
+                EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.FALSE));
             }
 
             @Override
             public void onShow() {
-                EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
+                EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.TRUE));
             }
         });
     }
@@ -165,7 +158,7 @@ public class GalleryFragment extends BaseFragment {
                 mPageNumber = Constants.DEFAULT_PAGE_NUMBER;
                 fetchData();
                 ExtraUtils.hideKeyboard(getActivity());
-                EventBus.getDefault().post(new ToolbarTypeEvent(Boolean.FALSE));
+                EventBus.getDefault().post(new Events.ToolbarTypeEvent());
             }
         });
 
@@ -232,7 +225,7 @@ public class GalleryFragment extends BaseFragment {
             mRvGallery.setVisibility(View.GONE);
             mProgressView.smoothToHide();
             mRefreshLayout.setRefreshing(Boolean.FALSE);
-            EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
+            EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.TRUE));
         }
         return connected;
     }
@@ -248,7 +241,7 @@ public class GalleryFragment extends BaseFragment {
         if (mGalleryAdapter.getItemCount() == Constants.ZERO) {
             mResultsLayout.setVisibility(View.VISIBLE);
             mConnectionLayout.setVisibility(View.GONE);
-            EventBus.getDefault().post(new ToolbarVisibilityEvent(Boolean.TRUE));
+            EventBus.getDefault().post(new Events.ToolbarVisibilityEvent(Boolean.TRUE));
         } else {
             mResultsLayout.setVisibility(View.GONE);
         }

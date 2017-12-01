@@ -6,15 +6,14 @@ import android.view.View;
 
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.base.BaseDialog;
-import com.choliy.igor.galleryforflickr.view.SquareLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SecretFragment extends BaseDialog {
 
-    @BindView(R.id.layout_secret_off) SquareLayout mLayoutOff;
-    @BindView(R.id.layout_secret_on) SquareLayout mLayoutOn;
+    @BindView(R.id.layout_secret_off) View mLayoutOff;
+    @BindView(R.id.layout_secret_on) View mLayoutOn;
 
     public static final String TAG = SecretFragment.class.getSimpleName();
     private MediaPlayer mPlayer;

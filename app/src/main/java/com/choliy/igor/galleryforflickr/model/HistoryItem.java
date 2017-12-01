@@ -22,7 +22,7 @@ public class HistoryItem {
         return mId;
     }
 
-    public void setId(String id) {
+    private void setId(String id) {
         mId = id;
     }
 
