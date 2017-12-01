@@ -44,7 +44,9 @@ public final class AlarmUtils {
     }
 
     public static Notification getNotification(Context context, String contentText) {
-        return initChannel(context)
+        String channelId = context.getPackageName();
+        initChannel(context, channelId);
+        return new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_notifications_white)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(contentText)
@@ -58,21 +60,20 @@ public final class AlarmUtils {
                 .build();
     }
 
-    private static NotificationCompat.Builder initChannel(Context context) {
-        NotificationCompat.Builder builder = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String channelId = context.getPackageName();
-            String channelName = AlarmUtils.class.getSimpleName();
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-                builder = new NotificationCompat.Builder(context, channel.getId());
-            }
-        } else {
-            builder = new NotificationCompat.Builder(context);
+    private static void initChannel(Context context, String channelId) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
+            return;
         }
-        return builder;
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel(
+                channelId,
+                AlarmUtils.class.getSimpleName(),
+                NotificationManager.IMPORTANCE_HIGH);
+
+        if (notificationManager != null) {
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private static PendingIntent getContentIntent(Context context) {
