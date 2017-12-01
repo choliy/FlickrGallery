@@ -7,13 +7,13 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
 
 public class SquareLayout extends FrameLayout {
 
-    private int aspectWidth = FlickrConstants.INT_ONE;
-    private int aspectHeight = FlickrConstants.INT_ONE;
+    private int aspectWidth = Constants.ONE;
+    private int aspectHeight = Constants.ONE;
 
     public SquareLayout(Context context) {
         super(context);
@@ -38,8 +38,8 @@ public class SquareLayout extends FrameLayout {
         if (attrs == null) return;
         TypedArray a = context.getResources().obtainAttributes(attrs, R.styleable.SquareLayout);
         try {
-            aspectWidth = a.getInteger(R.styleable.SquareLayout_aspect_width, FlickrConstants.INT_ONE);
-            aspectHeight = a.getInteger(R.styleable.SquareLayout_aspect_height, FlickrConstants.INT_ONE);
+            aspectWidth = a.getInteger(R.styleable.SquareLayout_aspect_width, Constants.ONE);
+            aspectHeight = a.getInteger(R.styleable.SquareLayout_aspect_height, Constants.ONE);
         } finally {
             a.recycle();
         }

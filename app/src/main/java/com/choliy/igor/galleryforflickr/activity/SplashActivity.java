@@ -2,6 +2,7 @@ package com.choliy.igor.galleryforflickr.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,7 +17,7 @@ import com.choliy.igor.galleryforflickr.util.PrefUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SplashActivity extends BroadcastActivity {
+public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_splash) Toolbar mToolbar;
     @BindView(R.id.toolbar_icon_menu) ImageView mImageMenu;
@@ -29,7 +30,6 @@ public class SplashActivity extends BroadcastActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PrefUtils.isFirstStart(this);
         if (!PrefUtils.getSplashSettings(this)) startGalleryActivity();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);

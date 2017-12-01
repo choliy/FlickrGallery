@@ -11,10 +11,10 @@ import android.net.Uri;
 import android.support.v4.app.ShareCompat;
 import android.util.Log;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.activity.WebActivity;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +23,7 @@ import java.net.URL;
 
 public final class FabUtils {
 
-    private FabUtils() {
-    }
+    private FabUtils() {}
 
     public static void browserUrl(Context context, String stringUrl) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringUrl));
@@ -33,8 +32,8 @@ public final class FabUtils {
 
     public static void goWeb(Context context, GalleryItem item) {
         Intent intent = new Intent(context, WebActivity.class);
-        intent.putExtra(FlickrConstants.OWNER_KEY, item.getOwnerName());
-        intent.putExtra(FlickrConstants.URI_KEY, item.getItemUri());
+        intent.putExtra(Constants.OWNER_KEY, item.getOwnerName());
+        intent.putExtra(Constants.URI_KEY, item.getItemUri());
         context.startActivity(intent);
     }
 
@@ -50,19 +49,19 @@ public final class FabUtils {
     public static void copyData(Context context, String stringData) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(context.getString(R.string.app_name), stringData);
-        clipboard.setPrimaryClip(clip);
+        if (clipboard != null) clipboard.setPrimaryClip(clip);
     }
 
     public static String getPictureUrl(GalleryItem item, boolean bigPicture) {
         String url;
-        String noUrl = FlickrConstants.JSON_NO_SUCH_SIZE;
-        if (!item.getBigPicUrl().equals(noUrl) && bigPicture)
+        String noUrl = Constants.JSON_NO_SUCH_SIZE;
+        if (!item.getBigPicUrl().equals(noUrl) && bigPicture) {
             url = item.getBigPicUrl();
-        else if (!item.getMediumPicUrl().equals(noUrl))
+        } else if (!item.getMediumPicUrl().equals(noUrl)) {
             url = item.getMediumPicUrl();
-        else if (!item.getSmallPicUrl().equals(noUrl))
+        } else if (!item.getSmallPicUrl().equals(noUrl)) {
             url = item.getSmallPicUrl();
-        else if (!item.getExtraSmallPicUrl().equals(noUrl)) {
+        } else if (!item.getExtraSmallPicUrl().equals(noUrl)) {
             url = item.getExtraSmallPicUrl();
         } else {
             url = item.getListPicUrl();

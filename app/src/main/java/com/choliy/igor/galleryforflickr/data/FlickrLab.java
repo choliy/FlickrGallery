@@ -79,8 +79,8 @@ public class FlickrLab {
                 new String[]{id});
     }
 
-    public int clearAllHistory() {
-        return mDatabase.delete(FlickrContract.TABLE_HISTORY, null, null);
+    public void clearAllHistory() {
+        mDatabase.delete(FlickrContract.TABLE_HISTORY, null, null);
     }
 
     /**

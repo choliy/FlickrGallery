@@ -64,18 +64,18 @@ public class ImageSaver {
     @NonNull
     private File createFile() {
         File directory;
-        if (mExternal)
+        if (mExternal) {
             directory = getAlbumStorageDir(mDirectoryName);
-        else
+        } else {
             directory = mContext.getDir(mDirectoryName, Context.MODE_PRIVATE);
+        }
 
         Log.i(TAG, directory.getAbsolutePath() + File.separator + mFileName);
         return new File(directory, mFileName);
     }
 
     private File getAlbumStorageDir(String albumName) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), albumName);
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), albumName);
         if (!file.mkdirs()) Log.i(TAG, "Directory not created");
         return file;
     }
@@ -87,8 +87,7 @@ public class ImageSaver {
 
     public static boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
-        return Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
+        return Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
     }
 
     public Bitmap load() {

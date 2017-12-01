@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
 
@@ -19,36 +19,41 @@ public class ItemDividerDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int frameWidth = (int) ((parent.getWidth() - (float) mGridMarginPx * (mGridSize - FlickrConstants.INT_ONE)) / mGridSize);
+        int frameWidth = (int) ((parent.getWidth() - (float) mGridMarginPx * (mGridSize - Constants.ONE)) / mGridSize);
         int padding = parent.getWidth() / mGridSize - frameWidth;
         int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewAdapterPosition();
 
-        if (itemPosition < mGridSize) outRect.top = FlickrConstants.INT_ZERO;
-        else outRect.top = mGridMarginPx;
+        if (itemPosition < mGridSize) {
+            outRect.top = Constants.ZERO;
+        } else {
+            outRect.top = mGridMarginPx;
+        }
 
-        if (itemPosition % mGridSize == FlickrConstants.INT_ZERO) {
-            outRect.left = FlickrConstants.INT_ZERO;
+        if (itemPosition % mGridSize == Constants.ZERO) {
+            outRect.left = Constants.ZERO;
             outRect.right = padding;
             mNeedLeftSpacing = true;
-        } else if ((itemPosition + FlickrConstants.INT_ONE) % mGridSize == FlickrConstants.INT_ZERO) {
+        } else if ((itemPosition + Constants.ONE) % mGridSize == Constants.ZERO) {
             mNeedLeftSpacing = false;
-            outRect.right = FlickrConstants.INT_ZERO;
+            outRect.right = Constants.ZERO;
             outRect.left = padding;
         } else if (mNeedLeftSpacing) {
             mNeedLeftSpacing = false;
             outRect.left = mGridMarginPx - padding;
-            if ((itemPosition + FlickrConstants.INT_TWO) % mGridSize == FlickrConstants.INT_ZERO)
+            if ((itemPosition + Constants.TWO) % mGridSize == Constants.ZERO) {
                 outRect.right = mGridMarginPx - padding;
-            else outRect.right = mGridMarginPx / FlickrConstants.INT_TWO;
-        } else if ((itemPosition + FlickrConstants.INT_TWO) % mGridSize == FlickrConstants.INT_ZERO) {
+            } else {
+                outRect.right = mGridMarginPx / Constants.TWO;
+            }
+        } else if ((itemPosition + Constants.TWO) % mGridSize == Constants.ZERO) {
             mNeedLeftSpacing = false;
-            outRect.left = mGridMarginPx / FlickrConstants.INT_TWO;
+            outRect.left = mGridMarginPx / Constants.TWO;
             outRect.right = mGridMarginPx - padding;
         } else {
             mNeedLeftSpacing = false;
-            outRect.left = mGridMarginPx / FlickrConstants.INT_TWO;
-            outRect.right = mGridMarginPx / FlickrConstants.INT_TWO;
+            outRect.left = mGridMarginPx / Constants.TWO;
+            outRect.right = mGridMarginPx / Constants.TWO;
         }
-        outRect.bottom = FlickrConstants.INT_ZERO;
+        outRect.bottom = Constants.ZERO;
     }
 }

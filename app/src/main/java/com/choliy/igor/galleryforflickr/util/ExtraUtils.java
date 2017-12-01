@@ -12,28 +12,27 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 import java.util.Calendar;
 
 public final class ExtraUtils {
 
-    private ExtraUtils() {
-    }
+    private ExtraUtils() {}
 
     public static void hideKeyboard(Context context) {
         View view = ((AppCompatActivity) context).getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), FlickrConstants.INT_ZERO);
+            if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), Constants.ZERO);
             view.clearFocus();
         }
     }
 
     public static void setupDevDate(Context context, NavigationView view) {
-        View header = view.getHeaderView(FlickrConstants.INT_ZERO);
-        TextView developer = (TextView) header.findViewById(R.id.nav_text_developer);
+        View header = view.getHeaderView(Constants.ZERO);
+        TextView developer = header.findViewById(R.id.nav_text_developer);
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String text = context.getString(R.string.dialog_developer, String.valueOf(year));
         developer.setText(text);
@@ -47,19 +46,20 @@ public final class ExtraUtils {
         } else {
             description = description.replace(
                     context.getString(R.string.text_replace_chars),
-                    FlickrConstants.STRING_EMPTY);
+                    Constants.EMPTY);
 
             description = description.substring(
-                    FlickrConstants.INT_ZERO,
-                    description.length() - FlickrConstants.INT_TWO);
+                    Constants.ZERO,
+                    description.length() - Constants.TWO);
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 description = Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY).toString();
-            else
+            } else {
                 description = Html.fromHtml(description).toString();
+            }
 
-            description = description.replaceAll("\\\\n", FlickrConstants.STRING_EMPTY);
-            description = description.replaceAll("\\\\/", FlickrConstants.STRING_EMPTY);
+            description = description.replaceAll("\\\\n", Constants.EMPTY);
+            description = description.replaceAll("\\\\/", Constants.EMPTY);
 
             return description;
         }
@@ -71,7 +71,7 @@ public final class ExtraUtils {
             ImageView image,
             RequestListener<String, Bitmap> listener) {
 
-        if (PrefUtils.getAnimationSettings(context))
+        if (PrefUtils.getAnimationSettings(context)) {
             Glide.with(context)
                     .load(url)
                     .asBitmap()
@@ -79,11 +79,13 @@ public final class ExtraUtils {
                     .listener(listener)
                     .animate(R.anim.anim_scale_picture)
                     .into(image);
-        else Glide.with(context)
-                .load(url)
-                .asBitmap()
-                .error(R.mipmap.ic_error)
-                .listener(listener)
-                .into(image);
+        } else {
+            Glide.with(context)
+                    .load(url)
+                    .asBitmap()
+                    .error(R.mipmap.ic_error)
+                    .listener(listener)
+                    .into(image);
+        }
     }
 }

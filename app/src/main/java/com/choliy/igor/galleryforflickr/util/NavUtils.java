@@ -15,8 +15,7 @@ import com.choliy.igor.galleryforflickr.activity.SettingsActivity;
 
 public final class NavUtils {
 
-    private NavUtils() {
-    }
+    private NavUtils() {}
 
     public static void onNavDrawerClicked(Context context, int id) {
         switch (id) {
@@ -48,10 +47,11 @@ public final class NavUtils {
     }
 
     public static void checkBeforeLaunching(Context context, Intent intent) {
-        if (intent.resolveActivity(context.getPackageManager()) != null)
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
-        else
+        } else {
             Toast.makeText(context, context.getString(R.string.text_no_browser), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void emailIntent(Context context) {

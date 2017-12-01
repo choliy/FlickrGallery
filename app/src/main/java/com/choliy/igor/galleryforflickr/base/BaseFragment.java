@@ -1,4 +1,4 @@
-package com.choliy.igor.galleryforflickr.fragment;
+package com.choliy.igor.galleryforflickr.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,9 +13,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 
-public abstract class EventFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
-    abstract int layoutRes();
+    protected abstract int layoutRes();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

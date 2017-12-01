@@ -13,7 +13,6 @@
 
     <TextView
         style="@style/InfoTextStyle"
-        fontPath="@string/font_bold"
         android:text="@string/text_no_saved_pic"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textStyle="bold"/>

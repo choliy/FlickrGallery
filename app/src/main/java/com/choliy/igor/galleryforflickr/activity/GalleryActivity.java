@@ -18,8 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.base.BaseActivity;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
 import com.choliy.igor.galleryforflickr.event.HistoryStartEvent;
 import com.choliy.igor.galleryforflickr.event.HistoryTitleEvent;
@@ -29,6 +29,7 @@ import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.fragment.GalleryFragment;
 import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.AnimUtils;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -42,11 +43,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GalleryActivity extends BroadcastActivity implements
-        NavigationView.OnNavigationItemSelectedListener {
+public class GalleryActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.image_top_list) ImageView mTopList;
     @BindView(R.id.toolbar_gallery) Toolbar mToolbar;
@@ -62,26 +61,43 @@ public class GalleryActivity extends BroadcastActivity implements
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery);
-        ButterKnife.bind(this);
-        setupUi(savedInstanceState);
+    public int layoutRes() {
+        return R.layout.activity_gallery;
+    }
+
+    @Override
+    public void setUi(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, new GalleryFragment())
+                    .commit();
+        } else {
+            mShowSearchType = savedInstanceState.getBoolean(Constants.TOOLBAR_KEY);
+            animateToolbar(mShowSearchType);
+        }
+
+        mNavigationView.setNavigationItemSelectedListener(this);
+        ExtraUtils.setupDevDate(this, mNavigationView);
+        setSupportActionBar(mToolbar);
+        setupSearchView();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(FlickrConstants.TOOLBAR_KEY, mShowSearchType);
+        outState.putBoolean(Constants.TOOLBAR_KEY, mShowSearchType);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        else if (mShowSearchType)
+        } else if (mShowSearchType) {
             animateToolbar(mShowSearchType = Boolean.FALSE);
-        else finishApp();
+        } else {
+            finishApp();
+        }
     }
 
     @Override
@@ -127,7 +143,7 @@ public class GalleryActivity extends BroadcastActivity implements
 
     @OnClick(R.id.image_top_list)
     public void onTopClicked() {
-        EventBus.getDefault().post(new TopListEvent(FlickrConstants.INT_ZERO));
+        EventBus.getDefault().post(new TopListEvent(Constants.ZERO));
     }
 
     public void onToolbarClick(View view) {
@@ -144,30 +160,13 @@ public class GalleryActivity extends BroadcastActivity implements
         }
     }
 
-    private void setupUi(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container, new GalleryFragment())
-                    .commit();
-        } else {
-            mShowSearchType = savedInstanceState.getBoolean(FlickrConstants.TOOLBAR_KEY);
-            animateToolbar(mShowSearchType);
-        }
-
-        mNavigationView.setNavigationItemSelectedListener(this);
-        ExtraUtils.setupDevDate(this, mNavigationView);
-        setSupportActionBar(mToolbar);
-        setupSearchView();
-    }
-
     private void setupSearchView() {
-        EditText searchPlate = (EditText) mSearchView.findViewById(R.id.search_src_text);
+        EditText searchPlate = mSearchView.findViewById(R.id.search_src_text);
         searchPlate.setHintTextColor(ContextCompat.getColor(this, R.color.colorTextLightGray));
         searchPlate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (mSearchView.getQuery().length() > FlickrConstants.INT_ZERO) {
+                if (mSearchView.getQuery().length() > Constants.ZERO) {
                     String query = mSearchView.getQuery().toString();
                     PrefUtils.setStoredQuery(GalleryActivity.this, query);
                     HistoryItem item = new HistoryItem(
@@ -194,13 +193,13 @@ public class GalleryActivity extends BroadcastActivity implements
             }
         });
 
-        final ImageView closeIcon = (ImageView) mSearchView.findViewById(R.id.search_close_btn);
+        final ImageView closeIcon = mSearchView.findViewById(R.id.search_close_btn);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
                     closeIcon.setClickable(Boolean.FALSE);
-                    closeIcon.setImageResource(FlickrConstants.INT_ZERO);
+                    closeIcon.setImageResource(Constants.ZERO);
                 } else {
                     closeIcon.setClickable(Boolean.TRUE);
                     closeIcon.setImageResource(R.drawable.ic_close);
@@ -217,7 +216,7 @@ public class GalleryActivity extends BroadcastActivity implements
         closeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSearchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
+                mSearchView.setQuery(Constants.EMPTY, Boolean.FALSE);
                 InfoUtils.showShack(view, getString(R.string.text_search_query));
                 PrefUtils.setStoredQuery(GalleryActivity.this, null);
             }

@@ -19,8 +19,11 @@ public class HistoryLoader extends AsyncTaskLoader<List<HistoryItem>> {
 
     @Override
     protected void onStartLoading() {
-        if (mHistoryItems == null) forceLoad();
-        else deliverResult(mHistoryItems);
+        if (mHistoryItems == null) {
+            forceLoad();
+        } else {
+            deliverResult(mHistoryItems);
+        }
     }
 
     @Override

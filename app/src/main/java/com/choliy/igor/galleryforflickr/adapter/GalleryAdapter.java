@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.event.ItemLastEvent;
 import com.choliy.igor.galleryforflickr.event.ItemPositionEvent;
@@ -74,14 +74,15 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
         String cardStyle = context.getString(R.string.pref_grid_style_value_3);
         boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
-        if (mGridStyle.equals(cardStyle) && newVersion)
+        if (mGridStyle.equals(cardStyle) && newVersion) {
             layout = R.layout.list_item_card_new;
-        else if (mGridStyle.equals(cardStyle) && !newVersion)
+        } else if (mGridStyle.equals(cardStyle) && !newVersion) {
             layout = R.layout.list_item_card_old;
-        else if (newVersion)
+        } else if (newVersion) {
             layout = R.layout.list_item_simple_new;
-        else
+        } else {
             layout = R.layout.list_item_simple_old;
+        }
 
         return layout;
     }
@@ -120,8 +121,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             setData(position);
 
             // Callback on the end of the list
-            if (position == getItemCount() - FlickrConstants.INT_ONE)
-                EventBus.getDefault().post(new ItemLastEvent(getItemCount()));
+            if (position == getItemCount() - Constants.ONE)
+                EventBus.getDefault().post(new ItemLastEvent());
         }
 
         private void loadPicture(int position) {
@@ -135,55 +136,57 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.PictureH
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
             String grid5x8 = context.getString(R.string.pref_grid_size_value_5);
 
-            if (mGridSize.equals(grid2x3) && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+            if (mGridSize.equals(grid2x3) && !urlExtraSmall.equals(Constants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlExtraSmall);
-            else if (mGridSize.equals(grid1x2) && !urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+            } else if (mGridSize.equals(grid1x2) && !urlSmall.equals(Constants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlSmall);
-            else if (mGridSize.equals(grid1x2)
-                    && urlSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE)
-                    && !urlExtraSmall.equals(FlickrConstants.JSON_NO_SUCH_SIZE))
+            } else if (mGridSize.equals(grid1x2) && urlSmall.equals(Constants.JSON_NO_SUCH_SIZE) && !urlExtraSmall.equals(Constants.JSON_NO_SUCH_SIZE)) {
                 glideLoading(urlExtraSmall);
-            else if (mGridSize.equals(grid5x8))
+            } else if (mGridSize.equals(grid5x8)) {
                 glideLoading(urlSmallList);
-            else
+            } else {
                 glideLoading(urlList);
+            }
         }
 
         private void setData(int position) {
             Context context = mItemView.getContext();
             String grid1x2 = context.getString(R.string.pref_grid_size_value_1);
             String grid2x3 = context.getString(R.string.pref_grid_size_value_2);
-            if (mGridSize.equals(grid1x2)) setDescription(position);
-            else if (mGridSize.equals(grid2x3)) {
+            if (mGridSize.equals(grid1x2)) {
+                setDescription(position);
+            } else if (mGridSize.equals(grid2x3)) {
                 setDescription(position);
                 mOwner.setTextSize(context.getResources().getInteger(R.integer.text_size_17));
                 mTitle.setTextSize(context.getResources().getInteger(R.integer.text_size_15));
-                mTitle.setMaxLines(FlickrConstants.INT_ONE);
+                mTitle.setMaxLines(Constants.ONE);
             }
         }
 
         private void setDescription(int position) {
             mOwner.setText(mItems.get(position).getOwnerName());
             String title = mItems.get(position).getTitle();
-            if (title.equals(FlickrConstants.STRING_EMPTY))
+            if (title.equals(Constants.EMPTY)) {
                 mTitle.setText(itemView.getContext().getString(R.string.text_empty_title));
-            else
+            } else {
                 mTitle.setText(title);
-
+            }
             mDescription.setVisibility(View.VISIBLE);
         }
 
         private void glideLoading(String url) {
-            if (mIsAnimationOn)
+            if (mIsAnimationOn) {
                 Glide.with(mItemView.getContext())
                         .load(url)
                         .error(R.mipmap.ic_error)
                         .animate(R.anim.anim_scale_picture)
                         .into(mPicture);
-            else Glide.with(mItemView.getContext())
-                    .load(url)
-                    .error(R.mipmap.ic_error)
-                    .into(mPicture);
+            } else {
+                Glide.with(mItemView.getContext())
+                        .load(url)
+                        .error(R.mipmap.ic_error)
+                        .into(mPicture);
+            }
         }
 
         public void highlightPicture() {

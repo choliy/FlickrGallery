@@ -9,6 +9,7 @@
     android:layout_margin="@dimen/dimen_material_margin"
     android:clickable="true"
     android:contentDescription="@null"
+    android:focusable="true"
     android:scaleType="centerInside"
     android:src="@mipmap/ic_top"
     android:visibility="invisible"

@@ -5,7 +5,9 @@
     android:id="@+id/toolbar_picture"
     style="@style/ToolbarLayoutStyle">
 
-    <LinearLayout style="@style/LayoutToolbarStyle">
+    <LinearLayout
+        style="@style/LayoutToolbarStyle"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/picture_return"
@@ -18,7 +20,7 @@
             android:layout_marginEnd="@dimen/dimen_material_margin"
             android:ellipsize="marquee"
             android:gravity="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textIsSelectable="true"
             tools:text="Legolas"/>
 

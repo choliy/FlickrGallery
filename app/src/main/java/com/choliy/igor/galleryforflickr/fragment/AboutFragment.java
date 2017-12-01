@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.base.BaseDialog;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.NavUtils;
 
@@ -16,13 +17,13 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
-public class AboutFragment extends CustomFragment {
+public class AboutFragment extends BaseDialog {
 
     public static final String TAG = AboutFragment.class.getSimpleName();
     @BindView(R.id.btn_developer) TextView mDeveloper;
 
     @Override
-    int layoutRes() {
+    protected int layoutRes() {
         return R.layout.dialog_about;
     }
 

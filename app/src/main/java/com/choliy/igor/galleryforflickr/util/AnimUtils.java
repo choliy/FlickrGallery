@@ -11,13 +11,12 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public final class AnimUtils {
 
-    private AnimUtils() {
-    }
+    private AnimUtils() {}
 
     public static void animateView(Context context, View view, boolean show) {
         int animResId;
@@ -34,12 +33,12 @@ public final class AnimUtils {
     public static void animToolbarVisibility(Toolbar toolbar, boolean show) {
         if (show) {
             toolbar.animate()
-                    .translationY(FlickrConstants.INT_ZERO)
-                    .setInterpolator(new DecelerateInterpolator(FlickrConstants.INT_TWO));
+                    .translationY(Constants.ZERO)
+                    .setInterpolator(new DecelerateInterpolator(Constants.TWO));
         } else {
             toolbar.animate()
                     .translationY(-toolbar.getHeight())
-                    .setInterpolator(new AccelerateInterpolator(FlickrConstants.INT_TWO));
+                    .setInterpolator(new AccelerateInterpolator(Constants.TWO));
         }
     }
 
@@ -48,9 +47,9 @@ public final class AnimUtils {
             SearchView searchView,
             boolean showSearchType) {
 
-        Toolbar toolbar = (Toolbar) ((AppCompatActivity) context).findViewById(R.id.toolbar_gallery);
-        LinearLayout toolbarMain = (LinearLayout) toolbar.findViewById(R.id.toolbar_main);
-        LinearLayout toolbarSearch = (LinearLayout) toolbar.findViewById(R.id.toolbar_search);
+        Toolbar toolbar = ((AppCompatActivity) context).findViewById(R.id.toolbar_gallery);
+        LinearLayout toolbarMain = toolbar.findViewById(R.id.toolbar_main);
+        LinearLayout toolbarSearch = toolbar.findViewById(R.id.toolbar_search);
 
         int animHideId = R.anim.anim_alpha_hide;
         int animShowId = R.anim.anim_alpha_show;
@@ -73,7 +72,7 @@ public final class AnimUtils {
             toolbarSearch.startAnimation(hide);
             toolbarSearch.setVisibility(View.GONE);
 
-            searchView.setQuery(FlickrConstants.STRING_EMPTY, Boolean.FALSE);
+            searchView.setQuery(Constants.EMPTY, Boolean.FALSE);
             searchView.setIconified(Boolean.TRUE);
         }
     }

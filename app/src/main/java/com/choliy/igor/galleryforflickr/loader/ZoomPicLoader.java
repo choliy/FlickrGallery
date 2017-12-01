@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.content.AsyncTaskLoader;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public class ZoomPicLoader extends AsyncTaskLoader<Bitmap> {
 
@@ -20,13 +20,16 @@ public class ZoomPicLoader extends AsyncTaskLoader<Bitmap> {
 
     @Override
     protected void onStartLoading() {
-        if (mBitmap == null) forceLoad();
-        else deliverResult(mBitmap);
+        if (mBitmap == null) {
+            forceLoad();
+        } else {
+            deliverResult(mBitmap);
+        }
     }
 
     @Override
     public Bitmap loadInBackground() {
-        mBitmap = BitmapFactory.decodeByteArray(mByteArray, FlickrConstants.INT_ZERO, mByteArray.length);
+        mBitmap = BitmapFactory.decodeByteArray(mByteArray, Constants.ZERO, mByteArray.length);
         return mBitmap;
     }
 

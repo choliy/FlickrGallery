@@ -1,6 +1,5 @@
 package com.choliy.igor.galleryforflickr.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
@@ -11,18 +10,27 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.adapter.SavedAdapter;
+import com.choliy.igor.galleryforflickr.async.PicDeleteTask;
+import com.choliy.igor.galleryforflickr.async.PicRestoreTask;
+import com.choliy.igor.galleryforflickr.base.BaseFragment;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
+import com.choliy.igor.galleryforflickr.event.DeleteFinishEvent;
+import com.choliy.igor.galleryforflickr.event.DeleteStartEvent;
 import com.choliy.igor.galleryforflickr.event.RemovePicEvent;
+import com.choliy.igor.galleryforflickr.event.RestoreFinishEvent;
+import com.choliy.igor.galleryforflickr.event.RestoreStartEvent;
+import com.choliy.igor.galleryforflickr.event.SwipePositionEvent;
 import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
 import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.loader.SavedPicLoader;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
 import com.choliy.igor.galleryforflickr.view.HidingScrollListener;
+import com.choliy.igor.galleryforflickr.view.SwipeCallback;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,7 +41,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SavedFragment extends EventFragment implements
+public class SavedFragment extends BaseFragment implements
         LoaderManager.LoaderCallbacks<List<GalleryItem>> {
 
     @BindView(R.id.layout_no_pic) LinearLayout mEmptyList;
@@ -45,7 +53,7 @@ public class SavedFragment extends EventFragment implements
     private SavedAdapter mAdapter;
 
     @Override
-    int layoutRes() {
+    protected int layoutRes() {
         return R.layout.fragment_saved;
     }
 
@@ -56,20 +64,6 @@ public class SavedFragment extends EventFragment implements
         getActivity()
                 .getSupportLoaderManager()
                 .initLoader(SavedPicLoader.SAVED_PIC_LOADER_ID, null, this);
-    }
-
-    @Subscribe
-    public void onEvent(RemovePicEvent event) {
-        if (event.isShowDialog()) {
-            if (mAdapter.getItemCount() == FlickrConstants.INT_ZERO)
-                InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_nothing));
-            else DialogUtils.deleteDialog(getActivity(), new DeletePicTask());
-        }
-    }
-
-    @Subscribe
-    public void onEvent(TopListEvent event) {
-        mRecyclerView.scrollToPosition(event.getScrollPosition());
     }
 
     @Override
@@ -90,11 +84,59 @@ public class SavedFragment extends EventFragment implements
         mAdapter.setItems(new ArrayList<GalleryItem>());
     }
 
+    @Subscribe
+    public void onEvent(RemovePicEvent event) {
+        if (event.isShowDialog()) {
+            if (mAdapter.getItemCount() == Constants.ZERO) {
+                InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_nothing));
+            } else {
+                DialogUtils.deleteDialog(getActivity(), new PicDeleteTask());
+            }
+        }
+    }
+
+    @Subscribe
+    public void onEvent(TopListEvent event) {
+        mRecyclerView.scrollToPosition(event.getScrollPosition());
+    }
+
+    @Subscribe
+    public void onEvent(SwipePositionEvent event) {
+        GalleryItem item = mAdapter.removeItem(event.getPosition());
+        FlickrLab.getInstance(getActivity()).deletePicture(item.getDbId());
+        restorePicture(event.getPosition(), item);
+        checkData();
+    }
+
+    @Subscribe
+    public void onEvent(DeleteStartEvent event) {
+        mProgress.smoothToShow();
+        mRestoreItems = sSavedItems;
+    }
+
+    @Subscribe
+    public void onEvent(DeleteFinishEvent event) {
+        restartLoader();
+        restoreAllPictures();
+    }
+
+    @Subscribe
+    public void onEvent(RestoreStartEvent event) {
+        mEmptyList.setVisibility(View.INVISIBLE);
+        mProgress.smoothToShow();
+    }
+
+    @Subscribe
+    public void onEvent(RestoreFinishEvent event) {
+        restartLoader();
+        InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_all_restored));
+    }
+
     private void setRecyclerView() {
         mAdapter = new SavedAdapter();
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ItemTouchHelper touchHelper = new ItemTouchHelper(new OnSavedPicSwipeCallback());
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new SwipeCallback());
         touchHelper.attachToRecyclerView(mRecyclerView);
     }
 
@@ -122,7 +164,7 @@ public class SavedFragment extends EventFragment implements
         snackbar.setAction(R.string.dialog_undo_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new RestorePicTask().execute();
+                new PicRestoreTask(mRestoreItems).execute(getActivity());
             }
         });
         snackbar.show();
@@ -144,76 +186,7 @@ public class SavedFragment extends EventFragment implements
     }
 
     private void checkData() {
-        if (mAdapter.getItemCount() == FlickrConstants.INT_ZERO)
-            mEmptyList.setVisibility(View.VISIBLE);
-        else mEmptyList.setVisibility(View.INVISIBLE);
-    }
-
-    public class DeletePicTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            mProgress.smoothToShow();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            mRestoreItems = sSavedItems;
-            FlickrLab.getInstance(getActivity()).deleteAllPictures();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            restartLoader();
-            restoreAllPictures();
-        }
-    }
-
-    private class RestorePicTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            mEmptyList.setVisibility(View.INVISIBLE);
-            mProgress.smoothToShow();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            FlickrLab.getInstance(getActivity()).restoreAllPictures(mRestoreItems);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            restartLoader();
-            InfoUtils.showShack(mRecyclerView, getString(R.string.text_delete_all_restored));
-        }
-    }
-
-    private class OnSavedPicSwipeCallback extends ItemTouchHelper.SimpleCallback {
-
-        private int mPosition;
-
-        OnSavedPicSwipeCallback() {
-            super(FlickrConstants.INT_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        }
-
-        @Override
-        public boolean onMove(
-                RecyclerView recyclerView,
-                RecyclerView.ViewHolder viewHolder,
-                RecyclerView.ViewHolder target) {
-            return Boolean.FALSE;
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            mPosition = viewHolder.getAdapterPosition();
-            GalleryItem item = mAdapter.removeItem(mPosition);
-            FlickrLab.getInstance(getActivity()).deletePicture(item.getDbId());
-            restorePicture(mPosition, item);
-            checkData();
-        }
+        boolean adapterNotEmpty = mAdapter.getItemCount() == Constants.ZERO;
+        mEmptyList.setVisibility(adapterNotEmpty ? View.VISIBLE : View.INVISIBLE);
     }
 }

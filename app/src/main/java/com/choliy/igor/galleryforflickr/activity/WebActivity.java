@@ -12,17 +12,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.base.BaseActivity;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.FabUtils;
 import com.github.clans.fab.FloatingActionMenu;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WebActivity extends BroadcastActivity {
+public class WebActivity extends BaseActivity {
 
     @BindView(R.id.picture_owner) TextView mPictureOwner;
     @BindView(R.id.layout_no_uri) LinearLayout mNoUriLayout;
@@ -32,15 +32,29 @@ public class WebActivity extends BroadcastActivity {
     @BindView(R.id.fence_web_view) View mFenceView;
 
     private static final int ONE_HUNDRED_PERCENT = 100;
-    private String mItemUri = FlickrConstants.STRING_EMPTY;
+    private String mItemUri = Constants.EMPTY;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
-        ButterKnife.bind(this);
-        setupUi();
+    public int layoutRes() {
+        return R.layout.activity_web;
+    }
+
+    @Override
+    public void setUi(Bundle savedInstanceState) {
+        getPictureOwner();
         setupWebView();
+        setupFab();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mWebView.canGoBack()) mWebView.goBack();
+        if (mFabMenu.isOpened()) {
+            mFenceView.setVisibility(View.INVISIBLE);
+            mFabMenu.close(Boolean.TRUE);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @OnClick({R.id.fab_browser, R.id.fab_share, R.id.fab_copy})
@@ -60,42 +74,20 @@ public class WebActivity extends BroadcastActivity {
         mFabMenu.close(Boolean.TRUE);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mWebView.canGoBack()) mWebView.goBack();
-        if (mFabMenu.isOpened()) {
-            mFenceView.setVisibility(View.INVISIBLE);
-            mFabMenu.close(Boolean.TRUE);
-        } else super.onBackPressed();
-    }
-
     @OnClick(R.id.picture_return)
     public void onReturnClick() {
         finish();
     }
 
-    private void setupUi() {
+    private void getPictureOwner() {
         Intent intent = getIntent();
         if (intent != null) {
-            String pictureOwner = intent.getStringExtra(FlickrConstants.OWNER_KEY);
-            mItemUri = intent.getStringExtra(FlickrConstants.URI_KEY);
+            String pictureOwner = intent.getStringExtra(Constants.OWNER_KEY);
+            mItemUri = intent.getStringExtra(Constants.URI_KEY);
             if (pictureOwner.isEmpty())
                 pictureOwner = getString(R.string.text_empty_title);
             mPictureOwner.setText(pictureOwner);
         }
-
-        mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!mFabMenu.isOpened()) {
-                    mFenceView.setVisibility(View.VISIBLE);
-                    mFabMenu.open(Boolean.TRUE);
-                } else {
-                    mFenceView.setVisibility(View.INVISIBLE);
-                    mFabMenu.close(Boolean.TRUE);
-                }
-            }
-        });
     }
 
     private void setupWebView() {
@@ -122,5 +114,20 @@ public class WebActivity extends BroadcastActivity {
             }
         });
         mWebView.loadUrl(mItemUri);
+    }
+
+    private void setupFab() {
+        mFabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!mFabMenu.isOpened()) {
+                    mFenceView.setVisibility(View.VISIBLE);
+                    mFabMenu.open(Boolean.TRUE);
+                } else {
+                    mFenceView.setVisibility(View.INVISIBLE);
+                    mFabMenu.close(Boolean.TRUE);
+                }
+            }
+        });
     }
 }

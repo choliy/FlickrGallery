@@ -1,6 +1,5 @@
 package com.choliy.igor.galleryforflickr.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
@@ -13,17 +12,22 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.adapter.HistoryAdapter;
+import com.choliy.igor.galleryforflickr.async.SaveHistoryTask;
+import com.choliy.igor.galleryforflickr.base.BaseDialog;
 import com.choliy.igor.galleryforflickr.data.FlickrLab;
 import com.choliy.igor.galleryforflickr.event.HistoryStartEvent;
 import com.choliy.igor.galleryforflickr.event.HistoryTitleEvent;
+import com.choliy.igor.galleryforflickr.event.SaveFinishEvent;
+import com.choliy.igor.galleryforflickr.event.SaveStartEvent;
+import com.choliy.igor.galleryforflickr.event.SwipePositionEvent;
 import com.choliy.igor.galleryforflickr.loader.HistoryLoader;
 import com.choliy.igor.galleryforflickr.model.HistoryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
-import com.choliy.igor.galleryforflickr.util.PrefUtils;
+import com.choliy.igor.galleryforflickr.view.SwipeCallback;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HistoryFragment extends CustomFragment implements
+public class HistoryFragment extends BaseDialog implements
         LoaderManager.LoaderCallbacks<List<HistoryItem>> {
 
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
@@ -48,7 +52,7 @@ public class HistoryFragment extends CustomFragment implements
     private HistoryAdapter mHistoryAdapter;
 
     @Override
-    int layoutRes() {
+    protected int layoutRes() {
         return R.layout.dialog_history;
     }
 
@@ -71,8 +75,7 @@ public class HistoryFragment extends CustomFragment implements
     }
 
     @Override
-    public void onLoaderReset(Loader<List<HistoryItem>> loader) {
-    }
+    public void onLoaderReset(Loader<List<HistoryItem>> loader) {}
 
     @OnClick({R.id.btn_history_start, R.id.btn_history_clear, R.id.btn_history_close})
     public void onClick(View view) {
@@ -82,7 +85,7 @@ public class HistoryFragment extends CustomFragment implements
                 EventBus.getDefault().post(new HistoryStartEvent(Boolean.TRUE));
                 break;
             case R.id.btn_history_clear:
-                DialogUtils.clearDialog(getActivity(), new SaveHistoryAsyncTask());
+                DialogUtils.clearDialog(getActivity(), new SaveHistoryTask(Boolean.TRUE, mSavedHistory));
                 break;
             case R.id.btn_history_close:
                 closeHistoryDialog();
@@ -95,6 +98,33 @@ public class HistoryFragment extends CustomFragment implements
         if (!TextUtils.isEmpty(event.getHistoryTitle())) closeHistoryDialog();
     }
 
+    @Subscribe
+    public void onEvent(SwipePositionEvent event) {
+        HistoryItem item = mHistoryAdapter.removeItem(event.getPosition());
+        FlickrLab.getInstance(getActivity()).deleteHistory(item.getId());
+        restoreSingleHistory(event.getPosition(), item);
+        checkHistory();
+    }
+
+    @Subscribe
+    public void onEvent(SaveStartEvent event) {
+        mProgress.smoothToShow();
+    }
+
+    @Subscribe
+    public void onEvent(SaveFinishEvent event) {
+        if (event.isClearHistoryBase()) {
+            mSavedHistory = mHistoryAdapter.getHistory();
+            mHistoryAdapter.setHistory(new ArrayList<HistoryItem>());
+            restoreHistory();
+        } else {
+            mHistoryAdapter.setHistory(mSavedHistory);
+            InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored));
+        }
+        mProgress.smoothToHide();
+        checkHistory();
+    }
+
     private void setupUi() {
         mHistoryAdapter = new HistoryAdapter();
         mRvHistory.setAdapter(mHistoryAdapter);
@@ -104,12 +134,12 @@ public class HistoryFragment extends CustomFragment implements
         // set current property to false for avoid listItem width issue
         layoutManager.setAutoMeasureEnabled(Boolean.FALSE);
         mRvHistory.setLayoutManager(layoutManager);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(new OnHistorySwipeCallback());
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new SwipeCallback());
         touchHelper.attachToRecyclerView(mRvHistory);
     }
 
     private void checkHistory() {
-        if (mHistoryAdapter.getItemCount() > FlickrConstants.INT_ZERO) {
+        if (mHistoryAdapter.getItemCount() > Constants.ZERO) {
             mNoHistory.setVisibility(View.GONE);
             mBtnClear.setVisibility(View.VISIBLE);
         } else {
@@ -124,7 +154,7 @@ public class HistoryFragment extends CustomFragment implements
         snackbar.setAction(R.string.dialog_undo_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SaveHistoryAsyncTask().execute(Boolean.FALSE);
+                new SaveHistoryTask(Boolean.FALSE, mSavedHistory).execute(getActivity());
             }
         });
         snackbar.show();
@@ -147,66 +177,5 @@ public class HistoryFragment extends CustomFragment implements
 
     private void closeHistoryDialog() {
         getDialog().dismiss();
-    }
-
-    public class SaveHistoryAsyncTask extends AsyncTask<Boolean, Void, Void> {
-
-        private boolean mClearHistoryBase;
-
-        @Override
-        protected void onPreExecute() {
-            mProgress.smoothToShow();
-        }
-
-        @Override
-        protected Void doInBackground(Boolean... bool) {
-            mClearHistoryBase = bool[FlickrConstants.INT_ZERO];
-            if (mClearHistoryBase) {
-                FlickrLab.getInstance(getActivity()).clearAllHistory();
-                PrefUtils.setStoredQuery(getActivity(), null);
-            } else
-                FlickrLab.getInstance(getActivity()).restoreHistory(mSavedHistory);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if (mClearHistoryBase) {
-                mSavedHistory = mHistoryAdapter.getHistory();
-                mHistoryAdapter.setHistory(new ArrayList<HistoryItem>());
-                restoreHistory();
-            } else {
-                mHistoryAdapter.setHistory(mSavedHistory);
-                InfoUtils.showShack(mBtnClear, getString(R.string.dialog_restore_restored));
-            }
-            mProgress.smoothToHide();
-            checkHistory();
-        }
-    }
-
-    private class OnHistorySwipeCallback extends ItemTouchHelper.SimpleCallback {
-
-        private int mPosition;
-
-        OnHistorySwipeCallback() {
-            super(FlickrConstants.INT_ZERO, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
-        }
-
-        @Override
-        public boolean onMove(
-                RecyclerView recyclerView,
-                RecyclerView.ViewHolder viewHolder,
-                RecyclerView.ViewHolder target) {
-            return Boolean.FALSE;
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            mPosition = viewHolder.getAdapterPosition();
-            HistoryItem item = mHistoryAdapter.removeItem(mPosition);
-            FlickrLab.getInstance(getActivity()).deleteHistory(item.getId());
-            restoreSingleHistory(mPosition, item);
-            checkHistory();
-        }
     }
 }

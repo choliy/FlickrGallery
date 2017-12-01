@@ -1,6 +1,6 @@
-package com.choliy.igor.galleryforflickr;
+package com.choliy.igor.galleryforflickr.tool;
 
-public interface FlickrConstants {
+public interface Constants {
 
     // Keys
     String PICTURE_DOWNLOADED_KEY = "picture_downloaded_key";
@@ -18,16 +18,16 @@ public interface FlickrConstants {
     String URI_KEY = "uri_key";
 
     // Default variables
-    String STRING_EMPTY = "";
-    int INT_ZERO = 0;
-    int INT_ONE = 1;
-    int INT_TWO = 2;
+    String EMPTY = "";
+    int ZERO = 0;
+    int ONE = 1;
+    int TWO = 2;
 
     // Default values
-    int DEFAULT_PAGE_NUMBER = INT_ONE;
-    int DEFAULT_GRID_POSITION = INT_TWO;
-    int DEFAULT_STYLE_POSITION = INT_ZERO;
-    int DEFAULT_PICTURE_POSITION = INT_ONE;
+    int DEFAULT_PAGE_NUMBER = ONE;
+    int DEFAULT_GRID_POSITION = TWO;
+    int DEFAULT_STYLE_POSITION = ZERO;
+    int DEFAULT_PICTURE_POSITION = ONE;
     boolean DEFAULT_SPLASH = Boolean.TRUE;
     boolean DEFAULT_ANIMATION = Boolean.TRUE;
     boolean DEFAULT_NOTIFICATION = Boolean.FALSE;

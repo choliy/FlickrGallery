@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationManagerCompat;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -15,8 +15,8 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (getResultCode() == Activity.RESULT_CANCELED) return;
 
-        Notification notification = intent.getParcelableExtra(FlickrConstants.NOTIFICATION_KEY);
+        Notification notification = intent.getParcelableExtra(Constants.NOTIFICATION_KEY);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(FlickrConstants.INT_ZERO, notification);
+        notificationManager.notify(Constants.ZERO, notification);
     }
 }

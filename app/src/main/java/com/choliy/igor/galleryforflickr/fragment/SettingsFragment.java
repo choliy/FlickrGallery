@@ -2,15 +2,14 @@ package com.choliy.igor.galleryforflickr.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.event.PrefRestoreEvent;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.AlarmUtils;
 import com.choliy.igor.galleryforflickr.util.DialogUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -25,7 +24,7 @@ public class SettingsFragment extends PreferenceFragment implements
     private ListPreference mGridPref;
     private ListPreference mStylePref;
     private ListPreference mPicturePref;
-    private CheckBoxPreference mSplashPref;
+    private SwitchPreference mSplashPref;
     private SwitchPreference mAnimationPref;
     private SwitchPreference mNotificationPref;
 
@@ -38,7 +37,7 @@ public class SettingsFragment extends PreferenceFragment implements
         mGridPref = (ListPreference) findPreference(getString(R.string.pref_key_grid));
         mStylePref = (ListPreference) findPreference(getString(R.string.pref_key_style));
         mPicturePref = (ListPreference) findPreference(getString(R.string.pref_key_picture));
-        mSplashPref = (CheckBoxPreference) findPreference(getString(R.string.pref_key_splash));
+        mSplashPref = (SwitchPreference) findPreference(getString(R.string.pref_key_splash));
         mAnimationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_animation));
         mNotificationPref = (SwitchPreference) findPreference(getString(R.string.pref_key_notification));
         mNotificationPref.setOnPreferenceClickListener(this);
@@ -74,11 +73,12 @@ public class SettingsFragment extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if (preference.getKey().equals(getString(R.string.pref_key_notification)))
+        if (preference.getKey().equals(getString(R.string.pref_key_notification))) {
             setupNotificationService(mNotificationPref.isChecked());
-        else
+        } else {
             DialogUtils.restoreDialog(getActivity());
-        return true;
+        }
+        return Boolean.TRUE;
     }
 
     @Override
@@ -91,25 +91,25 @@ public class SettingsFragment extends PreferenceFragment implements
         }
     }
 
-    private void setPreferenceSummary(ListPreference listPref, String value) {
-        int prefIndex = listPref.findIndexOfValue(value);
-        if (prefIndex >= FlickrConstants.INT_ZERO) {
-            CharSequence prefLabel = listPref.getEntries()[prefIndex];
-            listPref.setSummary(prefLabel);
-        }
-    }
-
     @Subscribe
     public void onEvent(PrefRestoreEvent event) {
         if (event.isRestoreSettings()) {
-            mGridPref.setValueIndex(FlickrConstants.DEFAULT_GRID_POSITION);
-            mStylePref.setValueIndex(FlickrConstants.DEFAULT_STYLE_POSITION);
-            mPicturePref.setValueIndex(FlickrConstants.DEFAULT_PICTURE_POSITION);
-            mSplashPref.setChecked(FlickrConstants.DEFAULT_SPLASH);
-            mAnimationPref.setChecked(FlickrConstants.DEFAULT_ANIMATION);
-            mNotificationPref.setChecked(FlickrConstants.DEFAULT_NOTIFICATION);
+            mGridPref.setValueIndex(Constants.DEFAULT_GRID_POSITION);
+            mStylePref.setValueIndex(Constants.DEFAULT_STYLE_POSITION);
+            mPicturePref.setValueIndex(Constants.DEFAULT_PICTURE_POSITION);
+            mSplashPref.setChecked(Constants.DEFAULT_SPLASH);
+            mAnimationPref.setChecked(Constants.DEFAULT_ANIMATION);
+            mNotificationPref.setChecked(Constants.DEFAULT_NOTIFICATION);
             setupNotificationService(Boolean.FALSE);
             InfoUtils.showShack(getView(), getString(R.string.pref_restore_info));
+        }
+    }
+
+    private void setPreferenceSummary(ListPreference listPref, String value) {
+        int prefIndex = listPref.findIndexOfValue(value);
+        if (prefIndex >= Constants.ZERO) {
+            CharSequence prefLabel = listPref.getEntries()[prefIndex];
+            listPref.setSummary(prefLabel);
         }
     }
 

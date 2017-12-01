@@ -16,7 +16,6 @@
         android:protectionLevel="signature"/>
 
     <application
-        android:name="com.choliy.igor.galleryforflickr.FlickrApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -8,30 +8,30 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.async.PicDeleteTask;
+import com.choliy.igor.galleryforflickr.async.SaveHistoryTask;
 import com.choliy.igor.galleryforflickr.event.PrefRestoreEvent;
 import com.choliy.igor.galleryforflickr.fragment.AboutFragment;
 import com.choliy.igor.galleryforflickr.fragment.HistoryFragment;
-import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
 import com.choliy.igor.galleryforflickr.fragment.SecretFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 public final class DialogUtils {
 
-    private DialogUtils() {
-    }
+    private DialogUtils() {}
 
-    public static void clearDialog(Context context, final HistoryFragment.SaveHistoryAsyncTask asyncTask) {
+    public static void clearDialog(final Context context, final SaveHistoryTask asyncTask) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_clear, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_no);
+        final TextView yes = view.findViewById(R.id.btn_yes);
+        final TextView no = view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                asyncTask.execute(Boolean.TRUE);
+                asyncTask.execute(context);
                 dialog.dismiss();
             }
         });
@@ -44,17 +44,17 @@ public final class DialogUtils {
         });
     }
 
-    public static void deleteDialog(Context context, final SavedFragment.DeletePicTask picTask) {
+    public static void deleteDialog(final Context context, final PicDeleteTask asyncTask) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_delete, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_no);
+        final TextView yes = view.findViewById(R.id.btn_yes);
+        final TextView no = view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                picTask.execute();
+                asyncTask.execute(context);
                 dialog.dismiss();
             }
         });
@@ -71,8 +71,8 @@ public final class DialogUtils {
     public static void restoreDialog(Context context) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final View view = View.inflate(context, R.layout.dialog_restore, null);
-        final TextView yes = (TextView) view.findViewById(R.id.btn_yes);
-        final TextView no = (TextView) view.findViewById(R.id.btn_no);
+        final TextView yes = view.findViewById(R.id.btn_yes);
+        final TextView no = view.findViewById(R.id.btn_no);
         final AlertDialog dialog = builder.setView(view).show();
 
         yes.setOnClickListener(new View.OnClickListener() {

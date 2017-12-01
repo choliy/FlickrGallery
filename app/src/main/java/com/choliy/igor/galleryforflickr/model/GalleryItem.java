@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 
 public class GalleryItem implements Parcelable {
 
@@ -22,8 +22,7 @@ public class GalleryItem implements Parcelable {
     private String mMediumPicUrl;
     private String mBigPicUrl;
 
-    public GalleryItem() {
-    }
+    public GalleryItem() {}
 
     private GalleryItem(Parcel in) {
         mDbId = in.readString();
@@ -60,7 +59,7 @@ public class GalleryItem implements Parcelable {
 
     @Override
     public int describeContents() {
-        return FlickrConstants.INT_ZERO;
+        return Constants.ZERO;
     }
 
     public static final Creator<GalleryItem> CREATOR = new Creator<GalleryItem>() {

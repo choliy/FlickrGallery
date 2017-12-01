@@ -1,4 +1,4 @@
-package com.choliy.igor.galleryforflickr.fragment;
+package com.choliy.igor.galleryforflickr.base;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -14,9 +14,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 
-public abstract class CustomFragment extends DialogFragment {
+public abstract class BaseDialog extends DialogFragment {
 
-    abstract int layoutRes();
+    protected abstract int layoutRes();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,12 @@ public abstract class CustomFragment extends DialogFragment {
 
     @Override
     public void onDestroyView() {
-        if (getDialog() != null && getRetainInstance())
-            getDialog().setDismissMessage(null);
+        if (getDialog() != null && getRetainInstance()) getDialog().setDismissMessage(null);
         super.onDestroyView();
     }
 
     @Subscribe
     public void onEvent(ResultEvent event) {
-        // empty event for avoid crashes in non subscribed fragments
+        // empty event for avoid crashes in non subscribed dialogs
     }
 }

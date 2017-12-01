@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
 import com.choliy.igor.galleryforflickr.tool.ImageSaver;
@@ -27,14 +27,14 @@ public class DownloadService extends IntentService {
 
     public static Intent newIntent(Context context, GalleryItem item) {
         Intent intent = new Intent(context, DownloadService.class);
-        intent.putExtra(FlickrConstants.ITEM_KEY, item);
+        intent.putExtra(Constants.ITEM_KEY, item);
         return intent;
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         final Context context = getApplicationContext();
-        GalleryItem item = intent.getParcelableExtra(FlickrConstants.ITEM_KEY);
+        GalleryItem item = intent.getParcelableExtra(Constants.ITEM_KEY);
         String picUrl = FabUtils.getPictureUrl(item, Boolean.TRUE);
         Bitmap bitmap = FabUtils.getBitmapFromURL(picUrl);
         String appDirectory = getString(R.string.app_dir);

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.activity.PictureActivity;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
@@ -85,8 +85,9 @@ public class SavedAdapter extends RecyclerView.Adapter<SavedAdapter.SavedHolder>
             ExtraUtils.loadPicture(mItemView.getContext(), url, mPicture, null);
             mOwner.setText(mItems.get(position).getOwnerName());
             String title = mItems.get(position).getTitle();
-            if (title.equals(FlickrConstants.STRING_EMPTY))
+            if (title.equals(Constants.EMPTY)) {
                 title = mItemView.getContext().getString(R.string.text_empty_title);
+            }
             mTitle.setText(title);
         }
     }

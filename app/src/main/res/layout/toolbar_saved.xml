@@ -24,6 +24,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@null"
+            android:focusable="true"
             android:padding="@dimen/dimen_icon_padding"
             android:src="@drawable/ic_delete"/>
 

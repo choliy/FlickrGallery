@@ -2,8 +2,7 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/pref_category_ui">
+    <PreferenceCategory android:title="@string/pref_category_ui">
 
         <ListPreference
             android:defaultValue="@string/pref_grid_size_value_3"
@@ -30,7 +29,7 @@
             android:summary="@string/pref_animation_summary"
             android:title="@string/pref_animation_title"/>
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:icon="@drawable/ic_splash"
             android:key="@string/pref_key_splash"
@@ -39,8 +38,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/pref_category_extra">
+    <PreferenceCategory android:title="@string/pref_category_extra">
 
         <ListPreference
             android:defaultValue="@string/pref_picture_value_100"
@@ -48,7 +46,7 @@
             android:entryValues="@array/array_picture_value"
             android:icon="@drawable/ic_pictures"
             android:key="@string/pref_key_picture"
-            android:summary="@string/pref_picture_label_100"
+            android:summary="@string/pref_picture_label_200"
             android:title="@string/pref_picture_title"/>
 
         <SwitchPreference

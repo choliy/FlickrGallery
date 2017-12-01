@@ -16,11 +16,14 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.activity.ZoomActivity;
 import com.choliy.igor.galleryforflickr.async.OnPictureClickTask;
+import com.choliy.igor.galleryforflickr.base.BaseFragment;
+import com.choliy.igor.galleryforflickr.event.PictureClickEvent;
 import com.choliy.igor.galleryforflickr.event.ResultEvent;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.ExtraUtils;
 import com.choliy.igor.galleryforflickr.util.FabUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -28,12 +31,13 @@ import com.choliy.igor.galleryforflickr.util.TimeUtils;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
 
-public class PictureFragment extends EventFragment implements RequestListener<String, Bitmap> {
+public class PictureFragment extends BaseFragment implements RequestListener<String, Bitmap> {
 
     @BindView(R.id.picture_owner) TextView mOwner;
     @BindView(R.id.picture_title) TextView mTitle;
@@ -51,20 +55,20 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
     public static Fragment newInstance(GalleryItem item) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable(FlickrConstants.ITEM_KEY, item);
+        bundle.putParcelable(Constants.ITEM_KEY, item);
         PictureFragment fragment = new PictureFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
-    int layoutRes() {
+    protected int layoutRes() {
         return R.layout.fragment_picture;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mItem = getArguments().getParcelable(FlickrConstants.ITEM_KEY);
+        mItem = getArguments().getParcelable(Constants.ITEM_KEY);
         setSelectorView();
         setData();
     }
@@ -75,6 +79,7 @@ public class PictureFragment extends EventFragment implements RequestListener<St
             String model,
             Target<Bitmap> target,
             boolean isFirstResource) {
+
         mClickable = Boolean.FALSE;
         return Boolean.FALSE;
     }
@@ -92,6 +97,11 @@ public class PictureFragment extends EventFragment implements RequestListener<St
         mPicture.setClickable(Boolean.TRUE);
         mPictureShadow.setVisibility(View.VISIBLE);
         return Boolean.FALSE;
+    }
+
+    @Subscribe
+    public void onEvent(PictureClickEvent event) {
+        startActivity(ZoomActivity.newInstance(getActivity(), event.getPicUrl(), event.getBytes()));
     }
 
     @OnClick(R.id.picture_return)
@@ -132,16 +142,17 @@ public class PictureFragment extends EventFragment implements RequestListener<St
                 FrameLayout.LayoutParams.MATCH_PARENT));
 
         boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        if (newVersion)
+        if (newVersion) {
             view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_new));
-        else
+        } else {
             view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_old));
+        }
 
         view.setClickable(Boolean.TRUE);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mClickable) new OnPictureClickTask(getActivity(), mBitmap, mItem).execute();
+                if (mClickable) new OnPictureClickTask(mBitmap, mItem).execute();
             }
         });
 
@@ -158,15 +169,19 @@ public class PictureFragment extends EventFragment implements RequestListener<St
 
         // set title
         String title = mItem.getTitle();
-        if (title.equals(FlickrConstants.STRING_EMPTY))
+        if (title.equals(Constants.EMPTY)) {
             mTitle.setText(getString(R.string.text_empty_title));
-        else mTitle.setText(title);
+        } else {
+            mTitle.setText(title);
+        }
 
         // set date
         String date = mItem.getDate();
-        if (date.equals(FlickrConstants.STRING_EMPTY))
+        if (date.equals(Constants.EMPTY)) {
             mDate.setText(getString(R.string.text_empty_date));
-        else mDate.setText(TimeUtils.formatDate(getActivity(), date));
+        } else {
+            mDate.setText(TimeUtils.formatDate(getActivity(), date));
+        }
 
         // set resolution
         loadPictureResolution();

@@ -11,8 +11,7 @@ import com.choliy.igor.galleryforflickr.R;
 
 public final class InfoUtils {
 
-    private InfoUtils() {
-    }
+    private InfoUtils() {}
 
     public static void showShack(View view, String infoText) {
         Snackbar.make(view, infoText, Snackbar.LENGTH_SHORT).show();
@@ -24,16 +23,17 @@ public final class InfoUtils {
 
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
+        boolean isNetworkAvailable = (cm != null ? cm.getActiveNetworkInfo() : null) != null;
         return isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
     }
 
     public static int getActionBarHeight(Context context) {
         TypedValue tv = new TypedValue();
-        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, Boolean.TRUE))
+        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, Boolean.TRUE)) {
             return TypedValue.complexToDimensionPixelSize(tv.data, context.getResources().getDisplayMetrics());
-        else
+        } else {
             return Math.round(context.getResources().getDimension(R.dimen.dimen_toolbar_height));
+        }
     }
 
     public static int getOrientation(Context context) {

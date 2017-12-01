@@ -19,8 +19,11 @@ public class SavedPicLoader extends AsyncTaskLoader<List<GalleryItem>> {
 
     @Override
     protected void onStartLoading() {
-        if (mGalleryItems == null) forceLoad();
-        else deliverResult(mGalleryItems);
+        if (mGalleryItems == null) {
+            forceLoad();
+        } else {
+            deliverResult(mGalleryItems);
+        }
     }
 
     @Override

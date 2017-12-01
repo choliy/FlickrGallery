@@ -29,9 +29,8 @@
         <TextView
             android:id="@+id/gallery_item_owner"
             style="@style/ListItemGridTextStyle"
-            fontPath="@string/font_bold"
             android:ellipsize="marquee"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             tools:text="Gandalf"/>
 

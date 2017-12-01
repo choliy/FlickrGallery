@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.base.BaseDialog;
 import com.choliy.igor.galleryforflickr.view.SquareLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SecretFragment extends CustomFragment {
+public class SecretFragment extends BaseDialog {
 
     @BindView(R.id.layout_secret_off) SquareLayout mLayoutOff;
     @BindView(R.id.layout_secret_on) SquareLayout mLayoutOn;
@@ -19,7 +20,7 @@ public class SecretFragment extends CustomFragment {
     private MediaPlayer mPlayer;
 
     @Override
-    int layoutRes() {
+    protected int layoutRes() {
         return R.layout.dialog_secret;
     }
 

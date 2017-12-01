@@ -7,9 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
 import com.choliy.igor.galleryforflickr.model.GalleryItem;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.tool.FlickrFetch;
 import com.choliy.igor.galleryforflickr.util.AlarmUtils;
 import com.choliy.igor.galleryforflickr.util.InfoUtils;
@@ -36,11 +36,11 @@ public class NotificationService extends IntentService {
 
         List<GalleryItem> gallery = new FlickrFetch().downloadGallery(
                 getApplicationContext(),
-                FlickrConstants.INT_ZERO);
+                Constants.ZERO);
         if (gallery.isEmpty()) return;
 
         String lastResultId = PrefUtils.getLastResultId(this);
-        String resultId = gallery.get(FlickrConstants.INT_ZERO).getUserId();
+        String resultId = gallery.get(Constants.ZERO).getUserId();
         if (!resultId.equals(lastResultId)) {
             Context context = getApplicationContext();
             String contentText = getString(R.string.text_new_pictures, query);
@@ -51,7 +51,7 @@ public class NotificationService extends IntentService {
 
     private void showNotification(Notification notification) {
         Intent intent = new Intent(getString(R.string.broadcast_action_name));
-        intent.putExtra(FlickrConstants.NOTIFICATION_KEY, notification);
+        intent.putExtra(Constants.NOTIFICATION_KEY, notification);
         sendOrderedBroadcast(
                 intent,
                 getString(R.string.broadcast_permission),

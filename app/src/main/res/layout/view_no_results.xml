@@ -11,7 +11,6 @@
 
     <TextView
         style="@style/OopsTextStyle"
-        fontPath="@string/font_bold"
         android:textStyle="bold"/>
 
     <TextView

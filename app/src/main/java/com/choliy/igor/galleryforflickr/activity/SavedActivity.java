@@ -5,32 +5,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.choliy.igor.galleryforflickr.FlickrConstants;
 import com.choliy.igor.galleryforflickr.R;
+import com.choliy.igor.galleryforflickr.base.BaseActivity;
 import com.choliy.igor.galleryforflickr.event.RemovePicEvent;
 import com.choliy.igor.galleryforflickr.event.ToolbarVisibilityEvent;
 import com.choliy.igor.galleryforflickr.event.TopListEvent;
 import com.choliy.igor.galleryforflickr.fragment.SavedFragment;
+import com.choliy.igor.galleryforflickr.tool.Constants;
 import com.choliy.igor.galleryforflickr.util.AnimUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SavedActivity extends BroadcastActivity {
+public class SavedActivity extends BaseActivity {
 
     @BindView(R.id.toolbar_saved) Toolbar mToolbar;
     @BindView(R.id.image_top_list) ImageView mTopList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved);
-        ButterKnife.bind(this);
+    public int layoutRes() {
+        return R.layout.activity_saved;
+    }
 
+    @Override
+    public void setUi(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -49,7 +50,7 @@ public class SavedActivity extends BroadcastActivity {
                 EventBus.getDefault().post(new RemovePicEvent(Boolean.TRUE));
                 break;
             case R.id.image_top_list:
-                EventBus.getDefault().post(new TopListEvent(FlickrConstants.INT_ZERO));
+                EventBus.getDefault().post(new TopListEvent(Constants.ZERO));
                 break;
         }
     }
