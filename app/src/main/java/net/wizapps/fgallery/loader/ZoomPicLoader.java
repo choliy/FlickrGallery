@@ -29,8 +29,7 @@ public class ZoomPicLoader extends AsyncTaskLoader<Bitmap> {
 
     @Override
     public Bitmap loadInBackground() {
-        mBitmap = BitmapFactory.decodeByteArray(mByteArray, Constants.ZERO, mByteArray.length);
-        return mBitmap;
+        return BitmapFactory.decodeByteArray(mByteArray, Constants.ZERO, mByteArray.length);
     }
 
     @Override

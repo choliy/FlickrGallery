@@ -23,7 +23,7 @@
     <dimen name="dimen_dialog_min_size">1024dp</dimen>
 
     <!-- Text_sizes -->
-    <dimen name="dimen_text_small">16sp</dimen>
+    <dimen name="dimen_text_small">15sp</dimen>
     <dimen name="dimen_text_medium">18sp</dimen>
     <dimen name="dimen_text_big">22sp</dimen>
 </resources>

@@ -41,7 +41,7 @@
     <PreferenceCategory android:title="@string/pref_category_extra">
 
         <ListPreference
-            android:defaultValue="@string/pref_picture_value_100"
+            android:defaultValue="@string/pref_picture_value_200"
             android:entries="@array/array_picture_label"
             android:entryValues="@array/array_picture_value"
             android:icon="@drawable/ic_pictures"

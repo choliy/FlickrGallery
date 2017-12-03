@@ -1,12 +1,10 @@
 package net.wizapps.fgallery.fragment;
 
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,18 +18,19 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import net.wizapps.fgallery.R;
 import net.wizapps.fgallery.activity.ZoomActivity;
-import net.wizapps.fgallery.async.OnPictureClickTask;
 import net.wizapps.fgallery.base.BaseFragment;
 import net.wizapps.fgallery.model.GalleryItem;
 import net.wizapps.fgallery.tool.Constants;
 import net.wizapps.fgallery.tool.Events;
+import net.wizapps.fgallery.tool.ImageSaver;
 import net.wizapps.fgallery.util.ExtraUtils;
 import net.wizapps.fgallery.util.FabUtils;
 import net.wizapps.fgallery.util.InfoUtils;
 import net.wizapps.fgallery.util.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,7 +46,6 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
     @BindView(R.id.picture_description) TextView mDescription;
     @BindView(R.id.picture_shadow) View mPictureShadow;
     @BindView(R.id.progress_view) AVLoadingIndicatorView mProgress;
-    @BindView(R.id.selector_layout) FrameLayout mSelectorLayout;
 
     private GalleryItem mItem;
     private Bitmap mBitmap;
@@ -69,7 +67,6 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mItem = getArguments().getParcelable(Constants.ITEM_KEY);
-        setSelectorView();
         setData();
     }
 
@@ -99,14 +96,16 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
         return Boolean.FALSE;
     }
 
-    @Subscribe
-    public void onEvent(Events.PictureClickEvent event) {
-        startActivity(ZoomActivity.newInstance(getActivity(), event.getPicUrl(), event.getBytes()));
-    }
-
-    @OnClick(R.id.picture_return)
-    public void onReturnClick() {
-        EventBus.getDefault().post(new Events.BackPressedEvent());
+    @OnClick({R.id.picture_return, R.id.picture_image})
+    public void onReturnClick(View view) {
+        switch (view.getId()) {
+            case R.id.picture_return:
+                EventBus.getDefault().post(new Events.BackPressedEvent());
+                break;
+            case R.id.picture_image:
+                if (mClickable) onPictureClick();
+                break;
+        }
     }
 
     @OnLongClick({R.id.layout_title, R.id.layout_date, R.id.layout_resolution, R.id.layout_description})
@@ -133,30 +132,6 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
 
         InfoUtils.showToast(getActivity(), text);
         return Boolean.TRUE;
-    }
-
-    private void setSelectorView() {
-        View view = new View(getActivity());
-        view.setLayoutParams(new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT));
-
-        boolean newVersion = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-        if (newVersion) {
-            view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_new));
-        } else {
-            view.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.selector_list_old));
-        }
-
-        view.setClickable(Boolean.TRUE);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mClickable) new OnPictureClickTask(mBitmap, mItem).execute();
-            }
-        });
-
-        mSelectorLayout.addView(view);
     }
 
     private void setData() {
@@ -189,6 +164,14 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
         // set description
         String description = ExtraUtils.parseDescription(getActivity(), mItem.getDescription());
         mDescription.setText(description);
+    }
+
+    private void onPictureClick() {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, ImageSaver.QUALITY_MID, stream);
+        byte[] bytes = stream.toByteArray();
+        String picUrl = FabUtils.getPictureUrl(mItem, Boolean.TRUE);
+        startActivity(ZoomActivity.newInstance(getActivity(), picUrl, bytes));
     }
 
     private void loadPictureResolution() {

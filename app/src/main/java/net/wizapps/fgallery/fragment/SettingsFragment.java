@@ -13,6 +13,7 @@ import net.wizapps.fgallery.tool.Events;
 import net.wizapps.fgallery.util.AlarmUtils;
 import net.wizapps.fgallery.util.DialogUtils;
 import net.wizapps.fgallery.util.InfoUtils;
+import net.wizapps.fgallery.util.PrefUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,7 +34,6 @@ public class SettingsFragment extends PreferenceFragment implements
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-        SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
         mGridPref = (ListPreference) findPreference(getString(R.string.pref_key_grid));
         mStylePref = (ListPreference) findPreference(getString(R.string.pref_key_style));
         mPicturePref = (ListPreference) findPreference(getString(R.string.pref_key_picture));
@@ -43,9 +43,9 @@ public class SettingsFragment extends PreferenceFragment implements
         mNotificationPref.setOnPreferenceClickListener(this);
         findPreference(getString(R.string.pref_key_restore)).setOnPreferenceClickListener(this);
 
-        String gridValue = preferences.getString(mGridPref.getKey(), null);
-        String styleValue = preferences.getString(mStylePref.getKey(), null);
-        String pictureValue = preferences.getString(mPicturePref.getKey(), null);
+        String gridValue = PrefUtils.getGridSettings(getActivity());
+        String styleValue = PrefUtils.getStyleSettings(getActivity());
+        String pictureValue = PrefUtils.getPictureSettings(getActivity());
 
         setPreferenceSummary(mGridPref, gridValue);
         setPreferenceSummary(mStylePref, styleValue);

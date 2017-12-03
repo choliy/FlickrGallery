@@ -8,7 +8,6 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/selector_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:background="@color/colorFabBackground">
@@ -30,6 +29,7 @@
             android:adjustViewBounds="true"
             android:clickable="false"
             android:contentDescription="@null"
+            android:foreground="@drawable/selector_list_new"
             android:scaleType="fitCenter"
             tools:src="@mipmap/ic_launcher"/>
 
