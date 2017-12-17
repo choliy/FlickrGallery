@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:text="@string/dialog_about_title"
             android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/dimen_text_medium"/>
+            android:textSize="@dimen/dimen_text_medium"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/btn_version"
@@ -58,14 +59,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_big_margin"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
 
         <TextView
             android:id="@+id/btn_email"
             style="@style/DialogButtonStyle"
             android:paddingStart="@dimen/dimen_zero"
-            android:text="@string/nav_email"
-            tools:ignore="RtlSymmetry"/>
+            android:text="@string/nav_email"/>
 
         <TextView
             android:id="@+id/btn_feedback"
@@ -73,15 +74,17 @@
             android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/nav_feedback"/>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/btn_close"
             style="@style/DialogButtonStyle"
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:gravity="end"
             android:paddingEnd="@dimen/dimen_zero"
-            android:text="@string/dialog_close_btn"
-            tools:ignore="RtlSymmetry"/>
+            android:text="@string/dialog_close_btn"/>
 
     </LinearLayout>
 

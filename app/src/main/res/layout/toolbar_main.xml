@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar_main"
-    style="@style/LayoutToolbarStyle"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/toolbar_icon_menu"
         android:layout_width="@dimen/dimen_toolbar_icon_size"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/dimen_material_margin"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
@@ -24,9 +24,10 @@
         android:id="@+id/toolbar_icon_search"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="match_parent"
+        android:layout_gravity="end"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
         android:padding="@dimen/dimen_icon_padding"
         android:src="@drawable/ic_search_gray"/>
 
-</LinearLayout>
+</FrameLayout>

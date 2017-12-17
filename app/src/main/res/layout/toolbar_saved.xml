@@ -4,7 +4,9 @@
     android:id="@+id/toolbar_saved"
     style="@style/ToolbarLayoutStyle">
 
-    <LinearLayout style="@style/LayoutToolbarStyle">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/ic_return_saved"
@@ -13,14 +15,13 @@
 
         <TextView
             style="@style/ToolbarTextStyle"
-            android:layout_width="0dp"
-            android:layout_weight="1"
             android:text="@string/nav_saved_pictures"/>
 
         <ImageView
             android:id="@+id/ic_delete_pictures"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@null"
@@ -28,6 +29,6 @@
             android:padding="@dimen/dimen_icon_padding"
             android:src="@drawable/ic_delete"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </android.support.v7.widget.Toolbar>

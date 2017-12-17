@@ -65,7 +65,8 @@ public class FlickrFetch {
                 .build().toString();
 
         Uri.Builder uriBuilder = Uri.parse(url).buildUpon();
-        if (searchText.equals(Constants.EMPTY)) uriBuilder.appendQueryParameter("text", searchText);
+        if (!searchText.equals(Constants.EMPTY))
+            uriBuilder.appendQueryParameter("text", searchText);
 
         String finalUrl = uriBuilder.build().toString();
         if (BuildConfig.DEBUG) Log.i(TAG, "Request URL: " + finalUrl);

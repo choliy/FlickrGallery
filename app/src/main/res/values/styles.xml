@@ -51,33 +51,27 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:gravity">center</item>
         <item name="android:elevation" tools:targetApi="lollipop">2dp</item>
     </style>
 
     <style name="ToolbarImageStyle">
         <item name="android:layout_width">@dimen/dimen_toolbar_icon_size</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginEnd">@dimen/dimen_material_margin</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:src">@mipmap/ic_back</item>
     </style>
 
     <style name="ToolbarTextStyle">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:maxWidth">@dimen/dimen_toolbar_text_width</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
         <item name="android:textColor">@color/colorTextGray</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">marquee</item>
-    </style>
-
-    <style name="LayoutToolbarStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="InfoImageStyle">
@@ -98,6 +92,7 @@
     <style name="OopsTextStyle" parent="InfoTextStyle">
         <item name="android:text">@string/text_oops</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Large</item>
     </style>
 
@@ -116,6 +111,7 @@
         <item name="android:textColor">@drawable/selector_dialog</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:maxWidth">@dimen/dimen_button_max_width</item>
         <item name="android:ellipsize">marquee</item>
     </style>
@@ -209,7 +205,7 @@
         <item name="android:layout_marginStart">@dimen/dimen_small_margin</item>
         <item name="android:layout_weight">1</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
         <item name="android:textColor">@color/colorTextGray</item>
     </style>

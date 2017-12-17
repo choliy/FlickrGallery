@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:toola="http://schemas.android.com/tools"
     android:id="@+id/toolbar_search"
-    style="@style/LayoutToolbarStyle"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="gone"
     toola:visibility="visible">
@@ -21,11 +21,13 @@
     <android.support.v7.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dimen_toolbar_icon_size"
         android:imeOptions="flagNoExtractUi"
         app:closeIcon="@null"
         app:defaultQueryHint="@string/text_hint_search"
         app:queryBackground="@android:color/white"
         app:searchHintIcon="@drawable/ic_search_gray_light"/>
 
-</LinearLayout>
+</FrameLayout>

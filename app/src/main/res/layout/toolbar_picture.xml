@@ -5,9 +5,9 @@
     android:id="@+id/toolbar_picture"
     style="@style/ToolbarLayoutStyle">
 
-    <LinearLayout
-        style="@style/LayoutToolbarStyle"
-        tools:ignore="UseCompoundDrawables">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/picture_return"
@@ -24,6 +24,6 @@
             android:textIsSelectable="true"
             tools:text="Legolas"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
 </android.support.v7.widget.Toolbar>

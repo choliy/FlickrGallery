@@ -9,7 +9,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.LinearLayout;
 
 import net.wizapps.fgallery.R;
 import net.wizapps.fgallery.tool.Constants;
@@ -48,8 +47,8 @@ public final class AnimUtils {
             boolean showSearchType) {
 
         Toolbar toolbar = ((AppCompatActivity) context).findViewById(R.id.toolbar_gallery);
-        LinearLayout toolbarMain = toolbar.findViewById(R.id.toolbar_main);
-        LinearLayout toolbarSearch = toolbar.findViewById(R.id.toolbar_search);
+        View toolbarMain = toolbar.findViewById(R.id.toolbar_main);
+        View toolbarSearch = toolbar.findViewById(R.id.toolbar_search);
 
         int animHideId = R.anim.anim_alpha_hide;
         int animShowId = R.anim.anim_alpha_show;

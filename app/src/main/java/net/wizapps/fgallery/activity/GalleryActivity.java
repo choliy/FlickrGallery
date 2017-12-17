@@ -52,7 +52,7 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
     public static final int REQUEST_CODE = 777;
     private boolean mShowSearchType;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newInstance(Context context) {
         return new Intent(context, GalleryActivity.class);
     }
 
@@ -64,10 +64,7 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
     @Override
     protected void setUi(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container, new GalleryFragment())
-                    .commit();
+            reloadFragment();
         } else {
             mShowSearchType = savedInstanceState.getBoolean(Constants.TOOLBAR_KEY);
             animateToolbar(mShowSearchType);
@@ -101,10 +98,7 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new GalleryFragment())
-                    .commit();
+            reloadFragment();
         }
     }
 
@@ -118,12 +112,13 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
     @Subscribe
     public void onEvent(Events.HistoryTitleEvent event) {
         PrefUtils.setStoredQuery(this, event.getHistoryTitle());
-        showSearchToolbar();
+        reloadFragment();
     }
 
     @Subscribe
     public void onEvent(Events.HistoryStartEvent event) {
-        showSearchToolbar();
+        AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
+        animateToolbar(mShowSearchType = Boolean.TRUE);
     }
 
     @Subscribe
@@ -172,11 +167,7 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
                     FlickrLab.getInstance(GalleryActivity.this).addHistory(item, Boolean.FALSE);
                 }
                 animateToolbar(mShowSearchType = Boolean.FALSE);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new GalleryFragment())
-                        .commit();
-
+                reloadFragment();
                 return Boolean.TRUE;
             }
         });
@@ -219,9 +210,11 @@ public class GalleryActivity extends BaseActivity implements NavigationView.OnNa
         });
     }
 
-    private void showSearchToolbar() {
-        AnimUtils.animToolbarVisibility(mToolbar, Boolean.TRUE);
-        animateToolbar(mShowSearchType = Boolean.TRUE);
+    private void reloadFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new GalleryFragment())
+                .commit();
     }
 
     private void animateToolbar(boolean showSearchType) {

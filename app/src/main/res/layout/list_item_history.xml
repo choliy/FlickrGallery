@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/text_history_title"
             style="@style/ListItemSavedTextStyle"
+            android:textStyle="bold"
             tools:text="Lord of the rings"/>
 
         <LinearLayout

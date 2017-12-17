@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginEnd="@dimen/dimen_zero"
                 android:layout_marginStart="@dimen/dimen_zero"
+                android:textStyle="bold"
                 tools:text="Bilbo Baggins"/>
 
             <TextView

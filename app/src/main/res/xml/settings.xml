@@ -22,6 +22,15 @@
             android:summary="@string/pref_grid_style_label_1"
             android:title="@string/pref_grid_style_title"/>
 
+        <ListPreference
+            android:defaultValue="@string/pref_picture_value_200"
+            android:entries="@array/array_picture_label"
+            android:entryValues="@array/array_picture_value"
+            android:icon="@drawable/ic_pictures"
+            android:key="@string/pref_key_picture"
+            android:summary="@string/pref_picture_label_200"
+            android:title="@string/pref_picture_title"/>
+
         <SwitchPreference
             android:defaultValue="true"
             android:icon="@drawable/ic_animation"
@@ -39,15 +48,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_category_extra">
-
-        <ListPreference
-            android:defaultValue="@string/pref_picture_value_200"
-            android:entries="@array/array_picture_label"
-            android:entryValues="@array/array_picture_value"
-            android:icon="@drawable/ic_pictures"
-            android:key="@string/pref_key_picture"
-            android:summary="@string/pref_picture_label_200"
-            android:title="@string/pref_picture_title"/>
 
         <SwitchPreference
             android:defaultValue="false"

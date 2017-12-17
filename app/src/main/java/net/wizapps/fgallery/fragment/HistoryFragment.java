@@ -74,7 +74,7 @@ public class HistoryFragment extends BaseDialog implements
 
     @Subscribe
     public void onEvent(Events.HistoryTitleEvent event) {
-        if (!TextUtils.isEmpty(event.getHistoryTitle())) closeHistoryDialog();
+        if (!TextUtils.isEmpty(event.getHistoryTitle())) dismiss();
     }
 
     @Subscribe
@@ -108,14 +108,14 @@ public class HistoryFragment extends BaseDialog implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_history_start:
-                closeHistoryDialog();
                 EventBus.getDefault().post(new Events.HistoryStartEvent());
+                dismiss();
                 break;
             case R.id.btn_history_clear:
                 DialogUtils.clearDialog(getActivity(), new SaveHistoryTask(Boolean.TRUE, mSavedHistory));
                 break;
             case R.id.btn_history_close:
-                closeHistoryDialog();
+                dismiss();
                 break;
         }
     }
@@ -170,11 +170,7 @@ public class HistoryFragment extends BaseDialog implements
         snackbar.show();
     }
 
-    private void closeHistoryDialog() {
-        getDialog().dismiss();
-    }
-
     private View view() {
-        return getActivity().findViewById(android.R.id.content);
+        return getView();
     }
 }

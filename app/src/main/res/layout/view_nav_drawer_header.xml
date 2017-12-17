@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dimen_header_height"
-    android:background="@drawable/shape_header"
+    android:background="@drawable/shape_gradient"
     android:gravity="center_vertical|bottom"
     android:orientation="horizontal"
     android:padding="@dimen/dimen_material_margin">
@@ -34,6 +34,7 @@
             android:paddingEnd="@dimen/dimen_small_margin"
             android:singleLine="true"
             android:text="@string/app_name"
+            android:textStyle="bold"
             tools:ignore="RtlSymmetry"/>
 
         <TextView

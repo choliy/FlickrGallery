@@ -32,6 +32,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
             tools:text="Gandalf"/>
 
         <TextView

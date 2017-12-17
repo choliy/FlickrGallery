@@ -79,7 +79,7 @@ public final class AlarmUtils {
     private static PendingIntent getContentIntent(Context context) {
         return PendingIntent.getActivity(context,
                 Constants.ZERO,
-                GalleryActivity.newIntent(context),
+                GalleryActivity.newInstance(context),
                 Constants.ZERO);
     }
 }
