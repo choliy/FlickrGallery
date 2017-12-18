@@ -6,30 +6,25 @@ repositories {
 }
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "net.wizapps.fgallery"
         minSdkVersion 17
-        //noinspection OldTargetApi
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0.7"
     }
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 ext {
-    supportVersion = '26.1.0'
+    supportVersion = '27.0.2'
     butterKnifeVersion = '8.8.1'
 }
 
@@ -45,7 +40,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     /** Event Bus **/
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     /** Glide **/
     implementation 'com.github.bumptech.glide:glide:3.8.0'

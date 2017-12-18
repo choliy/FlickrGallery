@@ -2,6 +2,7 @@ package net.wizapps.fgallery.fragment;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -65,9 +66,11 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        mItem = getArguments().getParcelable(Constants.ITEM_KEY);
-        setData();
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            mItem = getArguments().getParcelable(Constants.ITEM_KEY);
+            setData();
+        }
     }
 
     @Override
@@ -177,15 +180,14 @@ public class PictureFragment extends BaseFragment implements RequestListener<Str
     private void loadPictureResolution() {
         Glide.with(this).load(getUrl(Boolean.TRUE)).into(new SimpleTarget<GlideDrawable>() {
             @Override
-            public void onResourceReady(
-                    GlideDrawable resource,
-                    GlideAnimation<? super GlideDrawable> glideAnimation) {
-
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                 String width = String.valueOf(resource.getIntrinsicWidth());
                 String height = String.valueOf(resource.getIntrinsicHeight());
                 String resolution = getString(R.string.text_picture_res_data, width, height);
-                mResolution.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTextBlack));
-                mResolution.setText(resolution);
+                if (getActivity() != null) {
+                    mResolution.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorTextBlack));
+                    mResolution.setText(resolution);
+                }
             }
         });
     }
