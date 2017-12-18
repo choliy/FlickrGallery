@@ -19,14 +19,15 @@
 
         <ImageView
             android:id="@+id/ic_delete_pictures"
-            android:layout_width="?attr/actionBarSize"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@null"
             android:focusable="true"
-            android:padding="@dimen/dimen_icon_padding"
+            android:paddingEnd="@dimen/dimen_material_margin"
+            android:paddingStart="@dimen/dimen_material_margin"
             android:src="@drawable/ic_delete"/>
 
     </FrameLayout>

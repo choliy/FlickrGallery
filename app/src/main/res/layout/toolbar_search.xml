@@ -11,12 +11,9 @@
 
     <ImageView
         android:id="@+id/toolbar_icon_back"
-        android:layout_width="@dimen/dimen_toolbar_icon_size"
-        android:layout_height="wrap_content"
+        style="@style/ToolbarImageStyle"
         android:contentDescription="@null"
-        android:onClick="onToolbarClick"
-        android:scaleType="centerInside"
-        android:src="@mipmap/ic_back"/>
+        android:onClick="onToolbarClick"/>
 
     <android.support.v7.widget.SearchView
         android:id="@+id/search_view"

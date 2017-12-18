@@ -7,13 +7,9 @@
 
     <ImageView
         android:id="@+id/toolbar_icon_menu"
-        android:layout_width="@dimen/dimen_toolbar_icon_size"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="@dimen/dimen_material_margin"
+        style="@style/ToolbarImageMenuStyle"
         android:contentDescription="@null"
-        android:onClick="onToolbarClick"
-        android:scaleType="centerInside"
-        android:src="@mipmap/ic_menu"/>
+        android:onClick="onToolbarClick"/>
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -22,12 +18,13 @@
 
     <ImageView
         android:id="@+id/toolbar_icon_search"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
+        android:layout_gravity="end|center_vertical"
         android:contentDescription="@null"
         android:onClick="onToolbarClick"
-        android:padding="@dimen/dimen_icon_padding"
+        android:paddingEnd="@dimen/dimen_material_margin"
+        android:paddingStart="@dimen/dimen_material_margin"
         android:src="@drawable/ic_search_gray"/>
 
 </FrameLayout>

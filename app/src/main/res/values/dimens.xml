@@ -6,7 +6,6 @@
     <dimen name="dimen_fab_corner_radius">3dp</dimen>
     <dimen name="dimen_list_card_margin">4dp</dimen>
     <dimen name="dimen_small_margin">8dp</dimen>
-    <dimen name="dimen_icon_padding">12dp</dimen>
     <dimen name="dimen_material_margin">16dp</dimen>
     <dimen name="dimen_medium_margin">24dp</dimen>
     <dimen name="dimen_toolbar_height">56dp</dimen>

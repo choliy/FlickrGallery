@@ -57,9 +57,13 @@
     <style name="ToolbarImageStyle">
         <item name="android:layout_width">@dimen/dimen_toolbar_icon_size</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_marginEnd">@dimen/dimen_material_margin</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:src">@mipmap/ic_back</item>
+    </style>
+
+    <style name="ToolbarImageMenuStyle" parent="ToolbarImageStyle">
+        <item name="android:src">@mipmap/ic_menu</item>
     </style>
 
     <style name="ToolbarTextStyle">
@@ -69,7 +73,7 @@
         <item name="android:maxWidth">@dimen/dimen_toolbar_text_width</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
         <item name="android:textColor">@color/colorTextGray</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:ellipsize">marquee</item>
     </style>

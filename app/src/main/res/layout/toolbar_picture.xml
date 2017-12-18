@@ -17,10 +17,6 @@
         <TextView
             android:id="@+id/picture_owner"
             style="@style/ToolbarTextStyle"
-            android:layout_marginEnd="@dimen/dimen_material_margin"
-            android:ellipsize="marquee"
-            android:gravity="end"
-            android:singleLine="true"
             android:textIsSelectable="true"
             tools:text="Legolas"/>
 
