@@ -78,6 +78,17 @@
         <item name="android:ellipsize">marquee</item>
     </style>
 
+    <style name="ToolbarIconStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingEnd">@dimen/dimen_material_margin</item>
+        <item name="android:paddingStart">@dimen/dimen_material_margin</item>
+    </style>
+
     <style name="InfoImageStyle">
         <item name="android:layout_width">@dimen/dimen_image_list_size</item>
         <item name="android:layout_height">@dimen/dimen_image_list_size</item>
