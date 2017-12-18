@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Η ιστορία είναι κενή</string>
     <string name="dialog_history_text">Ξεκινήστε αναζητώντας νέες φωτογραφίες</string>
     <string name="dialog_history_title">Ιστορικό αναζήτησης</string>
-    <string name="dialog_issue">Αν βρείτε πρόβλημα μετάφρασης, στείλτε μου ένα email ή γράψτε σχόλια</string>
     <string name="dialog_message">Εφαρμογή που σας επιτρέπει να αναζητήσετε, να προβάλετε και να αποθηκεύσετε τις τελευταίες δημόσιες φωτογραφίες από την υπηρεσία Flickr</string>
     <string name="dialog_no_btn">όχι</string>
     <string name="dialog_restore_cleaned">Όλη η ιστορία έχει καθαριστεί</string>

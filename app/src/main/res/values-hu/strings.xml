@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">A történelem üres</string>
     <string name="dialog_history_text">Keressen új fotókat keresve</string>
     <string name="dialog_history_title">Keresési előzmények</string>
-    <string name="dialog_issue">Ha megtalálja a fordítási problémát, küldjön nekem egy e-mailt vagy írjon visszajelzést</string>
     <string name="dialog_message">Alkalmazás, amely lehetővé teszi az utolsó nyilvános fotók keresését, megtekintését és mentését a Flickr szolgáltatásból</string>
     <string name="dialog_no_btn">nem</string>
     <string name="dialog_restore_cleaned">Minden történetet megtisztítottak</string>

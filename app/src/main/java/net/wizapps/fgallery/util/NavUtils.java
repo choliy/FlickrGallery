@@ -46,7 +46,13 @@ public final class NavUtils {
         }
     }
 
-    public static void checkBeforeLaunching(Context context, Intent intent) {
+    public static void webIntent(Context context, int textResId) {
+        String url = context.getString(textResId);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        checkBeforeLaunching(context, intent);
+    }
+
+    static void checkBeforeLaunching(Context context, Intent intent) {
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
         } else {
@@ -54,7 +60,7 @@ public final class NavUtils {
         }
     }
 
-    public static void emailIntent(Context context) {
+    private static void emailIntent(Context context) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:" + context.getString(R.string.text_email)));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.text_subject));
@@ -62,7 +68,7 @@ public final class NavUtils {
         checkBeforeLaunching(context, emailIntent);
     }
 
-    public static void feedbackIntent(Context context) {
+    private static void feedbackIntent(Context context) {
         String url = context.getString(R.string.app_url);
         Intent feedbackIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         checkBeforeLaunching(context, feedbackIntent);

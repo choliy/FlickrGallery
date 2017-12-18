@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTextGray"
-            tools:text="@string/dialog_developer"/>
+            tools:text="@string/nav_developer"/>
 
     </LinearLayout>
 

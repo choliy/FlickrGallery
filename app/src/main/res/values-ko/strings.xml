@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">기록이 비어 있습니다.</string>
     <string name="dialog_history_text">새로운 사진 검색으로 시작하십시오.</string>
     <string name="dialog_history_title">검색 기록</string>
-    <string name="dialog_issue">번역문을 찾으면 저에게 이메일을 보내거나 피드백을 보내주십시오.</string>
     <string name="dialog_message">Flickr 서비스의 마지막 공개 사진을 검색, 확인 및 저장할 수있는 응용 프로그램</string>
     <string name="dialog_no_btn">아니</string>
     <string name="dialog_restore_cleaned">모든 기록이 정리되었습니다.</string>

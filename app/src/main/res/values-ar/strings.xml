@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">التاريخ فارغ</string>
     <string name="dialog_history_text">ابدأ بالبحث عن صور جديدة</string>
     <string name="dialog_history_title">سجل البحث</string>
-    <string name="dialog_issue">إذا وجدت ترجمة المسألة، الرجاء ارسال لي رسالة عبر البريد الإلكتروني أو كتابة ردود الفعل</string>
     <string name="dialog_message">التطبيق الذي يسمح لك للبحث وعرض وحفظ الصور العامة الأخيرة من خدمة فليكر</string>
     <string name="dialog_no_btn">لا</string>
     <string name="dialog_restore_cleaned">تم تنظيف كل التاريخ</string>

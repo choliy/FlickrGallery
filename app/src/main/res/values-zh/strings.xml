@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">歷史是空的</string>
     <string name="dialog_history_text">開始搜索新照片</string>
     <string name="dialog_history_title">搜索歷史記錄</string>
-    <string name="dialog_issue">如果您發現翻譯問題，請發送電子郵件或撰寫反饋</string>
     <string name="dialog_message">應用程序，允許您從Flickr服務搜索，查看和保存最新的公開照片</string>
     <string name="dialog_no_btn">沒有</string>
     <string name="dialog_restore_cleaned">所有歷史已被清理</string>

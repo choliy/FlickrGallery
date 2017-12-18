@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Historie je prázdná</string>
     <string name="dialog_history_text">Začněte vyhledáváním nových fotek</string>
     <string name="dialog_history_title">Historie vyhledávání</string>
-    <string name="dialog_issue">Pokud najdete překladatelský problém, zašlete mi e-mail nebo napište zpětnou vazbu</string>
     <string name="dialog_message">Aplikace, která umožňuje vyhledávat, prohlížet a ukládat poslední veřejné fotografie ze služby Flickr</string>
     <string name="dialog_no_btn">Ne</string>
     <string name="dialog_restore_cleaned">Celá historie byla vyčištěna</string>

@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Історія порожня</string>
     <string name="dialog_history_text">Почніть пошук нових фотографій</string>
     <string name="dialog_history_title">Історія пошуку</string>
-    <string name="dialog_issue">Якщо ви виявили проблеми перекладу, надішліть будь ласка електронний лист або напишіть відгук</string>
     <string name="dialog_message">Програма, яка дозволяє шукати, переглядати та зберігати останні загальнодоступні фотографії із сервісу Flickr</string>
     <string name="dialog_no_btn">ні</string>
     <string name="dialog_restore_cleaned">Вся історія була очищена</string>

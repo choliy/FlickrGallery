@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">履歴は空です</string>
     <string name="dialog_history_text">新しい写真を検索して始めましょう</string>
     <string name="dialog_history_title">検索履歴</string>
-    <string name="dialog_issue">翻訳の問題が見つかった場合は、私に電子メールを送ってください。</string>
     <string name="dialog_message">Flickrサービスの最後の公開写真を検索、表示、保存できるアプリケーション</string>
     <string name="dialog_no_btn">いいえ</string>
     <string name="dialog_restore_cleaned">すべての履歴が消去されました</string>

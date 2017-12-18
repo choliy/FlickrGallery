@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Historia on tyhjä</string>
     <string name="dialog_history_text">Aloita etsimällä uusia valokuvia</string>
     <string name="dialog_history_title">Hakuhistoria</string>
-    <string name="dialog_issue">Jos löydät käännösongelman, lähetä sähköpostia tai anna palautetta</string>
     <string name="dialog_message">Sovellus, jonka avulla voit etsiä, katsella ja tallentaa viimeiset julkiset valokuvat Flickr-palvelusta</string>
     <string name="dialog_no_btn">ei</string>
     <string name="dialog_restore_cleaned">Kaikki historia on puhdistettu</string>

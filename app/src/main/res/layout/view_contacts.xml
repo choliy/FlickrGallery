@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_medium_margin"
+    android:layout_marginTop="@dimen/dimen_medium_margin"
+    tools:ignore="ContentDescription">
+
+    <ImageView
+        android:id="@+id/facebookIcon"
+        style="@style/AboutImageStyle"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
+        android:src="@drawable/ic_facebook"/>
+
+    <ImageView
+        android:id="@+id/linkedInIcon"
+        style="@style/AboutImageStyle"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
+        android:src="@drawable/ic_linked_in"/>
+
+    <ImageView
+        android:id="@+id/googlePlusIcon"
+        style="@style/AboutImageStyle"
+        android:layout_marginEnd="@dimen/dimen_material_margin"
+        android:src="@drawable/ic_google_plus"/>
+
+    <ImageView
+        android:id="@+id/gitHubIcon"
+        style="@style/AboutImageStyle"
+        android:src="@drawable/ic_github"/>
+
+</LinearLayout>

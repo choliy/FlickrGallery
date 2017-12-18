@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Tarih boş</string>
     <string name="dialog_history_text">Yeni fotoğrafları arayarak başlayın</string>
     <string name="dialog_history_title">Arama geçmişi</string>
-    <string name="dialog_issue">Çeviriyi bulursanız, lütfen bana bir e-posta gönderin veya geribildirim yazın.</string>
     <string name="dialog_message">Flickr servisindeki son genel fotoğraflarınızı aramanıza, görüntülemenize ve kaydetmenize olanak tanıyan uygulama</string>
     <string name="dialog_no_btn">yok hayır</string>
     <string name="dialog_restore_cleaned">Tüm geçmiş temizlendi</string>

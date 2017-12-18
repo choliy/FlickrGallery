@@ -35,7 +35,7 @@ public final class ExtraUtils {
         View header = view.getHeaderView(Constants.ZERO);
         TextView developer = header.findViewById(R.id.nav_text_developer);
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        String text = context.getString(R.string.dialog_developer, String.valueOf(year));
+        String text = context.getString(R.string.nav_developer, String.valueOf(year));
         developer.setText(text);
     }
 

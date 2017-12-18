@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">इतिहास खाली है</string>
     <string name="dialog_history_text">नई तस्वीरों को खोजकर आरंभ करें</string>
     <string name="dialog_history_title">इतिहास खोजें</string>
-    <string name="dialog_issue">अगर आपको अनुवाद समस्या मिलती है, तो कृपया मुझे एक ईमेल भेजें या प्रतिक्रिया भेजें</string>
     <string name="dialog_message">आवेदन जो आपको फ़्लिकर सेवा से अंतिम सार्वजनिक फ़ोटो को खोजने, देखने और सहेजने की अनुमति देता है</string>
     <string name="dialog_no_btn">नहीं</string>
     <string name="dialog_restore_cleaned">सभी इतिहास को साफ कर दिया गया है</string>

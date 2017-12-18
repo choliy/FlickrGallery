@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Historien er tom</string>
     <string name="dialog_history_text">Kom i gang ved å søke på nye bilder</string>
     <string name="dialog_history_title">Logg</string>
-    <string name="dialog_issue">Hvis du finner oversettelsesproblem, vennligst send meg en epost eller skriv tilbakemelding</string>
     <string name="dialog_message">Søknad som lar deg søke, vise og lagre de siste offentlige bildene fra Flickr-tjenesten</string>
     <string name="dialog_no_btn">Nei</string>
     <string name="dialog_restore_cleaned">All historie har blitt renset</string>

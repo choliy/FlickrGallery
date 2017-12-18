@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Lịch sử trống</string>
     <string name="dialog_history_text">Bắt đầu bằng cách tìm kiếm ảnh mới</string>
     <string name="dialog_history_title">Lịch sử tìm kiếm</string>
-    <string name="dialog_issue">Nếu bạn tìm thấy vấn đề dịch, xin vui lòng gửi cho tôi một email hoặc viết phản hồi</string>
     <string name="dialog_message">Ứng dụng cho phép bạn tìm kiếm, xem và lưu các bức ảnh công cộng cuối cùng từ dịch vụ Flickr</string>
     <string name="dialog_no_btn">Không</string>
     <string name="dialog_restore_cleaned">Tất cả lịch sử đã được làm sạch</string>

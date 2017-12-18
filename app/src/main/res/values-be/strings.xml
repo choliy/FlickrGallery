@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Гісторыя пустая</string>
     <string name="dialog_history_text">Пачніце пошук новых фатаграфій</string>
     <string name="dialog_history_title">Гісторыя пошуку</string>
-    <string name="dialog_issue">Калі вы знайшлі пераклад пытанне, калі ласка, дашліце мне па электроннай пошце ці напісаць водгукі</string>
     <string name="dialog_message">Дадатак, якое дазваляе шукаць, праглядаць і захоўваць апошнія агульнадаступныя фатаграфіі з сэрвісу Flickr</string>
     <string name="dialog_no_btn">Няма</string>
     <string name="dialog_restore_cleaned">Уся гісторыя была ачышчана</string>

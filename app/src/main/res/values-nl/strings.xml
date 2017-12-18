@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Geschiedenis is leeg</string>
     <string name="dialog_history_text">Begin met het zoeken van nieuwe foto\'s</string>
     <string name="dialog_history_title">Zoek geschiedenis</string>
-    <string name="dialog_issue">Als u overschrijdend probleem vindt, stuur me dan een email of schrijf feedback</string>
     <string name="dialog_message">Applicatie waarmee u de laatste publieke foto\'s van Flickr service kunt zoeken, bekijken en opslaan</string>
     <string name="dialog_no_btn">Nee</string>
     <string name="dialog_restore_cleaned">Alle geschiedenis is gereinigd</string>

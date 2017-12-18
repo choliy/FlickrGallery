@@ -27,14 +27,18 @@
 
     <!-- Dialog About -->
     <string name="dialog_about_title">About App</string>
-    <string name="dialog_app_version" translatable="false">v1.0.5</string>
+    <string name="dialog_app_version" translatable="false">v1.0.7</string>
     <string name="dialog_message">
         Application which allows you to search,
         view and save the last public photos from Flickr service</string>
-    <string name="dialog_issue">
-        If you find translating issue, please send me an email or write feedback</string>
-    <string name="dialog_developer" translatable="false">© %1$s by Igor Choliy</string>
-    <string name="dialog_url" translatable="false">https://www.linkedin.com/in/choliy</string>
+    <string name="url_facebook" translatable="false">
+        https://www.facebook.com/choliy</string>
+    <string name="url_linked_in" translatable="false">
+        https://www.linkedin.com/in/choliy</string>
+    <string name="url_google_plus" translatable="false">
+        https://plus.google.com/+IgorCholiy_architect</string>
+    <string name="url_git_hub" translatable="false">
+        https://github.com/choliy</string>
     <string name="dialog_close_btn">close</string>
 
     <!-- Dialog History -->
@@ -68,6 +72,7 @@
     <string name="text_already_downloaded">Current picture already downloaded</string>
 
     <!-- Navigation Drawer -->
+    <string name="nav_developer" translatable="false">© %1$s by WizApps</string>
     <string name="nav_tools">Tools</string>
     <string name="nav_saved_pictures">Saved pictures</string>
     <string name="nav_history">Search history</string>

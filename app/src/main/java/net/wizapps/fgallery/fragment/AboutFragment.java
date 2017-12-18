@@ -1,63 +1,44 @@
 package net.wizapps.fgallery.fragment;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import net.wizapps.fgallery.R;
 import net.wizapps.fgallery.base.BaseDialog;
-import net.wizapps.fgallery.util.DialogUtils;
 import net.wizapps.fgallery.util.NavUtils;
 
-import java.util.Calendar;
-
-import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 
 public class AboutFragment extends BaseDialog {
 
     public static final String TAG = AboutFragment.class.getSimpleName();
-    @BindView(R.id.btn_developer) TextView mDeveloper;
 
     @Override
     protected int layoutRes() {
         return R.layout.dialog_about;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String text = getString(R.string.dialog_developer, String.valueOf(year));
-        mDeveloper.setText(text);
-    }
-
-    @OnClick({R.id.btn_developer, R.id.btn_email, R.id.btn_feedback, R.id.btn_close})
+    @OnClick({R.id.facebookIcon, R.id.linkedInIcon, R.id.googlePlusIcon, R.id.gitHubIcon, R.id.buttonClose})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_developer:
-                String developerUrl = getString(R.string.dialog_url);
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(developerUrl));
-                NavUtils.checkBeforeLaunching(getActivity(), webIntent);
+            case R.id.facebookIcon:
+                loadUrl(R.string.url_facebook);
                 break;
-            case R.id.btn_email:
-                NavUtils.emailIntent(getActivity());
+            case R.id.linkedInIcon:
+                loadUrl(R.string.url_linked_in);
                 break;
-            case R.id.btn_feedback:
-                NavUtils.feedbackIntent(getActivity());
+            case R.id.googlePlusIcon:
+                loadUrl(R.string.url_google_plus);
                 break;
-            case R.id.btn_close:
-                getDialog().dismiss();
+            case R.id.gitHubIcon:
+                loadUrl(R.string.url_git_hub);
+                break;
+            case R.id.buttonClose:
+                dismiss();
                 break;
         }
     }
 
-    @OnLongClick(R.id.btn_version)
-    public boolean onLongClick() {
-        DialogUtils.secretDialog(getActivity());
-        getDialog().dismiss();
-        return Boolean.TRUE;
+    private void loadUrl(int textResId) {
+        NavUtils.webIntent(getActivity(), textResId);
     }
 }

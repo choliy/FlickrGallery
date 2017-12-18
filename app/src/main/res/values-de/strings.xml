@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Geschichte ist leer</string>
     <string name="dialog_history_text">Beginnen Sie mit der Suche nach neuen Fotos</string>
     <string name="dialog_history_title">Suchverlauf</string>
-    <string name="dialog_issue">Wenn Sie Übersetzung finden, senden Sie mir bitte eine E-Mail oder schreiben Sie Feedback</string>
     <string name="dialog_message">Anwendung, die Ihnen erlaubt, die letzten öffentlichen Fotos von Flickr Service zu suchen, zu sehen und zu speichern</string>
     <string name="dialog_no_btn">Nein</string>
     <string name="dialog_restore_cleaned">Alle Geschichte wurde gereinigt</string>

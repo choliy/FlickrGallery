@@ -1,91 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="@dimen/dimen_medium_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_medium_margin"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dimen_medium_margin">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dialog_about_title"
+            android:textAppearance="@android:style/TextAppearance.Medium"
             android:textColor="@color/colorTextBlack"
-            android:textSize="@dimen/dimen_text_medium"
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/btn_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_material_margin"
             android:text="@string/dialog_app_version"
-            android:textColor="@drawable/selector_version"
-            android:textSize="@dimen/dimen_text_medium"/>
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="@color/colorTextLightGray"/>
 
     </LinearLayout>
 
     <TextView
-        style="@style/MessageTextStyle"
-        android:layout_marginBottom="@dimen/dimen_small_margin"
-        android:text="@string/dialog_message"/>
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_medium_margin"
-        android:text="@string/dialog_issue"
-        android:textColor="@color/colorTextLightGray"
-        android:textSize="@dimen/dimen_text_small"/>
+        android:text="@string/dialog_message"
+        android:textColor="@color/colorTextBlack"/>
+
+    <include layout="@layout/view_contacts"/>
 
     <TextView
-        android:id="@+id/btn_developer"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/buttonClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dimen_small_margin"
         android:clickable="true"
         android:focusable="true"
+        android:padding="@dimen/dimen_list_card_margin"
+        android:text="@string/dialog_close_btn"
+        android:textAllCaps="true"
         android:textColor="@drawable/selector_dialog"
-        android:textSize="@dimen/dimen_text_small"
-        tools:text="@string/dialog_developer"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_big_margin"
-        android:orientation="horizontal"
-        tools:ignore="RtlSymmetry">
-
-        <TextView
-            android:id="@+id/btn_email"
-            style="@style/DialogButtonStyle"
-            android:paddingStart="@dimen/dimen_zero"
-            android:text="@string/nav_email"/>
-
-        <TextView
-            android:id="@+id/btn_feedback"
-            style="@style/DialogButtonStyle"
-            android:layout_marginStart="@dimen/dimen_material_margin"
-            android:text="@string/nav_feedback"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:id="@+id/btn_close"
-            style="@style/DialogButtonStyle"
-            android:gravity="end"
-            android:paddingEnd="@dimen/dimen_zero"
-            android:text="@string/dialog_close_btn"/>
-
-    </LinearLayout>
+        android:textStyle="bold"/>
 
 </LinearLayout>

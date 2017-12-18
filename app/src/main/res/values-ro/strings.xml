@@ -8,7 +8,6 @@
     <string name="dialog_history_empty">Istoria este goală</string>
     <string name="dialog_history_text">Începeți să căutați fotografii noi</string>
     <string name="dialog_history_title">Istoricul cautarilor</string>
-    <string name="dialog_issue">Dacă găsiți o problemă de traducere, trimiteți-mi un e-mail sau scrieți feedback</string>
     <string name="dialog_message">Aplicație care vă permite să căutați, să vizualizați și să salvați ultimele fotografii publice de la serviciul Flickr</string>
     <string name="dialog_no_btn">Nu</string>
     <string name="dialog_restore_cleaned">Toată istoria a fost curățată</string>
